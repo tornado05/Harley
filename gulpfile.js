@@ -36,12 +36,12 @@ gulp.task('build-back-end', function () {
 });
 
 gulp.task('compile-html', function () {
-    return gulp.src(['./src/public/html/*'])
+    return gulp.src(['./src/front-end/html/*'])
         .pipe(gulp.dest(DIST_DIR + '/public'));
 });
 
 gulp.task('compile-js', function () {
-    return gulp.src(['./src/public/js/**/**'])
+    return gulp.src(['./src/front-end/js/**/**'])
         .pipe(concat('bundle.js'))
         .pipe(uglify())
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
@@ -49,7 +49,7 @@ gulp.task('compile-js', function () {
 
 gulp.task('compile-less', function () {
     return gulp.src([
-        './src/public/less/**/**'
+        './src/front-end/less/**/**'
     ])
         .pipe(sourcemaps.init())
         .pipe(less())
@@ -68,7 +68,7 @@ gulp.task('libs', function(){
         './bower_components/materialize/dist/css/materialize.min.css',
         './bower_components/materialize/dist/js/materialize.min.js',
         './bower_components/leaflet/dist/**/*.*',
-        './src/public/libs/**/*.*'
+        './src/front-end/libs/**/*.*'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/libs'));
 });
@@ -82,12 +82,12 @@ gulp.task('fonts', function(){
 });
 
 gulp.task('img', function(){
-    return gulp.src('./src/public/img/**/*.*')
+    return gulp.src('./src/front-end/img/**/*.*')
         .pipe(gulp.dest(DIST_DIR + '/public/img/'));
 });
 
 gulp.task('templates', function() {
-    return gulp.src('./src/public/templates/*.ejs')
+    return gulp.src('./src/front-end/templates/*.ejs')
         .pipe(compile({
             moduleName: 'templates',
             escape: false
