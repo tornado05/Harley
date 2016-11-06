@@ -23,11 +23,11 @@ gulp.task('lint', function (cb) {
 });
 
 gulp.task('make-dirs', function () {
-    return fs.mkdir(DIST_DIR + '/logs', function (err) {
-        if (err) {
-            console.log('Adding directories failed' + err);
-        }
-    });
+    if (!fs.existsSync('./dist/logs')){
+        return fs.mkdirSync('./dist/logs', function (err) {
+            if (err) console.log('Adding directories failed' + err);
+        });
+    }
 });
 
 gulp.task('build-back-end', function () {
@@ -41,8 +41,29 @@ gulp.task('compile-html', function () {
 });
 
 gulp.task('compile-js', function () {
-    return gulp.src(['./src/front-end/js/**/**'])
+    return gulp.src([
+        './src/front-end/js/models/**',
+        './src/front-end/js/collections/**',
+        './src/front-end/js/services/**',
+        './src/front-end/js/views/**',
+        './src/front-end/js/initialize.js'
+    ])
         .pipe(concat('bundle.js'))
+        .pipe(sourcemaps.write())
+        .pipe(uglify())
+        .pipe(gulp.dest(DIST_DIR + '/public/js'));
+});
+
+gulp.task('vendor-js', function () {
+    return gulp.src([
+        './src/front-end/js/models/**',
+        './src/front-end/js/collections/**',
+        './src/front-end/js/services/**',
+        './src/front-end/js/views/**',
+        './src/front-end/js/initialize.js'
+    ])
+        .pipe(concat('bundle.js'))
+        .pipe(sourcemaps.write())
         .pipe(uglify())
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
@@ -101,7 +122,8 @@ gulp.task('templates', function() {
 
 gulp.task('build', [
     'lint', 
-    'make-dirs', 
+    'make-dirs',
+    'vendor-js',
     'libs', 
     'build-back-end', 
     'compile-html', 
