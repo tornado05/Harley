@@ -27,5 +27,8 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-watch": "^4.3.8",
     "gulp-ejs-template": "^0.2.0"
+  },
+  "devDependencies": {
+    "gulp-concat-css": "^2.3.0"
   }
 }

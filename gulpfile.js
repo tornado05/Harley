@@ -7,7 +7,8 @@ var gulp            = require('gulp'),
     cleanCSS        = require('gulp-clean-css'),
     uglify          = require('gulp-uglify'),
     concat          = require('gulp-concat'),
-    compile        = require('gulp-ejs-template'),
+    compile         = require('gulp-ejs-template'),
+    concatCss       = require('gulp-concat-css'),
     watch           = require('gulp-watch');
 
 var DIST_DIR = 'dist';
@@ -23,11 +24,11 @@ gulp.task('lint', function (cb) {
 });
 
 gulp.task('make-dirs', function () {
-    if (!fs.existsSync('./dist/logs')){
-        return fs.mkdirSync('./dist/logs', function (err) {
-            if (err) console.log('Adding directories failed' + err);
-        });
-    }
+    return fs.mkdir(DIST_DIR + '/logs', function (err) {
+        if (err) {
+            console.log('Adding directories failed' + err);
+        }
+    });
 });
 
 gulp.task('build-back-end', function () {
@@ -48,23 +49,23 @@ gulp.task('compile-js', function () {
         './src/front-end/js/views/**',
         './src/front-end/js/initialize.js'
     ])
+        .pipe(sourcemaps.init())
         .pipe(concat('bundle.js'))
-        .pipe(sourcemaps.write())
         .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
 gulp.task('vendor-js', function () {
     return gulp.src([
-        './src/front-end/js/models/**',
-        './src/front-end/js/collections/**',
-        './src/front-end/js/services/**',
-        './src/front-end/js/views/**',
-        './src/front-end/js/initialize.js'
+        './bower_components/jquery/dist/jquery.min.js*',
+        './bower_components/underscore/underscore-min.js',
+        './bower_components/backbone/backbone-min.js',
+        './bower_components/leaflet.js',
+        './bower_components/materialize/dist/js/materialize.min.js'
     ])
-        .pipe(concat('bundle.js'))
+        .pipe(concat('vendor.js'))
         .pipe(sourcemaps.write())
-        .pipe(uglify())
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
@@ -83,11 +84,28 @@ gulp.task('compile-less', function () {
         .pipe(gulp.dest(DIST_DIR + '/public/css/'));
 });
 
+gulp.task('vendor-css', function () {
+    return gulp.src([
+        './bower_components/materialize/dist/css/materialize.min.css',
+        './bower_components/leaflet/dist/leaflet.css'
+    ])
+        .pipe(sourcemaps.init())
+        .pipe(concatCss('vendor.css'))
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(DIST_DIR + '/public/css'));
+});
+
+gulp.task('vendor-images', function () {
+    return gulp.src([
+        './bower_components/leaflet/dist/images/*.*'
+    ])
+        .pipe(gulp.dest(DIST_DIR + '/public/css/images'));
+});
+
 gulp.task('libs', function(){
     return gulp.src([
-        './bower_components/jquery/dist/jquery.min.js',
         './bower_components/materialize/dist/css/materialize.min.css',
-        './bower_components/materialize/dist/js/materialize.min.js',
         './bower_components/leaflet/dist/**/*.*',
         './src/front-end/libs/**/*.*'
     ])
@@ -96,8 +114,8 @@ gulp.task('libs', function(){
 
 gulp.task('fonts', function(){
     return gulp.src([
-        './src/front-end/fonts/**/*.*'
-
+        './src/front-end/fonts/roboto/**/**',
+        './src/front-end/fonts/material-design-icons/*.*'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
@@ -117,21 +135,25 @@ gulp.task('templates', function() {
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
-
-
-
-gulp.task('build', [
-    'lint', 
-    'make-dirs',
+gulp.task('front-end', [
     'vendor-js',
-    'libs', 
-    'build-back-end', 
-    'compile-html', 
+    'vendor-css',
+    'vendor-images',
+    'compile-html',
     'compile-js',
     'compile-less',
     'fonts',
     'templates',
     'img'
+]);
+
+
+gulp.task('build', [
+    'lint', 
+    'make-dirs',
+    'libs', 
+    'build-back-end',
+    'front-end'
 ]);
 
 gulp.task('default', ['build']);
