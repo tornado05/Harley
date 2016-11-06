@@ -1,6 +1,6 @@
 {
   "name": "Weather-WEB-service",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Gate for builder for weather app",
   "repository": "https://github.com/AndriyKhmara/weather",
   "main": "app.js",
