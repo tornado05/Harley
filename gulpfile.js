@@ -49,12 +49,12 @@ gulp.task('compile-js', function () {
 
 gulp.task('compile-less', function () {
     return gulp.src([
-        './src/front-end/less/**/**'
+        './src/front-end/less/main.less'
     ])
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+            browsers: ['last 10 versions'],
             cascade: false
         }))
         .pipe(cleanCSS({compatibility: 'ie8'}))
@@ -75,10 +75,10 @@ gulp.task('libs', function(){
 
 gulp.task('fonts', function(){
     return gulp.src([
-        './bower_components/materialize/font/**/*.*'
+        './src/front-end/fonts/**/*.*'
 
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/font/'));
+        .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
 
 gulp.task('img', function(){
