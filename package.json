@@ -29,6 +29,8 @@
     "gulp-ejs-template": "^0.2.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.17.5",
+    "gulp": "^3.9.1",
     "gulp-concat-css": "^2.3.0"
   }
 }

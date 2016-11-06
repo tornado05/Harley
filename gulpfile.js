@@ -9,9 +9,11 @@ var gulp            = require('gulp'),
     concat          = require('gulp-concat'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
+    browserSync     = require('browser-sync').create(),
     watch           = require('gulp-watch');
 
-var DIST_DIR = 'dist';
+var DIST_DIR = 'dist',
+    LAYOUT_PORT = 8000;
 
 gulp.task('lint', function (cb) {
     return gulp.src(['./src/**/*.js'])
@@ -103,25 +105,18 @@ gulp.task('vendor-images', function () {
         .pipe(gulp.dest(DIST_DIR + '/public/css/images'));
 });
 
-gulp.task('libs', function(){
-    return gulp.src([
-        './bower_components/materialize/dist/css/materialize.min.css',
-        './bower_components/leaflet/dist/**/*.*',
-        './src/front-end/libs/**/*.*'
-    ])
-        .pipe(gulp.dest(DIST_DIR + '/public/libs'));
-});
-
 gulp.task('fonts', function(){
     return gulp.src([
         './src/front-end/fonts/roboto/**/**',
-        './src/front-end/fonts/material-design-icons/*.*'
+        './src/front-end/fonts/material-design-icons/**/*.*'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
 
 gulp.task('img', function(){
-    return gulp.src('./src/front-end/img/**/*.*')
+    return gulp.src([
+        './src/front-end/img/**/*.*'
+    ],{base:'./src/front-end/img/'})
         .pipe(gulp.dest(DIST_DIR + '/public/img/'));
 });
 
@@ -133,6 +128,26 @@ gulp.task('templates', function() {
         }))
         .pipe(uglify())
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
+});
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        port: LAYOUT_PORT,
+        server: {
+            baseDir: DIST_DIR +"/public"
+        }
+    });
+});
+
+gulp.task('watch-fr', function () {
+    return gulp.watch('./src/front-end/**', [
+        'update-front-end',
+        browserSync.reload
+    ]);
+});
+
+gulp.task('watch', function () {
+    return gulp.watch('./src/**/**', ['build']);
 });
 
 gulp.task('front-end', [
@@ -147,17 +162,25 @@ gulp.task('front-end', [
     'img'
 ]);
 
+gulp.task('update-front-end', [
+    'compile-html',
+    'compile-js',
+    'compile-less',
+    'templates',
+    'img'
+]);
+
+gulp.task('layout', [
+    'front-end',
+    'browser-sync',
+    'watch-fr'
+]);
 
 gulp.task('build', [
     'lint', 
     'make-dirs',
-    'libs', 
     'build-back-end',
     'front-end'
 ]);
 
 gulp.task('default', ['build']);
-
-gulp.task('watch', function () {
-    return gulp.watch('./src/**/**', ['build']);
-});
