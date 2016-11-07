@@ -1,0 +1,55 @@
+// var Logger = require('../services/logger.js');
+// var logger = new Logger('./logs/log.txt', false);
+var fs = require('fs');
+
+
+module.exports = (function () {
+
+    var readData = function (path) {
+        try {
+            var result = fs.readFileSync(path, 'utf8');
+            return JSON.parse(result);
+        } catch (e) {
+            // logger.logError("Can't read from file " + path);
+            console.log(e);
+            console.log('ERROR');
+            return [];
+        }
+    };
+
+    var configPath = './config/config.json';
+    var config = readData(configPath);
+
+    var getCitiesURLs = function () {
+        var configsAPI_URLs = [];
+
+        config.cities.forEach(function (city) {
+            configsAPI_URLs.push (
+                {
+                    name: 'openWeather',
+                    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city.name + ',ua&APPID=3e78ad2536ed323a1c1e68f8512485b0'
+                },
+                {
+                    name: 'wunderground',
+                    url: 'http://api.wunderground.com/api/3a12f2714ca1b6e2/conditions/q/UA/' + city.name + '.json'
+                },
+                {
+                    name: 'darkSky',
+                    url: 'https://api.darksky.net/forecast/73ca2db6aa635b831a24746659e7c907/' + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
+                }
+            );
+        });
+
+        return configsAPI_URLs;
+    };
+    
+    var getTotalConfig = function () {
+        return config;
+    };
+
+
+    return {
+        getCitiesURLs: getCitiesURLs,
+        getTotalConfig: getTotalConfig
+    }
+})();

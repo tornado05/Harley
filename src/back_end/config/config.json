@@ -1,0 +1,21 @@
+
+  {
+    "cities": [
+      {
+        "name": "Rivne",
+        "xCords": 50.630694,
+        "yCords": 26.239034
+      },
+      {
+        "name": "Lviv",
+        "xCords": 49.839398,
+        "yCords": 24.028062
+      },
+      {
+        "name": "Kiev",
+        "xCords": 50.4308286,
+        "yCords": 30.4966362
+      }
+    ],
+    "updateInterval": 5000
+  }
