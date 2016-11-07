@@ -63,7 +63,7 @@ gulp.task('vendor-js', function () {
         './bower_components/jquery/dist/jquery.min.js*',
         './bower_components/underscore/underscore-min.js',
         './bower_components/backbone/backbone-min.js',
-        './bower_components/leaflet.js',
+        './bower_components/leaflet/dist/leaflet.js',
         './bower_components/materialize/dist/js/materialize.min.js'
     ])
         .pipe(concat('vendor.js'))
