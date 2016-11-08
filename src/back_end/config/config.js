@@ -1,3 +1,4 @@
+'use strict';
 // var Logger = require('../services/logger.js');
 // var logger = new Logger('./logs/log.txt', false);
 var fs = require('fs');
@@ -17,14 +18,14 @@ module.exports = (function () {
         }
     };
 
-    var configPath = './config/config.json';
-    var config = readData(configPath);
+    var configPath = './config/config.json',
+        config = readData(configPath);
 
     var getCitiesURLs = function () {
         var configsAPI_URLs = [];
 
         config.cities.forEach(function (city) {
-            configsAPI_URLs.push (
+            configsAPI_URLs.push(
                 {
                     name: 'openWeather',
                     url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city.name + ',ua&APPID=3e78ad2536ed323a1c1e68f8512485b0'
@@ -42,7 +43,7 @@ module.exports = (function () {
 
         return configsAPI_URLs;
     };
-    
+
     var getTotalConfig = function () {
         return config;
     };
