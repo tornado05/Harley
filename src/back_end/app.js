@@ -3,8 +3,6 @@
 var http = require('http'), express = require('express');
 var bodyParser = require("body-parser");
 var app = express();
-// var Logger = require('./services/logger.js');
-// var logger = new Logger('./logs/log.txt', false);
 var weather = require('./controllers/weather');
 
 
