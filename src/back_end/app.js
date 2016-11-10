@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 
+weather.initialize();
+
 http.createServer(app).listen(3000, function () {
     console.log('App listening on port 3000!');
 });
