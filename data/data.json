@@ -1,1 +1,123 @@
-[]
+[{
+  "coord" : {
+    "lon" : 26.23,
+    "lat" : 50.62
+  },
+  "weather" : [
+    {
+      "id" : 804,
+      "main" : "Clouds",
+      "description" : "overcast clouds",
+      "icon" : "04n"
+    }
+  ],
+  "base" : "stations",
+  "main" : {
+    "temp" : 272.886,
+    "pressure" : 998.25,
+    "humidity" : 93,
+    "temp_min" : 272.886,
+    "temp_max" : 272.886,
+    "sea_level" : 1026.24,
+    "grnd_level" : 998.25
+  },
+  "wind" : {
+    "speed" : 3.42,
+    "deg" : 288.501
+  },
+  "clouds" : {
+    "all" : 88
+  },
+  "dt" : 1478804932,
+  "sys" : {
+    "message" : 0.0025,
+    "country" : "UA",
+    "sunrise" : 1478755402,
+    "sunset" : 1478788451
+  },
+  "id" : 695594,
+  "name" : "Rivne",
+  "cod" : 200
+},{
+  "coord" : {
+    "lon" : 26.23,
+    "lat" : 50.62
+  },
+  "weather" : [
+    {
+      "id" : 804,
+      "main" : "Clouds",
+      "description" : "overcast clouds",
+      "icon" : "04n"
+    }
+  ],
+  "base" : "stations",
+  "main" : {
+    "temp" : 272.886,
+    "pressure" : 998.25,
+    "humidity" : 93,
+    "temp_min" : 272.886,
+    "temp_max" : 272.886,
+    "sea_level" : 1026.24,
+    "grnd_level" : 998.25
+  },
+  "wind" : {
+    "speed" : 3.42,
+    "deg" : 288.501
+  },
+  "clouds" : {
+    "all" : 88
+  },
+  "dt" : 1478799841,
+  "sys" : {
+    "message" : 0.0046,
+    "country" : "UA",
+    "sunrise" : 1478755396,
+    "sunset" : 1478788456
+  },
+  "id" : 695594,
+  "name" : "Rivne",
+  "cod" : 200
+},
+  {
+    "coord" : {
+      "lon" : 26.23,
+      "lat" : 50.62
+    },
+    "weather" : [
+      {
+        "id" : 804,
+        "main" : "Clouds",
+        "description" : "overcast clouds",
+        "icon" : "04n"
+      }
+    ],
+    "base" : "stations",
+    "main" : {
+      "temp" : 272.886,
+      "pressure" : 998.25,
+      "humidity" : 93,
+      "temp_min" : 272.886,
+      "temp_max" : 272.886,
+      "sea_level" : 1026.24,
+      "grnd_level" : 998.25
+    },
+    "wind" : {
+      "speed" : 3.42,
+      "deg" : 288.501
+    },
+    "clouds" : {
+      "all" : 88
+    },
+    "dt" : 1478799841,
+    "sys" : {
+      "message" : 0.0046,
+      "country" : "UA",
+      "sunrise" : 1478755396,
+      "sunset" : 1478788456
+    },
+    "id" : 695594,
+    "name" : "Rivne",
+    "cod" : 200
+  }
+]
