@@ -1,4 +1,15 @@
-h1{
-  text-align: center;
-  font-family:"Roboto-Regular", sans-serif;
+@color: #dd1100;
+
+#app{
+	h1{
+	  color: @color;
+	  text-align: right;
+	  font-family:"Roboto-Regular", sans-serif;
+	}
+	@media screen and (max-width: 480px) {
+		span{
+			width: 100px;
+		}
+	}
 }
+
