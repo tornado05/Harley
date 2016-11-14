@@ -22,6 +22,6 @@ app.appView = Backbone.View.extend({
             id: 'mapbox.pirates',
             accessToken: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }).addTo(ourMap);
-    },
+    }
 
 });
