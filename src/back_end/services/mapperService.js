@@ -16,9 +16,8 @@ module.exports = (function () {
                 break;
 
             case "darkSky": {
-                console.log("this will be darkSKY");
+                prepareDataFromDarkSky("darkSky", data);
             }
-
                 break;
 
             case "wunderground": {
@@ -32,7 +31,6 @@ module.exports = (function () {
     };
 
     var prepareDataFromOpenWeather = function (serviceName, data) {
-        console.log(data);
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
 
@@ -56,11 +54,14 @@ module.exports = (function () {
             break;
         }
 
+        var tempInCelsius = (data.main.temp - 273.15).toFixed(2);
+        var windSpeedInKmH = ((data.wind.speed * 3600) / 1000).toFixed(2);
+
         var result = {
-            "temp": data.main.temp,
+            "temp": tempInCelsius,
             "pressure": data.main.pressure,
             "humidity": data.main.humidity,
-            "windSpeed": data.wind.speed,
+            "windSpeed": windSpeedInKmH,
             "windDir": data.wind.deg,
             "clouds": data.clouds.all,
             "fallOut": fallOut,
@@ -70,10 +71,63 @@ module.exports = (function () {
                 "lat": data.coord.lat
             },
             "date": data.dt
+        };
+         console.log(result);
+         return result;
+    };
+
+    var prepareDataFromDarkSky = function (serviceName, data) {
+        console.log("-------------" + serviceName + "--------------");
+        var fallOut = "";
+
+        switch (data.currently.icon) {
+            case "clear-day":
+            case "clear-night":
+            case "fog":
+            case "wind":
+            case "cloudy":
+            case "partly-cloudy-day":
+            case "partly-cloudy-night":
+            {
+                fallOut = "none";
+            }
+                break;
+
+            case "thunderstorm":
+            case "rain": {
+                fallOut = "rain";
+            }
+                break;
+
+            case "sleet":
+            case "snow": {
+                fallOut = "snow";
+            }
+                break;
         }
 
-            console.log(result);
-            return result;
+        var tempInCelsius = ((data.currently.temperature - 32) * (5/9)).toFixed(2);
+        var windSpeedInKmH = ((data.currently.windSpeed) * 1.609344).toFixed(2);
+        var humidity = data.currently.humidity * 100;
+
+        var result = {
+            "temp": tempInCelsius,
+            "pressure": data.currently.pressure,
+            "humidity": humidity,
+            "windSpeed": windSpeedInKmH,
+            "windDir": data.currently.windBearing,
+            "clouds": data.currently.cloudCover,
+            "fallOut": fallOut,
+            "sourceAPI": "darkSky",
+            "coords": {
+                "lon": data.longitude,
+                "lat": data.latitude
+            },
+            "date": data.currently.time
+        };
+
+        console.log(result);
+        return result;
     };
 
     return {
