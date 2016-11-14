@@ -21,7 +21,7 @@ module.exports = (function () {
                 break;
 
             case "wunderground": {
-                console.log("this will be wunderground");
+                prepareDataFromWunderground("wunderground", data);
             }
 
                 break;
@@ -40,22 +40,22 @@ module.exports = (function () {
                 {
                 fallOut = "none";
             }
-            break;
+                break;
 
             case "Thunderstorm":
             case "Rain": {
                 fallOut = "rain";
             }
-            break;
+                break;
 
             case "Snow": {
                 fallOut = "snow";
             }
-            break;
+                break;
         }
 
-        var tempInCelsius = (data.main.temp - 273.15).toFixed(2);
-        var windSpeedInKmH = ((data.wind.speed * 3600) / 1000).toFixed(2);
+        var tempInCelsius = parseFloat((data.main.temp - 273.15).toFixed(2));
+        var windSpeedInKmH = parseFloat(((data.wind.speed * 3600) / 1000).toFixed(2));
 
         var result = {
             "temp": tempInCelsius,
@@ -74,6 +74,64 @@ module.exports = (function () {
         };
          console.log(result);
          return result;
+    };
+
+    var prepareDataFromWunderground = function (serviceName, data) {
+        console.log("-------------" + serviceName + "--------------");
+        var fallOut = "";
+        console.log(data);
+        var humidity = (data.current_observation.relative_humidity).replace(/%/g,'');
+        humidity = parseInt(humidity);
+
+
+        // не уверенна в правильности, так как нет нормальной документации с описанием всех возможных значений icon
+        switch (data.current_observation.icon) {
+            case "clear":
+            case "hazy":
+            case "mostly cloudy":
+            case "mostly sunny":
+            case "partly cloudy":
+            case "partly sunny":
+            case "sunny":
+            case "cloudy": {
+                fallOut = "none";
+            }
+                break;
+
+            case "thunderstorm":
+            case "rain": {
+                fallOut = "rain";
+            }
+
+                break;
+
+            case "snow":
+            case "sleet": {
+                fallOut = "snow";
+            }
+                break;
+        }
+
+
+        var result = {
+            "temp": parseFloat(data.current_observation.temp_c),
+            "pressure": parseFloat(data.current_observation.pressure_mb),
+            "humidity": humidity,
+            "windSpeed": parseFloat(data.current_observation.wind_gust_kph),
+            "windDir": data.current_observation.wind_degrees,
+            "clouds": null, // не знаю какое значение указывать здесь, данных из сервиса нет
+            "fallOut": fallOut,
+            "sourceAPI": "wunderground",
+            "coords": {
+                "lon": parseFloat(data.current_observation.display_location.longitude),
+                "lat": parseFloat(data.current_observation.display_location.latitude)
+            },
+            "date": parseFloat(data.current_observation.local_epoch)
+        };
+
+        console.log(result);
+        return result;
+
     };
 
     var prepareDataFromDarkSky = function (serviceName, data) {
@@ -106,9 +164,10 @@ module.exports = (function () {
                 break;
         }
 
-        var tempInCelsius = ((data.currently.temperature - 32) * (5/9)).toFixed(2);
-        var windSpeedInKmH = ((data.currently.windSpeed) * 1.609344).toFixed(2);
+        var tempInCelsius = parseFloat(((data.currently.temperature - 32) * (5/9)).toFixed(2));
+        var windSpeedInKmH = parseFloat(((data.currently.windSpeed) * 1.609344).toFixed(2));
         var humidity = data.currently.humidity * 100;
+        var cloudsInPercent = data.currently.cloudCover * 100;
 
         var result = {
             "temp": tempInCelsius,
@@ -116,7 +175,7 @@ module.exports = (function () {
             "humidity": humidity,
             "windSpeed": windSpeedInKmH,
             "windDir": data.currently.windBearing,
-            "clouds": data.currently.cloudCover,
+            "clouds": cloudsInPercent,
             "fallOut": fallOut,
             "sourceAPI": "darkSky",
             "coords": {
