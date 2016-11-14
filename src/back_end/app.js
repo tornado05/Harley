@@ -14,6 +14,8 @@ app.use(express.static('public'));
 
 weather.initialize();
 
+// Reuse database object in request handlers
+
 http.createServer(app).listen(3000, function () {
     console.log('App listening on port 3000!');
 });

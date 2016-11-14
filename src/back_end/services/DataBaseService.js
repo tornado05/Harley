@@ -1,5 +1,5 @@
 'use strict';
-var config = require('../config/config'),
+var config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
     urlDB = 'mongodb://localhost:27017/weatherProject',
     Logger = require('../services/logger.js'),
@@ -8,21 +8,27 @@ var config = require('../config/config'),
 
 module.exports = (function () {
     
-    var getDataFromDB = function (collection, query) {
+    var getDataFromDB = function (collection) {
         MongoClient.connect(urlDB, function (error, db) {
+            // console.log(db.getCollection("openWeather"));
             if (error) {
                 logger.logError(error);
             }
-            var collection = db.collection(collection);
 
-            console.log(collection.query.toArray(function (err, docs) {
+            var oneCollection = db.collection(collection);
+
+            var result = [];
+            
+            oneCollection.find().toArray(function (err, docs) {
                 if (err) {
                     logger.logError(error);
                     docs = null;
                 }
-                res.send(docs);
-            }));
-            db.close();
+                db.close();
+                console.log(docs);
+            }); 
+
+
         });
     };
 
