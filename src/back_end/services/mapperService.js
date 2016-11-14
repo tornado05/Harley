@@ -10,13 +10,12 @@ module.exports = (function () {
     var prepareDataFromService = function (serviceName, data) {
 
         switch (serviceName) {
-            case "opeWeather": {
-                console.log("-------------openWeather--------------");
-                prepareDataFromOpenWeather(data);
+            case "openWeather": {
+                prepareDataFromOpenWeather("openWeather", data);
             }
                 break;
 
-            case "darkSKY": {
+            case "darkSky": {
                 console.log("this will be darkSKY");
             }
 
@@ -33,27 +32,48 @@ module.exports = (function () {
     };
 
     var prepareDataFromOpenWeather = function (serviceName, data) {
-        console.log("-------------openWeather--------------");
         console.log(data);
+        console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
 
-        // case for fallOut
+        switch (data.weather[0].main) {
+            case "Clouds":
+            case "Clear":
+                {
+                fallOut = "none";
+            }
+            break;
 
-          // return {
-          //         "temp": data.main.temp,
-          //         "presure": data.main.presure,
-          //         "humidity": data.main.humidity,
-          //         "windSpeed": data.wind.speed,
-          //         "windDir": data.wind.deg,
-          //         "clouds": data.clouds.all,
-          //         "fallOut": fallOut,
-          //         "sourceAPI": "openWeather",
-          //         "coords": {
-          //             "lon": data.coord.lon,
-          //             "lat": data.coord.lat
-          //         },
-          //         "date": data.dt
-          // }
+            case "Thunderstorm":
+            case "Rain": {
+                fallOut = "rain";
+            }
+            break;
+
+            case "Snow": {
+                fallOut = "snow";
+            }
+            break;
+        }
+
+        var result = {
+            "temp": data.main.temp,
+            "pressure": data.main.pressure,
+            "humidity": data.main.humidity,
+            "windSpeed": data.wind.speed,
+            "windDir": data.wind.deg,
+            "clouds": data.clouds.all,
+            "fallOut": fallOut,
+            "sourceAPI": "openWeather",
+            "coords": {
+                "lon": data.coord.lon,
+                "lat": data.coord.lat
+            },
+            "date": data.dt
+        }
+
+            console.log(result);
+            return result;
     };
 
     return {

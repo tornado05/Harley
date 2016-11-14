@@ -25,8 +25,7 @@ module.exports = (function () {
                     docs = null;
                 }
                 db.close();
-                console.log(docs);
-            }); 
+            });
 
 
         });

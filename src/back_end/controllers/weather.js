@@ -14,20 +14,17 @@ module.exports = (function () {
         if (!getDataOnlyOnce) {
             data = getWeatherFromAPI.getWeatherData();
             getDataOnlyOnce = true;
-            // console.log(data);
         }
-
-        getAllDataFromBD();
+        // getAllDataFromBD();
 
     };
 
     //код Лиды
 
-    var getAllDataFromBD = function () {
-        var openWeatherData = serviceDB.getDataFromDB("openWeather");
-        // console.log(openWeatherData);
-        return openWeatherData;
-    };
+    // var getAllDataFromBD = function () {
+    //     var openWeatherData = serviceDB.getDataFromDB("openWeather");
+    //     return openWeatherData;
+    // };
 
     return {
         initialize: initialize, 
