@@ -4,7 +4,8 @@ var Logger = require('../services/logger'),
     getWeatherFromAPI = require('../services/getDataFromAPI'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     serviceDB = require ('../services/DataBaseService'),
-    dataBaseService = require('../services/DataBaseService');
+    dataBaseService = require('../services/DataBaseService'),
+    fs = require('fs');;
 
 module.exports = (function () {
 
@@ -22,15 +23,12 @@ module.exports = (function () {
      Temporary method, if the data can not be taken from the base they are taken from JSON
     */
     var getCurrentWeather = function () {
-        var currentWeatherJSONpath = './data/common_data.json',
-            result = [];
+        var currentWeatherJSONpath = './data/common_data.json';
 
         dataBaseService.getDataFromDB(urlDB, 'unifiedWeather').then(function(items) {
             console.info('The promise was fulfilled with items!');
             // console.log(items);
-            setInterval(function () {
-                return items;
-            }, 1000);
+            return items;
         }, function(err) {
             console.error('The promise was rejected', err, err.stack);
             return readData(currentWeatherJSONpath);

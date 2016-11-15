@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/weather/v01/current', function (req, res) {
-    res.send(weather.getCurrentWeather());
+    weather.getCurrentWeather().then(function (data) {
+        res.send(data);
+    });
 });
 
 
