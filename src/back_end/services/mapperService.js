@@ -8,25 +8,30 @@ var config = require('../config/config.js'),
 module.exports = (function () {
 
     var prepareDataFromService = function (serviceName, data) {
+        var result = {};
 
         switch (serviceName) {
-            case "openWeather": {
-                prepareDataFromOpenWeather("openWeather", data);
+            case "openWeather":
+            {
+                result = prepareDataFromOpenWeather("openWeather", data);
             }
                 break;
 
-            case "darkSky": {
-                prepareDataFromDarkSky("darkSky", data);
+            case "darkSky":
+            {
+                result = prepareDataFromDarkSky("darkSky", data);
             }
                 break;
 
-            case "wunderground": {
-                prepareDataFromWunderground("wunderground", data);
+            case "wunderground":
+            {
+                result = prepareDataFromWunderground("wunderground", data);
             }
-
                 break;
 
         }
+
+        return result;
 
     };
 
@@ -37,18 +42,20 @@ module.exports = (function () {
         switch (data.weather[0].main) {
             case "Clouds":
             case "Clear":
-                {
+            {
                 fallOut = "none";
             }
                 break;
 
             case "Thunderstorm":
-            case "Rain": {
+            case "Rain":
+            {
                 fallOut = "rain";
             }
                 break;
 
-            case "Snow": {
+            case "Snow":
+            {
                 fallOut = "snow";
             }
                 break;
@@ -72,15 +79,15 @@ module.exports = (function () {
             },
             "date": data.dt
         };
-         console.log(result);
-         return result;
+        console.log(result);
+        return result;
     };
 
     var prepareDataFromWunderground = function (serviceName, data) {
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
         console.log(data);
-        var humidity = (data.current_observation.relative_humidity).replace(/%/g,'');
+        var humidity = (data.current_observation.relative_humidity).replace(/%/g, '');
         humidity = parseInt(humidity);
 
 
@@ -93,20 +100,23 @@ module.exports = (function () {
             case "partly cloudy":
             case "partly sunny":
             case "sunny":
-            case "cloudy": {
+            case "cloudy":
+            {
                 fallOut = "none";
             }
                 break;
 
             case "thunderstorm":
-            case "rain": {
+            case "rain":
+            {
                 fallOut = "rain";
             }
 
                 break;
 
             case "snow":
-            case "sleet": {
+            case "sleet":
+            {
                 fallOut = "snow";
             }
                 break;
@@ -152,19 +162,21 @@ module.exports = (function () {
                 break;
 
             case "thunderstorm":
-            case "rain": {
+            case "rain":
+            {
                 fallOut = "rain";
             }
                 break;
 
             case "sleet":
-            case "snow": {
+            case "snow":
+            {
                 fallOut = "snow";
             }
                 break;
         }
 
-        var tempInCelsius = parseFloat(((data.currently.temperature - 32) * (5/9)).toFixed(2));
+        var tempInCelsius = parseFloat(((data.currently.temperature - 32) * (5 / 9)).toFixed(2));
         var windSpeedInKmH = parseFloat(((data.currently.windSpeed) * 1.609344).toFixed(2));
         var humidity = data.currently.humidity * 100;
         var cloudsInPercent = data.currently.cloudCover * 100;
@@ -190,7 +202,7 @@ module.exports = (function () {
     };
 
     return {
-        prepareDataFromService: prepareDataFromService,
+        prepareDataFromService: prepareDataFromService
     }
 
 })();

@@ -3,7 +3,9 @@ var request = require('request'),
     config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
     urlDB = 'mongodb://localhost:27017/weatherProject',
-    mapperService = require('../services/mapperService');
+    mapperService = require('../services/mapperService'),
+    dataBaseService = require('../services/DataBaseService'),
+    dataAfterMapperCollectionName = 'unifiedWeather';
 // var Logger = require('logger.js');
 // var logger = new Logger('./logs/log.txt', false);
 
@@ -38,61 +40,22 @@ module.exports = (function () {
         switch (serviceName) {
             case "openWeather":
             {
-                MongoClient.connect(urlDB, function (error, db) {
-                    if (error) {
-                        logger.logError(error);
-                    }
-                    var collection = db.collection('openWeather');
-                    collection.insertOne(data, function (error, result) {
-                        if (error) {
-                            console.log(error);
-                            // logger.logError(error);
-                        }
-                    });
-
-                    db.close();
-                });
+                dataBaseService.setDataToDB(urlDB, serviceName, data);
             }
                 break;
             case "wunderground":
             {
-                MongoClient.connect(urlDB, function (error, db) {
-                    if (error) {
-                        logger.logError(error);
-                    }
-                    var collection = db.collection('wunderground');
-                    collection.insertOne(data, function (error, result) {
-                        if (error) {
-                            console.log(error);
-                            // logger.logError(error);
-                        }
-                    });
-
-                    db.close();
-                });
+                dataBaseService.setDataToDB(urlDB, serviceName, data);
             }
                 break;
             case "darkSky":
             {
-                MongoClient.connect(urlDB, function (error, db) {
-                    if (error) {
-                        logger.logError(error);
-                    }var collection = db.collection('darkSky');
-                    collection.insertOne(data, function (error, result) {
-                        if (error) {
-                            console.log(error);
-                            // logger.logError(error);
-                        }
-                    });
-                    db.close();
-                });
+                dataBaseService.setDataToDB(urlDB, serviceName, data);
             }
                 break;
         }
-
-        console.log("--before mapper service");
-        mapperService.prepareDataFromService(serviceName, data);
-        console.log("after mapper service--");
+        var unifiedWeather = mapperService.prepareDataFromService(serviceName, data);
+        dataBaseService.setDataToDB(urlDB, 'unifiedWeather', unifiedWeather);
     };
 
     return {

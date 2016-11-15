@@ -13,6 +13,14 @@ app.use(express.static('public'));
 
 // Reuse database object in request handlers
 
+/*
+*
+* */
+app.get('/weather/v01/current', function (req, res) {
+    res.send(weather.getCurrentWeather());
+});
+
+
 http.createServer(app).listen(3000, function () {
     console.log('App listening on port 3000!');
 });
