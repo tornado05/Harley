@@ -4,9 +4,7 @@ var Logger = require('../services/logger'),
     getWeatherFromAPI = require('../services/getDataFromAPI'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     serviceDB = require ('../services/DataBaseService'),
-    mapperService = require('../services/mapperService'),
-    dataBaseService = require('../services/DataBaseService'),
-    fs = require('fs');;
+    dataBaseService = require('../services/DataBaseService');
 
 module.exports = (function () {
 
@@ -26,13 +24,18 @@ module.exports = (function () {
     var getCurrentWeather = function () {
         var currentWeatherJSONpath = './data/common_data.json',
             result = [];
-        // result = dataBaseService.getDataFromDB(urlDB, 'unifiedWeather');
-        // console.log(result);
-        // if (!result) {
-        //     result = readData(currentWeatherJSONpath);
-        // }
-        result = readData(currentWeatherJSONpath);
-        return result;
+
+        dataBaseService.getDataFromDB(urlDB, 'unifiedWeather').then(function(items) {
+            console.info('The promise was fulfilled with items!');
+            // console.log(items);
+            setInterval(function () {
+                return items;
+            }, 1000);
+        }, function(err) {
+            console.error('The promise was rejected', err, err.stack);
+            return readData(currentWeatherJSONpath);
+        });
+        // return readData(currentWeatherJSONpath);
     };
 
     var readData = function (path) {

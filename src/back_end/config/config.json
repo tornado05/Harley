@@ -20,5 +20,10 @@
         "yCords": 30.4966362
       }
     ],
-    "updateInterval": 5000
+    "updateInterval": 7200000,
+    "statisticsTimers" : {
+      "day" : 86400000,
+      "month" : 86400000,
+      "year" : 2592000000
+    }
   }

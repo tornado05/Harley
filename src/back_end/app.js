@@ -11,11 +11,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Reuse database object in request handlers
-
-/*
-*
-* */
 app.get('/weather/v01/current', function (req, res) {
     res.send(weather.getCurrentWeather());
 });

@@ -6,28 +6,41 @@ var config = require('../config/config.js'),
 
 
 module.exports = (function () {
+    var isData = false;
+
+    // var getDataFromDB = function (url, collectionName) {
+    //
+    //     return new Promise(function(resolve, reject) {
+    //         MongoClient.connect(url, function (error, db) {
+    //             if (error) {
+    //                 reject(error);
+    //             } else {
+    //                 resolve(db);
+    //             }
+    //         }).then(function (db) {
+    //             return new Promise(function (resolve, reject) {
+    //                 var collection = db.collection(collectionName);
+    //                 collection.find().toArray(function (err, items) {
+    //                     if (err) {
+    //                         reject(err);
+    //                     } else {
+    //                         console.log(items);
+    //                         resolve(items);
+    //                     }
+    //                 });
+    //             });
+    //         });
+    //     });
+    //
+    // };
 
     var getDataFromDB = function (url, collectionName) {
-        var result = {};
-        MongoClient.connect(url, function (error, db) {
-            // console.log(db.getCollection("openWeather"));
-            if (error) {
-                console.log(error);
-                // logger.logError(error);
-            }
-            var oneCollection = db.collection(collectionName);
-            oneCollection.find().toArray(function (err, docs) {
-                if (error) {
-                    console.log(error);
-                    // logger.logError(error);
-                    docs = null;
-                }
-                result = docs;
-                db.close();
-            });
+        return MongoClient.connect(url).then(function(db) {
+            var collection = db.collection(collectionName);
+            return collection.find().toArray();
+        }).then(function(items) {            
+            return items;
         });
-        console.log(result);
-        return result;
     };
 
     var setDataToDB = function (url, collectionName, data) {
