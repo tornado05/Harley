@@ -8,9 +8,11 @@
  <body>
  <header>
      <nav>
-         <div class="nav-wrapper #1976d2 blue darken-2">
-             <a href="#" class="brand-logo">Logo</a>
-             <a href="#" data-activates="slide-out" class="button-collapse show-on-large right"><i class="material-icons">menu</i></a>
+         <div class="nav-wrapper blue darken-2">
+             <a href="#" class="brand-logo">Harley weather</a>
+             <a href="#" data-activates="slide-out" class="button-collapse show-on-large right">
+                 <i class="material-icons">menu</i>
+             </a>
              <ul class="right hide-on-med-and-down">
                  <li><a href="#"><i class="material-icons">search</i></a></li>
                  <li><a href="#"><i class="material-icons">view_module</i></a></li>
@@ -18,37 +20,64 @@
              </ul>
          </div>
      </nav>
-     <div data-activates="mobile-demo" >
      <ul id="slide-out" class="side-nav">
-         <li><div class="userView">
-             <a href="#!name"><span class="white-text name">HARLEY</span></a>
-             <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-         </div>
+         <li>
+             <h3 class="center-align">Menu</h3>
          </li>
-         <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">payment</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">visibility</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">settings</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-         <li><a href="#!"><i class="material-icons">trending_down</i>First Link With Icon</a></li>
-         <li><a href="#!">Second Link</a></li>
+         <li>
+             <div class="item">
+                 <input type="checkbox" id="item-1"/>
+                 <label for="item-1">Item-1</label>
+             </div>
+         </li>
+         <li>
+             <div class="item">
+                 <input type="checkbox" id="item-2"/>
+                 <label for="item-2">Item-2</label>
+             </div>
+         </li>
+         <li>
+             <div class="item">
+                 <input type="checkbox" id="item-3"/>
+                 <label for="item-3">Item-3</label>
+             </div>
+         </li>
+         <li>
+             <div class="item">
+                 <input type="checkbox" id="item-4"/>
+                 <label for="item-4">Item-4</label>
+             </div>
+         </li>
          <li><div class="divider"></div></li>
-         <li><a class="subheader">Subheader</a></li>
-         <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+         <li>
+             <div class="item input-field col">
+                <i class="material-icons prefix">search</i>
+                <input type="text" placeholder="Search city">
+            </div>
+         </li>
+         <li><div class="divider"></div></li>
+         <li>
+             <div class="item">
+                 <div class="card-content">
+                     <canvas id="myChart1" height="400" width="400"></canvas>
+                 </div>
+             </div>
+         </li>
      </ul>
-         </div>
-
  </header>
- <div id="app">
-    <div class="content"></div>
-    <div id="map" class="map"></div>
+ <div id="app" class="container">
+     <div class="row">
+         <div class="content"></div>
+         <div class="col s12">
+             <div id="map" class="map card-panel z-depth-1 hoverable"></div>
+         </div>
+     </div>
 </div>
     <!-- Begin charts -->
     <div class="container">
       <div class="row">
         <div class="col s12 m12 l12">
-          <div class="card-panel z-depth-1">
+          <div class="card-panel z-depth-1 hoverable">
             <div class="section">
               <div class="row">
               <div class="col l6 m6 s6 left"><h5>Chart</h5></div>
@@ -60,21 +89,17 @@
           </div>
         </div>
         <div class="col s4 m4 l4">
-          <div class="card">            
+          <div class="card hoverable">
             <div class="card-content">
               <canvas id="myChart2" height="400" width="400"></canvas>
             </div>            
           </div>
         </div>
         <div class="col s4 m4 l4">
-          <div class="card">            
-            <div class="card-content">
-              <canvas id="myChart1" height="400" width="400"></canvas>
-            </div>            
-          </div>
+
         </div>
         <div class="col s4 m4 l4">
-          <div class="card">
+          <div class="card hoverable">
             <div class="card-image">
               <span class="card-title">Rivne <i class="material-icons">public</i></span>
             </div>
@@ -84,7 +109,6 @@
               <p><i class="material-icons">filter_drama</i></p>
               <p><i class="material-icons">ac_unit</i></p>
             </div>
-            
           </div>
         </div>        
       </div>

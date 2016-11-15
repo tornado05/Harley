@@ -10,7 +10,7 @@ app.appView = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.find('.content').html(templates.render('hello', {name: 'Harley'}));
+        //this.$el.find('.content').html(templates.render('hello', {name: 'Harley'}));
         this.map();
     },
     
