@@ -1,0 +1,24 @@
+
+  {
+    "cities": [
+      {
+        "name": "Rivne",
+        "wundergroundName" : "",
+        "xCords": 50.630694,
+        "yCords": 26.239034
+      },
+      {
+        "name": "Lutsk",
+        "wundergroundName" : "Luts'k",
+        "xCords": 50.73977,
+        "yCords": 25.2639655
+      },
+      {
+        "name": "Kiev",
+        "wundergroundName" : "",
+        "xCords": 50.4308286,
+        "yCords": 30.4966362
+      }
+    ],
+    "updateInterval": 5000
+  }

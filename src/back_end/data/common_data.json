@@ -1,0 +1,146 @@
+[
+  {
+    "_id" : "582a644ba034f02e901e8ccb",
+    "temp" : -2.7,
+    "pressure" : 1018.14,
+    "humidity" : 100,
+    "windSpeed" : 10.26,
+    "windDir" : 289,
+    "clouds" : 88,
+    "fallOut" : "none",
+    "sourceAPI" : "openWeather",
+    "coords" : {
+      "lon" : 26.23,
+      "lat" : 50.62
+    },
+    "date" : 1479172926
+  },
+  {
+    "_id" : "582a644ba034f02e901e8ccd",
+    "temp" : -3.5,
+    "pressure" : 1023.25,
+    "humidity" : 83,
+    "windSpeed" : 13.32,
+    "windDir" : 273,
+    "clouds" : 12,
+    "fallOut" : "none",
+    "sourceAPI" : "openWeather",
+    "coords" : {
+      "lon" : 25.34,
+      "lat" : 50.76
+    },
+    "date" : 1479172200
+  },
+  {
+    "_id" : "582a644ba034f02e901e8ccf",
+    "temp" : -5.36,
+    "pressure" : 1030,
+    "humidity" : 85,
+    "windSpeed" : 10.8,
+    "windDir" : 330,
+    "clouds" : 0,
+    "fallOut" : "none",
+    "sourceAPI" : "openWeather",
+    "coords" : {
+      "lon" : 30.52,
+      "lat" : 50.43
+    },
+    "date" : 1479171600
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cd1",
+    "temp" : -0.3,
+    "pressure" : 1033,
+    "humidity" : 92,
+    "windSpeed" : 4.8,
+    "windDir" : 159,
+    "clouds" : null,
+    "fallOut" : "none",
+    "sourceAPI" : "wunderground",
+    "coords" : {
+      "lon" : 23.81999969,
+      "lat" : 51.24000168
+    },
+    "date" : 1479173007
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cd3",
+    "temp" : -3.6,
+    "pressure" : 1030,
+    "humidity" : 91,
+    "windSpeed" : 6.4,
+    "windDir" : 222,
+    "clouds" : null,
+    "fallOut" : "none",
+    "sourceAPI" : "wunderground",
+    "coords" : {
+      "lon" : 30.56999969,
+      "lat" : 50.40000153
+    },
+    "date" : 1479173064
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cd5",
+    "temp" : -3,
+    "pressure" : 1031,
+    "humidity" : 90,
+    "windSpeed" : 0,
+    "windDir" : 276,
+    "clouds" : null,
+    "fallOut" : "",
+    "sourceAPI" : "wunderground",
+    "coords" : {
+      "lon" : 25.5,
+      "lat" : 50.70000076
+    },
+    "date" : 1479173007
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cd7",
+    "temp" : -5.92,
+    "pressure" : 1031.61,
+    "humidity" : 88,
+    "windSpeed" : 8.35,
+    "windDir" : 330,
+    "clouds" : 72,
+    "fallOut" : "none",
+    "sourceAPI" : "darkSky",
+    "coords" : {
+      "lon" : 30.5,
+      "lat" : 50.43
+    },
+    "date" : 1479173197
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cd9",
+    "temp" : -3.48,
+    "pressure" : 1033.38,
+    "humidity" : 98,
+    "windSpeed" : 7.79,
+    "windDir" : 280,
+    "clouds" : 99,
+    "fallOut" : "none",
+    "sourceAPI" : "darkSky",
+    "coords" : {
+      "lon" : 26.24,
+      "lat" : 50.63
+    },
+    "date" : 1479173197
+  },
+  {
+    "_id" : "582a644ca034f02e901e8cdb",
+    "temp" : -6.19,
+    "pressure" : 1033.73,
+    "humidity" : 97,
+    "windSpeed" : 9.95,
+    "windDir" : 265,
+    "clouds" : 87,
+    "fallOut" : "none",
+    "sourceAPI" : "darkSky",
+    "coords" : {
+      "lon" : 25.26,
+      "lat" : 50.74
+    },
+    "date" : 1479173197
+  }
+]

@@ -21,6 +21,7 @@
     "underscore": "^1.8.3",
     "backbone": "1.2.3",
     "materialize": "^0.97.8",
-    "leaflet": "0.7.x"
+    "leaflet": "0.7.x",
+    "chart.js": "^2.4.0"
   }
 }
