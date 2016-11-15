@@ -6,7 +6,7 @@
     <title>Material Design </title>
   </head>
  <body>
- <header>
+    <header>
      <nav>
          <div class="nav-wrapper blue darken-2">
              <a href="#" class="brand-logo">Harley weather</a>
@@ -14,9 +14,21 @@
                  <i class="material-icons">menu</i>
              </a>
              <ul class="right hide-on-med-and-down">
-                 <li><a href="#"><i class="material-icons">search</i></a></li>
-                 <li><a href="#"><i class="material-icons">view_module</i></a></li>
-                 <li><a href="#"><i class="material-icons">add_alert</i></a></li>
+                 <li>
+                     <a href="#">
+                         <i class="material-icons">search</i>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#">
+                         <i class="material-icons">view_module</i>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="#">
+                         <i class="material-icons">add_alert</i>
+                     </a>
+                 </li>
              </ul>
          </div>
      </nav>
@@ -65,184 +77,54 @@
          </li>
      </ul>
  </header>
- <div id="app" class="container">
-     <div class="row">
-         <div class="content"></div>
-         <div class="col s12">
-             <div id="map" class="map card-panel z-depth-1 hoverable"></div>
-         </div>
-     </div>
-</div>
-    <!-- Begin charts -->
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m12 l12">
-          <div class="card-panel z-depth-1 hoverable">
-            <div class="section">
-              <div class="row">
-              <div class="col l6 m6 s6 left"><h5>Chart</h5></div>
-              <div class="col l6 m6 s6 right"><button class="btn waves-effect waves-light right" type="submit" name="action">Submit<i class="material-icons right">send</i></button></div>
-              </div>
-              <div class="divider"></div>
-            </div>          
-            <canvas id="myChart" width="200"></canvas>
-          </div>
+    <div id="app" class="container">
+        <div class="row">
+             <div class="content"></div>
+             <div class="col s12">
+                 <div id="map" class="map card-panel z-depth-1 hoverable"></div>
+             </div>
         </div>
-        <div class="col s4 m4 l4">
-          <div class="card hoverable">
-            <div class="card-content">
-              <canvas id="myChart2" height="400" width="400"></canvas>
-            </div>            
-          </div>
-        </div>
-        <div class="col s4 m4 l4">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel z-depth-1 hoverable">
+                    <div class="section">
+                        <div class="row">
+                            <div class="col l6 m6 s6 left">
+                                <h5>Chart</h5>
+                            </div>
+                            <div class="col l6 m6 s6 right">
+                                <button class="btn waves-effect waves-light right" type="submit" name="action">
+                                    Submit<i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                    </div>
+                    <canvas id="myChart" width="200"></canvas>
+                </div>
+            </div>
+            <div class="col s4 m4 l4">
+                <div class="card hoverable">
+                    <div class="card-content">
+                        <canvas id="myChart2" height="400" width="400"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4 m4 l4">
 
+            </div>
+            <div class="col s4 m4 l4">
+
+            </div>
         </div>
-        <div class="col s4 m4 l4">
-          <div class="card hoverable">
-            <div class="card-image">
-              <span class="card-title">Rivne <i class="material-icons">public</i></span>
-            </div>
-            <div class="card-content">
-              <p><i class="material-icons">wb_sunny</i></p>
-              <p><i class="material-icons">beach_access</i></p>
-              <p><i class="material-icons">filter_drama</i></p>
-              <p><i class="material-icons">ac_unit</i></p>
-            </div>
-          </div>
-        </div>        
-      </div>
-    </div><!-- End charts -->
+    </div>
+
     <script src="js/vendor.js" type="text/javascript"></script>
     <script src="js/templates.js" type="text/javascript"></script>
     <script src="js/bundle.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-              datasets: [{
-                  label: 'Rivne',
-                  data: [8, 4, 3, 5, 2, 3,6,3,7,5,9,3],
-                  backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                  borderColor: 'rgba(0,0,0,1)',
-                  borderWidth: 1
-              },
-              {
-                  label: 'Lutsk',
-                  data: [4, 6, 3, 11, 12, 13,6,13,13,11,9,3],
-                  backgroundColor: 'rgba(0, 255, 0, 0.5)',
-                  borderColor: 'rgba(0,0,132,1)',
-                  borderWidth: 1
-              },
-              {
-                  label: 'Lviv',
-                  data: [11, 1, 3, 5, 12, 3,6,3,7,11,10,13],
-                  backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                  borderColor: 'rgba(0,99,132,1)',
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              }
-          }
-      });
-      var ctx1 = document.getElementById("myChart1");
-      var myChart1 = new Chart(ctx1, {
-          type: 'bar',
-          data: {
-              labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-              datasets: [{
-                  label: 'Rivne',
-                  data: [12, 19, 3, 5, 2, 3,6,3,7,5,9,3],
-                  backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                  borderColor: 'rgba(0,0,0,1)',
-                  borderWidth: 1
-              },
-              {
-                  label: 'Lutsk',
-                  data: [4, 6, 3, 15, 12, 13,6,13,17,15,9,3],
-                  backgroundColor: 'rgba(0, 255, 0, 0.5)',
-                  borderColor: 'rgba(0,0,132,1)',
-                  borderWidth: 1
-              },
-              {
-                  label: 'Lviv',
-                  data: [12, 1, 3, 5, 12, 3,6,3,7,15,10,13],
-                  backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                  borderColor: 'rgba(0,99,132,1)',
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              }
-          }
-      });
-      var ctx2 = document.getElementById("myChart2");
-      var myChart2 = new Chart(ctx2, {
-          type: 'radar',
-          data: {
-              labels: ["Temperature", "Humidity", "Clouds", "Wind_Speed", "Wind_Deg", "Rain"],
-              datasets: [
-                  {
-                      label: "Rivne",
-                      backgroundColor: "rgba(0, 0, 255, 0.5)",
-                      borderColor: "rgba(0,0,0,1)",
-                      pointBackgroundColor: "rgba(0, 0, 255, 1)",
-                      pointBorderColor: "#fff",
-                      pointHoverBackgroundColor: "#fff",
-                      pointHoverBorderColor: "rgba(179,181,198,1)",
-                      data: [12, 59, 90, 81, 56, 55]
-                  },
-                  {
-                      label: "Lutsk",
-                      backgroundColor: "rgba(0, 255, 0, 0.5)",
-                      borderColor: "rgba(0,0,132,1)",
-                      pointBackgroundColor: "rgba(0, 255, 0, 1)",
-                      pointBorderColor: "#fff",
-                      pointHoverBackgroundColor: "#fff",
-                      pointHoverBorderColor: "rgba(255,99,132,1)",
-                      data: [13, 48, 40, 19, 96, 27]
-                  },
-                  {
-                      label: "Lviv",
-                      backgroundColor: "rgba(0, 0, 255, 0.5)",
-                      borderColor: "rgba(0,99,132,1)",
-                      pointBackgroundColor: "rgba(0, 0, 255, 1)",
-                      pointBorderColor: "#fff",
-                      pointHoverBackgroundColor: "#fff",
-                      pointHoverBorderColor: "rgba(255,99,132,1)",
-                      data: [15, 68, 40, 91, 60, 57]
-                  }
-              ]
-          },
-          options: {
-              responsive: true,
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              }
-          }
-      });
+
     </script>
 </body>
 </html>

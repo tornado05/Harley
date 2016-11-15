@@ -12,6 +12,7 @@ app.appView = Backbone.View.extend({
     render: function () {
         //this.$el.find('.content').html(templates.render('hello', {name: 'Harley'}));
         this.map();
+        this.charts();
     },
     
     map: function(){
@@ -22,6 +23,134 @@ app.appView = Backbone.View.extend({
             id: 'mapbox.pirates',
             accessToken: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }).addTo(ourMap);
+    },
+
+    charts: function(){
+        var ctx = this.$el.find("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: [{
+                    label: 'Rivne',
+                    data: [8, 4, 3, 5, 2, 3,6,3,7,5,9,3],
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 1
+                },
+                    {
+                        label: 'Lutsk',
+                        data: [4, 6, 3, 11, 12, 13,6,13,13,11,9,3],
+                        backgroundColor: 'rgba(0, 255, 0, 0.5)',
+                        borderColor: 'rgba(0,0,132,1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Lviv',
+                        data: [11, 1, 3, 5, 12, 3,6,3,7,11,10,13],
+                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                        borderColor: 'rgba(0,99,132,1)',
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        var ctx1 = this.$el.find("#myChart1");
+        var myChart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: [{
+                    label: 'Rivne',
+                    data: [12, 19, 3, 5, 2, 3,6,3,7,5,9,3],
+                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+                    borderColor: 'rgba(0,0,0,1)',
+                    borderWidth: 1
+                },
+                    {
+                        label: 'Lutsk',
+                        data: [4, 6, 3, 15, 12, 13,6,13,17,15,9,3],
+                        backgroundColor: 'rgba(0, 255, 0, 0.5)',
+                        borderColor: 'rgba(0,0,132,1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Lviv',
+                        data: [12, 1, 3, 5, 12, 3,6,3,7,15,10,13],
+                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                        borderColor: 'rgba(0,99,132,1)',
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        var ctx2 = this.$el.find("#myChart2");
+        var myChart2 = new Chart(ctx2, {
+            type: 'radar',
+            data: {
+                labels: ["Temperature", "Humidity", "Clouds", "Wind_Speed", "Wind_Deg", "Rain"],
+                datasets: [
+                    {
+                        label: "Rivne",
+                        backgroundColor: "rgba(0, 0, 255, 0.5)",
+                        borderColor: "rgba(0,0,0,1)",
+                        pointBackgroundColor: "rgba(0, 0, 255, 1)",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(179,181,198,1)",
+                        data: [12, 59, 90, 81, 56, 55]
+                    },
+                    {
+                        label: "Lutsk",
+                        backgroundColor: "rgba(0, 255, 0, 0.5)",
+                        borderColor: "rgba(0,0,132,1)",
+                        pointBackgroundColor: "rgba(0, 255, 0, 1)",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(255,99,132,1)",
+                        data: [13, 48, 40, 19, 96, 27]
+                    },
+                    {
+                        label: "Lviv",
+                        backgroundColor: "rgba(0, 0, 255, 0.5)",
+                        borderColor: "rgba(0,99,132,1)",
+                        pointBackgroundColor: "rgba(0, 0, 255, 1)",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "rgba(255,99,132,1)",
+                        data: [15, 68, 40, 91, 60, 57]
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
     }
 
 });
