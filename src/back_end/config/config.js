@@ -25,14 +25,20 @@ module.exports = (function () {
         var configsAPI_URLs = [];
 
         config.cities.forEach(function (city) {
+            var cityName = '';
+            if (city.wundergroundName) {
+                cityName = city.wundergroundName
+            } else (
+                cityName = city.name
+            );
             configsAPI_URLs.push(
                 {
                     name: 'openWeather',
-                    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + city.name + ',ua&APPID=3e78ad2536ed323a1c1e68f8512485b0'
+                    url: 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + ',ua&APPID=3e78ad2536ed323a1c1e68f8512485b0'
                 },
                 {
                     name: 'wunderground',
-                    url: 'http://api.wunderground.com/api/3a12f2714ca1b6e2/conditions/q/UA/' + city.name + '.json'
+                    url: 'http://api.wunderground.com/api/3a12f2714ca1b6e2/conditions/q/UA/' + cityName + '.json'
                 },
                 {
                     name: 'darkSky',
