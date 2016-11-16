@@ -6,7 +6,7 @@ var Logger = require('../services/logger'),
     serviceDB = require ('../services/DataBaseService'),
     mapperService = require('../services/mapperService'),
     dataBaseService = require('../services/DataBaseService'),
-    fs = require('fs');;
+    fs = require('fs');
 
 module.exports = (function () {
 
@@ -40,7 +40,7 @@ module.exports = (function () {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);
         } catch (e) {
-            // logger.logError("Can't read from file " + path);
+            logger.logError("Can't read from file " + path);
             console.log(e);
             console.log('ERROR');
             return [];

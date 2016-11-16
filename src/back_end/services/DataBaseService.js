@@ -13,13 +13,13 @@ module.exports = (function () {
             // console.log(db.getCollection("openWeather"));
             if (error) {
                 console.log(error);
-                // logger.logError(error);
+                logger.logError(error);
             }
             var oneCollection = db.collection(collectionName);
             oneCollection.find().toArray(function (err, docs) {
                 if (error) {
                     console.log(error);
-                    // logger.logError(error);
+                    logger.logError(error);
                     docs = null;
                 }
                 result = docs;
@@ -35,14 +35,14 @@ module.exports = (function () {
             if (error) {
                 console.log('Can\'t connect to DB');
                 console.log(error);
-                // logger.logError(error);
+                logger.logError(error);
             }
             var collection = db.collection(collectionName);
             collection.insertOne(data, function (error, result) {
                 if (error) {
                     console.log(url + ' ' + collection);
                     console.log(error);
-                    // logger.logError(error);
+                    logger.logError(error);
                 }
             });
             db.close();

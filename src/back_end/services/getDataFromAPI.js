@@ -6,8 +6,8 @@ var request = require('request'),
     mapperService = require('../services/mapperService'),
     dataBaseService = require('../services/DataBaseService'),
     dataAfterMapperCollectionName = 'unifiedWeather';
-// var Logger = require('logger.js');
-// var logger = new Logger('./logs/log.txt', false);
+ var Logger = require('../services/logger.js');
+ var logger = new Logger('../logs/log.txt', false);
 
 
 module.exports = (function () {
@@ -26,15 +26,14 @@ module.exports = (function () {
     var requestData = function (obj) {
         var result = request(obj.url, function (error, response, body) {
             if (error) {
-                console.log(error);
-                // logger.logError(error);
+                console.log("this is - " + error);
+                 logger.logError(error);
             }
             if (!error && response.statusCode === 200) {
                 setDataDB(obj.name, JSON.parse(body));
             }
         });
     };
-
     var setDataDB = function (serviceName, data) {
 
         switch (serviceName) {

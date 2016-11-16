@@ -26,7 +26,7 @@ module.exports = function (path, isDebugModeOn) {
 
         writeMessageToFile = function (message) {
             console.log(message);
-            fs.writeFile(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
+            fs.writeFileSynk(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
                 if (err) {
                     throw {
                         'message': 'Failed to write log'
