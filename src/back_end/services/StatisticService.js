@@ -3,6 +3,7 @@ var config = require('../config/config.js'),
     Logger = require('../services/logger.js'),
     logger = new Logger('../logs/log.txt', false),
     dataBaseService = require('../services/DataBaseService'),
+    _ = require('underscore'),
     urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
     urlWeatherDataDB = 'mongodb://localhost:27017/weatherProject';
 
@@ -18,7 +19,9 @@ module.exports = (function () {
             console.info('The promise was fulfilled with items!');
             var tempArray = [],
                 humArray = [],
-                windSpeedArray = [];
+                windSpeedArray = [],
+                listOfServices = [],
+                listOfCoors = [];
 
             items.forEach(function (item) {
                 tempArray.push({
@@ -38,9 +41,21 @@ module.exports = (function () {
                     'service' : item.sourceAPI,
                     'windSpeed' : item.windSpeed,
                     'coords' : item.coords
-                })
+                });
+                listOfServices.push(item.sourceAPI);
+                listOfCoors.push(item.coords);
             });
-            console.log(tempArray);
+            var uniqueServices = _.uniq(listOfServices);
+            var uniqueCoors = _.uniq(listOfCoors);
+
+            uniqueServices.forEach(function (service) {
+                uniqueCoors.forEach(function (cords) {
+                    tempArray.forEach(function (tempData) {
+
+                    });
+                });
+            });
+
         }, function(err) {
             console.error('The promise was rejected', err, err.stack);
         });
