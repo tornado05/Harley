@@ -13,7 +13,7 @@ app.use(express.static('public'));
 
 app.get('/weather/v01/current', function (req, res) {
     weather.getCurrentWeather().then(function (data) {
-        res.send(data);
+        res.send(data)
     });
 });
 

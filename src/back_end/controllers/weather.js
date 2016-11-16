@@ -2,17 +2,19 @@
 var Logger = require('../services/logger'),
     logger = new Logger('../logs/log.txt', false),
     getWeatherFromAPI = require('../services/getDataFromAPI'),
-    urlDB = 'mongodb://localhost:27017/weatherProject',
-    serviceDB = require ('../services/DataBaseService'),
+    urlDB = 'mongodb://localhost:27017/weatherProject',    
     dataBaseService = require('../services/DataBaseService'),
+    statisticsService = require('../services/StatisticService'),
     fs = require('fs');;
 
 module.exports = (function () {
 
     var data = [],
+        date = new Date(),
         getDataOnlyOnce = false;
     //TODO: To get data from API uncomment this !
     var initialize = function () {
+        statisticsService.dayStatistics(date);
         // if (!getDataOnlyOnce) {
         //     data = getWeatherFromAPI.getWeatherData();
         //     getDataOnlyOnce = true;
@@ -20,20 +22,19 @@ module.exports = (function () {
     };
     
     /*    
-     Temporary method, if the data can not be taken from the base they are taken from JSON
+     Method returns an array of database.
+     If the database not available -  returned data from JSON.
     */
     var getCurrentWeather = function () {
-        var currentWeatherJSONpath = './data/common_data.json';
-
-        dataBaseService.getDataFromDB(urlDB, 'unifiedWeather').then(function(items) {
-            console.info('The promise was fulfilled with items!');
-            // console.log(items);
+        var currentWeatherJSONpath = './data/common_data.json';        
+        var result = dataBaseService.getLastRecords(urlDB, 'unifiedWeather').then(function(items) {
+            console.info('The promise was fulfilled with items!');            
             return items;
         }, function(err) {
-            console.error('The promise was rejected', err, err.stack);
+            console.error('The promise was rejected, data from JSON will be return\n', err, err.stack);
             return readData(currentWeatherJSONpath);
         });
-        // return readData(currentWeatherJSONpath);
+        return result;
     };
 
     var readData = function (path) {

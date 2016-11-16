@@ -8,39 +8,32 @@ var config = require('../config/config.js'),
 module.exports = (function () {
     var isData = false;
 
-    // var getDataFromDB = function (url, collectionName) {
+    // var getDataFromDB = function (url, collectionName, query, limit) {
     //
-    //     return new Promise(function(resolve, reject) {
-    //         MongoClient.connect(url, function (error, db) {
-    //             if (error) {
-    //                 reject(error);
-    //             } else {
-    //                 resolve(db);
-    //             }
-    //         }).then(function (db) {
-    //             return new Promise(function (resolve, reject) {
-    //                 var collection = db.collection(collectionName);
-    //                 collection.find().toArray(function (err, items) {
-    //                     if (err) {
-    //                         reject(err);
-    //                     } else {
-    //                         console.log(items);
-    //                         resolve(items);
-    //                     }
-    //                 });
-    //             });
-    //         });
+    //     return MongoClient.connect(url).then(function (db) {
+    //         var collection = db.collection(collectionName);
+    //         return collection.find(query).limit(limit).toArray();
+    //     }).then(function (items) {
+    //         return items;
     //     });
+    //
     //
     // };
 
-    var getDataFromDB = function (url, collectionName) {
-        return MongoClient.connect(url).then(function(db) {
+    var getLastRecords = function (url, collectionName) {
+        return MongoClient.connect(url).then(function (db) {
             var collection = db.collection(collectionName);
-            return collection.find().toArray();
-        }).then(function(items) {            
+            return collection.find().sort({$natural: -1}).limit(9).toArray();
+        }).then(function (items) {
             return items;
         });
+
+        /*
+         * TODO: need to close connections;
+         * finally(function() {
+         db.close();
+         });
+         * */
     };
 
     var setDataToDB = function (url, collectionName, data) {
@@ -62,8 +55,18 @@ module.exports = (function () {
         });
     };
 
+    var getDayStatistics = function (url, collectionName, start, end) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
+
     return {
-        getDataFromDB: getDataFromDB,
-        setDataToDB: setDataToDB
+        getLastRecords: getLastRecords,
+        setDataToDB: setDataToDB,
+        getDayStatistics: getDayStatistics
     }
 })();
