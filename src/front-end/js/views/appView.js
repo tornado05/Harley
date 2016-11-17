@@ -5,14 +5,18 @@ var app = app || {};
 app.appView = Backbone.View.extend({
     el: '#app',
 
+    currentData: new app.currentWeatherCollection(),
+
     initialize: function () {
-       this.render();
+        this.currentData.fetch();
+        this.listenTo(this.currentData, 'update', this.render)
     },
 
     render: function () {
         //this.$el.find('.content').html(templates.render('hello', {name: 'Harley'}));
         this.map();
         this.charts();
+
     },
     
     map: function(){
@@ -23,6 +27,17 @@ app.appView = Backbone.View.extend({
             id: 'mapbox.pirates',
             accessToken: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }).addTo(ourMap);
+        var coords = this.currentData.models[0].get('coords');
+        console.log(coords);
+        var message = [
+            "Data from <b>" + this.currentData.models[0].get('sourceAPI') + '</b><br/>',
+            "Temperature: " + this.currentData.models[0].get('temp') + '&deg;C <br/>',
+            "Pressure: " + this.currentData.models[0].get('pressure') + 'mm<br/>'
+        ].join('');
+        var popup = L.popup()
+            .setLatLng([coords.lat, coords.lon])
+            .setContent(message)
+            .openOn(ourMap);
     },
 
     charts: function(){
