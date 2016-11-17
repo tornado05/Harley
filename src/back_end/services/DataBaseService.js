@@ -29,7 +29,7 @@ module.exports = (function () {
         });
 
         /*
-         * TODO: need to close connections;
+         * TODO: need to close connections !!! important;
          * finally(function() {
          db.close();
          });
@@ -63,10 +63,21 @@ module.exports = (function () {
             return items;
         });
     };
+    
+    var getStatisticsOnServices = function (url, collectionName, start, end, service) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
+    getStatisticsOnServices
 
     return {
         getLastRecords: getLastRecords,
         setDataToDB: setDataToDB,
-        getDayStatistics: getDayStatistics
+        getDayStatistics: getDayStatistics,
+        getStatisticsOnServices: getStatisticsOnServices
     }
 })();

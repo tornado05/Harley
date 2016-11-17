@@ -20,6 +20,7 @@
         "yCords": 30.4966362
       }
     ],
+    "servicesNames": ["openWeather", "wunderground", "darkSky"],
     "updateInterval": 7200000,
     "statisticsTimers" : {
       "day" : 86400000,

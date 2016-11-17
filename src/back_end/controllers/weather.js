@@ -1,20 +1,28 @@
 'use strict';
-var Logger = require('../services/logger'),
-    logger = new Logger('../logs/log.txt', false),
-    getWeatherFromAPI = require('../services/getDataFromAPI'),
-    urlDB = 'mongodb://localhost:27017/weatherProject',    
-    dataBaseService = require('../services/DataBaseService'),
-    statisticsService = require('../services/StatisticService'),
-    fs = require('fs');;
+var Logger              = require('../services/logger'),
+    logger              = new Logger('../logs/log.txt', false),
+    getWeatherFromAPI   = require('../services/getDataFromAPI'),
+    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
+    urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject',    
+    dataBaseService     = require('../services/DataBaseService'),
+    statisticsService   = require('../services/StatisticService'),
+    fs                  = require('fs');
 
 module.exports = (function () {
 
     var data = [],
         date = new Date(),
-        getDataOnlyOnce = false;
-    //TODO: To get data from API uncomment this !
+        getDataOnlyOnce = false,
+        currentWeatherJSONpath = './data/common_data.json',
+        currentStatJSONpath = './data/statisticMock.json';
+
     var initialize = function () {
-        statisticsService.dayStatistics(date);
+
+        //TODO:Set timer to collect statistics for the day
+        // statisticsService.dayStatistics(date);
+
+
+        //TODO: To get data from API uncomment this !
         // if (!getDataOnlyOnce) {
         //     data = getWeatherFromAPI.getWeatherData();
         //     getDataOnlyOnce = true;
@@ -22,17 +30,35 @@ module.exports = (function () {
     };
     
     /*    
-     Method returns an array of database.
-     If the database not available -  returned data from JSON.
+     Method returns an array of current weather from the database.
+     If the database not available -  returned mock data from JSON.
     */
     var getCurrentWeather = function () {
         var currentWeatherJSONpath = './data/common_data.json';        
-        var result = dataBaseService.getLastRecords(urlDB, 'unifiedWeather').then(function(items) {
-            console.info('The promise was fulfilled with items!');            
+        var result = dataBaseService.getLastRecords(urlWeatherDataDB, 'unifiedWeather').then(function(items) {
+            console.info('The current weather data from DB returned successfully!');
             return items;
         }, function(err) {
-            console.error('The promise was rejected, data from JSON will be return\n', err, err.stack);
+            console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
             return readData(currentWeatherJSONpath);
+        });
+        return result;
+    };
+    /*
+     Method returns an array of day statistic from the database.
+     If the database not available -  returned mock data from JSON.
+     */
+    var getDaysStatiscticData = function (date) {
+        var start = new Date(date.getTime()),
+            end = new Date(date.getTime());
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 999);
+        var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
+            console.info('The statistic data from DB returned successfully!');
+            return items;
+        }, function(err) {
+            console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
+            return readData(currentStatJSONpath);
         });
         return result;
     };
@@ -51,6 +77,7 @@ module.exports = (function () {
 
     return {
         initialize: initialize,
-        getCurrentWeather: getCurrentWeather
+        getCurrentWeather: getCurrentWeather,
+        getDaysStatiscticData: getDaysStatiscticData
     }
 })();
