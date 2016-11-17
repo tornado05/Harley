@@ -24,7 +24,7 @@ module.exports = (function () {
      Temporary method, if the data can not be taken from the base they are taken from JSON
     */
     var getCurrentWeather = function () {
-        var currentWeatherJSONpath = './data/common_data.json',
+       var currentWeatherJSONpath = './data/common_data.json',
             result = [];
         // result = dataBaseService.getDataFromDB(urlDB, 'unifiedWeather');
         // console.log(result);

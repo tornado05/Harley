@@ -26,7 +26,7 @@ module.exports = (function () {
                 db.close();
             });
         });
-        console.log(result);
+        console.log('result - ' + result);
         return result;
     };
 
