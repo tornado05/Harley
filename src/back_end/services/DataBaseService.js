@@ -6,28 +6,22 @@ var config = require('../config/config.js'),
 
 
 module.exports = (function () {
+    var isData = false;
 
-    var getDataFromDB = function (url, collectionName) {
-        var result = {};
-        MongoClient.connect(url, function (error, db) {
-            // console.log(db.getCollection("openWeather"));
-            if (error) {
-                console.log(error);
-                // logger.logError(error);
-            }
-            var oneCollection = db.collection(collectionName);
-            oneCollection.find().toArray(function (err, docs) {
-                if (error) {
-                    console.log(error);
-                    // logger.logError(error);
-                    docs = null;
-                }
-                result = docs;
-                db.close();
-            });
+    var getLastRecords = function (url, collectionName) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find().sort({$natural: -1}).limit(9).toArray();
+        }).then(function (items) {
+            return items;
         });
-        console.log(result);
-        return result;
+
+        /*
+         * TODO: need to close connections !!! important;
+         * finally(function() {
+         db.close();
+         });
+         * */
     };
 
     var setDataToDB = function (url, collectionName, data) {
@@ -49,8 +43,29 @@ module.exports = (function () {
         });
     };
 
+    var getDayStatistics = function (url, collectionName, start, end) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
+    
+    var getStatisticsOnServices = function (url, collectionName, start, end, service) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
+    getStatisticsOnServices
+
     return {
-        getDataFromDB: getDataFromDB,
-        setDataToDB: setDataToDB
+        getLastRecords: getLastRecords,
+        setDataToDB: setDataToDB,
+        getDayStatistics: getDayStatistics,
+        getStatisticsOnServices: getStatisticsOnServices
     }
 })();
