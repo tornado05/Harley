@@ -8,18 +8,6 @@ var config = require('../config/config.js'),
 module.exports = (function () {
     var isData = false;
 
-    // var getDataFromDB = function (url, collectionName, query, limit) {
-    //
-    //     return MongoClient.connect(url).then(function (db) {
-    //         var collection = db.collection(collectionName);
-    //         return collection.find(query).limit(limit).toArray();
-    //     }).then(function (items) {
-    //         return items;
-    //     });
-    //
-    //
-    // };
-
     var getLastRecords = function (url, collectionName) {
         return MongoClient.connect(url).then(function (db) {
             var collection = db.collection(collectionName);
