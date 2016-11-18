@@ -60,7 +60,7 @@ module.exports = (function () {
             return items;
         });
     };
-    getStatisticsOnServices
+
 
     return {
         getLastRecords: getLastRecords,
