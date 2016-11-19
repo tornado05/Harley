@@ -4,7 +4,6 @@ var config = require('../config/config.js'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     Logger = require('../services/logger.js');
 
-
 module.exports = (function () {
 
     var prepareDataFromService = function (serviceName, data) {

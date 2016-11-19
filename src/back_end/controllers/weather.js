@@ -12,7 +12,7 @@ module.exports = (function () {
 
     var data = [],
         getDataOnlyOnce = false;
-    //TODO: To get data from API uncomment this !
+    // TODO: To get data from API uncomment this !
     var initialize = function () {
         // if (!getDataOnlyOnce) {
         //     data = getWeatherFromAPI.getWeatherData();
