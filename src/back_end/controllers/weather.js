@@ -1,7 +1,7 @@
 'use strict';
-var Logger = require('../services/logger'),
-    logger = new Logger('../logs/log.txt', false),
-    getWeatherFromAPI = require('../services/getDataFromAPI'),
+// var Logger = require('../services/logger'),
+//     logger = new Logger('../logs/log.txt', false),
+   var getWeatherFromAPI = require('../services/getDataFromAPI'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     serviceDB = require ('../services/DataBaseService'),
     mapperService = require('../services/mapperService'),

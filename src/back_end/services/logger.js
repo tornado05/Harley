@@ -5,7 +5,8 @@ var fs = require('fs');
 var SEPARATOR = ' | ';
 var ENDLINE = "\r\n";
 
-module.exports = function (path, isDebugModeOn) {
+module.exports = (function (isDebugModeOn) {
+    var path = './logs/log.txt';
     console.log('logger works');
     var getCurrentTime = function () {
             var now = new Date();
@@ -25,11 +26,13 @@ module.exports = function (path, isDebugModeOn) {
         },
 
         writeMessageToFile = function (message) {
-            console.log('logger error --------------');
+            console.log('writeMessageToFile --------------');
             console.log(message);
-            console.log('logger error --------------');
+            console.log('writeMessageToFile --------------');
             fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
+                console.log('fs func...............................');
                 if (err) {
+                    console.log('cant write to file');
                     throw {
                         'message': 'Failed to write log'
                     };
@@ -38,6 +41,7 @@ module.exports = function (path, isDebugModeOn) {
         },
 
         logError = function (message) {
+            console.log('logError......................');
             writeMessageToFile('ERROR' + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         },
 
@@ -62,4 +66,4 @@ module.exports = function (path, isDebugModeOn) {
         logInfo: logInfo,
         getCurrentTime: getCurrentTime
     };
-};
+})();

@@ -1,9 +1,9 @@
 'use strict';
 var config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
-    urlDB = 'mongodb://localhost:27017/weatherProject',
-    Logger = require('../services/logger.js'),
-    logger = new Logger('../logs/log.txt', false);
+    urlDB = 'mongodb://localhost:27017/weatherProject';
+    // Logger = require('../services/logger.js'),
+    // logger = new Logger('../logs/log.txt', false);
 
 module.exports = (function () {
 

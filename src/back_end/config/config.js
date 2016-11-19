@@ -1,6 +1,6 @@
 'use strict';
- var Logger = require('../services/logger.js');
- var logger = new Logger('./logs/log.txt', false);
+ // var Logger = require('../services/logger.js');
+ // var logger = new Logger('./logs/log.txt', false);
 var fs = require('fs');
 
 
