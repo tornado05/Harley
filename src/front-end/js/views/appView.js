@@ -41,14 +41,23 @@ app.appView = Backbone.View.extend({
     },
 
     charts: function(){
+        var arrTemp = [];//temp rivne
+        var arrDate = [];
+        for(var i = 0; i < this.currentData.length; ++i){
+            arrTemp.push(this.currentData.models[i].get('temp'));
+        };
+        for(var i = 0; i < this.currentData.length; ++i){
+            arrDate.push(this.currentData.models[i].get('date'));
+        };
+        
         var ctx = this.$el.find("#myChart");
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                labels: arrDate,
                 datasets: [{
                     label: 'Rivne',
-                    data: [8, 4, 3, 5, 2, 3,6,3,7,5,9,3],
+                    data: arrTemp,//temp rivne
                     backgroundColor: 'rgba(0, 0, 255, 0.5)',
                     borderColor: 'rgba(0,0,0,1)',
                     borderWidth: 1
