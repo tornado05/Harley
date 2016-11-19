@@ -55,6 +55,7 @@ module.exports = (function () {
             end = new Date(date.getTime());
         start.setHours(0, 0, 0, 0);
         end.setHours(23, 59, 59, 999);
+
     //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
     //         console.info('The statistic data from DB returned successfully!');
     //         return items;

@@ -1,11 +1,11 @@
 'use strict';
-var config = require('../config/config.js'),
-    Logger = require('../services/logger.js'),
-    logger = new Logger('../logs/log.txt', false),
-    dataBaseService = require('../services/DataBaseService'),
-    _ = require('underscore'),
+var config              = require('../config/config.js'),
+    Logger              = require('../services/logger.js'),
+    logger              = new Logger('../logs/log.txt', false),
+    dataBaseService     = require('../services/DataBaseService'),
+    _                   = require('underscore'),
     urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
-    urlWeatherDataDB = 'mongodb://localhost:27017/weatherProject';
+    urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject';
 
 module.exports = (function () {
 

@@ -61,6 +61,7 @@ module.exports = (function () {
         });
     };
 
+
     var getAllStatistic = function (url, collectionName) {
         return MongoClient.connect(url).then(function (db) {
             var collection = db.collection(collectionName);
@@ -69,7 +70,6 @@ module.exports = (function () {
             return items;
         });
     };
-    
 
     return {
         getLastRecords: getLastRecords,
