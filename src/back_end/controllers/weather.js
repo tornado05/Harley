@@ -29,9 +29,10 @@ module.exports = (function () {
         // }
     };
     
-    /*    
-     Method returns an array of current weather from the database.
-     If the database not available -  returned mock data from JSON.
+    /**
+     *  @desc: Method returns an array of current weather from the database.
+     *  If the database not available -  returned mock data from JSON.
+     *
     */
     var getCurrentWeather = function () {
         var currentWeatherJSONpath = './data/common_data.json';        
@@ -44,23 +45,33 @@ module.exports = (function () {
         });
         return result;
     };
-    /*
-     Method returns an array of day statistic from the database.
-     If the database not available -  returned mock data from JSON.
+    /**
+     * @desc:
+     * Method returns an array of day statistic from the database.
+     * If the database not available -  returned mock data from JSON.
      */
     var getDaysStatiscticData = function (date) {
         var start = new Date(date.getTime()),
             end = new Date(date.getTime());
         start.setHours(0, 0, 0, 0);
         end.setHours(23, 59, 59, 999);
-        var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
-            console.info('The statistic data from DB returned successfully!');
+    //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
+    //         console.info('The statistic data from DB returned successfully!');
+    //         return items;
+    //     }, function(err) {
+    //         console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
+    //         return readData(currentStatJSONpath);
+    //     });
+    //     return result;
+        var result = dataBaseService.getAllStatistic(urlStatisticsDataDB, 'Day_Statistics').then(function(items) {
+            console.info('All statistic data from DB has been returned successfully!');
             return items;
         }, function(err) {
             console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
             return readData(currentStatJSONpath);
         });
         return result;
+
     };
 
     var readData = function (path) {

@@ -60,12 +60,22 @@ module.exports = (function () {
             return items;
         });
     };
-    getStatisticsOnServices
+
+    var getAllStatistic = function (url, collectionName) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
+    
 
     return {
         getLastRecords: getLastRecords,
         setDataToDB: setDataToDB,
         getDayStatistics: getDayStatistics,
-        getStatisticsOnServices: getStatisticsOnServices
+        getStatisticsOnServices: getStatisticsOnServices,
+        getAllStatistic: getAllStatistic
     }
 })();
