@@ -18,6 +18,7 @@ module.exports = (function () {
         //     data = getWeatherFromAPI.getWeatherData();
         //     getDataOnlyOnce = true;
         // }
+        dataBaseService.getDataFromDB(urlDB, 'openWeather');
     };
     
     /*    

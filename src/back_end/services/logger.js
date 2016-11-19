@@ -6,7 +6,7 @@ var SEPARATOR = ' | ';
 var ENDLINE = "\r\n";
 
 module.exports = function (path, isDebugModeOn) {
-
+    console.log('logger works');
     var getCurrentTime = function () {
             var now = new Date();
             return [
@@ -25,7 +25,9 @@ module.exports = function (path, isDebugModeOn) {
         },
 
         writeMessageToFile = function (message) {
+            console.log('logger error --------------');
             console.log(message);
+            console.log('logger error --------------');
             fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
                 if (err) {
                     throw {

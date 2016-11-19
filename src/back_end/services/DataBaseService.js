@@ -2,7 +2,7 @@
 var config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
     Logger = require('../services/logger.js'),
-    logger = new Logger('../logs/log.txt', false);
+    logger = new Logger('./logs/log.txt', false);
 
 
 module.exports = (function () {
@@ -11,22 +11,31 @@ module.exports = (function () {
         var result = {};
         MongoClient.connect(url, function (error, db) {
             // console.log(db.getCollection("openWeather"));
+            console.log('it works');
             if (error) {
+                console.log('error1 works ----------');
                 console.log(error);
+                console.log('error1 works ----------');
                 logger.logError(error);
             }
             var oneCollection = db.collection(collectionName);
             oneCollection.find().toArray(function (err, docs) {
-                if (error) {
+                 if (error) {
+                     console.log('error2 works');
                     console.log(error);
                     logger.logError(error);
                     docs = null;
                 }
                 result = docs;
                 db.close();
+                console.log('docs start----------------------------------------------');
+                console.log(docs[0]);
+                console.log('docs finish----------------------------------------------');
             });
         });
-        console.log('result - ' + result);
+        console.log('result start----------------------------------------------');
+        console.log(result);
+        console.log('result finish----------------------------------------------');
         return result;
     };
 
