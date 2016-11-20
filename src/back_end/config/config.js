@@ -49,6 +49,10 @@ module.exports = (function () {
 
         return configsAPI_URLs;
     };
+    
+    var getServicesNames = function () {
+        return config.servicesNames;
+    };
 
     var getTotalConfig = function () {
         return config;
@@ -57,6 +61,7 @@ module.exports = (function () {
 
     return {
         getCitiesURLs: getCitiesURLs,
-        getTotalConfig: getTotalConfig
+        getTotalConfig: getTotalConfig,
+        getServicesNames: getServicesNames
     }
 })();
