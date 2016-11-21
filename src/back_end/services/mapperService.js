@@ -30,7 +30,7 @@ module.exports = (function () {
                 break;
 
         }
-
+        console.log(result);
         return result;
 
     };
@@ -90,22 +90,19 @@ module.exports = (function () {
         var humidity = (data.current_observation.relative_humidity).replace(/%/g, '');
         humidity = parseInt(humidity);
 
+        var getIcon = function () {
+            var VRegExp = new RegExp(/Cloud|cloud|sun|Sun|clear|Clear|hazy|Hazy/);
+            var result = VRegExp.test(data.current_observation.icon);
+            return result;
+        };
+
+        if (getIcon(data.current_observation.icon) == true) {
+            fallOut = "none";
+        };
+
 
         // не уверенна в правильности, так как нет нормальной документации с описанием всех возможных значений icon
         switch (data.current_observation.icon) {
-            case "clear":
-            case "hazy":
-            case "mostly cloudy":
-            case "mostly sunny":
-            case "partly cloudy":
-            case "partly sunny":
-            case "sunny":
-            case "cloudy":
-            {
-                fallOut = "none";
-            }
-                break;
-
             case "thunderstorm":
             case "rain":
             {
@@ -139,7 +136,6 @@ module.exports = (function () {
             "date": parseFloat(data.current_observation.local_epoch)
         };
 
-        console.log(result);
         return result;
 
     };
