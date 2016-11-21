@@ -1,10 +1,9 @@
 'use strict';
 var config              = require('../config/config.js'),
-    Logger              = require('../services/logger.js'),
-    logger              = new Logger('../logs/log.txt', false),
+    logger = require('./../services/logger.js'),
     dataBaseService     = require('../services/DataBaseService'),
     _                   = require('underscore'),
-    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
+    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather',
     urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject';
 
 module.exports = (function () {
@@ -119,6 +118,7 @@ module.exports = (function () {
                 dataBaseService.setDataToDB(urlStatisticsDataDB, 'Day_Statistics', result);
             }, function (err) {
                 console.error('Data is not collected!\n', err, err.stack);
+                logger.logError(err);
             });
         });
     };

@@ -5,14 +5,13 @@ var request = require('request'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     mapperService = require('../services/mapperService'),
     dataBaseService = require('../services/DataBaseService'),
-    dataAfterMapperCollectionName = 'unifiedWeather';
-// var Logger = require('../services/logger.js');
-// var logger = new Logger('../logs/log.txt', false);
-
+    dataAfterMapperCollectionName = 'unifiedWeather',
+    logger = require('./../services/logger.js');
 
 module.exports = (function () {
 
     var getWeatherData = function () {
+        //logger works 1
         var citiesURLs = config.getCitiesURLs(),
             data = [];
 
@@ -27,7 +26,7 @@ module.exports = (function () {
         var result = request(obj.url, function (error, response, body) {
             if (error) {
                 console.log("this is - " + error);
-                //logger.logError(error);
+                logger.logError(error);
             }
             if (!error && response.statusCode === 200) {
                 setDataDB(obj.name, JSON.parse(body));

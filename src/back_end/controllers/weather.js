@@ -1,11 +1,13 @@
 'use strict';
-var Logger              = require('../services/logger'),
-    logger              = new Logger('../logs/log.txt', false),
+// var Logger              = require('../services/logger'),
+//     logger              = new Logger('../logs/log.txt', false),
+    var logger = require('./../services/logger.js'),
     getWeatherFromAPI   = require('../services/getDataFromAPI'),
     urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
     urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject',    
     dataBaseService     = require('../services/DataBaseService'),
     statisticsService   = require('../services/StatisticService'),
+    mapperService   = require('../services/mapperService'),
     fs                  = require('fs');
 
 module.exports = (function () {
@@ -27,7 +29,7 @@ module.exports = (function () {
         //     data = getWeatherFromAPI.getWeatherData();
         //     getDataOnlyOnce = true;
         // }
-        dataBaseService.getDataFromDB(urlDB, 'openWeather');
+        
     };
     
     /**
@@ -36,12 +38,14 @@ module.exports = (function () {
      *
     */
     var getCurrentWeather = function () {
+        //logger works 1
         var currentWeatherJSONpath = './data/common_data.json';        
         var result = dataBaseService.getLastRecords(urlWeatherDataDB, 'unifiedWeather').then(function(items) {
             console.info('The current weather data from DB returned successfully!');
             return items;
         }, function(err) {
             console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
+            logger.logError(err);
             return readData(currentWeatherJSONpath);
         });
         return result;
@@ -52,6 +56,7 @@ module.exports = (function () {
      * If the database not available -  returned mock data from JSON.
      */
     var getDaysStatiscticData = function (date) {
+        //logger works 1
         var start = new Date(date.getTime()),
             end = new Date(date.getTime());
         start.setHours(0, 0, 0, 0);
@@ -70,6 +75,7 @@ module.exports = (function () {
             return items;
         }, function(err) {
             console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
+            logger.logError(err);
             return readData(currentStatJSONpath);
         });
         return result;
@@ -77,11 +83,12 @@ module.exports = (function () {
     };
 
     var readData = function (path) {
+        //logger works 1
         try {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);
         } catch (e) {
-            logger.logError("Can't read from file " + path);
+            logger.logError("Can't read from file ");
             console.log(e);
             console.log('ERROR');
             return [];

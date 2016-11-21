@@ -1,10 +1,7 @@
 'use strict';
 var config = require('../config/config.js'),
-    MongoClient = require('mongodb').MongoClient;
-    // Logger = require('../services/logger.js'),
-    // logger = new Logger('../logs/log.txt', false);
-var logger = require('./../services/logger.js');
-
+    MongoClient = require('mongodb').MongoClient,
+    logger = require('./../services/logger.js');
 
 module.exports = (function () {
     var isData = false;
@@ -25,6 +22,7 @@ module.exports = (function () {
     };
 
     var setDataToDB = function (url, collectionName, data) {
+        //logger works 1
         MongoClient.connect(url, function (error, db) {
             if (error) {
                 console.log('Can\'t connect to DB');

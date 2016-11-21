@@ -1,9 +1,8 @@
 'use strict';
 var config = require('../config/config.js'),
     MongoClient = require('mongodb').MongoClient,
-    urlDB = 'mongodb://localhost:27017/weatherProject';
-    // Logger = require('../services/logger.js'),
-    // logger = new Logger('../logs/log.txt', false);
+    urlDB = 'mongodb://localhost:27017/weatherProject',
+    logger = require('./../services/logger.js');
 
 module.exports = (function () {
 
@@ -192,8 +191,12 @@ module.exports = (function () {
             },
             "date": data.currently.time
         };
-
+        console.log('----------------------------------');
         console.log(result);
+        console.log(result.length);
+        if(result.length === 0){
+            logger.logError('No data from service');
+        }
         return result;
     };
 
