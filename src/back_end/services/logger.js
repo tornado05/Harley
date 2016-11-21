@@ -6,8 +6,8 @@ var SEPARATOR = ' | ';
 var ENDLINE = "\r\n";
 
 module.exports = (function (isDebugModeOn) {
-    var path = './logs/log.txt';
-    var getCurrentTime = function () {
+    var path = './logs/log.txt',
+        getCurrentTime = function () {
             var now = new Date();
             return [
                 now.getUTCFullYear(),
@@ -60,4 +60,4 @@ module.exports = (function (isDebugModeOn) {
         logInfo: logInfo,
         getCurrentTime: getCurrentTime
     };
-})();
+}());
