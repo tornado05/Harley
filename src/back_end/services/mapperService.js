@@ -64,6 +64,8 @@ module.exports = (function () {
         var windSpeedInKmH = parseFloat(((data.wind.speed * 3600) / 1000).toFixed(2));
 
         var result = {
+            "cityName": data.name,
+            "country": data.sys.country,
             "temp": tempInCelsius,
             "pressure": data.main.pressure,
             "humidity": data.main.humidity,
@@ -85,7 +87,6 @@ module.exports = (function () {
     var prepareDataFromWunderground = function (serviceName, data) {
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
-        console.log(data);
         var humidity = (data.current_observation.relative_humidity).replace(/%/g, '');
         humidity = parseInt(humidity);
 
@@ -120,6 +121,8 @@ module.exports = (function () {
 
 
         var result = {
+            "cityName": data.current_observation.display_location.city,
+            "country": data.current_observation.display_location.country_iso3166,
             "temp": parseFloat(data.current_observation.temp_c),
             "pressure": parseFloat(data.current_observation.pressure_mb),
             "humidity": humidity,
@@ -141,6 +144,7 @@ module.exports = (function () {
 
     var prepareDataFromDarkSky = function (serviceName, data) {
         console.log("-------------" + serviceName + "--------------");
+        console.log(data);
         var fallOut = "";
 
         switch (data.currently.icon) {

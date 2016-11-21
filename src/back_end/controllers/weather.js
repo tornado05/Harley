@@ -14,10 +14,10 @@ module.exports = (function () {
         getDataOnlyOnce = false;
     // TODO: To get data from API uncomment this !
     var initialize = function () {
-        // if (!getDataOnlyOnce) {
-        //     data = getWeatherFromAPI.getWeatherData();
-        //     getDataOnlyOnce = true;
-        // }
+        if (!getDataOnlyOnce) {
+            data = getWeatherFromAPI.getWeatherData();
+            getDataOnlyOnce = true;
+        }
     };
     
     /*    
