@@ -24,19 +24,20 @@ module.exports = (function () {
     };
 
     var requestData = function (obj) {
+        console.log("----OBJ-----");
+        console.log(obj);
         var result = request(obj.url, function (error, response, body) {
             if (error) {
                 console.log(error);
                 // logger.logError(error);
             }
             if (!error && response.statusCode === 200) {
-                setDataDB(obj.name, JSON.parse(body));
+                setDataDB(obj.name, obj.city, JSON.parse(body));
             }
         });
     };
 
-    var setDataDB = function (serviceName, data) {
-
+    var setDataDB = function (serviceName, city, data) {
         switch (serviceName) {
             case "openWeather":
             {
@@ -54,7 +55,7 @@ module.exports = (function () {
             }
                 break;
         }
-        var unifiedWeather = mapperService.prepareDataFromService(serviceName, data);
+        var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
         dataBaseService.setDataToDB(urlDB, 'unifiedWeather', unifiedWeather);
     };
 
