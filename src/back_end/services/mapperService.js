@@ -65,7 +65,6 @@ module.exports = (function () {
 
         var result = {
             "cityName": city,
-            "country": data.sys.country,
             "temp": tempInCelsius,
             "pressure": data.main.pressure,
             "humidity": data.main.humidity,
@@ -121,7 +120,6 @@ module.exports = (function () {
 
         var result = {
             "cityName": city,
-            "country": data.current_observation.display_location.country_iso3166,
             "temp": parseFloat(data.current_observation.temp_c),
             "pressure": parseFloat(data.current_observation.pressure_mb),
             "humidity": humidity,
