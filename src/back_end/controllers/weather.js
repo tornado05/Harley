@@ -11,15 +11,15 @@ var Logger              = require('../services/logger'),
 module.exports = (function () {
 
     var data = [],
-        date = new Date(),
+        date = new Date("November 10, 2016"),
         getDataOnlyOnce = false,
         currentWeatherJSONpath = './data/common_data.json',
         currentStatJSONpath = './data/statisticMock.json';
 
     var initialize = function () {
-
         //TODO:Set timer to collect statistics for the day
-        // statisticsService.dayStatistics(date);
+         //statisticsService.dayStatistics(date);
+        statisticsService.monthStatistics(date);
 
 
         //TODO: To get data from API uncomment this !
