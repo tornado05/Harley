@@ -7,67 +7,69 @@
   </head>
  <body>
     <header>
-     <nav>
-         <div class="nav-wrapper blue darken-2">
-             <a href="#" class="brand-logo">Harley weather</a>
-             <a href="#" data-activates="slide-out" class="button-collapse show-on-large right">
-                 <i class="material-icons">menu</i>
-             </a>
-             <ul class="right hide-on-med-and-down">
-                 <li>
-                     <a href="#">
-                         <i class="material-icons">search</i>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="#">
-                         <i class="material-icons">view_module</i>
-                     </a>
-                 </li>
-                 <li>
-                     <a href="#">
-                         <i class="material-icons">add_alert</i>
-                     </a>
-                 </li>
-             </ul>
-         </div>
-     </nav>
+    <div class="navbar-fixed">    
+         <nav>
+             <div class="nav-wrapper blue darken-2">
+                 <a href="#" class="brand-logo">Harley weather</a>
+                 <a href="#" data-activates="slide-out" class="button-collapse show-on-large right">
+                     <i class="material-icons">menu</i>
+                 </a>
+                 <ul class="right hide-on-med-and-down">
+                     <li>
+                         <a href="#">
+                             <i class="material-icons">search</i>
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                             <i class="material-icons">view_module</i>
+                         </a>
+                     </li>
+                     <li>
+                         <a href="#">
+                             <i class="material-icons">add_alert</i>
+                         </a>
+                     </li>
+                 </ul>
+             </div>
+         </nav>
+    </div>
      <ul id="slide-out" class="side-nav">
          <li>
              <h3 class="center-align">Menu</h3>
          </li>
          <li>
-             <div class="item">
-                 <input type="checkbox" id="item-1"/>
-                 <label for="item-1">Item-1</label>
-             </div>
+            <select class="browser-default">
+                <option value="" disabled selected>City</option>
+                <option value="1">Rivne</option>
+                <option value="2">Lutsk</option>
+                <option value="3">L'viv</option>
+            </select>
          </li>
          <li>
-             <div class="item">
-                 <input type="checkbox" id="item-2"/>
-                 <label for="item-2">Item-2</label>
-             </div>
+            <form action="#"> 
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="temperature" />
+                  <label for="temperature">Temperature</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="pressure" />
+                  <label for="pressure">Pressure</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="humidity"  />
+                  <label for="humidity">Humidity</label>
+                </p>
+                 <p>
+                  <input class="with-gap" name="group1" type="radio" id="wind_speed"  />
+                  <label for="wind_speed">Wind speed</label>
+                </p>
+                <p>
+                  <input class="with-gap" name="group1" type="radio" id="fall-out"  />
+                  <label for="fall-out">Fall-out</label>
+                </p>
+            </form>
          </li>
-         <li>
-             <div class="item">
-                 <input type="checkbox" id="item-3"/>
-                 <label for="item-3">Item-3</label>
-             </div>
-         </li>
-         <li>
-             <div class="item">
-                 <input type="checkbox" id="item-4"/>
-                 <label for="item-4">Item-4</label>
-             </div>
-         </li>
-         <li><div class="divider"></div></li>
-         <li>
-             <div class="item input-field col">
-                <i class="material-icons prefix">search</i>
-                <input type="text" placeholder="Search city">
-            </div>
-         </li>
-         <li><div class="divider"></div></li>
          <li>
              <div class="item">
                  <div class="card-content">
@@ -90,13 +92,26 @@
                     <div class="section">
                         <div class="row">
                             <div class="col l6 m6 s6 left">
-                                <h5>Chart</h5>
+                                <h5>CURRENT WEATHER COMMPARE SERVICES</h5>
                             </div>
-                            <div class="col l6 m6 s6 right">
-                                <button class="btn waves-effect waves-light right" type="submit" name="action">
-                                    Submit<i class="material-icons right">send</i>
-                                </button>
-                            </div>
+                                <div class="col l3 m3 s3 right">
+                                    <select class="browser-default">
+                                        <option value="" disabled selected>CITY</option>
+                                        <option value="1">Rivne</option>
+                                        <option value="2">Lutsk</option>
+                                        <option value="3">L'viv</option>
+                                    </select>
+                                </div>
+                                <div class="col l3 m3 s3 right">
+                                  <select class="browser-default">
+                                    <option value="" disabled selected>PARAMETER</option>
+                                    <option value="1">Temperature</option>
+                                    <option value="2">Pressure</option>
+                                    <option value="3">Humidity</option>
+                                    <option value="3">Wind speed</option>
+                                    <option value="3">Fall-out</option>
+                                  </select>
+                                </div>               
                         </div>
                         <div class="divider"></div>
                     </div>
@@ -106,7 +121,7 @@
             <div class="col s4 m4 l4">
                 <div class="card hoverable">
                     <div class="card-content">
-                        <canvas id="myChart2" height="400" width="400"></canvas>
+                       <canvas id="myChart2" height="400" width="400"></canvas>
                     </div>
                 </div>
             </div>
