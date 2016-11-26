@@ -1,6 +1,4 @@
 'use strict';
-// var Logger              = require('../services/logger'),
-//     logger              = new Logger('../logs/log.txt', false),
     var logger = require('./../services/logger.js'),
     getWeatherFromAPI   = require('../services/getDataFromAPI'),
     urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
@@ -21,7 +19,6 @@ module.exports = (function () {
     var initialize = function () {
 
         //TODO:Set timer to collect statistics for the day
-        // statisticsService.dayStatistics(date);
 
 
         //TODO: To get data from API uncomment this !
