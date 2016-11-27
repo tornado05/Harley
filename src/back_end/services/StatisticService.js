@@ -3,7 +3,7 @@ var config              = require('../config/config.js'),
     logger = require('./../services/logger.js'),
     dataBaseService     = require('../services/DataBaseService'),
     _                   = require('underscore'),
-    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather',
+    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
     urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject';
 
 module.exports = (function () {
