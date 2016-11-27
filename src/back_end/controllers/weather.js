@@ -17,7 +17,6 @@ module.exports = (function () {
         currentStatJSONpath = './data/statisticMock.json';
 
     var initialize = function () {
-
         //TODO:Set timer to collect statistics for the day
 
 
