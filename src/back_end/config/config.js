@@ -1,6 +1,6 @@
 'use strict';
-// var Logger = require('../services/logger.js');
-// var logger = new Logger('./logs/log.txt', false);
+ // var Logger = require('../services/logger.js');
+ // var logger = new Logger('./logs/log.txt', false);
 var fs = require('fs');
 
 
@@ -11,7 +11,7 @@ module.exports = (function () {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);
         } catch (e) {
-            // logger.logError("Can't read from file " + path);
+            logger.logError("Can't read from file " + path);
             console.log(e);
             console.log('ERROR');
             return [];
