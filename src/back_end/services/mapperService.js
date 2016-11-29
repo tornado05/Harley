@@ -193,6 +193,9 @@ module.exports = (function () {
             "date": data.currently.time
         };
 
+        if(result.length === 0){
+            logger.logError('No data from service');
+        }
         return result;
     };
 
