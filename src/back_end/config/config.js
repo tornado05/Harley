@@ -1,7 +1,6 @@
 'use strict';
- // var Logger = require('../services/logger.js');
- // var logger = new Logger('./logs/log.txt', false);
-var fs = require('fs');
+var logger = require('./../services/logger.js'),
+    fs = require('fs');
 
 
 module.exports = (function () {

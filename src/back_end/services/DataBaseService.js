@@ -59,6 +59,14 @@ module.exports = (function () {
         });
     };
 
+    var getStatisticsOnCities = function (url, collectionName, start, end, cityName) {
+        return MongoClient.connect(url).then(function (db) {
+            var collection = db.collection(collectionName);
+            return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray();
+        }).then(function (items) {
+            return items;
+        });
+    };
 
     var getAllStatistic = function (url, collectionName) {
         return MongoClient.connect(url).then(function (db) {
@@ -74,6 +82,7 @@ module.exports = (function () {
         setDataToDB: setDataToDB,
         getDayStatistics: getDayStatistics,
         getStatisticsOnServices: getStatisticsOnServices,
+        getStatisticsOnCities: getStatisticsOnCities,
         getAllStatistic: getAllStatistic
     }
 })();
