@@ -5,7 +5,7 @@
     urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject',    
     dataBaseService     = require('../services/DataBaseService'),
     statisticsService   = require('../services/StatisticService'),
-    mapperService   = require('../services/mapperService'),
+    mapperService       = require('../services/mapperService'),
     fs                  = require('fs');
 
 module.exports = (function () {
@@ -17,10 +17,14 @@ module.exports = (function () {
         currentStatJSONpath = './data/statisticMock.json';
 
     var initialize = function () {
-        //TODO:Set timer to collect statistics for the day
-
-
+        //TODO:Set timer to collect statistics for the day/month
+        
+        // statisticsService.serviceMonthStatistics(date);
+        // statisticsService.serviceDayStatistics(date);
+        // statisticsService.cityDayStatistics(date);
+        
         //TODO: To get data from API uncomment this !
+        
         // if (!getDataOnlyOnce) {
         //     data = getWeatherFromAPI.getWeatherData();
         //     getDataOnlyOnce = true;
@@ -33,8 +37,7 @@ module.exports = (function () {
      *  If the database not available -  returned mock data from JSON.
      *
     */
-    var getCurrentWeather = function () {
-        //logger works 1
+    var getCurrentWeather = function () {        
         var currentWeatherJSONpath = './data/common_data.json';        
         var result = dataBaseService.getLastRecords(urlWeatherDataDB, 'unifiedWeather').then(function(items) {
             console.info('The current weather data from DB returned successfully!');
@@ -51,13 +54,12 @@ module.exports = (function () {
      * Method returns an array of day statistic from the database.
      * If the database not available -  returned mock data from JSON.
      */
-    var getDaysStatiscticData = function (date) {
-        //logger works 1
+    var getDaysStatiscticData = function (date) {        
         var start = new Date(date.getTime()),
             end = new Date(date.getTime());
         start.setHours(0, 0, 0, 0);
         end.setHours(23, 59, 59, 999);
-
+    //TODO: Use this method after router get params
     //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
     //         console.info('The statistic data from DB returned successfully!');
     //         return items;
@@ -78,8 +80,7 @@ module.exports = (function () {
 
     };
 
-    var readData = function (path) {
-        //logger works 1
+    var readData = function (path) {        
         try {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);

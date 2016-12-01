@@ -1,17 +1,16 @@
 'use strict';
-var request = require('request'),
-    config = require('../config/config.js'),
-    MongoClient = require('mongodb').MongoClient,
-    urlDB = 'mongodb://localhost:27017/weatherProject',
-    mapperService = require('../services/mapperService'),
-    dataBaseService = require('../services/DataBaseService'),
-    dataAfterMapperCollectionName = 'unifiedWeather',
-    logger = require('./../services/logger.js');
+var request                         = require('request'),
+    config                          = require('../config/config.js'),
+    MongoClient                     = require('mongodb').MongoClient,
+    urlDB                           = 'mongodb://localhost:27017/weatherProject',
+    mapperService                   = require('../services/mapperService'),
+    dataBaseService                 = require('../services/DataBaseService'),
+    dataAfterMapperCollectionName   = 'unifiedWeather',
+    logger                          = require('./../services/logger.js');
 
 module.exports = (function () {
 
-    var getWeatherData = function () {
-        //logger works 1
+    var getWeatherData = function () {        
         var citiesURLs = config.getCitiesURLs(),
             data = [];
 
@@ -23,8 +22,6 @@ module.exports = (function () {
     };
 
     var requestData = function (obj) {
-        console.log("----OBJ-----");
-        console.log(obj);
         var result = request(obj.url, function (error, response, body) {
             if (error) {
                 console.log("this is - " + error);
