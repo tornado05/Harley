@@ -4,28 +4,27 @@ var config = require('../config/config.js'),
     urlDB = 'mongodb://localhost:27017/weatherProject',
     Logger = require('../services/logger.js');
 
-
 module.exports = (function () {
 
-    var prepareDataFromService = function (serviceName, data) {
+    var prepareDataFromService = function (serviceName, city, data) {
         var result = {};
 
         switch (serviceName) {
             case "openWeather":
             {
-                result = prepareDataFromOpenWeather("openWeather", data);
+                result = prepareDataFromOpenWeather("openWeather", city, data);
             }
                 break;
 
             case "darkSky":
             {
-                result = prepareDataFromDarkSky("darkSky", data);
+                result = prepareDataFromDarkSky("darkSky", city, data);
             }
                 break;
 
             case "wunderground":
             {
-                result = prepareDataFromWunderground("wunderground", data);
+                result = prepareDataFromWunderground("wunderground", city, data);
             }
                 break;
 
@@ -35,7 +34,7 @@ module.exports = (function () {
 
     };
 
-    var prepareDataFromOpenWeather = function (serviceName, data) {
+    var prepareDataFromOpenWeather = function (serviceName, city, data) {
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
 
@@ -65,6 +64,7 @@ module.exports = (function () {
         var windSpeedInKmH = parseFloat(((data.wind.speed * 3600) / 1000).toFixed(2));
 
         var result = {
+            "cityName": city,
             "temp": tempInCelsius,
             "pressure": data.main.pressure,
             "humidity": data.main.humidity,
@@ -79,14 +79,12 @@ module.exports = (function () {
             },
             "date": data.dt
         };
-        console.log(result);
         return result;
     };
 
-    var prepareDataFromWunderground = function (serviceName, data) {
+    var prepareDataFromWunderground = function (serviceName, city, data) {
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
-        console.log(data);
         var humidity = (data.current_observation.relative_humidity).replace(/%/g, '');
         humidity = parseInt(humidity);
 
@@ -121,6 +119,7 @@ module.exports = (function () {
 
 
         var result = {
+            "cityName": city,
             "temp": parseFloat(data.current_observation.temp_c),
             "pressure": parseFloat(data.current_observation.pressure_mb),
             "humidity": humidity,
@@ -140,7 +139,7 @@ module.exports = (function () {
 
     };
 
-    var prepareDataFromDarkSky = function (serviceName, data) {
+    var prepareDataFromDarkSky = function (serviceName, city, data) {
         console.log("-------------" + serviceName + "--------------");
         var fallOut = "";
 
@@ -178,6 +177,7 @@ module.exports = (function () {
         var cloudsInPercent = data.currently.cloudCover * 100;
 
         var result = {
+            "cityName": city,
             "temp": tempInCelsius,
             "pressure": data.currently.pressure,
             "humidity": humidity,
@@ -193,7 +193,9 @@ module.exports = (function () {
             "date": data.currently.time
         };
 
-        console.log(result);
+        if(result.length === 0){
+            logger.logError('No data from service');
+        }
         return result;
     };
 

@@ -1,0 +1,122 @@
+[
+  {
+    "_id" : "5843cd04c926350fdce8777c",
+    "time" : 1480834800,
+    "city" : "Rivne",
+    "stat" : [
+      {
+        "minTemp" : -4.15
+      },
+      {
+        "maxTemp" : -3.5
+      },
+      {
+        "minHum" : 80
+      },
+      {
+        "maxHum" : 92
+      },
+      {
+        "minWindSpeed" : 14.5
+      },
+      {
+        "maxWindSpeed" : 21.6
+      },
+      {
+        "avgTemp" : {
+          "temp" : -3.88333333333333
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 85.6666666666667
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 17.2966666666667
+        }
+      }
+    ]
+  },
+  {
+    "_id" : "5843cd04c926350fdce8777d",
+    "time" : 1480836600,
+    "city" : "Kiev",
+    "stat" : [
+      {
+        "minTemp" : -7.32
+      },
+      {
+        "maxTemp" : -4.6
+      },
+      {
+        "minHum" : 85
+      },
+      {
+        "maxHum" : 90
+      },
+      {
+        "minWindSpeed" : 0
+      },
+      {
+        "maxWindSpeed" : 10.8
+      },
+      {
+        "avgTemp" : {
+          "temp" : -6.02666666666667
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 88
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 6.06666666666667
+        }
+      }
+    ]
+  },
+  {
+    "_id" : "5843cd04c926350fdce8777e",
+    "time" : 1480836600,
+    "city" : "Luts'k",
+    "stat" : [
+      {
+        "minTemp" : -4.06
+      },
+      {
+        "maxTemp" : -4
+      },
+      {
+        "minHum" : 80
+      },
+      {
+        "maxHum" : 86
+      },
+      {
+        "minWindSpeed" : 0
+      },
+      {
+        "maxWindSpeed" : 18
+      },
+      {
+        "avgTemp" : {
+          "temp" : -4.02
+        }
+      },
+      {
+        "avgHum" : {
+          "hum" : 83.6666666666667
+        }
+      },
+      {
+        "avgWindSpeed" : {
+          "windSpeed" : 11.76
+        }
+      }
+    ]
+  }
+]

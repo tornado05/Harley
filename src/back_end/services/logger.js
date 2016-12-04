@@ -5,9 +5,9 @@ var fs = require('fs');
 var SEPARATOR = ' | ';
 var ENDLINE = "\r\n";
 
-module.exports = function (path, isDebugModeOn) {
-
-    var getCurrentTime = function () {
+module.exports = (function (isDebugModeOn) {
+    var path = './logs/log.txt',
+        getCurrentTime = function () {
             var now = new Date();
             return [
                 now.getUTCFullYear(),
@@ -16,7 +16,7 @@ module.exports = function (path, isDebugModeOn) {
                 '-',
                 now.getUTCDate(),
                 ' ',
-                now.getUTCHours(),
+                now.getUTCHours() + 2,
                 ':',
                 now.getUTCMinutes(),
                 ':',
@@ -26,7 +26,7 @@ module.exports = function (path, isDebugModeOn) {
 
         writeMessageToFile = function (message) {
             console.log(message);
-            fs.writeFile(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
+            fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
                 if (err) {
                     throw {
                         'message': 'Failed to write log'
@@ -60,4 +60,4 @@ module.exports = function (path, isDebugModeOn) {
         logInfo: logInfo,
         getCurrentTime: getCurrentTime
     };
-};
+}());
