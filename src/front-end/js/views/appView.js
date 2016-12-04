@@ -20,24 +20,53 @@ app.appView = Backbone.View.extend({
     },
     
     map: function(){
-        var ourMap = L.map('map').setView([50.618778, 26.259055], 14);
+        var ourMap = L.map('map').setView([50.618778, 26.259055], 7);
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
             id: 'mapbox.streets',
             accessToken: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }).addTo(ourMap);
-        var coords = this.currentData.models[0].get('coords');
-        console.log(coords);
+        //TODO: move path to config file
+        L.Icon.Default.imagePath = '../img/images';
+
         var message = [
             "Data from <b>" + this.currentData.models[0].get('sourceAPI') + '</b><br/>',
             "Temperature: " + this.currentData.models[0].get('temp') + '&deg;C <br/>',
             "Pressure: " + this.currentData.models[0].get('pressure') + 'mm<br/>'
         ].join('');
-        var popup = L.popup()
-            .setLatLng([coords.lat, coords.lon])
-            .setContent(message)
-            .openOn(ourMap);
+        var cities = [
+            {
+                name: "Rivne",
+                cords: [50.630694, 26.239034]
+            },
+            {
+                name: "Kiev",
+                cords: [50.4308286, 30.4966362]
+            },
+            {
+                name: "Lutsk",
+                cords: [50.73977, 25.2639655]
+            }
+        ];
+        //TODO get coords from config file
+        _.each(cities, function(city){
+            L.marker(city.cords).addTo(ourMap).bindPopup(templates.render('popup_current_city_weather', {
+                city: city.name,
+                temp: 2,
+                pressure: 1018.72,
+                humidity: 97,
+                fallOut: 'none'
+            }));
+        });
+
+        this.currentData.getAverageDataByCity();
+
+
+        // var popup = L.popup()
+        //     .setLatLng([coords.lat, coords.lon])
+        //     .setContent(message)
+        //     .openOn(ourMap);
     },
 
     charts: function(){

@@ -177,6 +177,11 @@ gulp.task('layout', [
     'watch-fr'
 ]);
 
+gulp.task('backbone', [
+    'front-end',
+    'watch-fr'
+]);
+
 gulp.task('build', [
     'lint', 
     'make-dirs',
