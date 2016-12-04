@@ -7,189 +7,78 @@ app.appView = Backbone.View.extend({
 
     currentData: new app.currentWeatherCollection(),
 
+    cities: [
+        {
+            name: "Rivne",
+            cords: [50.630694, 26.239034]
+        },
+        {
+            name: "Kiev",
+            cords: [50.4308286, 30.4966362]
+        },
+        {
+            name: "Lutsk",
+            cords: [50.73977, 25.2639655]
+        }
+    ],
+
     initialize: function () {
         this.currentData.fetch();
         this.listenTo(this.currentData, 'update', this.render)
     },
 
     render: function () {
-        //this.$el.find('.content').html(templates.render('hello', {name: 'Harley'}));
-        this.map();
-        this.charts();
-
+        this.showMap();
+        this.showCurrentWeatherChart();
     },
-    
-    map: function(){
-        var ourMap = L.map('map').setView([50.618778, 26.259055], 7);
+
+    showMap: function () {
+        var ourMap = L.map('map').setView([50.9, 27.8], 7);
+        //TODO: move this data to configs
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            attribution: templates.render('map_attribution', {}),
             maxZoom: 18,
             id: 'mapbox.streets',
             accessToken: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }).addTo(ourMap);
         //TODO: move path to config file
         L.Icon.Default.imagePath = '../img/images';
-
-        var message = [
-            "Data from <b>" + this.currentData.models[0].get('sourceAPI') + '</b><br/>',
-            "Temperature: " + this.currentData.models[0].get('temp') + '&deg;C <br/>',
-            "Pressure: " + this.currentData.models[0].get('pressure') + 'mm<br/>'
-        ].join('');
-        var cities = [
-            {
-                name: "Rivne",
-                cords: [50.630694, 26.239034]
-            },
-            {
-                name: "Kiev",
-                cords: [50.4308286, 30.4966362]
-            },
-            {
-                name: "Lutsk",
-                cords: [50.73977, 25.2639655]
-            }
-        ];
+        //TODO: take this from configs
+        var currentCityWeather = this.currentData.getCurrentAverageData(this.cities);
         //TODO get coords from config file
-        _.each(cities, function(city){
+        _.each(currentCityWeather, function (city) {
             L.marker(city.cords).addTo(ourMap).bindPopup(templates.render('popup_current_city_weather', {
                 city: city.name,
-                temp: 2,
-                pressure: 1018.72,
-                humidity: 97,
-                fallOut: 'none'
+                temp: city.temp,
+                pressure: city.pressure,
+                humidity: city.humidity,
+                fallOut: city.fallOut
             }));
         });
-
-        this.currentData.getAverageDataByCity();
-
-
-        // var popup = L.popup()
-        //     .setLatLng([coords.lat, coords.lon])
-        //     .setContent(message)
-        //     .openOn(ourMap);
     },
 
-    charts: function(){
-        var arrTemp = [];//temp rivne
-        var arrDate = [];
-        for(var i = 0; i < this.currentData.length; ++i){
-            arrTemp.push(this.currentData.models[i].get('temp'));
-        };
-        for(var i = 0; i < this.currentData.length; ++i){
-            arrDate.push(this.currentData.models[i].get('date'));
-        };
-        
-        var ctx = this.$el.find("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
+    showCurrentWeatherChart: function () {
+        var ctx = this.$el.find("#chart-current-weather");
+        var label = [];
+        var currentWeather = new Chart(ctx, {
+            type: 'horizontalBar',
             data: {
-                labels: arrDate,
-                datasets: [{
-                    label: 'Rivne',
-                    data: arrTemp,//temp rivne
-                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                    borderColor: 'rgba(0,0,0,1)',
-                    borderWidth: 1
-                },
-                    {
-                        label: 'Lutsk',
-                        data: [4, 6, 3, 11, 12, 13,6,13,13,11,9,3],
-                        backgroundColor: 'rgba(0, 255, 0, 0.5)',
-                        borderColor: 'rgba(0,0,132,1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Lviv',
-                        data: [11, 1, 3, 5, 12, 3,6,3,7,11,10,13],
-                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                        borderColor: 'rgba(0,99,132,1)',
-                        borderWidth: 1
-                    }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-        var ctx1 = this.$el.find("#myChart1");
-        var myChart1 = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-                datasets: [{
-                    label: 'Rivne',
-                    data: [12, 19, 3, 5, 2, 3,6,3,7,5,9,3],
-                    backgroundColor: 'rgba(0, 0, 255, 0.5)',
-                    borderColor: 'rgba(0,0,0,1)',
-                    borderWidth: 1
-                },
-                    {
-                        label: 'Lutsk',
-                        data: [4, 6, 3, 15, 12, 13,6,13,17,15,9,3],
-                        backgroundColor: 'rgba(0, 255, 0, 0.5)',
-                        borderColor: 'rgba(0,0,132,1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Lviv',
-                        data: [12, 1, 3, 5, 12, 3,6,3,7,15,10,13],
-                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-                        borderColor: 'rgba(0,99,132,1)',
-                        borderWidth: 1
-                    }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-        var ctx2 = this.$el.find("#myChart2");
-        var myChart2 = new Chart(ctx2, {
-            type: 'radar',
-            data: {
-                labels: ["Temperature", "Humidity", "Clouds", "Wind_Speed", "Wind_Deg", "Rain"],
+                labels: ['service1', 'service2', 'service3'],
                 datasets: [
                     {
-                        label: "Rivne",
-                        backgroundColor: "rgba(0, 0, 255, 0.5)",
-                        borderColor: "rgba(0,0,0,1)",
-                        pointBackgroundColor: "rgba(0, 0, 255, 1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: "rgba(179,181,198,1)",
-                        data: [12, 59, 90, 81, 56, 55]
-                    },
-                    {
-                        label: "Lutsk",
-                        backgroundColor: "rgba(0, 255, 0, 0.5)",
-                        borderColor: "rgba(0,0,132,1)",
-                        pointBackgroundColor: "rgba(0, 255, 0, 1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: "rgba(255,99,132,1)",
-                        data: [13, 48, 40, 19, 96, 27]
-                    },
-                    {
-                        label: "Lviv",
-                        backgroundColor: "rgba(0, 0, 255, 0.5)",
-                        borderColor: "rgba(0,99,132,1)",
-                        pointBackgroundColor: "rgba(0, 0, 255, 1)",
-                        pointBorderColor: "#fff",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: "rgba(255,99,132,1)",
-                        data: [15, 68, 40, 91, 60, 57]
+                        label: 'Temperature',
+                        data: [11, 9, 10],
+                        backgroundColor: [
+                            "rgba(255, 99, 132, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                            "rgba(255, 206, 86, 0.2)"
+                        ],
+                        borderColor: [
+                            "rgba(255, 99, 132, 1)",
+                            "rgba(54, 162, 235, 1)",
+                            "rgba(255, 206, 86, 1)"
+                        ],
+                        borderWidth: 1
                     }
                 ]
             },
@@ -198,12 +87,11 @@ app.appView = Backbone.View.extend({
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero:true
+                            beginAtZero: true
                         }
                     }]
                 }
             }
         });
     }
-
 });
