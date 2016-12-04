@@ -18,6 +18,11 @@ module.exports = (function () {
 
     var initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
+
+        // statisticsService.serviceDayStatistics();
+        // statisticsService.serviceMonthStatistics();
+        // statisticsService.cityDayStatistics();
+        // statisticsService.cityMonthStatistics();
         
         //TODO: To get data from API uncomment this !
         
@@ -27,12 +32,12 @@ module.exports = (function () {
         // }
         
     };
-    
+
     /**
-     *  @desc: Method returns an array of current weather from the database.
-     *  If the database not available -  returned mock data from JSON.
+     *  @desc: temporary methods to return data of MOCK.
      *
-    */
+     *
+     */
     var getServiceDayStat = function () {
         var path = './data/serviceDayStatMock.json';
         return readData(path);
@@ -49,6 +54,12 @@ module.exports = (function () {
         var path = './data/cityMonthStatMock.json';
         return readData(path);
     };
+    
+    /**
+     *  @desc: Method returns an array of current weather from the database.
+     *  If the database not available -  returned mock data from JSON.
+     *
+     */
     var getCurrentWeather = function () {        
         var currentWeatherJSONpath = './data/common_data.json';        
         var result = dataBaseService.getLastRecords(urlWeatherDataDB, 'unifiedWeather').then(function(items) {
