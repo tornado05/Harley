@@ -107,15 +107,67 @@ module.exports = (function () {
                         }
                     }, {
                         'avgHum': {
-                            'temp': avgValue('humidity', dataArr)
+                            'hum': avgValue('humidity', dataArr)
                         }
                     }, {
                         'avgWindSpeed': {
-                            'temp': avgValue('windSpeed', dataArr)
+                            'windSpeed': avgValue('windSpeed', dataArr)
                         }
                     }]
                 };
                 dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Day_Statistics', result);
+            }, function (err) {
+                console.error('Data is not collected!\n', err, err.stack);
+                logger.logError(err);
+            });
+        });
+    },
+
+    cityMonthStatistics = function (searchTime) {
+        var start = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
+            end = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
+            cities = [];
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 999);
+        _.each(config.getCitiesURLs(), function (city) {
+            cities.push(city.city);
+        });
+
+        _.each(_.uniq(cities), function (cityName) {
+            dataBaseService.getStatisticsOnCities(urlWeatherDataDB, 'unifiedWeather',
+                parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
+                console.info('Data services successfully collected!');
+
+                var result = {
+                    'time': dataArr[0].date,
+                    'city' : cityName,
+                    'stat': [{
+                        'minTemp': minValue('temp', dataArr)
+                    }, {
+                        'maxTemp': maxValue('temp', dataArr)
+                    }, {
+                        'minHum': minValue('humidity', dataArr)
+                    }, {
+                        'maxHum': maxValue('humidity', dataArr)
+                    }, {
+                        'minWindSpeed': minValue('windSpeed', dataArr)
+                    }, {
+                        'maxWindSpeed': maxValue('windSpeed', dataArr)
+                    }, {
+                        'avgTemp': {
+                            'temp': avgValue('temp', dataArr)
+                        }
+                    }, {
+                        'avgHum': {
+                            'hum': avgValue('humidity', dataArr)
+                        }
+                    }, {
+                        'avgWindSpeed': {
+                            'windSpeed': avgValue('windSpeed', dataArr)
+                        }
+                    }]
+                };
+                dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Month_Statistics', result);
             }, function (err) {
                 console.error('Data is not collected!\n', err, err.stack);
                 logger.logError(err);
@@ -153,11 +205,11 @@ module.exports = (function () {
                         }
                     }, {
                         'avgHum': {
-                            'temp': avgValue('humidity', dataArr, true)
+                            'hum': avgValue('humidity', dataArr, true)
                         }
                     }, {
                         'avgWindSpeed': {
-                            'temp': avgValue('windSpeed', dataArr, true)
+                            'windSpeed': avgValue('windSpeed', dataArr, true)
                         }
                     }]
                 };
@@ -199,14 +251,14 @@ module.exports = (function () {
                         }
                     }, {
                         'avgHum': {
-                            'temp': avgValue('humidity', dataArr, true)
+                            'hum': avgValue('humidity', dataArr, true)
                         }
                     }, {
                         'avgWindSpeed': {
-                            'temp': avgValue('windSpeed', dataArr, true)
+                            'windSpeed': avgValue('windSpeed', dataArr, true)
                         }
                     }]
-                };                
+                };
                 dataBaseService.setDataToDB(urlStatisticsDataDB, 'Service_Month_Statistics', result);
             }, function (err) {
                 console.error('Data is not collected!\n', err, err.stack);
@@ -218,6 +270,7 @@ module.exports = (function () {
     return {
         serviceDayStatistics: serviceDayStatistics,
         serviceMonthStatistics: serviceMonthStatistics,
-        cityDayStatistics: cityDayStatistics
+        cityDayStatistics: cityDayStatistics,
+        cityMonthStatistics: cityMonthStatistics
     };
 }());

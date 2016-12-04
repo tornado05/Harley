@@ -14,14 +14,15 @@ module.exports = (function () {
         date = new Date(),
         getDataOnlyOnce = false,
         currentWeatherJSONpath = './data/common_data.json',
-        currentStatJSONpath = './data/statisticMock.json';
+        currentStatJSONpath = './data/serviceDayStatMock.json';
 
     var initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-        
-        // statisticsService.serviceMonthStatistics(date);
-        // statisticsService.serviceDayStatistics(date);
-        // statisticsService.cityDayStatistics(date);
+        statisticsService.serviceDayStatistics(date);
+       statisticsService.serviceMonthStatistics(date);
+       statisticsService.cityDayStatistics(date);
+        statisticsService.cityMonthStatistics(date);
+        //getWeatherFromAPI.getWeatherData();
         
         //TODO: To get data from API uncomment this !
         
