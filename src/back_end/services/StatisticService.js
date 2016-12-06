@@ -1,14 +1,12 @@
 /*jslint nomen: true */
 'use strict';
-var config              = require('../config/config.js'),
+var config              = require('./../services/ConfigService.js'),
     dataBaseService     = require('../services/DataBaseService'),
     _                   = require('underscore'),
     logger              = require('./../services/logger.js'),
-    urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
-    urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject';
+    pathToDBs           = require('./../config/pathConfig.json');
 
 module.exports = (function () {
-
     var minValue = function (paramName, data, cityNameNeeded) {
         var lowest      = Number.POSITIVE_INFINITY,
             fieldName   = 'min_' + paramName,
@@ -26,9 +24,9 @@ module.exports = (function () {
         });
         if (cityNameNeeded) {
             return result;
-        } else {
-            return lowest;
         }
+        return lowest;
+
     },
         maxValue = function (paramName, data, cityNameNeeded) {
             var highest     = Number.NEGATIVE_INFINITY,
@@ -47,9 +45,8 @@ module.exports = (function () {
             });
             if (cityNameNeeded) {
                 return result;
-            } else {
-                return highest;
             }
+            return highest;
         },
 
         avgValue = function (paramName, data, cityNameNeeded) {
@@ -65,9 +62,8 @@ module.exports = (function () {
             });
             if (cityNameNeeded) {
                 return result;
-            } else {
-                return avg / data.length;
             }
+            return avg / data.length;
         },
 
 
@@ -82,7 +78,7 @@ module.exports = (function () {
             });
 
             _.each(_.uniq(cities), function (cityName) {
-                dataBaseService.getStatisticsOnCities(urlWeatherDataDB, 'unifiedWeather',
+                dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
                     console.info('Data services successfully collected!');
 
@@ -115,9 +111,8 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Day_Statistics', result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.City_Day_Statistics, result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });
@@ -134,7 +129,7 @@ module.exports = (function () {
             });
 
             _.each(_.uniq(cities), function (cityName) {
-                dataBaseService.getStatisticsOnCities(urlWeatherDataDB, 'unifiedWeather',
+                dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
                     console.info('Data services successfully collected!');
 
@@ -167,9 +162,8 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(urlStatisticsDataDB, 'City_Month_Statistics', result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.City_Month_Statistics, result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });
@@ -181,7 +175,7 @@ module.exports = (function () {
             start.setHours(0, 0, 0, 0);
             end.setHours(23, 59, 59, 999);
             _.each(config.getServicesNames(), function (service) {
-                dataBaseService.getStatisticsOnServices(urlWeatherDataDB, 'unifiedWeather',
+                dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
                     console.info('Data services successfully collected!');
                     var result = {
@@ -213,9 +207,8 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(urlStatisticsDataDB, 'Service_Day_Statistics', result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics, result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });
@@ -227,7 +220,7 @@ module.exports = (function () {
             start.setHours(0, 0, 0, 0);
             end.setHours(23, 59, 59, 999);
             _.each(config.getServicesNames(), function (service) {
-                dataBaseService.getStatisticsOnServices(urlWeatherDataDB, 'unifiedWeather',
+                dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
                     console.info('Data services successfully collected!');
                     var result = {
@@ -259,9 +252,8 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(urlStatisticsDataDB, 'Service_Month_Statistics', result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Month_Statistics, result);
                 }, function (err) {
-                    console.error('Data is not collected!\n', err, err.stack);
                     logger.logError(err);
                 });
             });

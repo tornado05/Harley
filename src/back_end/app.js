@@ -29,7 +29,7 @@ app.get('/weather/v01/stat/city/month', function (req, res) {
 });
 app.get('/weather/v01/current', function (req, res) {
     weatherController.getCurrentWeather().then(function (data) {
-        res.send(data)
+        res.send(data);
     });
 });
 
@@ -37,7 +37,7 @@ app.get('/weather/v01/current', function (req, res) {
 app.get('/weather/v01/statistic/day', function (req, res) {
     var date = new Date();
     weatherController.getDaysStatiscticData(date).then(function (data) {
-        res.send(data)
+        res.send(data);
     });
 });
 
