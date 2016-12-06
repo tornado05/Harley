@@ -29,10 +29,10 @@ module.exports = (function () {
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
             //getWeatherFromAPI.getWeatherData();
-            statisticsService.serviceDayStatistics(date);
-            statisticsService.serviceMonthStatistics(date);
-            statisticsService.cityDayStatistics(date);
-            statisticsService.cityMonthStatistics(date);
+            //statisticsService.serviceDayStatistics(date);
+            //statisticsService.serviceMonthStatistics(date);
+            //statisticsService.cityDayStatistics(date);
+            //statisticsService.cityMonthStatistics(date);
         //TODO: To get data from API uncomment this !
         // if (!getDataOnlyOnce) {
         //     data = getWeatherFromAPI.getWeatherData();
