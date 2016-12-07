@@ -36,7 +36,7 @@ app.get('/weather/v01/current', function (req, res) {
 //TODO: Make parameters for send day or time interval
 app.get('/weather/v01/statistic/day', function (req, res) {
     var date = new Date();
-    weatherController.getDaysStatiscticData(date).then(function (data) {
+    weatherController.getServiceDayStat(date).then(function (data) {
         res.send(data);
     });
 });

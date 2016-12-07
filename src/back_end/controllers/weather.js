@@ -12,7 +12,6 @@ var logger = require('./../services/logger.js'),
 module.exports = (function () {
     var data = [],
         date = new Date(),
-        getDataOnlyOnce = false,
         currentWeatherJSONpath = './data/common_data.json',
         currentStatJSONpath = './data/serviceDayStatMock.json',
 
@@ -28,27 +27,20 @@ module.exports = (function () {
 
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-            //getWeatherFromAPI.getWeatherData();
-            //statisticsService.serviceDayStatistics(date);
-            //statisticsService.serviceMonthStatistics(date);
-            //statisticsService.cityDayStatistics(date);
-            //statisticsService.cityMonthStatistics(date);
+        
+            // statisticsService.serviceDayStatistics(date);
+            // statisticsService.serviceMonthStatistics(date);
+            // statisticsService.cityDayStatistics(date);
+            // statisticsService.cityMonthStatistics(date);
         //TODO: To get data from API uncomment this !
-        // if (!getDataOnlyOnce) {
-        //     data = getWeatherFromAPI.getWeatherData();
-        //     getDataOnlyOnce = true;
-        // }
+            //getWeatherFromAPI.getWeatherData();
         },
 
     /**
      *  @desc: temporary methods to return data of MOCK.
      *
      *
-     */
-        getServiceDayStat = function () {
-            var path = './data/serviceDayStatMock.json';
-            return readData(path);
-        },
+     */        
         getServiceMonthStat = function () {
             var path = './data/serviceMonthStatMock.json';
             return readData(path);
@@ -67,21 +59,21 @@ module.exports = (function () {
      *
      */
         getCurrentWeather = function () {
-
-            dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName).then(function (items) {
+            var result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName).then(function (items) {
                 console.info('The current weather data from DB returned successfully!');
                 return items;
             }, function (err) {
                 logger.logError(err);
                 return readData(currentWeatherJSONpath);
             });
+            return result;
         },
     /**
      * @desc:
      * Method returns an array of day statistic from the database.
      * If the database not available -  returned mock data from JSON.
      */
-        getDaysStatiscticData = function (date) {
+    getServiceDayStat = function (date) {
             var start = new Date(date.getTime()),
                 end = new Date(date.getTime());
             start.setHours(0, 0, 0, 0);
@@ -95,19 +87,20 @@ module.exports = (function () {
     //         return readData(currentStatJSONpath);
     //     });
     //     return result;
-            dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, 'Day_Statistics').then(function (items) {
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics).then(function (items) {
                 console.info('All statistic data from DB has been returned successfully!');
                 return items;
             }, function (err) {
                 logger.logError(err);
-                return readData(currentStatJSONpath);
+                var path = './data/serviceDayStatMock.json';
+                return readData(path);
             });
-        };
+            return result;
+        };    
 
     return {
         initialize: initialize,
         getCurrentWeather: getCurrentWeather,
-        getDaysStatiscticData: getDaysStatiscticData,
         getServiceDayStat: getServiceDayStat,
         getServiceMonthStat: getServiceMonthStat,
         getCityDayStat: getCityDayStat,

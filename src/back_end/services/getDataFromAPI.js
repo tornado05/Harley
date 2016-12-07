@@ -4,7 +4,7 @@ var request                         = require('request'),
     MongoClient                     = require('mongodb').MongoClient,
     mapperService                   = require('../services/mapperService'),
     dataBaseService                 = require('../services/DataBaseService'),
-    pathToDBs                            = require('./../config/pathConfig.json'),
+    pathToDBs                       = require('./../config/pathConfig.json'),
     logger                          = require('./../services/logger.js');
 
 module.exports = (function () {
