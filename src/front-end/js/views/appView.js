@@ -22,6 +22,44 @@ app.appView = Backbone.View.extend({
         }
     ],
 
+    params: [
+        {
+            name: 'temp',
+            label: 'Temperature',
+            units: 'C'
+        },
+        {
+            name: 'pressure',
+            label: 'Pressure',
+            units: 'mmHg'
+        },
+        {
+            name: 'humidity',
+            label: 'Humidity',
+            units: '%'
+        },
+        {
+            name: 'windSpeed',
+            label: 'Wind speed',
+            units: 'meter/sec'
+        },
+        {
+            name: 'windDir',
+            label: 'Wind direction',
+            units: 'degrees'
+        },
+        {
+            name: 'clouds',
+            label: 'Clouds',
+            units: '%'
+        }
+
+    ],
+
+    events: {
+        "change .cur-params": "showCurrentWeatherChart"
+    },
+
     initialize: function () {
         this.currentData.fetch();
         this.listenTo(this.currentData, 'update', this.render)
@@ -44,8 +82,8 @@ app.appView = Backbone.View.extend({
         //TODO: move path to config file
         L.Icon.Default.imagePath = '../img/images';
         //TODO: take this from configs
-        var currentCityWeather = this.currentData.getCurrentAverageData(this.cities);
-        //TODO get coords from config file
+        var currentCityWeather = this.currentData.getAverageData(this.cities);
+        //TODO get cords from config file
         _.each(currentCityWeather, function (city) {
             L.marker(city.cords).addTo(ourMap).bindPopup(templates.render('popup_current_city_weather', {
                 city: city.name,
@@ -57,28 +95,31 @@ app.appView = Backbone.View.extend({
         });
     },
 
-    showCurrentWeatherChart: function () {
+    showCurrentWeatherChart: function (event) {
         var ctx = this.$el.find("#chart-current-weather");
-        var label = [];
+        var city = this.$el.find('select[name="city"]').val() || _.first(this.cities).name;
+        var param = this.$el.find('select[name="param"]').val() || _.first(this.params).name;
+        var label = this._createLabel(city, param);
+        var chartParams = this.currentData.getWeatherByParams(city, param);
         var currentWeather = new Chart(ctx, {
-            type: 'horizontalBar',
+            type: 'bar',
             data: {
-                labels: ['service1', 'service2', 'service3'],
+                labels: chartParams.labels,
                 datasets: [
                     {
-                        label: 'Temperature',
-                        data: [11, 9, 10],
+                        label: label,
+                        data: chartParams.data,
                         backgroundColor: [
-                            "rgba(255, 99, 132, 0.2)",
-                            "rgba(54, 162, 235, 0.2)",
-                            "rgba(255, 206, 86, 0.2)"
+                            "rgba(103, 58, 183, 0.3)",
+                            "rgba(63, 81, 181, 0.3)",
+                            "rgba(33, 150, 243, 0.3)"
                         ],
                         borderColor: [
-                            "rgba(255, 99, 132, 1)",
-                            "rgba(54, 162, 235, 1)",
-                            "rgba(255, 206, 86, 1)"
+                            "rgba(103, 58, 183, 1)",
+                            "rgba(63, 81, 181, 1)",
+                            "rgba(33, 150, 243, 1)"
                         ],
-                        borderWidth: 1
+                        borderWidth: 2
                     }
                 ]
             },
@@ -89,9 +130,26 @@ app.appView = Backbone.View.extend({
                         ticks: {
                             beginAtZero: true
                         }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        barPercentage: 0.5
                     }]
                 }
             }
         });
+    },
+
+    _createLabel: function (city, param){
+        _.each(this.params, function (item){
+            console.log(item.name +"=="+ param);
+            if (item.name == param) {
+                param = item;
+            }
+        });
+
+        return param.label + ' in ' + city + ' (' + param.units + ')';
     }
 });
