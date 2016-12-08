@@ -109,7 +109,7 @@ gulp.task('vendor-images', function () {
 gulp.task('fonts', function(){
     return gulp.src([
         './src/front-end/fonts/roboto/**/**',
-        './src/front-end/fonts/material-design-icons/**/*.*'
+        './src/front-end/fonts/Material-Design-Icons/**/*.*'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
@@ -174,6 +174,11 @@ gulp.task('update-front-end', [
 gulp.task('layout', [
     'front-end',
     'browser-sync',
+    'watch-fr'
+]);
+
+gulp.task('backbone', [
+    'front-end',
     'watch-fr'
 ]);
 
