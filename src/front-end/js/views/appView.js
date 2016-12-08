@@ -7,6 +7,8 @@ app.appView = Backbone.View.extend({
 
     currentData: new app.currentWeatherCollection(),
 
+    currentWeatherChart: null,
+
     cities: [
         {
             name: "Rivne",
@@ -57,7 +59,7 @@ app.appView = Backbone.View.extend({
     ],
 
     events: {
-        "change .cur-params": "showCurrentWeatherChart"
+        "change .cur-params": "changeDatasets"
     },
 
     initialize: function () {
@@ -82,6 +84,7 @@ app.appView = Backbone.View.extend({
         //TODO: move path to config file
         L.Icon.Default.imagePath = '../img/images';
         //TODO: take this from configs
+        
         var currentCityWeather = this.currentData.getAverageData(this.cities);
         //TODO get cords from config file
         _.each(currentCityWeather, function (city) {
@@ -95,13 +98,14 @@ app.appView = Backbone.View.extend({
         });
     },
 
-    showCurrentWeatherChart: function (event) {
+    showCurrentWeatherChart: function () {
         var ctx = this.$el.find("#chart-current-weather");
-        var city = this.$el.find('select[name="city"]').val() || _.first(this.cities).name;
-        var param = this.$el.find('select[name="param"]').val() || _.first(this.params).name;
+        var city = _.first(this.cities).name;
+        var param = _.first(this.params).name;
         var label = this._createLabel(city, param);
+        
         var chartParams = this.currentData.getWeatherByParams(city, param);
-        var currentWeather = new Chart(ctx, {
+        this.currentWeatherChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: chartParams.labels,
@@ -144,12 +148,22 @@ app.appView = Backbone.View.extend({
 
     _createLabel: function (city, param){
         _.each(this.params, function (item){
-            console.log(item.name +"=="+ param);
             if (item.name == param) {
                 param = item;
             }
         });
 
         return param.label + ' in ' + city + ' (' + param.units + ')';
+    },
+
+    changeDatasets: function (){
+        var city = this.$el.find('select[name="city"]').val() || _.first(this.cities).name;
+        var param = this.$el.find('select[name="param"]').val() || _.first(this.params).name;
+        var label = this._createLabel(city, param);
+        var chartParams = this.currentData.getWeatherByParams(city, param);
+        console.log(this.currentWeatherChart);
+        this.currentWeatherChart.data.datasets[0].label = label;
+        this.currentWeatherChart.data.datasets[0].data = chartParams.data;
+        this.currentWeatherChart.update();
     }
 });

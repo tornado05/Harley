@@ -53,7 +53,6 @@ app.currentWeatherCollection = Backbone.Collection.extend({
         //console.log('City: '+city + ' | Param: '+param);
         _.each(this.models, function (model){
             if (model.get('cityName') == city){
-                console.log(model);
                 result.labels.push(model.get('sourceAPI'));
                 result.data.push(model.get(param));
             }
