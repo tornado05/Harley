@@ -99,13 +99,11 @@ app.appView = Backbone.View.extend({
     },
 
     showCurrentWeatherChart: function () {
-        var ctx = this.$el.find("#chart-current-weather");
         var city = _.first(this.cities).name;
         var param = _.first(this.params).name;
         var label = this._createLabel(city, param);
-        
         var chartParams = this.currentData.getWeatherByParams(city, param);
-        this.currentWeatherChart = new Chart(ctx, {
+        this.currentWeatherChart = new Chart(this.$el.find("#chart-current-weather"), {
             type: 'bar',
             data: {
                 labels: chartParams.labels,
@@ -138,8 +136,7 @@ app.appView = Backbone.View.extend({
                     xAxes: [{
                         ticks: {
                             beginAtZero: true
-                        },
-                        barPercentage: 0.5
+                        }
                     }]
                 }
             }
@@ -161,7 +158,6 @@ app.appView = Backbone.View.extend({
         var param = this.$el.find('select[name="param"]').val() || _.first(this.params).name;
         var label = this._createLabel(city, param);
         var chartParams = this.currentData.getWeatherByParams(city, param);
-        console.log(this.currentWeatherChart);
         this.currentWeatherChart.data.datasets[0].label = label;
         this.currentWeatherChart.data.datasets[0].data = chartParams.data;
         this.currentWeatherChart.update();
