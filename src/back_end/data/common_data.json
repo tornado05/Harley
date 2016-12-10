@@ -109,7 +109,7 @@
     "humidity": 89,
     "windSpeed": 0,
     "windDir": 23,
-    "clouds": null,
+    "clouds": 0,
     "fallOut": "none",
     "sourceAPI": "wunderground",
     "coords": {
@@ -126,7 +126,7 @@
     "humidity": 81,
     "windSpeed": 0,
     "windDir": 200,
-    "clouds": null,
+    "clouds": 0,
     "fallOut": "none",
     "sourceAPI": "wunderground",
     "coords": {
@@ -143,7 +143,7 @@
     "humidity": 94,
     "windSpeed": 4.8,
     "windDir": 222,
-    "clouds": null,
+    "clouds": 0,
     "fallOut": "none",
     "sourceAPI": "wunderground",
     "coords": {
