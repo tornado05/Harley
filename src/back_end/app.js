@@ -29,15 +29,15 @@ app.get('/weather/v01/stat/city/month', function (req, res) {
 });
 app.get('/weather/v01/current', function (req, res) {
     weatherController.getCurrentWeather().then(function (data) {
-        res.send(data)
+        res.send(data);
     });
 });
 
 //TODO: Make parameters for send day or time interval
 app.get('/weather/v01/statistic/day', function (req, res) {
     var date = new Date();
-    weatherController.getDaysStatiscticData(date).then(function (data) {
-        res.send(data)
+    weatherController.getServiceDayStat(date).then(function (data) {
+        res.send(data);
     });
 });
 
