@@ -10,8 +10,7 @@ app.currentWeatherCollection = Backbone.Collection.extend({
     model: app.currentWeatherModel,
 
     getAverageData: function (cities){
-        //TODO: take services value from config
-        var services = 3; // number of services
+        var services = this._getAllServices();
         _.each(this.models, function (model){
             _.each(cities, function(city){
                if (model.get('cityName') == city.name){
@@ -29,6 +28,14 @@ app.currentWeatherCollection = Backbone.Collection.extend({
             city.fallOut = this._formatFallOut(city.fallOut);
         }, this);
         return cities;
+    },
+    
+    _getAllServices: function() {
+        var services = [];
+        _.each(this.models, function (model) {
+            services.push(model.get('sourceAPI'));
+        });
+        return _.uniq(services).length;
     },
 
     _formatFallOut: function (fallOut){
@@ -50,14 +57,12 @@ app.currentWeatherCollection = Backbone.Collection.extend({
             labels:[],
             data:[]
         };
-        //console.log('City: '+city + ' | Param: '+param);
         _.each(this.models, function (model){
             if (model.get('cityName') == city){
                 result.labels.push(model.get('sourceAPI'));
                 result.data.push(model.get(param));
             }
         });
-        //console.log(result);
         return result;
     }
 });
