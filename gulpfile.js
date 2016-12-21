@@ -103,7 +103,7 @@ gulp.task('vendor-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/*.*'
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/css/images'));
+        .pipe(gulp.dest(DIST_DIR + '/public/img/images'));
 });
 
 gulp.task('fonts', function(){
