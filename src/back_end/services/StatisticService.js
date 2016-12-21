@@ -65,7 +65,61 @@ module.exports = (function () {
             }
             return avg / data.length;
         },
+        
+        serviceDayStatisticByCity = function (searchTime) {
+            var start = new Date(searchTime.getTime()),
+                end = new Date(searchTime.getTime()),
+                cities = [];
+            start.setHours(0, 0, 0, 0);
+            end.setHours(23, 59, 59, 999);
+            _.each(config.getCitiesURLs(), function (city) {
+                cities.push(city.city);
+            });
 
+            _.each(_.uniq(cities), function (cityName) {
+                _.each(_.uniq(config.getServicesNames()), function(serviceName) {
+                    dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
+                        parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName, serviceName).then(function (dataArr) {
+                        console.info('Data services successfully collected!');
+
+                        var result = {
+                            'time': dataArr[0].date,
+                            'city' : cityName,
+                            'service' : serviceName,
+                            'stat': [{
+                                'minTemp': minValue('temp', dataArr)
+                            }, {
+                                'maxTemp': maxValue('temp', dataArr)
+                            }, {
+                                'minHum': minValue('humidity', dataArr)
+                            }, {
+                                'maxHum': maxValue('humidity', dataArr)
+                            }, {
+                                'minWindSpeed': minValue('windSpeed', dataArr)
+                            }, {
+                                'maxWindSpeed': maxValue('windSpeed', dataArr)
+                            }, {
+                                'avgTemp': {
+                                    'temp': avgValue('temp', dataArr)
+                                }
+                            }, {
+                                'avgHum': {
+                                    'hum': avgValue('humidity', dataArr)
+                                }
+                            }, {
+                                'avgWindSpeed': {
+                                    'windSpeed': avgValue('windSpeed', dataArr)
+                                }
+                            }]
+                        };
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics_by_Cities, result);
+                    }, function (err) {
+                        logger.logError(err);
+                    });
+                });
+
+            });
+        },
 
         cityDayStatistics = function (searchTime) {
             var start = new Date(searchTime.getTime()),
@@ -263,6 +317,7 @@ module.exports = (function () {
         serviceDayStatistics: serviceDayStatistics,
         serviceMonthStatistics: serviceMonthStatistics,
         cityDayStatistics: cityDayStatistics,
-        cityMonthStatistics: cityMonthStatistics
+        cityMonthStatistics: cityMonthStatistics,
+        serviceDayStatisticByCity: serviceDayStatisticByCity
     };
 }());

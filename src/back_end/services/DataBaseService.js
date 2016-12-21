@@ -32,6 +32,19 @@ module.exports = (function () {
             });
         },
 
+        getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
+            return MongoClient.connect(url).then(function (db) {
+                var collection = db.collection(collectionName);
+                return {
+                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}, {'sourceAPI' : serviceName}]}).toArray(),
+                    db: db
+                }
+            }).then(function (items) {
+                items.db.close();
+                return items.data;
+            });
+        },
+
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
@@ -89,6 +102,7 @@ module.exports = (function () {
         getDayStatistics: getDayStatistics,
         getStatisticsOnServices: getStatisticsOnServices,
         getStatisticsOnCities: getStatisticsOnCities,
-        getAllStatistic: getAllStatistic
+        getAllStatistic: getAllStatistic,
+        getServiceStatisticsByCities: getServiceStatisticsByCities
     };
 }());
