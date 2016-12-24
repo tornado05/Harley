@@ -7,23 +7,19 @@ module.exports = (function () {
     var getLastRecords = function (url, collectionName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
-                return collection.find().sort({$natural: -1}).limit(9).toArray();
+                return {
+                    data: collection.find().sort({$natural: -1}).limit(9).toArray(),
+                    db : db
+                }
             }).then(function (items) {
-                return items;
+                items.db.close();
+                return items.data;
             });
-
-            /*
-             * TODO: need to close connections !!! important;
-             * finally(function() {
-             db.close();
-             });
-             * */
         },
 
         setDataToDB = function (url, collectionName, data) {
             MongoClient.connect(url, function (error, db) {
                 if (error) {
-
                     logger.logError(error);
                 }
                 var collection = db.collection(collectionName);
@@ -39,35 +35,51 @@ module.exports = (function () {
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
-                return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray();
+                return {
+                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    db: db
+                }
             }).then(function (items) {
-                return items;
+                items.db.close();
+                return items.data;
             });
         },
         getStatisticsOnServices = function (url, collectionName, start, end, service) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
-                return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray();
+                return {
+                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
+                    db: db
+                }
             }).then(function (items) {
-                return items;
+                items.db.close();
+                return items.data;
             });
         },
 
         getStatisticsOnCities = function (url, collectionName, start, end, cityName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
-                return collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray();
+                return {
+                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
+                    db: db
+                }
             }).then(function (items) {
-                return items;
+                items.db.close();
+                return items.data;
             });
         },
 
         getAllStatistic = function (url, collectionName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
-                return collection.find({}).toArray();
+                return {
+                    data: collection.find({}).toArray(),
+                    db: db
+                }
             }).then(function (items) {
-                return items;
+                items.db.close();
+                return items.data;
             });
         };
 
