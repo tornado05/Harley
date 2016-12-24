@@ -1,5 +1,3 @@
 var app = app || {};
 
-app.currentWeatherModel = Backbone.Model.extend({
-    
-});
+app.currentWeatherModel = Backbone.Model.extend({});
