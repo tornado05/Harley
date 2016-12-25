@@ -27,13 +27,13 @@ module.exports = (function () {
 
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-        
             // statisticsService.serviceDayStatistics(date);
             // statisticsService.serviceMonthStatistics(date);
             // statisticsService.cityDayStatistics(date);
             // statisticsService.cityMonthStatistics(date);
+            // statisticsService.serviceDayStatisticByCity(date);
         //TODO: To get data from API uncomment this !
-            //getWeatherFromAPI.getWeatherData();
+        //     getWeatherFromAPI.getWeatherData();
         },
 
     /**
@@ -96,7 +96,31 @@ module.exports = (function () {
                 return readData(path);
             });
             return result;
-        };    
+    },
+    getServiceDayStatByCities = function (date) {
+        var start = new Date(date.getTime()),
+            end = new Date(date.getTime());
+        start.setHours(0, 0, 0, 0);
+        end.setHours(23, 59, 59, 999);
+        //TODO: Use this method after router get params
+        //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
+        //         console.info('The statistic data from DB returned successfully!');
+        //         return items;
+        //     }, function(err) {
+        //         console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
+        //         return readData(currentStatJSONpath);
+        //     });
+        //     return result;
+        var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics_by_Cities).then(function (items) {
+            console.info('All statistic data from DB has been returned successfully!');
+            return items;
+        }, function (err) {
+            logger.logError(err);
+            var path = './data/serviceDayStatByCities.json';
+            return readData(path);
+        });
+        return result;
+    };
 
     return {
         initialize: initialize,
@@ -104,6 +128,7 @@ module.exports = (function () {
         getServiceDayStat: getServiceDayStat,
         getServiceMonthStat: getServiceMonthStat,
         getCityDayStat: getCityDayStat,
-        getCityMonthStat: getCityMonthStat
+        getCityMonthStat: getCityMonthStat,
+        getServiceDayStatByCities: getServiceDayStatByCities
     };
 }());

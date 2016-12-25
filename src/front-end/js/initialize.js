@@ -1,9 +1,15 @@
+'use strict';
 var app = app || {};
 
 $(function () {
-    'use strict';
+    /**
+     * Initialize of Application
+     */
     window.WeatherApplication = new app.appView();
 
+    /**
+     * Initialization of materialize menu button
+     */
     $('.button-collapse').sideNav({
             menuWidth: 300, // Default is 240
             edge: 'right', // Choose the horizontal origin
@@ -11,5 +17,16 @@ $(function () {
             draggable: true // Choose whether you can drag to open on touch screens
         }
     );
+
+    /**
+     * Shows max value from array.
+     * Necessary for correct work of weatherDataService
+     *
+     * @param array
+     * @returns {number}
+     */
+    Array.max = function( array ){
+        return Math.max.apply( Math, array );
+    };
     
 });

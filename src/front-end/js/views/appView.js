@@ -20,7 +20,7 @@ app.appView = Backbone.View.extend({
                 cords: [50.4308286, 30.4966362]
             },
             {
-                name: "Lutsk",
+                name: "Luts'k",
                 cords: [50.73977, 25.2639655]
             }
         ],

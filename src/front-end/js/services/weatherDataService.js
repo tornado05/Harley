@@ -1,19 +1,10 @@
 var weatherDataService = (function () {
     
-    /**
-     * Apply max method to find the biggest value from array
-     * Necessary for correct work of _formatFallOut method
-     */
-    var initialize = function(){
-        Array.max = function( array ){
-            return Math.max.apply( Math, array );
-        };
-    };
-
     var getAverageParams = function (collection, cities) {
-        initialize();
+        console.log(collection);
         var services = collection.getAllServices();
         _.each(collection.models, function (model) {
+            //TODO: move this into another function
             _.each(cities, function (city) {
                 if (model.get('cityName') == city.name) {
                     city.temp ? city.temp += model.get('temp') : city.temp = model.get('temp');
@@ -34,13 +25,16 @@ var weatherDataService = (function () {
 
     var _formatFallOut = function (fallOut) {
         var countedData = {};
-        _.each(fallOut.split('-'), function (i) {
+        var strFallOut = new String(fallOut);
+
+        _.each(strFallOut.split('-'), function (i) {
             if (_.isNumber(countedData[i])) {
                 countedData[i]++
             } else {
                 countedData[i] = 1;
             }
         });
+
         if (_.size(countedData) == 1) {
             return _.keys(countedData)[0];
         } else {
