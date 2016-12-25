@@ -57,35 +57,37 @@ app.appView = Backbone.View.extend({
             }
 
         ],
-        colors: {
-            background: [
-                "rgba(103, 58, 183, 0.3)",
-                "rgba(63, 81, 181, 0.3)",
-                "rgba(33, 150, 243, 0.3)"
-            ],
-            border: [
-                "rgba(103, 58, 183, 1)",
-                "rgba(63, 81, 181, 1)",
-                "rgba(33, 150, 243, 1)"
-            ]
+        chart: {
+            options: {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            },
+            images: '../img/images',
+            colors: {
+                background: [
+                    "rgba(103, 58, 183, 0.3)",
+                    "rgba(63, 81, 181, 0.3)",
+                    "rgba(33, 150, 243, 0.3)"
+                ],
+                border: [
+                    "rgba(103, 58, 183, 1)",
+                    "rgba(63, 81, 181, 1)",
+                    "rgba(33, 150, 243, 1)"
+                ]
+            },
         },
-        chartOptions: {
-            responsive: true,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        },
-        images: '../img/images',
-        mapOptions:{
+        map:{
             startPoint: [50.9, 27.8],
             startZoom: 7,
             url: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
@@ -110,15 +112,15 @@ app.appView = Backbone.View.extend({
     },
 
     showMap: function () {
-        var ourMap = L.map('map').setView(this.appConfig.mapOptions.startPoint, this.appConfig.mapOptions.startZoom);
-        L.tileLayer(this.appConfig.mapOptions.url, {
+        var ourMap = L.map('map').setView(this.appConfig.map.startPoint, this.appConfig.map.startZoom);
+        L.tileLayer(this.appConfig.map.url, {
             attribution: templates.render('map_attribution', {}),
-            maxZoom: this.appConfig.mapOptions.maxZoom,
-            id: this.appConfig.mapOptions.tilesId,
-            accessToken: this.appConfig.mapOptions.token
+            maxZoom: this.appConfig.map.maxZoom,
+            id: this.appConfig.map.tilesId,
+            accessToken: this.appConfig.map.token
         }).addTo(ourMap);
-        L.Icon.Default.imagePath = this.appConfig.images;
-        var currentCityWeather = this.currentData.getAverageData(this.appConfig.cities);
+        L.Icon.Default.imagePath = this.appConfig.chart.images;
+        var currentCityWeather = weatherDataService.getAverageParams(this.currentData, this.appConfig.cities);
         _.each(currentCityWeather, function (city) {
             L.marker(city.cords).addTo(ourMap).bindPopup(templates.render('popup_current_city_weather', {
                 city: city.name,
@@ -131,11 +133,10 @@ app.appView = Backbone.View.extend({
     },
 
     showCurrentWeatherChart: function () {
-        var city = _.first(this.appConfig.cities).name;
-        var param = _.first(this.appConfig.params).name;
-        var label = this._createLabel(city, param);
-        console.log(label);
-        var chartParams = this.currentData.getWeatherByParams(city, param);
+        var city        = _.first(this.appConfig.cities).name,
+            param       = _.first(this.appConfig.params).name,
+            label       = this._createLabel(city, param),
+            chartParams = this.currentData.getWeatherByParams(city, param);
         this.currentWeatherChart = new Chart(this.$el.find("#chart-current-weather"), {
             type: 'bar',
             data: {
@@ -144,13 +145,13 @@ app.appView = Backbone.View.extend({
                     {
                         label: label,
                         data: chartParams.data,
-                        backgroundColor: this.appConfig.colors.background,
-                        borderColor: this.appConfig.colors.border,
+                        backgroundColor: this.appConfig.chart.colors.background,
+                        borderColor: this.appConfig.chart.colors.border,
                         borderWidth: 2
                     }
                 ]
             },
-            options: this.appConfig.chartOptions
+            options: this.appConfig.chart.options
         });
     },
 
@@ -164,12 +165,12 @@ app.appView = Backbone.View.extend({
     },
 
     changeDatasets: function () {
-        var city = this.$el.find('select[name="city"]').val() || _.first(this.appConfig.cities).name;
-        var param = this.$el.find('select[name="param"]').val() || _.first(this.appConfig.params).name;
-        var label = this._createLabel(city, param);
-        var chartParams = this.currentData.getWeatherByParams(city, param);
-        this.currentWeatherChart.data.datasets[0].label = label;
-        this.currentWeatherChart.data.datasets[0].data = chartParams.data;
+        var city        = this.$el.find('select[name="city"]').val() || _.first(this.appConfig.cities).name,
+            param       = this.$el.find('select[name="param"]').val() || _.first(this.appConfig.params).name,
+            label       = this._createLabel(city, param),
+            chartParams = this.currentData.getWeatherByParams(city, param);
+        _.first(this.currentWeatherChart.data.datasets).label = label;
+        _.first(this.currentWeatherChart.data.datasets).data = chartParams.data;
         this.currentWeatherChart.update();
     }
 });
