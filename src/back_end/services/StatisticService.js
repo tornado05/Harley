@@ -1,9 +1,9 @@
 /*jslint nomen: true */
 'use strict';
-var config              = require('./../services/ConfigService.js'),
-    dataBaseService     = require('../services/DataBaseService'),
-    _                   = require('underscore'),
-    logger              = require('./../services/logger.js'),
+var config              = require('./ConfigService.js'),
+    dataBaseService     = require('./DataBaseService'),
+    _                   = require('lodash'),
+    logger              = require('./logger.js'),
     pathToDBs           = require('./../config/pathConfig.json');
 
 module.exports = (function () {
@@ -66,7 +66,7 @@ module.exports = (function () {
             return avg / data.length;
         },
         
-        serviceDayStatisticByCity = function (searchTime) {
+        serviceDayStatisticByCity = function (searchTime){
             var start = new Date(searchTime.getTime()),
                 end = new Date(searchTime.getTime()),
                 cities = [];
@@ -80,7 +80,7 @@ module.exports = (function () {
                 _.each(_.uniq(config.getServicesNames()), function(serviceName) {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName, serviceName).then(function (dataArr) {
-                        console.info('Data services successfully collected!');
+                        //console.info('Data services successfully collected!');
 
                         var result = {
                             'time': dataArr[0].date,
@@ -112,7 +112,63 @@ module.exports = (function () {
                                 }
                             }]
                         };
-                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics_by_Cities, result);
+                        //console.log(result);
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, result);
+                    }, function (err) {
+                        logger.logError(err);
+                    });
+                });
+
+            });
+        },
+
+        serviceMonthStatisticByCity = function (searchTime) {
+            var start = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
+                end = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
+                cities = [];
+            start.setHours(0, 0, 0, 0);
+            end.setHours(23, 59, 59, 999);
+            _.each(config.getCitiesURLs(), function (city) {
+                cities.push(city.city);
+            });
+
+            _.each(_.uniq(cities), function (cityName) {
+                _.each(_.uniq(config.getServicesNames()), function(serviceName) {
+                    dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
+                        parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName, serviceName).then(function (dataArr) {
+                        //console.info('Data services successfully collected!');
+
+                        var result = {
+                            'time': dataArr[0].date,
+                            'city' : cityName,
+                            'service' : serviceName,
+                            'stat': [{
+                                'minTemp': minValue('temp', dataArr)
+                            }, {
+                                'maxTemp': maxValue('temp', dataArr)
+                            }, {
+                                'minHum': minValue('humidity', dataArr)
+                            }, {
+                                'maxHum': maxValue('humidity', dataArr)
+                            }, {
+                                'minWindSpeed': minValue('windSpeed', dataArr)
+                            }, {
+                                'maxWindSpeed': maxValue('windSpeed', dataArr)
+                            }, {
+                                'avgTemp': {
+                                    'temp': avgValue('temp', dataArr)
+                                }
+                            }, {
+                                'avgHum': {
+                                    'hum': avgValue('humidity', dataArr)
+                                }
+                            }, {
+                                'avgWindSpeed': {
+                                    'windSpeed': avgValue('windSpeed', dataArr)
+                                }
+                            }]
+                        };
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, result);
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -134,7 +190,7 @@ module.exports = (function () {
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
-                    console.info('Data services successfully collected!');
+                    //console.info('Data services successfully collected!');
 
                     var result = {
                         'time': dataArr[0].date,
@@ -165,7 +221,7 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.City_Day_Statistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, result);
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -185,7 +241,7 @@ module.exports = (function () {
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
-                    console.info('Data services successfully collected!');
+                    //console.info('Data services successfully collected!');
 
                     var result = {
                         'time': dataArr[0].date,
@@ -216,7 +272,7 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.City_Month_Statistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, result);
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -261,7 +317,7 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, result);
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -276,7 +332,7 @@ module.exports = (function () {
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
-                    console.info('Data services successfully collected!');
+                    //console.info('Data services successfully collected!');
                     var result = {
                         'time': dataArr[0].date,
                         'service' : service,
@@ -306,7 +362,7 @@ module.exports = (function () {
                             }
                         }]
                     };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Month_Statistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, result);
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -318,6 +374,7 @@ module.exports = (function () {
         serviceMonthStatistics: serviceMonthStatistics,
         cityDayStatistics: cityDayStatistics,
         cityMonthStatistics: cityMonthStatistics,
-        serviceDayStatisticByCity: serviceDayStatisticByCity
+        serviceDayStatisticByCity: serviceDayStatisticByCity,
+        serviceMonthStatisticByCity: serviceMonthStatisticByCity
     };
 }());

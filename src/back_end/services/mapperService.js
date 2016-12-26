@@ -1,8 +1,8 @@
 'use strict';
-var config = require('./../services/ConfigService.js'),
+var config = require('./ConfigService.js'),
     MongoClient = require('mongodb').MongoClient,
     pathToDBs  = require('./../config/pathConfig.json'),
-    logger = require('./../services/logger.js');
+    logger = require('./logger.js');
 
 module.exports = (function () {
 

@@ -1,10 +1,11 @@
 {
   "dataAfterMapperCollectionName": "unifiedWeather",
-  "City_Day_Statistics": "City_Day_Statistics",
-  "City_Month_Statistics": "City_Month_Statistics",
-  "Service_Day_Statistics": "Service_Day_Statistics",
-  "Service_Day_Statistics_by_Cities": "Service_Day_Statistics_by_Cities",
-  "Service_Month_Statistics": "Service_Month_Statistics",
+  "CityDayStatistics": "CityDayStatistics",
+  "CityMonthStatistics": "CityMonthStatistics",
+  "ServiceDayStatistics": "ServiceDayStatistics",
+  "ServiceMonthStatisticsByCity": "ServiceMonthStatisticsByCity",
+  "ServiceDayStatisticsByCity": "ServiceDayStatisticsByCity",
+  "ServiceMonthStatistics": "ServiceMonthStatistics",
   "urlWeatherDataDB": "mongodb://localhost:27017/weatherProject",
   "urlStatisticsDataDB": "mongodb://localhost:27017/Weather_Statistics"
 }

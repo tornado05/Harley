@@ -27,13 +27,14 @@ module.exports = (function () {
 
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-            // statisticsService.serviceDayStatistics(date);
-            // statisticsService.serviceMonthStatistics(date);
-            // statisticsService.cityDayStatistics(date);
-            // statisticsService.cityMonthStatistics(date);
-            // statisticsService.serviceDayStatisticByCity(date);
+            statisticsService.serviceDayStatistics(date);
+            statisticsService.serviceMonthStatistics(date);
+            statisticsService.cityDayStatistics(date);
+            statisticsService.cityMonthStatistics(date);
+            statisticsService.serviceDayStatisticByCity(date);
+            statisticsService.serviceMonthStatisticByCity(date);
         //TODO: To get data from API uncomment this !
-        //     getWeatherFromAPI.getWeatherData();
+           //getWeatherFromAPI.getWeatherData();
         },
 
     /**
@@ -87,7 +88,7 @@ module.exports = (function () {
     //         return readData(currentStatJSONpath);
     //     });
     //     return result;
-            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics).then(function (items) {
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics).then(function (items) {
                 console.info('All statistic data from DB has been returned successfully!');
                 return items;
             }, function (err) {
@@ -111,7 +112,7 @@ module.exports = (function () {
         //         return readData(currentStatJSONpath);
         //     });
         //     return result;
-        var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics_by_Cities).then(function (items) {
+        var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics_by_Cities).then(function (items) {
             console.info('All statistic data from DB has been returned successfully!');
             return items;
         }, function (err) {

@@ -1,25 +1,15 @@
 'use strict';
 var request                         = require('request'),
-    config                          = require('./../services/ConfigService.js'),
+    config                          = require('./ConfigService.js'),
     MongoClient                     = require('mongodb').MongoClient,
-    mapperService                   = require('../services/mapperService'),
-    dataBaseService                 = require('../services/DataBaseService'),
+    mapperService                   = require('./mapperService'),
+    dataBaseService                 = require('./DataBaseService'),
     pathToDBs                       = require('./../config/pathConfig.json'),
-    logger                          = require('./../services/logger.js');
+    logger                          = require('./logger.js');
 
 module.exports = (function () {
     var setDataDB = function (serviceName, city, data) {
-        switch (serviceName) {
-        case "openWeather":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        case "wunderground":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        case "darkSky":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        }
+        dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
         var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
         dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
     },
