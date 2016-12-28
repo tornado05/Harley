@@ -1,8 +1,21 @@
 {
-  "hello": "hello world",
+ "time": "time",
+  "city":"city",
+  "stat": "stat",
+  "minTemp": "minTemp",
+  "maxTemp": "maxTemp",
+  "minHum": "minHum",
+  "maxHum": "maxHum",
+  "minWindSpeed": "minWindSpeed",
+  "maxWindSpeed": "maxWindSpeed",
+  "avgTemp": "avgTemp",
+  "avgHum": "avgHum",
+  "avgWindSpeed": "avgWindSpeed",
+  "temp": "temp",
+  "humidity": "humidity",
+  "windSpeed": "windSpeed",
   "date": "date",
   "cityName": "cityName",
-  "city":"city",
   "sourceAPI": "sourceAPI",
   "success": 200,
   "coding": "utf8",
@@ -31,7 +44,7 @@
     "mSec": 999
   },
   "decimal": 10,
-  "thousand": 1000
+  "mSecToSec": 1000
 
 
 

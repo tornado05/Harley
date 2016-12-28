@@ -8,7 +8,7 @@ module.exports = (function () {
         try {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);
-        } catch (e) { 
+        } catch (e) {
             logger.logError("Can't read from file " + path);
             return [];
         }

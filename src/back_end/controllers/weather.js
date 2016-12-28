@@ -41,7 +41,7 @@ module.exports = (function () {
      *  @desc: temporary methods to return data of MOCK.
      *
      *
-     */        
+     */
         getServiceMonthStat = function () {
             var path = './data/serviceMonthStatMock.json';
             return readData(path);
@@ -74,7 +74,7 @@ module.exports = (function () {
      * Method returns an array of day statistic from the database.
      * If the database not available -  returned mock data from JSON.
      */
-    getServiceDayStat = function (date) {
+        getServiceDayStat = function (date) {
             var start = new Date(date.getTime()),
                 end = new Date(date.getTime());
             start.setHours(0, 0, 0, 0);
@@ -97,12 +97,12 @@ module.exports = (function () {
                 return readData(path);
             });
             return result;
-    },
-    getServiceDayStatByCities = function (date) {
-        var start = new Date(date.getTime()),
-            end = new Date(date.getTime());
-        start.setHours(0, 0, 0, 0);
-        end.setHours(23, 59, 59, 999);
+        },
+        getServiceDayStatByCities = function (date) {
+            var start = new Date(date.getTime()),
+                end = new Date(date.getTime());
+            start.setHours(0, 0, 0, 0);
+            end.setHours(23, 59, 59, 999);
         //TODO: Use this method after router get params
         //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
         //         console.info('The statistic data from DB returned successfully!');
@@ -112,16 +112,16 @@ module.exports = (function () {
         //         return readData(currentStatJSONpath);
         //     });
         //     return result;
-        var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics_by_Cities).then(function (items) {
-            console.info('All statistic data from DB has been returned successfully!');
-            return items;
-        }, function (err) {
-            logger.logError(err);
-            var path = './data/serviceDayStatByCities.json';
-            return readData(path);
-        });
-        return result;
-    };
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics_by_Cities).then(function (items) {
+                console.info('All statistic data from DB has been returned successfully!');
+                return items;
+            }, function (err) {
+                logger.logError(err);
+                var path = './data/serviceDayStatByCities.json';
+                return readData(path);
+            });
+            return result;
+        };
 
     return {
         initialize: initialize,

@@ -10,7 +10,7 @@ module.exports = (function () {
                 return {
                     data: collection.find().sort({$natural: -1}).limit(9).toArray(),
                     db : db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -38,7 +38,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}, {'sourceAPI' : serviceName}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -51,7 +51,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -63,7 +63,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -76,7 +76,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -89,7 +89,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
