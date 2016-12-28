@@ -7,6 +7,42 @@ var config              = require('./ConfigService.js'),
     set                 = require('./../config/settings.json'),
     pathToDBs           = require('./../config/pathConfig.json');
 module.exports = (function () {
+    var vvv = function(){
+        return "hello"
+    };
+    var result = function(dataArr, cityName, serviceName){
+
+        return {
+            'time': dataArr[0].date,
+            'city' : cityName,
+            'service' : serviceName,
+            'stat': [{
+                'minTemp': minValue('temp', dataArr)
+            }, {
+                'maxTemp': maxValue('temp', dataArr)
+            }, {
+                'minHum': minValue('humidity', dataArr)
+            }, {
+                'maxHum': maxValue('humidity', dataArr)
+            }, {
+                'minWindSpeed': minValue('windSpeed', dataArr)
+            }, {
+                'maxWindSpeed': maxValue('windSpeed', dataArr)
+            }, {
+                'avgTemp': {
+                    'temp': avgValue('temp', dataArr)
+                }
+            }, {
+                'avgHum': {
+                    'hum': avgValue('humidity', dataArr)
+                }
+            }, {
+                'avgWindSpeed': {
+                    'windSpeed': avgValue('windSpeed', dataArr)
+                }
+            }]
+        }
+    };
     var minValue = function (paramName, data, cityNameNeeded) {
         var lowest      = Number.POSITIVE_INFINITY,
             fieldName   = 'min_' + paramName,
@@ -81,39 +117,7 @@ module.exports = (function () {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName, serviceName).then(function (dataArr) {
                         //console.info('Data services successfully collected!');
-
-                        var result = {
-                            'time': dataArr[0].date,
-                            'city' : cityName,
-                            'service' : serviceName,
-                            'stat': [{
-                                'minTemp': minValue('temp', dataArr)
-                            }, {
-                                'maxTemp': maxValue('temp', dataArr)
-                            }, {
-                                'minHum': minValue('humidity', dataArr)
-                            }, {
-                                'maxHum': maxValue('humidity', dataArr)
-                            }, {
-                                'minWindSpeed': minValue('windSpeed', dataArr)
-                            }, {
-                                'maxWindSpeed': maxValue('windSpeed', dataArr)
-                            }, {
-                                'avgTemp': {
-                                    'temp': avgValue('temp', dataArr)
-                                }
-                            }, {
-                                'avgHum': {
-                                    'hum': avgValue('humidity', dataArr)
-                                }
-                            }, {
-                                'avgWindSpeed': {
-                                    'windSpeed': avgValue('windSpeed', dataArr)
-                                }
-                            }]
-                        };
-                        //console.log(result);
-                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, result);
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, result(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -137,38 +141,7 @@ module.exports = (function () {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName, serviceName).then(function (dataArr) {
                         //console.info('Data services successfully collected!');
-
-                        var result = {
-                            'time': dataArr[0].date,
-                            'city' : cityName,
-                            'service' : serviceName,
-                            'stat': [{
-                                'minTemp': minValue('temp', dataArr)
-                            }, {
-                                'maxTemp': maxValue('temp', dataArr)
-                            }, {
-                                'minHum': minValue('humidity', dataArr)
-                            }, {
-                                'maxHum': maxValue('humidity', dataArr)
-                            }, {
-                                'minWindSpeed': minValue('windSpeed', dataArr)
-                            }, {
-                                'maxWindSpeed': maxValue('windSpeed', dataArr)
-                            }, {
-                                'avgTemp': {
-                                    'temp': avgValue('temp', dataArr)
-                                }
-                            }, {
-                                'avgHum': {
-                                    'hum': avgValue('humidity', dataArr)
-                                }
-                            }, {
-                                'avgWindSpeed': {
-                                    'windSpeed': avgValue('windSpeed', dataArr)
-                                }
-                            }]
-                        };
-                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, result);
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, result(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -191,37 +164,7 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
                     //console.info('Data services successfully collected!');
-
-                    var result = {
-                        'time': dataArr[0].date,
-                        'city' : cityName,
-                        'stat': [{
-                            'minTemp': minValue('temp', dataArr)
-                        }, {
-                            'maxTemp': maxValue('temp', dataArr)
-                        }, {
-                            'minHum': minValue('humidity', dataArr)
-                        }, {
-                            'maxHum': maxValue('humidity', dataArr)
-                        }, {
-                            'minWindSpeed': minValue('windSpeed', dataArr)
-                        }, {
-                            'maxWindSpeed': maxValue('windSpeed', dataArr)
-                        }, {
-                            'avgTemp': {
-                                'temp': avgValue('temp', dataArr)
-                            }
-                        }, {
-                            'avgHum': {
-                                'hum': avgValue('humidity', dataArr)
-                            }
-                        }, {
-                            'avgWindSpeed': {
-                                'windSpeed': avgValue('windSpeed', dataArr)
-                            }
-                        }]
-                    };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, result(dataArr, cityName));
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -242,37 +185,7 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), cityName).then(function (dataArr) {
                     //console.info('Data services successfully collected!');
-
-                    var result = {
-                        'time': dataArr[0].date,
-                        'city' : cityName,
-                        'stat': [{
-                            'minTemp': minValue('temp', dataArr)
-                        }, {
-                            'maxTemp': maxValue('temp', dataArr)
-                        }, {
-                            'minHum': minValue('humidity', dataArr)
-                        }, {
-                            'maxHum': maxValue('humidity', dataArr)
-                        }, {
-                            'minWindSpeed': minValue('windSpeed', dataArr)
-                        }, {
-                            'maxWindSpeed': maxValue('windSpeed', dataArr)
-                        }, {
-                            'avgTemp': {
-                                'temp': avgValue('temp', dataArr)
-                            }
-                        }, {
-                            'avgHum': {
-                                'hum': avgValue('humidity', dataArr)
-                            }
-                        }, {
-                            'avgWindSpeed': {
-                                'windSpeed': avgValue('windSpeed', dataArr)
-                            }
-                        }]
-                    };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, result(dataArr, cityName));
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -288,36 +201,7 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
                     console.info('Data services successfully collected!');
-                    var result = {
-                        'time': dataArr[0].date,
-                        'service' : service,
-                        'stat': [{
-                            'minTemp': minValue('temp', dataArr, true)
-                        }, {
-                            'maxTemp': maxValue('temp', dataArr, true)
-                        }, {
-                            'minHum': minValue('humidity', dataArr, true)
-                        }, {
-                            'maxHum': maxValue('humidity', dataArr, true)
-                        }, {
-                            'minWindSpeed': minValue('windSpeed', dataArr, true)
-                        }, {
-                            'maxWindSpeed': maxValue('windSpeed', dataArr, true)
-                        }, {
-                            'avgTemp': {
-                                'temp': avgValue('temp', dataArr, true)
-                            }
-                        }, {
-                            'avgHum': {
-                                'hum': avgValue('humidity', dataArr, true)
-                            }
-                        }, {
-                            'avgWindSpeed': {
-                                'windSpeed': avgValue('windSpeed', dataArr, true)
-                            }
-                        }]
-                    };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, result(dataArr, service));
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -333,36 +217,7 @@ module.exports = (function () {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
                     //console.info('Data services successfully collected!');
-                    var result = {
-                        'time': dataArr[0].date,
-                        'service' : service,
-                        'stat': [{
-                            'minTemp': minValue('temp', dataArr, true)
-                        }, {
-                            'maxTemp': maxValue('temp', dataArr, true)
-                        }, {
-                            'minHum': minValue('humidity', dataArr, true)
-                        }, {
-                            'maxHum': maxValue('humidity', dataArr, true)
-                        }, {
-                            'minWindSpeed': minValue('windSpeed', dataArr, true)
-                        }, {
-                            'maxWindSpeed': maxValue('windSpeed', dataArr, true)
-                        }, {
-                            'avgTemp': {
-                                'temp': avgValue('temp', dataArr, true)
-                            }
-                        }, {
-                            'avgHum': {
-                                'hum': avgValue('humidity', dataArr, true)
-                            }
-                        }, {
-                            'avgWindSpeed': {
-                                'windSpeed': avgValue('windSpeed', dataArr, true)
-                            }
-                        }]
-                    };
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, result);
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, result(dataArr, service));
                 }, function (err) {
                     logger.logError(err);
                 });
