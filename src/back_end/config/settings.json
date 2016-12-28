@@ -1,0 +1,38 @@
+{
+  "hello": "hello world",
+  "date": "date",
+  "cityName": "cityName",
+  "city":"city",
+  "sourceAPI": "sourceAPI",
+  "success": 200,
+  "coding": "utf8",
+  "service1": "openWeather",
+  "service2": "wunderground",
+  "service3": "darkSky",
+  "api1Part1": "http://api.openweathermap.org/data/2.5/weather?q=",
+  "api1Part2": ",ua&APPID=3e78ad2536ed323a1c1e68f8512485b0",
+  "api2Part1": "http://api.wunderground.com/api/3a12f2714ca1b6e2/conditions/q/UA/",
+  "api2Part2": ".json",
+  "api3": "https://api.darksky.net/forecast/73ca2db6aa635b831a24746659e7c907/",
+  "message": "Can't read from file",
+  "min_": "min_",
+  "max_": "max_",
+  "avg_": "avg_",
+  "start": {
+    "hour": 0,
+    "mins": 0,
+    "sec": 0,
+    "mSec": 0
+  },
+  "end": {
+    "hour": 23,
+    "mins": 59,
+    "sec": 59,
+    "mSec": 999
+  },
+  "decimal": 10,
+  "thousand": 1000
+
+
+
+}

@@ -4,8 +4,8 @@ var config              = require('./ConfigService.js'),
     dataBaseService     = require('./DataBaseService'),
     _                   = require('lodash'),
     logger              = require('./logger.js'),
+    set                 = require('./../config/settings.json'),
     pathToDBs           = require('./../config/pathConfig.json');
-
 module.exports = (function () {
     var minValue = function (paramName, data, cityNameNeeded) {
         var lowest      = Number.POSITIVE_INFINITY,
@@ -70,8 +70,8 @@ module.exports = (function () {
             var start = new Date(searchTime.getTime()),
                 end = new Date(searchTime.getTime()),
                 cities = [];
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
@@ -126,8 +126,8 @@ module.exports = (function () {
             var start = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
                 end = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
                 cities = [];
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
@@ -181,8 +181,8 @@ module.exports = (function () {
             var start = new Date(searchTime.getTime()),
                 end = new Date(searchTime.getTime()),
                 cities = [];
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
@@ -232,8 +232,8 @@ module.exports = (function () {
             var start = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
                 end = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
                 cities = [];
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
@@ -282,8 +282,8 @@ module.exports = (function () {
         serviceDayStatistics = function (searchTime) {
             var start = new Date(searchTime.getTime()),
                 end = new Date(searchTime.getTime());
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
@@ -327,8 +327,8 @@ module.exports = (function () {
         serviceMonthStatistics = function (searchTime) {
             var start = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
                 end = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
+            start.setHours(set.start.hour, set.start.mins, set.start.sec, set.start.mSec);
+            end.setHours(set.end.hour, set.end.mins, set.end.sec, set.end.mSec);
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     parseInt(start.getTime() / 1000, 10), parseInt(end.getTime() / 1000, 10), service).then(function (dataArr) {
