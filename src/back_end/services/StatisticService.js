@@ -8,31 +8,45 @@ var config              = require('./ConfigService.js'),
     pathToDBs           = require('./../config/pathConfig.json');
 module.exports = (function () {
 
-
-    var minValue = function (paramName, data, cityNameNeeded) {
-        var lowest      = Number.POSITIVE_INFINITY,
-            fieldName   = 'min_' + paramName,
-            result      = {},
-            city        = '';
-        _.each(data, function (item) {
-            if (item[paramName] < lowest) {
-                lowest = item[paramName];
-                city = item.cityName;
-            }
+    var time = set.time,
+        town = set.city,
+        stat = set.stat,
+        minTemp = set.minTemp,
+        maxTemp = set.maxTemp,
+        minHum = set.minHum,
+        maxHum = set.maxHum,
+        minWindSpeed = set.minWindSpeed,
+        maxWindSpeed = set.maxWindSpeed,
+        avgTemp = set.avgTemp,
+        avgHum = set.avgHum,
+        avgWindSpeed = set.avgWindSpeed,
+        temp = set.temp,
+        humidity = set.humidity,
+        windSpeed = set.windSpeed,
+        minValue = function (paramName, data, cityNameNeeded) {
+            var lowest      = Number.POSITIVE_INFINITY,
+                fieldName   = set.min_ + paramName,
+                result      = {},
+                city        = '';
+            _.each(data, function (item) {
+                if (item[paramName] < lowest) {
+                    lowest = item[paramName];
+                    city = item.cityName;
+                }
+                if (cityNameNeeded) {
+                    result[fieldName] = lowest;
+                    result.cityName = city;
+                }
+            });
             if (cityNameNeeded) {
-                result[fieldName] = lowest;
-                result.cityName = city;
+                return result;
             }
-        });
-        if (cityNameNeeded) {
-            return result;
-        }
-        return lowest;
+            return lowest;
 
-    },
+        },
         maxValue = function (paramName, data, cityNameNeeded) {
             var highest     = Number.NEGATIVE_INFINITY,
-                fieldName   = 'max_' + paramName,
+                fieldName   = set.max_ + paramName,
                 result      = {},
                 city        = '';
             _.each(data, function (item) {
@@ -53,7 +67,7 @@ module.exports = (function () {
 
         avgValue = function (paramName, data, cityNameNeeded) {
             var avg         = 0,
-                fieldName   = 'avg_' + paramName,
+                fieldName   = set.avg + paramName,
                 result      = {};
             _.each(data, function (item) {
                 avg += item[paramName];
@@ -70,42 +84,42 @@ module.exports = (function () {
         result = function (dataArr, cityName, serviceName) {
             var output,
                 obj1 = {
-                    'time': dataArr[0].date,
-                    'city' : cityName,
-                    'service' : serviceName
+                    time: dataArr[0].date,
+                    town : cityName,
+                    service : serviceName
                 },
                 obj2 = {
-                    'time': dataArr[0].date,
-                    'city' : cityName
+                    time: dataArr[0].date,
+                    town : cityName
                 },
                 obj3 = {
-                    'time': dataArr[0].date,
-                    'service' : serviceName
+                    time: dataArr[0].date,
+                    service : serviceName
                 },
 
                 obj4 = [{
-                    'minTemp': minValue('temp', dataArr)
+                    minTemp: minValue(temp, dataArr)
                 }, {
-                    'maxTemp': maxValue('temp', dataArr)
+                    maxTemp: maxValue(temp, dataArr)
                 }, {
-                    'minHum': minValue('humidity', dataArr)
+                    minHum: minValue(humidity, dataArr)
                 }, {
-                    'maxHum': maxValue('humidity', dataArr)
+                    maxHum: maxValue(humidity, dataArr)
                 }, {
-                    'minWindSpeed': minValue('windSpeed', dataArr)
+                    minWindSpeed: minValue(windSpeed, dataArr)
                 }, {
-                    'maxWindSpeed': maxValue('windSpeed', dataArr)
+                    maxWindSpeed: maxValue(windSpeed, dataArr)
                 }, {
-                    'avgTemp': {
-                        'temp': avgValue('temp', dataArr)
+                    avgTemp: {
+                        temp: avgValue(temp, dataArr)
                     }
                 }, {
-                    'avgHum': {
-                        'hum': avgValue('humidity', dataArr)
+                    avgHum: {
+                        hum: avgValue(humidity, dataArr)
                     }
                 }, {
-                    'avgWindSpeed': {
-                        'windSpeed': avgValue('windSpeed', dataArr)
+                    avgWindSpeed: {
+                        windSpeed: avgValue(windSpeed, dataArr)
                     }
                 }];
             if (cityName !== 0 && serviceName !== 0) {

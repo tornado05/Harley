@@ -19,6 +19,7 @@
   "sourceAPI": "sourceAPI",
   "success": 200,
   "coding": "utf8",
+  "service": "service",
   "service1": "openWeather",
   "service2": "wunderground",
   "service3": "darkSky",
