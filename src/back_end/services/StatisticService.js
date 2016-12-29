@@ -9,7 +9,7 @@ var config              = require('./ConfigService.js'),
 module.exports = (function () {
 
     var time = set.time,
-        town = set.city,
+        city = set.city,
         stat = set.stat,
         minTemp = set.minTemp,
         maxTemp = set.maxTemp,
@@ -85,12 +85,12 @@ module.exports = (function () {
             var output,
                 obj1 = {
                     time: dataArr[0].date,
-                    town : cityName,
+                    city : cityName,
                     service : serviceName
                 },
                 obj2 = {
                     time: dataArr[0].date,
-                    town : cityName
+                    city : cityName
                 },
                 obj3 = {
                     time: dataArr[0].date,
