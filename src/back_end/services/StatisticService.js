@@ -8,22 +8,22 @@ var config              = require('./ConfigService.js'),
     pathToDBs           = require('./../config/pathConfig.json');
 module.exports = (function () {
 
-    var time = set.time,
-        city = set.city,
-        stat = set.stat,
-        minTemp = set.minTemp,
-        maxTemp = set.maxTemp,
-        minHum = set.minHum,
-        maxHum = set.maxHum,
-        minWindSpeed = set.minWindSpeed,
-        maxWindSpeed = set.maxWindSpeed,
-        avgTemp = set.avgTemp,
-        avgHum = set.avgHum,
-        avgWindSpeed = set.avgWindSpeed,
-        temp = set.temp,
-        humidity = set.humidity,
-        windSpeed = set.windSpeed,
-        minValue = function (paramName, data, cityNameNeeded) {
+    // var time = set.time,
+    //     city = set.city,
+    //     stat = set.stat,
+    //     minTemp = set.minTemp,
+    //     maxTemp = set.maxTemp,
+    //     minHum = set.minHum,
+    //     maxHum = set.maxHum,
+    //     minWindSpeed = set.minWindSpeed,
+    //     maxWindSpeed = set.maxWindSpeed,
+    //     avgTemp = set.avgTemp,
+    //     avgHum = set.avgHum,
+    //     avgWindSpeed = set.avgWindSpeed,
+    //     temp = set.temp,
+    //     humidity = set.humidity,
+    //     windSpeed = set.windSpeed,
+    var  minValue = function (paramName, data, cityNameNeeded) {
             var lowest      = Number.POSITIVE_INFINITY,
                 fieldName   = set.min_ + paramName,
                 result      = {},
@@ -98,28 +98,28 @@ module.exports = (function () {
                 },
 
                 obj4 = [{
-                    minTemp: minValue(temp, dataArr)
+                    minTemp: minValue(set.temp, dataArr)
                 }, {
-                    maxTemp: maxValue(temp, dataArr)
+                    maxTemp: maxValue(set.temp, dataArr)
                 }, {
-                    minHum: minValue(humidity, dataArr)
+                    minHum: minValue(set.humidity, dataArr)
                 }, {
-                    maxHum: maxValue(humidity, dataArr)
+                    maxHum: maxValue(set.humidity, dataArr)
                 }, {
-                    minWindSpeed: minValue(windSpeed, dataArr)
+                    minWindSpeed: minValue(set.windSpeed, dataArr)
                 }, {
-                    maxWindSpeed: maxValue(windSpeed, dataArr)
+                    maxWindSpeed: maxValue(set.windSpeed, dataArr)
                 }, {
                     avgTemp: {
-                        temp: avgValue(temp, dataArr)
+                        temp: avgValue(set.temp, dataArr)
                     }
                 }, {
                     avgHum: {
-                        hum: avgValue(humidity, dataArr)
+                        hum: avgValue(set.humidity, dataArr)
                     }
                 }, {
                     avgWindSpeed: {
-                        windSpeed: avgValue(windSpeed, dataArr)
+                        windSpeed: avgValue(set.windSpeed, dataArr)
                     }
                 }];
             if (cityName !== 0 && serviceName !== 0) {
