@@ -10,7 +10,7 @@ module.exports = (function () {
             var result = fs.readFileSync(path, 'utf8');
             return JSON.parse(result);
         } catch (e) {
-            logger.logError(set.message + path);
+            logger.logError(set.messages.fs.cantReadFile + path);
             return [];
         }
     },
@@ -30,19 +30,19 @@ module.exports = (function () {
                 }
                 configsAPI_URLs.push(
                     {
-                        name: set.service1,
+                        name: set.variables.service1,
                         city: cityName,
-                        url: set.api1Part1 + cityName + set.api1Part2
+                        url: set.API.api1.part1 + cityName + set.API.api1.part2
                     },
                     {
-                        name: set.service2,
+                        name: set.variables.service2,
                         city: cityName,
-                        url: set.api2Part1 + cityName + set.api2Part2
+                        url: set.API.api2.part1 + cityName + set.API.api2.part2
                     },
                     {
-                        name: set.service3,
+                        name: set.variables.service3,
                         city: cityName,
-                        url: set.api3 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
+                        url: set.API.api3.part1 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
                     }
                 );
             });

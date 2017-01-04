@@ -5,6 +5,7 @@ var request                         = require('request'),
     mapperService                   = require('./mapperService'),
     dataBaseService                 = require('./DataBaseService'),
     pathToDBs                       = require('./../config/pathConfig.json'),
+    set                             = require('./../config/settings.json'),
     logger                          = require('./logger.js');
 
 module.exports = (function () {
@@ -19,7 +20,7 @@ module.exports = (function () {
                 if (error) {
                     logger.logError(error);
                 }
-                if (!error && response.statusCode === 200) {
+                if (!error && response.statusCode === set.variables.succes) {
                     setDataDB(obj.name, obj.city, JSON.parse(body));
                 }
             });
