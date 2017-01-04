@@ -80,7 +80,6 @@ module.exports = (function () {
                     time: dataArr[0].date,
                     service : serviceName
                 },
-
                 obj4 = [{
                     minTemp: minValue(set.variables.temp, dataArr)
                 }, {
@@ -119,21 +118,39 @@ module.exports = (function () {
             return output;
         },
 
-        serviceDayStatisticByCity = function (searchTime) {
-            var dayStart = new Date(searchTime.getTime()),
-                dayEnd = new Date(searchTime.getTime()),
-                cities = [];
+        getTime = function (searchTime, timePeriodNeeded) {
+            var dayStart    = new Date(),
+                dayEnd      = new Date();
+            switch (timePeriodNeeded) {
+                case "day": {
+                    dayStart    = new Date(searchTime.getTime());
+                    dayEnd      = new Date(searchTime.getTime());
+                }
+                break;
+                case "month": {
+                    dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
+                    dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
+                }
+                break;
+            }
             dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
             dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
+            return {
+                dayStart: parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal),
+                dayEnd: parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal)
+            };
+        },
+        serviceDayStatisticByCity = function (searchTime) {
+            var cities = [],
+                time = getTime(searchTime, "day");
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
-
             _.each(_.uniq(cities), function (cityName) {
                 _.each(_.uniq(config.getServicesNames()), function (serviceName) {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                        parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), cityName, serviceName).then(function (dataArr) {
-                        //console.info('Data services successfully collected!');
+                        time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
+                        console.info('Data services successfully collected!');
                         dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, result(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
@@ -142,22 +159,17 @@ module.exports = (function () {
 
             });
         },
-
         serviceMonthStatisticByCity = function (searchTime) {
-            var dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
+            var time = getTime(searchTime, "month"),
                 cities = [];
-            dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
-            dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
-
             _.each(_.uniq(cities), function (cityName) {
                 _.each(_.uniq(config.getServicesNames()), function (serviceName) {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                        parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), cityName, serviceName).then(function (dataArr) {
-                        //console.info('Data services successfully collected!');
+                        time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
+                        console.info('Data services successfully collected!');
                         dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, result(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
@@ -166,78 +178,60 @@ module.exports = (function () {
 
             });
         },
-
         cityDayStatistics = function (searchTime) {
             var service = 0,
-                dayStart = new Date(searchTime.getTime()),
-                dayEnd = new Date(searchTime.getTime()),
+                time = getTime(searchTime, "day"),
                 cities = [];
-            dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
-            dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
-
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                    parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), cityName).then(function (dataArr) {
-                    //console.info('Data services successfully collected!');
+                    time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
+                    console.info('Data services successfully collected!');
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, result(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });
             });
         },
-
         cityMonthStatistics = function (searchTime) {
             var service = 0,
-                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0),
+                time = getTime(searchTime, "month"),
                 cities = [];
-            dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
-            dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
             _.each(config.getCitiesURLs(), function (city) {
                 cities.push(city.city);
             });
-
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                    parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), cityName).then(function (dataArr) {
-                    //console.info('Data services successfully collected!');
+                    time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
+                    console.info('Data services successfully collected!');
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, result(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });
             });
         },
-
         serviceDayStatistics = function (searchTime) {
             var cityName = 0,
-                dayStart = new Date(searchTime.getTime()),
-                dayEnd = new Date(searchTime.getTime());
-            dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
-            dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
+                time = getTime(searchTime, "day");
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                    parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), service).then(function (dataArr) {
-                    //console.info('Data services successfully collected!');
+                    time.dayStart, time.dayEnd, service).then(function (dataArr) {
+                    console.info('Data services successfully collected!');
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, result(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });
             });
         },
-
         serviceMonthStatistics = function (searchTime) {
             var cityName = 0,
-                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1),
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-            dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
-            dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
+                time = getTime(searchTime, "month");
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
-                    parseInt(dayStart.getTime() / set.variables.mSecToSec, set.variables.decimal), parseInt(dayEnd.getTime() / set.variables.mSecToSec, set.variables.decimal), service).then(function (dataArr) {
-                    //console.info('Data services successfully collected!');
+                    time.dayStart, time.dayEnd, service).then(function (dataArr) {
+                    console.info('Data services successfully collected!');
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, result(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);

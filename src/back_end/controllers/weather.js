@@ -1,12 +1,10 @@
 'use strict';
-var logger = require('./../services/logger.js'),
+var logger              = require('./../services/logger.js'),
     getWeatherFromAPI   = require('../services/getDataFromAPI'),
-    //urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
-    //urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject',
     dataBaseService     = require('../services/DataBaseService'),
     statisticsService   = require('../services/StatisticService'),
-    mapperService       = require('../services/mapperService'),
     pathToDBs           = require('./../config/pathConfig.json'),
+    set                 = require('./../config/settings.json'),
     fs                  = require('fs');
 
 module.exports = (function () {
@@ -20,21 +18,21 @@ module.exports = (function () {
                 var result = fs.readFileSync(path, 'utf8');
                 return JSON.parse(result);
             } catch (e) {
-                logger.logError("Can't read from file ");
+                logger.logError(set.messages.fs.cantReadFile + path);
                 return [];
             }
         },
 
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-            statisticsService.serviceDayStatistics(date);
-            statisticsService.serviceMonthStatistics(date);
-            statisticsService.cityDayStatistics(date);
-            statisticsService.cityMonthStatistics(date);
-            statisticsService.serviceDayStatisticByCity(date);
-            statisticsService.serviceMonthStatisticByCity(date);
+        //     statisticsService.serviceDayStatistics(date);
+        //     statisticsService.serviceMonthStatistics(date);
+        //     statisticsService.cityDayStatistics(date);
+        //     statisticsService.cityMonthStatistics(date);
+        //     statisticsService.serviceDayStatisticByCity(date);
+        //     statisticsService.serviceMonthStatisticByCity(date);
         //TODO: To get data from API uncomment this !
-           //getWeatherFromAPI.getWeatherData();
+        //    getWeatherFromAPI.getWeatherData();
         },
 
     /**

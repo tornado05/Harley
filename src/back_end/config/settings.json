@@ -21,32 +21,22 @@
     "succes": 200,
     "coding": "utf8",
     "service": "service",
-    "service1": "openWeather",
-    "service2": "wunderground",
-    "service3": "darkSky",
     "min_": "min_",
     "max_": "max_",
     "avg_": "avg_",
     "decimal": 10,
     "mSecToSec": 1000
   },
-  "API": {
-      "api1": {
-          "part1": "http://api.openweathermap.org/data/2.5/weather?q=",
-          "part2": ",ua&APPID=3e78ad2536ed323a1c1e68f8512485b0"
-      },
-       "api2": {
-          "part1": "http://api.wunderground.com/api/3a12f2714ca1b6e2/conditions/q/UA/",
-          "part2": ".json"
-       },
-       "api3": {
-          "part1": "https://api.darksky.net/forecast/73ca2db6aa635b831a24746659e7c907/",
-          "part2": ""
-       }
-  },
   "messages": {
       "fs": {
-          "cantReadFile": "Can not read from file"
+          "cantReadFile": "Can not read from file "
+      },
+      "logger": {
+        "error": "ERROR",
+        "warning": "WARNING",
+        "debug": "DEBUG",
+        "info": "INFO",
+        "failToWrite": "Failed to write log"
       }
   },
   "dayStart": {

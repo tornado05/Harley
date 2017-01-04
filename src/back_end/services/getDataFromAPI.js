@@ -1,7 +1,6 @@
 'use strict';
 var request                         = require('request'),
     config                          = require('./ConfigService.js'),
-    MongoClient                     = require('mongodb').MongoClient,
     mapperService                   = require('./mapperService'),
     dataBaseService                 = require('./DataBaseService'),
     pathToDBs                       = require('./../config/pathConfig.json'),
@@ -10,11 +9,9 @@ var request                         = require('request'),
 
 module.exports = (function () {
     var setDataDB = function (serviceName, city, data) {
-        dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-        var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
-        dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
-    },
-
+            var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
+            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
+        },
         requestData = function (obj) {
             request(obj.url, function (error, response, body) {
                 if (error) {
@@ -25,7 +22,6 @@ module.exports = (function () {
                 }
             });
         },
-
         getWeatherData = function () {
             var citiesURLs = config.getCitiesURLs(),
                 data = [];
@@ -34,7 +30,6 @@ module.exports = (function () {
             });
             return data;
         };
-
     return {
         getWeatherData: getWeatherData
     };

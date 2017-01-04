@@ -21,6 +21,7 @@ module.exports = (function () {
             MongoClient.connect(url, function (error, db) {
                 if (error) {
                     logger.logError(error);
+                    return false;
                 }
                 var collection = db.collection(collectionName);
                 collection.insertOne(data, function (error) {

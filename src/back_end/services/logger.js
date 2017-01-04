@@ -1,9 +1,10 @@
 'use strict';
 
-var fs = require('fs');
+var fs  = require('fs'),
+    set = require('./../config/settings.json');
 
-var SEPARATOR = ' | ';
-var ENDLINE = "\r\n";
+var SEPARATOR   = ' | ',
+    ENDLINE     = "\r\n";
 
 module.exports = (function (isDebugModeOn) {
     var path = './logs/log.txt',
@@ -29,28 +30,28 @@ module.exports = (function (isDebugModeOn) {
             fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
                 if (err) {
                     throw {
-                        'message': 'Failed to write log'
+                        'message': set.messages.logger.failToWrite
                     };
                 }
             });
         },
 
         logError = function (message) {
-            writeMessageToFile('ERROR' + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
+            writeMessageToFile(set.messages.logger.error + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         },
 
         logWarning = function (message) {
-            writeMessageToFile('WARNING' + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
+            writeMessageToFile(set.messages.logger.warning + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         },
 
         logDebug = function (message) {
             if (isDebugModeOn) {
-                writeMessageToFile('DEBUG' + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
+                writeMessageToFile(set.messages.logger.debug + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
             }
         },
 
         logInfo = function (message) {
-            writeMessageToFile('INFO' + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
+            writeMessageToFile(set.messages.logger.info + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         };
 
     return {
