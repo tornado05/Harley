@@ -1,7 +1,7 @@
 'use strict';
-var config = require('./../services/ConfigService.js'),
+var config = require('./ConfigService.js'),
     MongoClient = require('mongodb').MongoClient,
-    logger = require('./../services/logger.js');
+    logger = require('./logger.js');
 
 module.exports = (function () {
     var getLastRecords = function (url, collectionName) {
@@ -10,7 +10,7 @@ module.exports = (function () {
                 return {
                     data: collection.find().sort({$natural: -1}).limit(9).toArray(),
                     db : db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -21,6 +21,7 @@ module.exports = (function () {
             MongoClient.connect(url, function (error, db) {
                 if (error) {
                     logger.logError(error);
+                    return false;
                 }
                 var collection = db.collection(collectionName);
                 collection.insertOne(data, function (error) {
@@ -38,7 +39,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}, {'sourceAPI' : serviceName}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -51,7 +52,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -63,7 +64,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -76,7 +77,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;
@@ -89,7 +90,7 @@ module.exports = (function () {
                 return {
                     data: collection.find({}).toArray(),
                     db: db
-                }
+                };
             }).then(function (items) {
                 items.db.close();
                 return items.data;

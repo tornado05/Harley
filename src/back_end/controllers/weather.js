@@ -1,12 +1,10 @@
 'use strict';
-var logger = require('./../services/logger.js'),
+var logger              = require('./../services/logger.js'),
     getWeatherFromAPI   = require('../services/getDataFromAPI'),
-    //urlStatisticsDataDB = 'mongodb://localhost:27017/Weather_Statistics',
-    //urlWeatherDataDB    = 'mongodb://localhost:27017/weatherProject',
     dataBaseService     = require('../services/DataBaseService'),
     statisticsService   = require('../services/StatisticService'),
-    mapperService       = require('../services/mapperService'),
     pathToDBs           = require('./../config/pathConfig.json'),
+    set                 = require('./../config/settings.json'),
     fs                  = require('fs');
 
 module.exports = (function () {
@@ -20,27 +18,28 @@ module.exports = (function () {
                 var result = fs.readFileSync(path, 'utf8');
                 return JSON.parse(result);
             } catch (e) {
-                logger.logError("Can't read from file ");
+                logger.logError(set.messages.fs.cantReadFile + path);
                 return [];
             }
         },
 
         initialize = function () {
         //TODO:Set timer to collect statistics for the day/month
-            // statisticsService.serviceDayStatistics(date);
-            // statisticsService.serviceMonthStatistics(date);
-            // statisticsService.cityDayStatistics(date);
-            // statisticsService.cityMonthStatistics(date);
-            // statisticsService.serviceDayStatisticByCity(date);
+        //     statisticsService.serviceDayStatistics(date);
+        //     statisticsService.serviceMonthStatistics(date);
+        //     statisticsService.cityDayStatistics(date);
+        //     statisticsService.cityMonthStatistics(date);
+        //     statisticsService.serviceDayStatisticByCity(date);
+        //     statisticsService.serviceMonthStatisticByCity(date);
         //TODO: To get data from API uncomment this !
-        //     getWeatherFromAPI.getWeatherData();
+        //    getWeatherFromAPI.getWeatherData();
         },
 
     /**
      *  @desc: temporary methods to return data of MOCK.
      *
      *
-     */        
+     */
         getServiceMonthStat = function () {
             var path = './data/serviceMonthStatMock.json';
             return readData(path);
@@ -73,7 +72,7 @@ module.exports = (function () {
      * Method returns an array of day statistic from the database.
      * If the database not available -  returned mock data from JSON.
      */
-    getServiceDayStat = function (date) {
+        getServiceDayStat = function (date) {
             var start = new Date(date.getTime()),
                 end = new Date(date.getTime());
             start.setHours(0, 0, 0, 0);
@@ -87,7 +86,7 @@ module.exports = (function () {
     //         return readData(currentStatJSONpath);
     //     });
     //     return result;
-            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics).then(function (items) {
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics).then(function (items) {
                 console.info('All statistic data from DB has been returned successfully!');
                 return items;
             }, function (err) {
@@ -96,12 +95,12 @@ module.exports = (function () {
                 return readData(path);
             });
             return result;
-    },
-    getServiceDayStatByCities = function (date) {
-        var start = new Date(date.getTime()),
-            end = new Date(date.getTime());
-        start.setHours(0, 0, 0, 0);
-        end.setHours(23, 59, 59, 999);
+        },
+        getServiceDayStatByCities = function (date) {
+            var start = new Date(date.getTime()),
+                end = new Date(date.getTime());
+            start.setHours(0, 0, 0, 0);
+            end.setHours(23, 59, 59, 999);
         //TODO: Use this method after router get params
         //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
         //         console.info('The statistic data from DB returned successfully!');
@@ -111,16 +110,16 @@ module.exports = (function () {
         //         return readData(currentStatJSONpath);
         //     });
         //     return result;
-        var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.Service_Day_Statistics_by_Cities).then(function (items) {
-            console.info('All statistic data from DB has been returned successfully!');
-            return items;
-        }, function (err) {
-            logger.logError(err);
-            var path = './data/serviceDayStatByCities.json';
-            return readData(path);
-        });
-        return result;
-    };
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics_by_Cities).then(function (items) {
+                console.info('All statistic data from DB has been returned successfully!');
+                return items;
+            }, function (err) {
+                logger.logError(err);
+                var path = './data/serviceDayStatByCities.json';
+                return readData(path);
+            });
+            return result;
+        };
 
     return {
         initialize: initialize,
