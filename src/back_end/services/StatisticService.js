@@ -7,7 +7,6 @@ var config              = require('./ConfigService.js'),
     set                 = require('./../config/settings.json'),
     pathToDBs           = require('./../config/pathConfig.json');
 module.exports = (function () {
-    
     var  minValue = function (paramName, data, cityNameNeeded) {
             var lowest      = Number.POSITIVE_INFINITY,
                 fieldName   = set.variables.min_ + paramName,
