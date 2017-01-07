@@ -35,24 +35,20 @@
                 <li>
                     <form action="#" name="params">
                         <p>
-                            <input class="with-gap" name="group1" type="radio" id="temperature"/>
+                            <input class="with-gap" name="parameter" type="radio" value="temp" id="temperature" checked/>
                             <label for="temperature">Temperature</label>
                         </p>
                         <p>
-                            <input class="with-gap" name="group1" type="radio" id="pressure"/>
+                            <input class="with-gap" name="parameter" type="radio" value="pressure" id="pressure"/>
                             <label for="pressure">Pressure</label>
                         </p>
                         <p>
-                            <input class="with-gap" name="group1" type="radio" id="humidity"/>
+                            <input class="with-gap" name="parameter" type="radio" value="humidity" id="humidity"/>
                             <label for="humidity">Humidity</label>
                         </p>
                         <p>
-                            <input class="with-gap" name="group1" type="radio" id="wind_speed"/>
+                            <input class="with-gap" name="parameter" type="radio" value="windSpeed" id="wind_speed"/>
                             <label for="wind_speed">Wind speed</label>
-                        </p>
-                        <p>
-                            <input class="with-gap" name="group1" type="radio" id="fall-out"/>
-                            <label for="fall-out">Fall-out</label>
                         </p>
                     </form>
                 </li>
@@ -68,84 +64,54 @@
                             <input type="date" name="date-to" class="datepicker date-size">
                         </form>
                     </div>
-                    <a class="waves-effect waves-light btn blue">button</a>
-                    <div class="">
-                        <div class="card-content">
-                            <canvas id="myChart1" height="400" width="400"></canvas>
-                        </div>
-                    </div>
+                    <a class="waves-effect waves-light btn blue" id="statistics">Show</a>
                 </li>
             </div>
         </ul>
     </header>
-    <div class="container">
-        <div class="row">
-            <div class="content"></div>
-            <div class="col s12">
-                <div id="map" class="map card-panel z-depth-1 hoverable"></div>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="content"></div>
+                <div class="col s12">
+                    <div id="map" class="map card-panel z-depth-1 hoverable"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel z-depth-1 hoverable chart-current-weather">
+                        <div class="section">
+                            <div class="row">
+                                <div class="col l6 m6 s6 left">
+                                    <h5>CURRENT WEATHER COMPARE SERVICES</h5>
+                                </div>
+                                <div class="col l3 m3 s3 right">
+                                    <label>CITY:</label>
+                                    <select class="browser-default cur-params" name="city">
+                                        <option value="Rivne">Rivne</option>
+                                        <option value="Luts'k">Lutsk</option>
+                                        <option value="Kiev">Kiev</option>
+                                    </select>
+                                </div>
+                                <div class="col l3 m3 s3 right">
+                                    <label>PARAMETER:</label>
+                                    <select class="browser-default cur-params" name="param">
+                                        <option value="temp">Temperature</option>
+                                        <option value="pressure">Pressure</option>
+                                        <option value="humidity">Humidity</option>
+                                        <option value="windSpeed">Wind speed</option>
+                                        <option value="clouds">Clouds</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                        <canvas id="chart-current-weather"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="card-panel z-depth-1 hoverable chart-current-weather">
-                    <div class="section">
-                        <div class="row">
-                            <div class="col l6 m6 s6 left">
-                                <h5>CURRENT WEATHER COMPARE SERVICES</h5>
-                            </div>
-                            <div class="col l3 m3 s3 right">
-                                <select class="browser-default cur-params" name="city">
-                                    <option value="" disabled selected>CITY</option>
-                                    <option value="Rivne">Rivne</option>
-                                    <option value="Luts'k">Lutsk</option>
-                                    <option value="Kiev">Kiev</option>
-                                </select>
-                            </div>
-                            <div class="col l3 m3 s3 right">
-                                <select class="browser-default cur-params" name="param">
-                                    <option value="" disabled selected>PARAMETER</option>
-                                    <option value="temp">Temperature</option>
-                                    <option value="pressure">Pressure</option>
-                                    <option value="humidity">Humidity</option>
-                                    <option value="windSpeed">Wind speed</option>
-                                    <option value="clouds">Clouds</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="divider"></div>
-                    </div>
-                    <canvas id="chart-current-weather"></canvas>
-                </div>
-            </div>
-            <div class="col s12 m12 l12">
-                <div class="card-panel z-depth-1 hoverable">
-                    <div class="section">
-                        <div class="row">
-                            <div class="col l6 m6 s6 left">
-                                <h5>STATISTIC WEATHER CHART</h5>
-                            </div>
-
-                        </div>
-                        <div class="divider"></div>
-                    </div>
-                    <canvas id="myChart" width="200"></canvas>
-                </div>
-            </div>
-            <div class="col s4 m4 l4">
-                <div class="card hoverable">
-                    <div class="card-content">
-                        <canvas id="myChart2" height="400" width="400"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col s4 m4 l4">
-
-            </div>
-            <div class="col s4 m4 l4">
-
-            </div>
-        </div>
-    </div>
+    </main>
 </div>
 <script src="js/vendor.js" type="text/javascript"></script>
 <script src="js/templates.js" type="text/javascript"></script>

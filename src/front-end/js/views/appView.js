@@ -7,7 +7,13 @@ app.appView = Backbone.View.extend({
 
     currentData: new app.currentWeatherCollection(),
 
+    statisticData: new app.statisticWeatherCollection(),
+
     currentWeatherChart: null,
+
+    statisticChart: null,
+
+    params: null,
 
     appConfig: {
         cities: [
@@ -24,26 +30,35 @@ app.appView = Backbone.View.extend({
                 cords: [50.73977, 25.2639655]
             }
         ],
+        servicesNames: [
+            "openWeather", 
+            "wunderground", 
+            "darkSky"],
         params: [
             {
                 name: 'temp',
                 label: 'Temperature',
-                units: 'C'
+                units: 'C',
+                max: 30,
+                min: -30
             },
             {
                 name: 'pressure',
                 label: 'Pressure',
-                units: 'mmHg'
+                units: 'mmHg',
+                max: 1200
             },
             {
                 name: 'humidity',
                 label: 'Humidity',
-                units: '%'
+                units: '%',
+                max: 100
             },
             {
                 name: 'windSpeed',
                 label: 'Wind speed',
-                units: 'meter/sec'
+                units: 'meter/sec',
+                max: 50
             },
             {
                 name: 'windDir',
@@ -53,7 +68,8 @@ app.appView = Backbone.View.extend({
             {
                 name: 'clouds',
                 label: 'Clouds',
-                units: '%'
+                units: '%',
+                max: 100
             }
 
         ],
@@ -63,7 +79,7 @@ app.appView = Backbone.View.extend({
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
                         }
                     }],
                     xAxes: [{
@@ -98,12 +114,13 @@ app.appView = Backbone.View.extend({
     },
 
     events: {
-        "change .cur-params": "changeDatasets"
+        "change .cur-params": "changeDatasets",
+        "click #statistics": "verifyParams"
     },
 
     initialize: function () {
         this.currentData.fetch();
-        this.listenTo(this.currentData, 'update', this.render)
+        this.listenTo(this.currentData, 'update', this.render);
     },
 
     render: function () {
@@ -137,6 +154,7 @@ app.appView = Backbone.View.extend({
             param       = _.first(this.appConfig.params).name,
             label       = this._createLabel(city, param),
             chartParams = this.currentData.getWeatherByParams(city, param);
+
         this.currentWeatherChart = new Chart(this.$el.find("#chart-current-weather"), {
             type: 'bar',
             data: {
@@ -151,7 +169,7 @@ app.appView = Backbone.View.extend({
                     }
                 ]
             },
-            options: this.appConfig.chart.options
+            options: chartService.getOptions(this.appConfig, param, chartParams.data)
         });
     },
 
@@ -168,9 +186,85 @@ app.appView = Backbone.View.extend({
         var city        = this.$el.find('select[name="city"]').val() || _.first(this.appConfig.cities).name,
             param       = this.$el.find('select[name="param"]').val() || _.first(this.appConfig.params).name,
             label       = this._createLabel(city, param),
-            chartParams = this.currentData.getWeatherByParams(city, param);
+            chartParams = this.currentData.getWeatherByParams(city, param),
+            limits      = chartService.updateTicks(this.appConfig, param, chartParams.data);
         _.first(this.currentWeatherChart.data.datasets).label = label;
         _.first(this.currentWeatherChart.data.datasets).data = chartParams.data;
+        _.first(this.currentWeatherChart.options.scales.yAxes).ticks.max = limits.max;
+        _.first(this.currentWeatherChart.options.scales.yAxes).ticks.min = limits.min;
         this.currentWeatherChart.update();
+    },
+
+    getParams: function(){
+        var result = {};
+        result.city = this.$el.find('select[name="cities"]').val();
+        result.param = this.$el.find('input[name="parameter"]:checked').val();
+        result.from = this.$el.find('input[name="date-from"]').val();
+        result.to = this.$el.find('input[name="date-to"]').val();
+        return result;
+    },
+
+    verifyParams: function(){
+        var params = this.getParams();
+        _.each(params, function(item){
+            if (_.isNull(item) || _.isUndefined(item) || _.isEmpty(item)){
+                params = null;
+            }
+        });
+        this.params = params;
+        if (!params){
+            alert("Enter valid data");
+        } else {
+            this.showStatistics();
+        }
+    },
+
+
+    showStatistics: function(){
+        this.statisticData.fetch({ data: $.param({
+            from: this.params.from,
+            to: this.params.to
+        }) });
+        this.listenTo(this.statisticData, 'update', this.renderStatisticsChart);
+    },
+
+    renderStatisticsChart: function(){
+        var data = chartService.getStatisticChartData(this.statisticData.getModelsByCity(this.params.city), 
+            this.params.param, this.appConfig);
+        this.$el.find('main').html(templates.render('statistic_chart', this.params));
+        this.statisticChart = new Chart(this.$el.find("#statistic_chart"), {
+            type: 'line',
+            data: {
+                labels: ['First', 'Second', 'Third'],//timestamps
+                datasets: [
+                    {
+                        label: "My First", // serviceNames
+                        fill: true,
+                        data: [10, 12, 15 , 18, 20],
+                        backgroundColor: this.appConfig.chart.colors.background[0],
+                        borderColor: this.appConfig.chart.colors.border[0],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "My Second", // serviceNames
+                        fill: true,
+                        data: [12, 10, 11 , 15, 18],
+                        backgroundColor: this.appConfig.chart.colors.background[1],
+                        borderColor: this.appConfig.chart.colors.border[1],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "My Third", // serviceNames
+                        fill: true,
+                        data: [8, 13, 15 , 12, 22],
+                        backgroundColor: this.appConfig.chart.colors.background[2],
+                        borderColor: this.appConfig.chart.colors.border[2],
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: this.appConfig.chart.options
+        });
+        console.log(data);
     }
 });
