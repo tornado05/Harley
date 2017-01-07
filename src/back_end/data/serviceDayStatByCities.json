@@ -1,1 +1,371 @@
-[{"_id":"585af1823d5f4d2fa47d0e14","time":1482347996,"city":"Rivne","service":"openWeather","stat":[{"minTemp":-4.77},{"maxTemp":-4.77},{"minHum":84},{"maxHum":84},{"minWindSpeed":10.8},{"maxWindSpeed":10.8},{"avgTemp":{"temp":-4.77}},{"avgHum":{"hum":84}},{"avgWindSpeed":{"windSpeed":10.8}}]},{"_id":"585af1823d5f4d2fa47d0e17","time":1482348474,"city":"Luts'k","service":"openWeather","stat":[{"minTemp":-3.88},{"maxTemp":-3.88},{"minHum":82},{"maxHum":82},{"minWindSpeed":11.7},{"maxWindSpeed":11.7},{"avgTemp":{"temp":-3.88}},{"avgHum":{"hum":82}},{"avgWindSpeed":{"windSpeed":11.7}}]},{"_id":"585af1823d5f4d2fa47d0e18","time":1482348522,"city":"Luts'k","service":"wunderground","stat":[{"minTemp":-1},{"maxTemp":-1},{"minHum":86},{"maxHum":86},{"minWindSpeed":0},{"maxWindSpeed":0},{"avgTemp":{"temp":-1}},{"avgHum":{"hum":86}},{"avgWindSpeed":{"windSpeed":0}}]},{"_id":"585af1823d5f4d2fa47d0e19","time":1482348543,"city":"Luts'k","service":"darkSky","stat":[{"minTemp":-3.65},{"maxTemp":-3.57},{"minHum":95},{"maxHum":95},{"minWindSpeed":9.27},{"maxWindSpeed":9.29},{"avgTemp":{"temp":-3.61}},{"avgHum":{"hum":95}},{"avgWindSpeed":{"windSpeed":9.28}}]},{"_id":"585af1823d5f4d2fa47d0e15","time":1482348523,"city":"Rivne","service":"wunderground","stat":[{"minTemp":-0.7},{"maxTemp":-0.7},{"minHum":96},{"maxHum":97},{"minWindSpeed":6.4},{"maxWindSpeed":9.7},{"avgTemp":{"temp":-0.7}},{"avgHum":{"hum":96.5}},{"avgWindSpeed":{"windSpeed":8.05}}]},{"_id":"585af1823d5f4d2fa47d0e16","time":1482348543,"city":"Rivne","service":"darkSky","stat":[{"minTemp":-3.89},{"maxTemp":-3.83},{"minHum":95},{"maxHum":95},{"minWindSpeed":8.5},{"maxWindSpeed":8.56},{"avgTemp":{"temp":-3.8600000000000003}},{"avgHum":{"hum":95}},{"avgWindSpeed":{"windSpeed":8.530000000000001}}]},{"_id":"585af1823d5f4d2fa47d0e1a","time":1482346800,"city":"Kiev","service":"openWeather","stat":[{"minTemp":-1},{"maxTemp":-1},{"minHum":86},{"maxHum":86},{"minWindSpeed":18},{"maxWindSpeed":18},{"avgTemp":{"temp":-1}},{"avgHum":{"hum":86}},{"avgWindSpeed":{"windSpeed":18}}]},{"_id":"585af1823d5f4d2fa47d0e1b","time":1482348523,"city":"Kiev","service":"wunderground","stat":[{"minTemp":-1.1},{"maxTemp":-1.1},{"minHum":92},{"maxHum":92},{"minWindSpeed":4.8},{"maxWindSpeed":8},{"avgTemp":{"temp":-1.1}},{"avgHum":{"hum":92}},{"avgWindSpeed":{"windSpeed":6.4}}]},{"_id":"585af1823d5f4d2fa47d0e1c","time":1482348543,"city":"Kiev","service":"darkSky","stat":[{"minTemp":-3.19},{"maxTemp":-2.63},{"minHum":90},{"maxHum":90},{"minWindSpeed":11.38},{"maxWindSpeed":11.38},{"avgTemp":{"temp":-2.91}},{"avgHum":{"hum":90}},{"avgWindSpeed":{"windSpeed":11.38}}]}]
+[
+  {
+    "_id": "585af1823d5f4d2fa47d0e14",
+    "time": 1482347996,
+    "city": "Rivne",
+    "service": "openWeather",
+    "stat": [
+      {
+        "minTemp": -4.77
+      },
+      {
+        "maxTemp": -4.77
+      },
+      {
+        "minHum": 84
+      },
+      {
+        "maxHum": 84
+      },
+      {
+        "minWindSpeed": 10.8
+      },
+      {
+        "maxWindSpeed": 10.8
+      },
+      {
+        "avgTemp": {
+          "temp": -4.77
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 84
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 10.8
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e17",
+    "time": 1482348474,
+    "city": "Luts'k",
+    "service": "openWeather",
+    "stat": [
+      {
+        "minTemp": -3.88
+      },
+      {
+        "maxTemp": -3.88
+      },
+      {
+        "minHum": 82
+      },
+      {
+        "maxHum": 82
+      },
+      {
+        "minWindSpeed": 11.7
+      },
+      {
+        "maxWindSpeed": 11.7
+      },
+      {
+        "avgTemp": {
+          "temp": -3.88
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 82
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 11.7
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e18",
+    "time": 1482348522,
+    "city": "Luts'k",
+    "service": "wunderground",
+    "stat": [
+      {
+        "minTemp": -1
+      },
+      {
+        "maxTemp": -1
+      },
+      {
+        "minHum": 86
+      },
+      {
+        "maxHum": 86
+      },
+      {
+        "minWindSpeed": 0
+      },
+      {
+        "maxWindSpeed": 0
+      },
+      {
+        "avgTemp": {
+          "temp": -1
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 86
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 0
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e19",
+    "time": 1482348543,
+    "city": "Luts'k",
+    "service": "darkSky",
+    "stat": [
+      {
+        "minTemp": -3.65
+      },
+      {
+        "maxTemp": -3.57
+      },
+      {
+        "minHum": 95
+      },
+      {
+        "maxHum": 95
+      },
+      {
+        "minWindSpeed": 9.27
+      },
+      {
+        "maxWindSpeed": 9.29
+      },
+      {
+        "avgTemp": {
+          "temp": -3.61
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 95
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 9.28
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e15",
+    "time": 1482348523,
+    "city": "Rivne",
+    "service": "wunderground",
+    "stat": [
+      {
+        "minTemp": -0.7
+      },
+      {
+        "maxTemp": -0.7
+      },
+      {
+        "minHum": 96
+      },
+      {
+        "maxHum": 97
+      },
+      {
+        "minWindSpeed": 6.4
+      },
+      {
+        "maxWindSpeed": 9.7
+      },
+      {
+        "avgTemp": {
+          "temp": -0.7
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 96.5
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 8.05
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e16",
+    "time": 1482348543,
+    "city": "Rivne",
+    "service": "darkSky",
+    "stat": [
+      {
+        "minTemp": -3.89
+      },
+      {
+        "maxTemp": -3.83
+      },
+      {
+        "minHum": 95
+      },
+      {
+        "maxHum": 95
+      },
+      {
+        "minWindSpeed": 8.5
+      },
+      {
+        "maxWindSpeed": 8.56
+      },
+      {
+        "avgTemp": {
+          "temp": -3.8600000000000003
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 95
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 8.530000000000001
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1a",
+    "time": 1482346800,
+    "city": "Kiev",
+    "service": "openWeather",
+    "stat": [
+      {
+        "minTemp": -1
+      },
+      {
+        "maxTemp": -1
+      },
+      {
+        "minHum": 86
+      },
+      {
+        "maxHum": 86
+      },
+      {
+        "minWindSpeed": 18
+      },
+      {
+        "maxWindSpeed": 18
+      },
+      {
+        "avgTemp": {
+          "temp": -1
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 86
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 18
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1b",
+    "time": 1482348523,
+    "city": "Kiev",
+    "service": "wunderground",
+    "stat": [
+      {
+        "minTemp": -1.1
+      },
+      {
+        "maxTemp": -1.1
+      },
+      {
+        "minHum": 92
+      },
+      {
+        "maxHum": 92
+      },
+      {
+        "minWindSpeed": 4.8
+      },
+      {
+        "maxWindSpeed": 8
+      },
+      {
+        "avgTemp": {
+          "temp": -1.1
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 92
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 6.4
+        }
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1c",
+    "time": 1482348543,
+    "city": "Kiev",
+    "service": "darkSky",
+    "stat": [
+      {
+        "minTemp": -3.19
+      },
+      {
+        "maxTemp": -2.63
+      },
+      {
+        "minHum": 90
+      },
+      {
+        "maxHum": 90
+      },
+      {
+        "minWindSpeed": 11.38
+      },
+      {
+        "maxWindSpeed": 11.38
+      },
+      {
+        "avgTemp": {
+          "temp": -2.91
+        }
+      },
+      {
+        "avgHum": {
+          "hum": 90
+        }
+      },
+      {
+        "avgWindSpeed": {
+          "windSpeed": 11.38
+        }
+      }
+    ]
+  }
+]
