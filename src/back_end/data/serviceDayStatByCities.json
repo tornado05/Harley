@@ -6,37 +6,28 @@
     "service": "openWeather",
     "stat": [
       {
-        "minTemp": -4.77
+        "name":"temp",
+        "min": -4.77,
+        "max": -4.77,
+        "avg": -4.77
       },
       {
-        "maxTemp": -4.77
+        "name": "pressure",
+        "min": 998,
+        "max": 1073,
+        "avg": 1035.5
       },
       {
-        "minHum": 84
+        "name": "humidity",
+        "min": 84,
+        "max": 84,
+        "avg": 84
       },
       {
-        "maxHum": 84
-      },
-      {
-        "minWindSpeed": 10.8
-      },
-      {
-        "maxWindSpeed": 10.8
-      },
-      {
-        "avgTemp": {
-          "temp": -4.77
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 84
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 10.8
-        }
+        "name": "windSpeed",
+        "min": 10.8,
+        "max": 10.8,
+        "avg": 10.8
       }
     ]
   },
@@ -47,37 +38,28 @@
     "service": "openWeather",
     "stat": [
       {
-        "minTemp": -3.88
+        "name":"temp",
+        "min": -3.88,
+        "max": -3.88,
+        "avg": -3.88
       },
       {
-        "maxTemp": -3.88
+        "name": "pressure",
+        "min": 990,
+        "max": 1020,
+        "avg": 1005
       },
       {
-        "minHum": 82
+        "name": "humidity",
+        "min": 82,
+        "max": 86,
+        "avg": 84
       },
       {
-        "maxHum": 82
-      },
-      {
-        "minWindSpeed": 11.7
-      },
-      {
-        "maxWindSpeed": 11.7
-      },
-      {
-        "avgTemp": {
-          "temp": -3.88
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 82
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 11.7
-        }
+        "name": "windSpeed",
+        "min": 0,
+        "max": 10,
+        "avg": 5
       }
     ]
   },
@@ -88,37 +70,28 @@
     "service": "wunderground",
     "stat": [
       {
-        "minTemp": -1
+        "name":"temp",
+        "min": -1,
+        "max": -3,
+        "avg": -2
       },
       {
-        "maxTemp": -1
+        "name": "pressure",
+        "min": 1020,
+        "max": 1040,
+        "avg": 1030
       },
       {
-        "minHum": 86
+        "name": "humidity",
+        "min": 85,
+        "max": 89,
+        "avg": 87
       },
       {
-        "maxHum": 86
-      },
-      {
-        "minWindSpeed": 0
-      },
-      {
-        "maxWindSpeed": 0
-      },
-      {
-        "avgTemp": {
-          "temp": -1
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 86
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 0
-        }
+        "name": "windSpeed",
+        "min": 6,
+        "max": 8,
+        "avg": 7
       }
     ]
   },
@@ -129,37 +102,28 @@
     "service": "darkSky",
     "stat": [
       {
-        "minTemp": -3.65
+        "name":"temp",
+        "min": -5,
+        "max": -3,
+        "avg": -4
       },
       {
-        "maxTemp": -3.57
+        "name": "pressure",
+        "min": 995,
+        "max": 1005,
+        "avg": 1000
       },
       {
-        "minHum": 95
+        "name": "humidity",
+        "min": 92,
+        "max": 96,
+        "avg": 94
       },
       {
-        "maxHum": 95
-      },
-      {
-        "minWindSpeed": 9.27
-      },
-      {
-        "maxWindSpeed": 9.29
-      },
-      {
-        "avgTemp": {
-          "temp": -3.61
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 95
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 9.28
-        }
+        "name": "windSpeed",
+        "min": 8,
+        "max": 10,
+        "avg": 9
       }
     ]
   },
@@ -170,37 +134,28 @@
     "service": "wunderground",
     "stat": [
       {
-        "minTemp": -0.7
+        "name":"temp",
+        "min": -1,
+        "max": -1,
+        "avg": -1
       },
       {
-        "maxTemp": -0.7
+        "name": "pressure",
+        "min": 1000,
+        "max": 1020,
+        "avg": 1010
       },
       {
-        "minHum": 96
+        "name": "humidity",
+        "min": 90,
+        "max": 92,
+        "avg": 91
       },
       {
-        "maxHum": 97
-      },
-      {
-        "minWindSpeed": 6.4
-      },
-      {
-        "maxWindSpeed": 9.7
-      },
-      {
-        "avgTemp": {
-          "temp": -0.7
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 96.5
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 8.05
-        }
+        "name": "windSpeed",
+        "min": 10,
+        "max": 10,
+        "avg": 10
       }
     ]
   },
@@ -211,37 +166,28 @@
     "service": "darkSky",
     "stat": [
       {
-        "minTemp": -3.89
+        "name":"temp",
+        "min": -4,
+        "max": -2,
+        "avg": -3
       },
       {
-        "maxTemp": -3.83
+        "name": "pressure",
+        "min": 980,
+        "max": 990,
+        "avg": 985
       },
       {
-        "minHum": 95
+        "name": "humidity",
+        "min": 88,
+        "max": 92,
+        "avg": 90
       },
       {
-        "maxHum": 95
-      },
-      {
-        "minWindSpeed": 8.5
-      },
-      {
-        "maxWindSpeed": 8.56
-      },
-      {
-        "avgTemp": {
-          "temp": -3.8600000000000003
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 95
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 8.530000000000001
-        }
+        "name": "windSpeed",
+        "min": 18,
+        "max": 20,
+        "avg": 19
       }
     ]
   },
@@ -252,37 +198,28 @@
     "service": "openWeather",
     "stat": [
       {
-        "minTemp": -1
+        "name":"temp",
+        "min": -3.88,
+        "max": -3.88,
+        "avg": -3.88
       },
       {
-        "maxTemp": -1
+        "name": "pressure",
+        "min": 990,
+        "max": 1020,
+        "avg": 1005
       },
       {
-        "minHum": 86
+        "name": "humidity",
+        "min": 82,
+        "max": 86,
+        "avg": 84
       },
       {
-        "maxHum": 86
-      },
-      {
-        "minWindSpeed": 18
-      },
-      {
-        "maxWindSpeed": 18
-      },
-      {
-        "avgTemp": {
-          "temp": -1
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 86
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 18
-        }
+        "name": "windSpeed",
+        "min": 0,
+        "max": 10,
+        "avg": 5
       }
     ]
   },
@@ -293,37 +230,28 @@
     "service": "wunderground",
     "stat": [
       {
-        "minTemp": -1.1
+        "name":"temp",
+        "min": -5.88,
+        "max": -3.88,
+        "avg": -4.88
       },
       {
-        "maxTemp": -1.1
+        "name": "pressure",
+        "min": 980,
+        "max": 1020,
+        "avg": 1000
       },
       {
-        "minHum": 92
+        "name": "humidity",
+        "min": 82,
+        "max": 88,
+        "avg": 86
       },
       {
-        "maxHum": 92
-      },
-      {
-        "minWindSpeed": 4.8
-      },
-      {
-        "maxWindSpeed": 8
-      },
-      {
-        "avgTemp": {
-          "temp": -1.1
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 92
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 6.4
-        }
+        "name": "windSpeed",
+        "min": 8,
+        "max": 10,
+        "avg": 9
       }
     ]
   },
@@ -334,37 +262,28 @@
     "service": "darkSky",
     "stat": [
       {
-        "minTemp": -3.19
+        "name":"temp",
+        "min": -6.88,
+        "max": -2.88,
+        "avg": -4.88
       },
       {
-        "maxTemp": -2.63
+        "name": "pressure",
+        "min": 1000,
+        "max": 1020,
+        "avg": 1010
       },
       {
-        "minHum": 90
+        "name": "humidity",
+        "min": 92,
+        "max": 96,
+        "avg": 94
       },
       {
-        "maxHum": 90
-      },
-      {
-        "minWindSpeed": 11.38
-      },
-      {
-        "maxWindSpeed": 11.38
-      },
-      {
-        "avgTemp": {
-          "temp": -2.91
-        }
-      },
-      {
-        "avgHum": {
-          "hum": 90
-        }
-      },
-      {
-        "avgWindSpeed": {
-          "windSpeed": 11.38
-        }
+        "name": "windSpeed",
+        "min": 10,
+        "max": 12,
+        "avg": 11
       }
     ]
   }
