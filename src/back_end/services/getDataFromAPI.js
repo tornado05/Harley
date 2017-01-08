@@ -1,40 +1,27 @@
 'use strict';
 var request                         = require('request'),
-    config                          = require('./../services/ConfigService.js'),
-    MongoClient                     = require('mongodb').MongoClient,
-    mapperService                   = require('../services/mapperService'),
-    dataBaseService                 = require('../services/DataBaseService'),
+    config                          = require('./ConfigService.js'),
+    mapperService                   = require('./mapperService'),
+    dataBaseService                 = require('./DataBaseService'),
     pathToDBs                       = require('./../config/pathConfig.json'),
-    logger                          = require('./../services/logger.js');
+    set                             = require('./../config/settings.json'),
+    logger                          = require('./logger.js');
 
 module.exports = (function () {
     var setDataDB = function (serviceName, city, data) {
-        switch (serviceName) {
-        case "openWeather":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        case "wunderground":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        case "darkSky":
-            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, serviceName, data);
-            break;
-        }
-        var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
-        dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
-    },
-
+            var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
+            dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
+        },
         requestData = function (obj) {
             request(obj.url, function (error, response, body) {
                 if (error) {
                     logger.logError(error);
                 }
-                if (!error && response.statusCode === 200) {
+                if (!error && response.statusCode === set.variables.succes) {
                     setDataDB(obj.name, obj.city, JSON.parse(body));
                 }
             });
         },
-
         getWeatherData = function () {
             var citiesURLs = config.getCitiesURLs(),
                 data = [];
@@ -43,7 +30,6 @@ module.exports = (function () {
             });
             return data;
         };
-
     return {
         getWeatherData: getWeatherData
     };

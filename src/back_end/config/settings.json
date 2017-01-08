@@ -1,0 +1,55 @@
+{
+  "variables": {
+    "time": "time",
+    "city":"city",
+    "stat": "stat",
+    "minTemp": "minTemp",
+    "maxTemp": "maxTemp",
+    "minHum": "minHum",
+    "maxHum": "maxHum",
+    "minWindSpeed": "minWindSpeed",
+    "maxWindSpeed": "maxWindSpeed",
+    "avgTemp": "avgTemp",
+    "avgHum": "avgHum",
+    "avgWindSpeed": "avgWindSpeed",
+    "temp": "temp",
+    "humidity": "humidity",
+    "windSpeed": "windSpeed",
+    "date": "date",
+    "cityName": "cityName",
+    "sourceAPI": "sourceAPI",
+    "succes": 200,
+    "coding": "utf8",
+    "service": "service",
+    "min_": "min_",
+    "max_": "max_",
+    "avg_": "avg_",
+    "decimal": 10,
+    "mSecToSec": 1000
+  },
+  "messages": {
+      "fs": {
+          "cantReadFile": "Can not read from file "
+      },
+      "logger": {
+        "error": "ERROR",
+        "warning": "WARNING",
+        "debug": "DEBUG",
+        "info": "INFO",
+        "failToWrite": "Failed to write log"
+      }
+  },
+  "dayStart": {
+    "hour": 0,
+    "mins": 0,
+    "sec": 0,
+    "mSec": 0
+  },
+  "dayEnd": {
+    "hour": 23,
+    "mins": 59,
+    "sec": 59,
+    "mSec": 999
+  }
+
+}
