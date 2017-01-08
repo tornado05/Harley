@@ -7,27 +7,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -4.77,
-        "max": -4.77,
-        "avg": -4.77
+        "min": -1,
+        "max": -1,
+        "avg": -1
       },
       {
         "name": "pressure",
-        "min": 998,
-        "max": 1073,
-        "avg": 1035.5
+        "min": 100,
+        "max": 100,
+        "avg": 100
       },
       {
         "name": "humidity",
-        "min": 84,
-        "max": 84,
-        "avg": 84
+        "min": 80,
+        "max": 80,
+        "avg": 10
       },
       {
         "name": "windSpeed",
-        "min": 10.8,
-        "max": 10.8,
-        "avg": 10.8
+        "min": 10.1,
+        "max": 10.1,
+        "avg": 10.1
       }
     ]
   },
@@ -39,27 +39,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -3.88,
-        "max": -3.88,
-        "avg": -3.88
+        "min": -2.2,
+        "max": -2.2,
+        "avg": -2.2
       },
       {
         "name": "pressure",
-        "min": 990,
-        "max": 1020,
-        "avg": 1005
+        "min": 200,
+        "max": 200,
+        "avg": 200
       },
       {
         "name": "humidity",
-        "min": 82,
-        "max": 86,
-        "avg": 84
+        "min": 20,
+        "max": 20,
+        "avg": 20
       },
       {
         "name": "windSpeed",
-        "min": 0,
-        "max": 10,
-        "avg": 5
+        "min": 20,
+        "max": 20,
+        "avg": 20
       }
     ]
   },
@@ -71,27 +71,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -1,
+        "min": -3,
         "max": -3,
-        "avg": -2
+        "avg": -3
       },
       {
         "name": "pressure",
-        "min": 1020,
-        "max": 1040,
-        "avg": 1030
+        "min": 400,
+        "max": 400,
+        "avg": 400
       },
       {
         "name": "humidity",
-        "min": 85,
-        "max": 89,
-        "avg": 87
+        "min": 40,
+        "max": 40,
+        "avg": 40
       },
       {
         "name": "windSpeed",
-        "min": 6,
-        "max": 8,
-        "avg": 7
+        "min": 4,
+        "max": 4,
+        "avg": 4
       }
     ]
   },
@@ -104,26 +104,26 @@
       {
         "name":"temp",
         "min": -5,
-        "max": -3,
-        "avg": -4
+        "max": -5,
+        "avg": -5
       },
       {
         "name": "pressure",
-        "min": 995,
-        "max": 1005,
-        "avg": 1000
+        "min": 500,
+        "max": 500,
+        "avg": 500
       },
       {
         "name": "humidity",
-        "min": 92,
-        "max": 96,
-        "avg": 94
+        "min": 50,
+        "max": 50,
+        "avg": 50
       },
       {
         "name": "windSpeed",
-        "min": 8,
-        "max": 10,
-        "avg": 9
+        "min": 5,
+        "max": 5,
+        "avg": 5
       }
     ]
   },
@@ -135,27 +135,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -1,
-        "max": -1,
-        "avg": -1
+        "min": -6,
+        "max": -6,
+        "avg": -6
       },
       {
         "name": "pressure",
-        "min": 1000,
-        "max": 1020,
-        "avg": 1010
+        "min": 600,
+        "max": 600,
+        "avg": 600
       },
       {
         "name": "humidity",
-        "min": 90,
-        "max": 92,
-        "avg": 91
+        "min": 60,
+        "max": 60,
+        "avg": 60
       },
       {
         "name": "windSpeed",
-        "min": 10,
-        "max": 10,
-        "avg": 10
+        "min": 6,
+        "max": 6,
+        "avg": 6
       }
     ]
   },
@@ -167,27 +167,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -4,
-        "max": -2,
-        "avg": -3
+        "min": -7,
+        "max": -7,
+        "avg": -7
       },
       {
         "name": "pressure",
-        "min": 980,
-        "max": 990,
-        "avg": 985
+        "min": 700,
+        "max": 700,
+        "avg": 700
       },
       {
         "name": "humidity",
-        "min": 88,
-        "max": 92,
-        "avg": 90
+        "min": 70,
+        "max": 70,
+        "avg": 70
       },
       {
         "name": "windSpeed",
-        "min": 18,
-        "max": 20,
-        "avg": 19
+        "min": 7,
+        "max": 7,
+        "avg": 7
       }
     ]
   },
@@ -199,27 +199,27 @@
     "stat": [
       {
         "name":"temp",
-        "min": -3.88,
-        "max": -3.88,
-        "avg": -3.88
+        "min": -8,
+        "max": -8,
+        "avg": -8
       },
       {
         "name": "pressure",
-        "min": 990,
-        "max": 1020,
-        "avg": 1005
+        "min": 800,
+        "max": 800,
+        "avg": 800
       },
       {
         "name": "humidity",
-        "min": 82,
-        "max": 86,
-        "avg": 84
+        "min": 80,
+        "max": 80,
+        "avg": 80
       },
       {
         "name": "windSpeed",
-        "min": 0,
-        "max": 10,
-        "avg": 5
+        "min": 8,
+        "max": 8,
+        "avg": 8
       }
     ]
   },
@@ -231,26 +231,26 @@
     "stat": [
       {
         "name":"temp",
-        "min": -5.88,
-        "max": -3.88,
-        "avg": -4.88
+        "min": -9,
+        "max": -9,
+        "avg": -9
       },
       {
         "name": "pressure",
-        "min": 980,
-        "max": 1020,
-        "avg": 1000
+        "min": 900,
+        "max": 900,
+        "avg": 900
       },
       {
         "name": "humidity",
-        "min": 82,
-        "max": 88,
-        "avg": 86
+        "min": 90,
+        "max": 90,
+        "avg": 90
       },
       {
         "name": "windSpeed",
-        "min": 8,
-        "max": 10,
+        "min": 9,
+        "max": 9,
         "avg": 9
       }
     ]
@@ -263,27 +263,315 @@
     "stat": [
       {
         "name":"temp",
-        "min": -6.88,
-        "max": -2.88,
-        "avg": -4.88
+        "min": -10,
+        "max": -10,
+        "avg": -10
       },
       {
         "name": "pressure",
         "min": 1000,
-        "max": 1020,
-        "avg": 1010
+        "max": 1000,
+        "avg": 1000
       },
       {
         "name": "humidity",
-        "min": 92,
-        "max": 96,
-        "avg": 94
+        "min": 91,
+        "max": 91,
+        "avg": 91
       },
       {
         "name": "windSpeed",
-        "min": 10,
+        "min": 19,
+        "max": 19,
+        "avg": 19
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e14",
+    "time": 1482364800,
+    "city": "Rivne",
+    "service": "openWeather",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -11,
+        "max": -11,
+        "avg": -11
+      },
+      {
+        "name": "pressure",
+        "min": 811,
+        "max": 811,
+        "avg": 811
+      },
+      {
+        "name": "humidity",
+        "min": 81,
+        "max": 81,
+        "avg": 81
+      },
+      {
+        "name": "windSpeed",
+        "min": 8.1,
+        "max": 8.1,
+        "avg": 8.1
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e17",
+    "time": 1482364800,
+    "city": "Luts'k",
+    "service": "openWeather",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -9.88,
+        "max": -9.88,
+        "avg": -9.88
+      },
+      {
+        "name": "pressure",
+        "min": 988,
+        "max": 988,
+        "avg": 988
+      },
+      {
+        "name": "humidity",
+        "min": 98,
+        "max": 98,
+        "avg": 98
+      },
+      {
+        "name": "windSpeed",
+        "min": 9.8,
+        "max": 9.8,
+        "avg": 9.8
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e18",
+    "time": 1482364800,
+    "city": "Luts'k",
+    "service": "wunderground",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -7.8,
+        "max": -7.8,
+        "avg": -7.8
+      },
+      {
+        "name": "pressure",
+        "min": 780,
+        "max": 780,
+        "avg": 780
+      },
+      {
+        "name": "humidity",
+        "min": 78,
+        "max": 78,
+        "avg": 78
+      },
+      {
+        "name": "windSpeed",
+        "min": 7.8,
+        "max": 7.8,
+        "avg": 7.8
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e19",
+    "time": 1482364800,
+    "city": "Luts'k",
+    "service": "darkSky",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -5.8,
+        "max": -5.8,
+        "avg": -5.8
+      },
+      {
+        "name": "pressure",
+        "min": 580,
+        "max": 580,
+        "avg": 580
+      },
+      {
+        "name": "humidity",
+        "min": 58,
+        "max": 58,
+        "avg": 58
+      },
+      {
+        "name": "windSpeed",
+        "min": 5.8,
+        "max": 5.8,
+        "avg": 5.8
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e15",
+    "time": 1482364800,
+    "city": "Rivne",
+    "service": "wunderground",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -12,
+        "max": -12,
+        "avg": -12
+      },
+      {
+        "name": "pressure",
+        "min": 120,
+        "max": 120,
+        "avg": 120
+      },
+      {
+        "name": "humidity",
+        "min": 12,
         "max": 12,
-        "avg": 11
+        "avg": 12
+      },
+      {
+        "name": "windSpeed",
+        "min": 12,
+        "max": 12,
+        "avg": 12
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e16",
+    "time": 1482364800,
+    "city": "Rivne",
+    "service": "darkSky",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -15,
+        "max": -15,
+        "avg": -15
+      },
+      {
+        "name": "pressure",
+        "min": 150,
+        "max": 150,
+        "avg": 150
+      },
+      {
+        "name": "humidity",
+        "min": 15,
+        "max": 15,
+        "avg": 15
+      },
+      {
+        "name": "windSpeed",
+        "min": 15,
+        "max": 15,
+        "avg": 15
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1a",
+    "time": 1482364800,
+    "city": "Kiev",
+    "service": "openWeather",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -5.8,
+        "max": -5.8,
+        "avg": -5.8
+      },
+      {
+        "name": "pressure",
+        "min": 580,
+        "max": 580,
+        "avg": 580
+      },
+      {
+        "name": "humidity",
+        "min": 58,
+        "max": 58,
+        "avg": 58
+      },
+      {
+        "name": "windSpeed",
+        "min": 5.8,
+        "max": 5.8,
+        "avg": 5.8
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1b",
+    "time": 1482364800,
+    "city": "Kiev",
+    "service": "wunderground",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -2.77,
+        "max": -2.77,
+        "avg": -2.77
+      },
+      {
+        "name": "pressure",
+        "min": 277,
+        "max": 277,
+        "avg": 277
+      },
+      {
+        "name": "humidity",
+        "min": 27,
+        "max": 27,
+        "avg": 27
+      },
+      {
+        "name": "windSpeed",
+        "min": 27.7,
+        "max": 27.7,
+        "avg": 27.7
+      }
+    ]
+  },
+  {
+    "_id": "585af1823d5f4d2fa47d0e1c",
+    "time": 1482364800,
+    "city": "Kiev",
+    "service": "darkSky",
+    "stat": [
+      {
+        "name":"temp",
+        "min": -5.11,
+        "max": -5.11,
+        "avg": -5.11
+      },
+      {
+        "name": "pressure",
+        "min": 511,
+        "max": 511,
+        "avg": 511
+      },
+      {
+        "name": "humidity",
+        "min": 51,
+        "max": 51,
+        "avg": 51
+      },
+      {
+        "name": "windSpeed",
+        "min": 5.11,
+        "max": 5.11,
+        "avg": 5.11
       }
     ]
   }
