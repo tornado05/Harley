@@ -106,6 +106,9 @@ module.exports = (function () {
                 var path = './data/serviceDayStatByCities.json';
                 return readData(path);
             });
+            _.each(data, function(){
+
+            });
             return result;
         },
         getServiceMonthStatByCities = function (date) {

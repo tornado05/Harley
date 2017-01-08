@@ -80,7 +80,7 @@ module.exports = (function () {
                     time: dataArr[0].date,
                     service : serviceName
                 },
-                obj4 = [{
+                obj4 = {
                     temp: {
                         min: minValue(set.variables.temp, dataArr),
                         max: maxValue(set.variables.temp, dataArr),
@@ -96,7 +96,7 @@ module.exports = (function () {
                         max: maxValue(set.variables.windSpeed, dataArr),
                         avg: avgValue(set.variables.windSpeed, dataArr)
                     }
-                }];
+                };
             if (cityName !== 0 && serviceName !== 0) {
                 obj1.stat = obj4;
                 output = obj1;
