@@ -81,28 +81,20 @@ module.exports = (function () {
                     service : serviceName
                 },
                 obj4 = [{
-                    minTemp: minValue(set.variables.temp, dataArr)
-                }, {
-                    maxTemp: maxValue(set.variables.temp, dataArr)
-                }, {
-                    minHum: minValue(set.variables.humidity, dataArr)
-                }, {
-                    maxHum: maxValue(set.variables.humidity, dataArr)
-                }, {
-                    minWindSpeed: minValue(set.variables.windSpeed, dataArr)
-                }, {
-                    maxWindSpeed: maxValue(set.variables.windSpeed, dataArr)
-                }, {
-                    avgTemp: {
-                        temp: avgValue(set.variables.temp, dataArr)
-                    }
-                }, {
-                    avgHum: {
-                        hum: avgValue(set.variables.humidity, dataArr)
-                    }
-                }, {
-                    avgWindSpeed: {
-                        windSpeed: avgValue(set.variables.windSpeed, dataArr)
+                    temp: {
+                        min: minValue(set.variables.temp, dataArr),
+                        max: maxValue(set.variables.temp, dataArr),
+                        avg: avgValue(set.variables.temp, dataArr)
+                    },
+                    hum: {
+                        min: minValue(set.variables.humidity, dataArr),
+                        max: maxValue(set.variables.humidity, dataArr),
+                        avg: avgValue(set.variables.humidity, dataArr)
+                    },
+                    windSpeed: {
+                        min: minValue(set.variables.windSpeed, dataArr),
+                        max: maxValue(set.variables.windSpeed, dataArr),
+                        avg: avgValue(set.variables.windSpeed, dataArr)
                     }
                 }];
             if (cityName !== 0 && serviceName !== 0) {

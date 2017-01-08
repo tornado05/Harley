@@ -1,120 +1,72 @@
 [
   {
-    "_id" : "5843cd04c926350fdce8777f",
-    "time" : 1480788363,
-    "city" : "Rivne",
-    "stat" : [
-      {
-        "minTemp" : -4.15
-      },
-      {
-        "maxTemp" : -1.2
-      },
-      {
-        "minHum" : 77
-      },
-      {
-        "maxHum" : 92
-      },
-      {
-        "minWindSpeed" : 8
-      },
-      {
-        "maxWindSpeed" : 21.6
-      },
-      {
-        "avgTemp" : {
-          "temp" : -3.35277777777778
-        }
-      },
-      {
-        "avgHum" : {
-          "hum" : 87.3888888888889
-        }
-      },
-      {
-        "avgWindSpeed" : {
-          "windSpeed" : 15.2955555555556
-        }
-      }
-    ]
-  },
-  {
-    "_id" : "5843cd04c926350fdce87780",
-    "time" : 1480788442,
-    "city" : "Luts'k",
-    "stat" : [
-      {
-        "minTemp" : -4.42
-      },
-      {
-        "maxTemp" : -2
-      },
-      {
-        "minHum" : 74
-      },
-      {
-        "maxHum" : 86
-      },
-      {
-        "minWindSpeed" : 0
-      },
-      {
-        "maxWindSpeed" : 18
-      },
-      {
-        "avgTemp" : {
-          "temp" : -3.36388888888889
-        }
-      },
-      {
-        "avgHum" : {
-          "hum" : 80.9444444444444
-        }
-      },
-      {
-        "avgWindSpeed" : {
-          "windSpeed" : 11.4372222222222
-        }
-      }
-    ]
-  },
-  {
-    "_id" : "5843cd04c926350fdce87781",
-    "time" : 1480786200,
+    "_id" : "58725769cff4351d243896e5",
+    "time" : 1483884000,
     "city" : "Kiev",
     "stat" : [
       {
-        "minTemp" : -7.32
-      },
-      {
-        "maxTemp" : -1.8
-      },
-      {
-        "minHum" : 85
-      },
-      {
-        "maxHum" : 96
-      },
-      {
-        "minWindSpeed" : 0
-      },
-      {
-        "maxWindSpeed" : 18
-      },
-      {
-        "avgTemp" : {
-          "temp" : -3.04833333333333
+        "temp" : {
+          "min" : -10.66,
+          "max" : -9.32,
+          "avg" : -10.1083333333333
+        },
+        "hum" : {
+          "min" : 85,
+          "max" : 92,
+          "avg" : 88
+        },
+        "windSpeed" : {
+          "min" : 9.7,
+          "max" : 21.6,
+          "avg" : 14.5933333333333
         }
-      },
+      }
+    ]
+  },
+  {
+    "_id" : "58725769cff4351d243896e3",
+    "time" : 1483884000,
+    "city" : "Rivne",
+    "stat" : [
       {
-        "avgHum" : {
-          "hum" : 93
+        "temp" : {
+          "min" : -13,
+          "max" : -8.6,
+          "avg" : -11.1666666666667
+        },
+        "hum" : {
+          "min" : 67,
+          "max" : 84,
+          "avg" : 77.3333333333333
+        },
+        "windSpeed" : {
+          "min" : 11.9,
+          "max" : 32.4,
+          "avg" : 22.3316666666667
         }
-      },
+      }
+    ]
+  },
+  {
+    "_id" : "58725769cff4351d243896e4",
+    "time" : 1483884000,
+    "city" : "Luts'k",
+    "stat" : [
       {
-        "avgWindSpeed" : {
-          "windSpeed" : 9.12722222222222
+        "temp" : {
+          "min" : -13,
+          "max" : -12,
+          "avg" : -12.405
+        },
+        "hum" : {
+          "min" : 72,
+          "max" : 85,
+          "avg" : 78.3333333333333
+        },
+        "windSpeed" : {
+          "min" : 0,
+          "max" : 32.4,
+          "avg" : 18.7966666666667
         }
       }
     ]

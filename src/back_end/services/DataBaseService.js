@@ -1,14 +1,14 @@
 'use strict';
-var config = require('./ConfigService.js'),
+var config      = require('./ConfigService.js'),
     MongoClient = require('mongodb').MongoClient,
-    logger = require('./logger.js');
+    logger      = require('./logger.js');
 
 module.exports = (function () {
-    var getLastRecords = function (url, collectionName) {
+    var getLastRecords = function (url, collectionName, count) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find().sort({$natural: -1}).limit(9).toArray(),
+                    data: collection.find().sort({$natural: -1}).limit(count).toArray(),
                     db : db
                 };
             }).then(function (items) {

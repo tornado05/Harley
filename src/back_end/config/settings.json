@@ -29,7 +29,8 @@
   },
   "messages": {
       "fs": {
-          "cantReadFile": "Can not read from file "
+          "cantReadFile": "Can not read from file ",
+          "cantWriteToFile": "Failed saving data to file, data: "
       },
       "logger": {
         "error": "ERROR",
@@ -50,6 +51,6 @@
     "mins": 59,
     "sec": 59,
     "mSec": 999
-  }
-
+  },
+  "lastWeatherUpdateTime": 0
 }

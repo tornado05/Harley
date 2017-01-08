@@ -12,23 +12,25 @@ module.exports = (function () {
             var unifiedWeather = mapperService.prepareDataFromService(serviceName, city, data);
             dataBaseService.setDataToDB(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, unifiedWeather);
         },
-        requestData = function (obj) {
-            request(obj.url, function (error, response, body) {
+        requestData = function (city) {
+            request(city.url, function (error, response, body) {
                 if (error) {
                     logger.logError(error);
                 }
                 if (!error && response.statusCode === set.variables.succes) {
-                    setDataDB(obj.name, obj.city, JSON.parse(body));
+                    setDataDB(city.name, city.city, JSON.parse(body));
                 }
             });
         },
         getWeatherData = function () {
-            var citiesURLs = config.getCitiesURLs(),
-                data = [];
-            citiesURLs.forEach(function (obj) {
-                data.push(requestData(obj));
-            });
-            return data;
+            var date = parseInt((new Date()).getTime() / 1000);
+            config.updateSettings("lastWeatherUpdateTime", date);
+            // var citiesURLs = config.getCitiesURLs(),
+            //     data = [];
+            // citiesURLs.forEach(function (city) {
+            //     data.push(requestData(city));
+            // });
+            // return data;
         };
     return {
         getWeatherData: getWeatherData

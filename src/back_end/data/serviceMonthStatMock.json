@@ -1,201 +1,72 @@
 [
   {
-    "_id" : "5843cd04c926350fdce87777",
-    "time" : 1480788363,
-    "service" : "openWeather",
-    "stat" : [
-      {
-        "minTemp" : {
-          "min_temp" : -7.32,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "maxTemp" : {
-          "max_temp" : -2.36,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "minHum" : {
-          "min_humidity" : 84,
-          "cityName" : "Luts'k"
-        }
-      },
-      {
-        "maxHum" : {
-          "max_humidity" : 92,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "minWindSpeed" : {
-          "min_windSpeed" : 10.8,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "maxWindSpeed" : {
-          "max_windSpeed" : 21.6,
-          "cityName" : "Rivne"
-        }
-      },
-      {
-        "avgTemp" : {
-          "temp" : {
-            "avg_temp" : -3.93055555555556,
-            "cityName" : "Luts'k"
-          }
-        }
-      },
-      {
-        "avgHum" : {
-          "hum" : {
-            "avg_humidity" : 87.7777777777778,
-            "cityName" : "Luts'k"
-          }
-        }
-      },
-      {
-        "avgWindSpeed" : {
-          "windSpeed" : {
-            "avg_windSpeed" : 18.5222222222222,
-            "cityName" : "Luts'k"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "_id" : "5843cd04c926350fdce8777a",
-    "time" : 1480788552,
-    "service" : "wunderground",
-    "stat" : [
-      {
-        "minTemp" : {
-          "min_temp" : -4.6,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "maxTemp" : {
-          "max_temp" : -1.2,
-          "cityName" : "Rivne"
-        }
-      },
-      {
-        "minHum" : {
-          "min_humidity" : 74,
-          "cityName" : "Luts'k"
-        }
-      },
-      {
-        "maxHum" : {
-          "max_humidity" : 95,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "minWindSpeed" : {
-          "min_windSpeed" : 0,
-          "cityName" : "Luts'k"
-        }
-      },
-      {
-        "maxWindSpeed" : {
-          "max_windSpeed" : 14.5,
-          "cityName" : "Rivne"
-        }
-      },
-      {
-        "avgTemp" : {
-          "temp" : {
-            "avg_temp" : -2.2,
-            "cityName" : "Luts'k"
-          }
-        }
-      },
-      {
-        "avgHum" : {
-          "hum" : {
-            "avg_humidity" : 86.6666666666667,
-            "cityName" : "Luts'k"
-          }
-        }
-      },
-      {
-        "avgWindSpeed" : {
-          "windSpeed" : {
-            "avg_windSpeed" : 3.48333333333333,
-            "cityName" : "Luts'k"
-          }
-        }
-      }
-    ]
-  },
-  {
-    "_id" : "5843cd04c926350fdce8777b",
-    "time" : 1480788552,
+    "_id" : "58725769cff4351d243896df",
+    "time" : 1483886272,
     "service" : "darkSky",
     "stat" : [
       {
-        "minTemp" : {
-          "min_temp" : -6.16,
-          "cityName" : "Kiev"
+        "temp" : {
+          "min" : -12.28,
+          "max" : -9.32,
+          "avg" : -11.31
+        },
+        "hum" : {
+          "min" : 67,
+          "max" : 87,
+          "avg" : 76.1666666666667
+        },
+        "windSpeed" : {
+          "min" : 12.41,
+          "max" : 25.83,
+          "avg" : 19.955
         }
-      },
+      }
+    ]
+  },
+  {
+    "_id" : "58725769cff4351d243896de",
+    "time" : 1483886271,
+    "service" : "wunderground",
+    "stat" : [
       {
-        "maxTemp" : {
-          "max_temp" : -2.79,
-          "cityName" : "Kiev"
+        "temp" : {
+          "min" : -13,
+          "max" : -8.6,
+          "avg" : -10.4833333333333
+        },
+        "hum" : {
+          "min" : 79,
+          "max" : 92,
+          "avg" : 85.1666666666667
+        },
+        "windSpeed" : {
+          "min" : 0,
+          "max" : 17.7,
+          "avg" : 8.16666666666667
         }
-      },
+      }
+    ]
+  },
+  {
+    "_id" : "58725769cff4351d243896dd",
+    "time" : 1483884000,
+    "service" : "openWeather",
+    "stat" : [
       {
-        "minHum" : {
-          "min_humidity" : 77,
-          "cityName" : "Luts'k"
-        }
-      },
-      {
-        "maxHum" : {
-          "max_humidity" : 96,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "minWindSpeed" : {
-          "min_windSpeed" : 7.4,
-          "cityName" : "Kiev"
-        }
-      },
-      {
-        "maxWindSpeed" : {
-          "max_windSpeed" : 17.28,
-          "cityName" : "Luts'k"
-        }
-      },
-      {
-        "avgTemp" : {
-          "temp" : {
-            "avg_temp" : -3.63444444444444,
-            "cityName" : "Kiev"
-          }
-        }
-      },
-      {
-        "avgHum" : {
-          "hum" : {
-            "avg_humidity" : 86.8888888888889,
-            "cityName" : "Kiev"
-          }
-        }
-      },
-      {
-        "avgWindSpeed" : {
-          "windSpeed" : {
-            "avg_windSpeed" : 13.8544444444444,
-            "cityName" : "Kiev"
-          }
+        "temp" : {
+          "min" : -13,
+          "max" : -10.66,
+          "avg" : -11.8866666666667
+        },
+        "hum" : {
+          "min" : 78,
+          "max" : 85,
+          "avg" : 82.3333333333333
+        },
+        "windSpeed" : {
+          "min" : 21.6,
+          "max" : 32.4,
+          "avg" : 27.6
         }
       }
     ]
