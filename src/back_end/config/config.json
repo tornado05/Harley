@@ -35,12 +35,6 @@
         "name": "darkSky",
         "urlPart1": "https://api.darksky.net/forecast/73ca2db6aa635b831a24746659e7c907/",
         "urlPart2": ""
-      }],
-    "updateInterval": 7200000,
-    "statisticsTimers" : {
-      "day" : 86400000,
-      "month" : 86400000,
-      "year" : 2592000000
-    }
+      }]
   }
 

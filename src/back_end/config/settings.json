@@ -52,5 +52,10 @@
     "sec": 59,
     "mSec": 999
   },
+  "cronTask": {
+    "everyDay": "0 0 0 * * *",
+    "everyMonth": "0 0 0 1 * *",
+    "everyFourHours": "0 0 */4 * * *"
+  },
   "lastWeatherUpdateTime": 0
 }
