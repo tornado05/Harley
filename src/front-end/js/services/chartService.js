@@ -1,12 +1,20 @@
 var chartService = (function(){
 
+    var getCurrentChartDataset = function(config, data, param, city){
+        return [{
+            label: configService.createLabel(config, param, city),
+            data: data,
+            backgroundColor: config.chart.colors.background,
+            borderColor: config.chart.colors.border,
+            borderWidth: 2
+        }]
+    };
+
     var getStatisticChartData = function(collection, param, config){
         var data = {},
         dates = _getStatisticLabels(collection);
         data.labels = dates;
-        //console.log(data.labels);
         data.datasets = _getStatisticDatasets(collection, param, config, dates);
-        //console.log(data.datasets);
         return data;
     };
     
@@ -22,6 +30,9 @@ var chartService = (function(){
     };
     
     var getOptions = function (config, param, values){
+        console.log(config);
+        console.log(param);
+        console.log(values);
         _.each(config.params, function (item){
             if(item.name == param){
                 (param == 'temp') ? _getTemperatureOptions(config, item, values) :
@@ -84,11 +95,11 @@ var chartService = (function(){
     };
 
     var _getDataByService = function(collection, service, param, date){
-        var result = [];
+        var result = null;
             _.each(collection, function(model){
                 if((model.get('service') == service) &&
                     (dateService.convertDate(model.get('time')) == date)){
-                    result.push(_getDataByParam(param, model.get('stat')));
+                    result = _getDataByParam(param, model.get('stat'));
                 }
             });
         return result;
@@ -107,6 +118,7 @@ var chartService = (function(){
     return {
         getOptions: getOptions,
         updateTicks: updateTicks,
-        getStatisticChartData: getStatisticChartData
+        getStatisticChartData: getStatisticChartData,
+        getCurrentChartDataset: getCurrentChartDataset
     }
 })();

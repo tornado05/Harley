@@ -4,17 +4,11 @@ var app = app || {};
 
 app.appView = Backbone.View.extend({
     el: '#app',
-
     currentData: new app.currentWeatherCollection(),
-
     statisticData: new app.statisticWeatherCollection(),
-
     currentWeatherChart: null,
-
     statisticChart: null,
-
     params: null,
-
     appConfig: {
         cities: [
             {
@@ -92,13 +86,13 @@ app.appView = Backbone.View.extend({
             images: '../img/images',
             colors: {
                 background: [
-                    "rgba(103, 58, 183, 0.3)",
-                    "rgba(63, 81, 181, 0.3)",
+                    "rgba(255, 23, 68, 0.3)",
+                    "rgba(156, 204, 101, 0.3)",
                     "rgba(33, 150, 243, 0.3)"
                 ],
                 border: [
-                    "rgba(103, 58, 183, 1)",
-                    "rgba(63, 81, 181, 1)",
+                    "rgba(255, 23, 68, 1)",
+                    "rgba(156, 204, 101, 1)",
                     "rgba(33, 150, 243, 1)"
                 ]
             },
@@ -112,22 +106,18 @@ app.appView = Backbone.View.extend({
             token: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }
     },
-
     events: {
         "change .cur-params": "changeDatasets",
         "click #statistics": "verifyParams"
     },
-
     initialize: function () {
         this.currentData.fetch();
         this.listenTo(this.currentData, 'update', this.render);
     },
-
     render: function () {
         this.showMap();
         this.showCurrentWeatherChart();
     },
-
     showMap: function () {
         var ourMap = L.map('map').setView(this.appConfig.map.startPoint, this.appConfig.map.startZoom);
         L.tileLayer(this.appConfig.map.url, {
@@ -148,53 +138,30 @@ app.appView = Backbone.View.extend({
             }));
         });
     },
-
     showCurrentWeatherChart: function () {
-        var city = _.first(this.appConfig.cities).name,
-            param = _.first(this.appConfig.params).name,
-            label = this._createLabel(city, param),
+        var city = this.$el.find('select[name="city"]').val(),
+            param = this.$el.find('select[name="param"]').val(),
             chartParams = this.currentData.getWeatherByParams(city, param);
-
         this.currentWeatherChart = new Chart(this.$el.find("#chart-current-weather"), {
             type: 'bar',
             data: {
                 labels: chartParams.labels,
-                datasets: [
-                    {
-                        label: label,
-                        data: chartParams.data,
-                        backgroundColor: this.appConfig.chart.colors.background,
-                        borderColor: this.appConfig.chart.colors.border,
-                        borderWidth: 2
-                    }
-                ]
+                datasets: chartService.getCurrentChartDataset(this.appConfig, chartParams.data, param, city)
             },
             options: chartService.getOptions(this.appConfig, param, chartParams.data)
         });
     },
-
-    _createLabel: function (city, param) {
-        _.each(this.appConfig.params, function (item) {
-            if (item.name == param) {
-                param = item;
-            }
-        });
-        return param.label + ' in ' + city + ' (' + param.units + ')';
-    },
-
     changeDatasets: function () {
-        var city = this.$el.find('select[name="city"]').val() || _.first(this.appConfig.cities).name,
-            param = this.$el.find('select[name="param"]').val() || _.first(this.appConfig.params).name,
-            label = this._createLabel(city, param),
+        var city = this.$el.find('select[name="city"]').val(),
+            param = this.$el.find('select[name="param"]').val(),
             chartParams = this.currentData.getWeatherByParams(city, param),
             limits = chartService.updateTicks(this.appConfig, param, chartParams.data);
-        _.first(this.currentWeatherChart.data.datasets).label = label;
+        _.first(this.currentWeatherChart.data.datasets).label = configService.createLabel(this.appConfig, param, city);
         _.first(this.currentWeatherChart.data.datasets).data = chartParams.data;
         _.first(this.currentWeatherChart.options.scales.yAxes).ticks.max = limits.max;
         _.first(this.currentWeatherChart.options.scales.yAxes).ticks.min = limits.min;
         this.currentWeatherChart.update();
     },
-
     getParams: function () {
         var result = {};
         result.city = this.$el.find('select[name="cities"]').val();
@@ -203,23 +170,21 @@ app.appView = Backbone.View.extend({
         result.to = this.$el.find('input[name="date-to"]').val();
         return result;
     },
-
     verifyParams: function () {
         var params = this.getParams();
         _.each(params, function (item) {
             if (_.isNull(item) || _.isUndefined(item) || _.isEmpty(item)) {
-                params = null;
+                params = false;
             }
         });
         this.params = params;
+
         if (!params) {
             alert("Enter valid data");
         } else {
             this.showStatistics();
         }
     },
-
-
     showStatistics: function () {
         this.statisticData.fetch({
             data: $.param({
@@ -229,10 +194,11 @@ app.appView = Backbone.View.extend({
         });
         this.listenTo(this.statisticData, 'update', this.renderStatisticsChart);
     },
-
     renderStatisticsChart: function () {
         var data = chartService.getStatisticChartData(this.statisticData.getModelsByCity(this.params.city),
-            this.params.param, this.appConfig);
+                this.params.param, this.appConfig),
+            chartParams = this.currentData.getWeatherByParams(this.params.city, this.params.param);
+            this.params.label = configService.getParamFullName(this.appConfig, this.params.param);
         this.$el.find('main').html(templates.render('statistic_chart', this.params));
         this.statisticChart = new Chart(this.$el.find("#statistic_chart"), {
             type: 'line',
@@ -240,22 +206,7 @@ app.appView = Backbone.View.extend({
                 labels: data.labels,
                 datasets: data.datasets
             },
-            options: {
-                responsive: true,
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
+            options: chartService.getOptions(this.appConfig, this.params.param, chartParams.data)
         });
-        console.log(data);
     }
 });
