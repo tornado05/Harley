@@ -29,7 +29,8 @@
   },
   "messages": {
       "fs": {
-          "cantReadFile": "Can not read from file "
+          "cantReadFile": "Can not read from file ",
+          "cantWriteToFile": "Failed saving data to file, data: "
       },
       "logger": {
         "error": "ERROR",
@@ -50,6 +51,11 @@
     "mins": 59,
     "sec": 59,
     "mSec": 999
-  }
-
+  },
+  "cronTask": {
+    "everyDay": "0 0 0 * * *",
+    "everyMonth": "0 0 0 1 * *",
+    "everyFourHours": "0 0 */4 * * *"
+  },
+  "lastWeatherUpdateTime": 0
 }
