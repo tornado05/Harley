@@ -30,9 +30,6 @@ var chartService = (function(){
     };
     
     var getOptions = function (config, param, values){
-        console.log(config);
-        console.log(param);
-        console.log(values);
         _.each(config.params, function (item){
             if(item.name == param){
                 (param == 'temp') ? _getTemperatureOptions(config, item, values) :

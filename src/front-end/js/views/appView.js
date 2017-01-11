@@ -73,7 +73,7 @@ app.appView = Backbone.View.extend({
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true,
+                            beginAtZero: true
                         }
                     }],
                     xAxes: [{
@@ -95,7 +95,7 @@ app.appView = Backbone.View.extend({
                     "rgba(156, 204, 101, 1)",
                     "rgba(33, 150, 243, 1)"
                 ]
-            },
+            }
         },
         map: {
             startPoint: [50.9, 27.8],
@@ -115,8 +115,40 @@ app.appView = Backbone.View.extend({
         this.listenTo(this.currentData, 'update', this.render);
     },
     render: function () {
+        this.$el.html(templates.render('home_page'), {});
+        this.renderControls();
         this.showMap();
         this.showCurrentWeatherChart();
+        this.updateMaterialize();
+    },
+    renderControls: function () {
+        var cityOptions = '';
+        var params = {};
+        params.options = '';
+        params.radio = '';
+        _.each(this.appConfig.cities, function(city){
+            cityOptions += templates.render('option', city);
+        });
+        _.each(this.appConfig.params, function(param){
+            params.options += templates.render('option', param);
+            params.radio += templates.render('menu_radio', param);
+        });
+        this.$el.find('select[name="city"]').html(cityOptions);
+        this.$el.find('select[name="cities"]').html(cityOptions);
+        this.$el.find('select[name="param"]').html(params.options);
+        this.$el.find('li.params').html(params.radio);
+    },
+    updateMaterialize: function () {
+        /**
+         * Initialization of materialize menu button
+         */
+        $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            }
+        );
     },
     showMap: function () {
         var ourMap = L.map('map').setView(this.appConfig.map.startPoint, this.appConfig.map.startZoom);
