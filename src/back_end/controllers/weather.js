@@ -89,7 +89,6 @@ module.exports = (function () {
             var date = getDate(dateFrom, dateTo);
             var result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
                 console.info('All statistic data from DB has been returned successfully!');
-                console.log(items);
                 return items;
             }, function (err) {
                 logger.logError(err);

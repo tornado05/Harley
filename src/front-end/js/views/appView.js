@@ -223,7 +223,7 @@ app.appView = Backbone.View.extend({
         this.params.label = configService.getParamFullName(this.appConfig, this.params.param);
         this.$el.find('main').html(templates.render('statistic_chart', this.params));
         this.statisticChart = new Chart(this.$el.find("#statistic_chart"), {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: data.labels,
                 datasets: data.datasets
