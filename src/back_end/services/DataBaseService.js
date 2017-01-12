@@ -1,6 +1,5 @@
 'use strict';
-var config      = require('./ConfigService.js'),
-    MongoClient = require('mongodb').MongoClient,
+var MongoClient = require('mongodb').MongoClient,
     logger      = require('./logger.js');
 
 module.exports = (function () {
@@ -35,8 +34,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'time': {$gte: 1484245701}}, {'time': {$lte: 1484246280}}, {'city':'Rivne'}]}).toArray(),
-                    // data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gte: start}}, {'time': {$lte: end}}, {'city': cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -48,7 +46,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -60,7 +58,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -72,7 +70,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {

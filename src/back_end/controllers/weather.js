@@ -85,11 +85,12 @@ module.exports = (function () {
             });
             return result;
         },
-        getServiceStatByCities = function (dateFrom, dateTo) {
+        getServiceStatByCities = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo);
-            var result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end).then(function (items) {
-                    console.info('All statistic data from DB has been returned successfully!');
-                    return items;
+            var result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
+                console.info('All statistic data from DB has been returned successfully!');
+                console.log(items);
+                return items;
             }, function (err) {
                 logger.logError(err);
                 var path = './data/serviceDayStatByCities.json';

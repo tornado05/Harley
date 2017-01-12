@@ -25,7 +25,10 @@
     "max_": "max_",
     "avg_": "avg_",
     "decimal": 10,
-    "mSecToSec": 1000
+    "mSecToSec": 1000,
+    "fahrenheitToCelsius": 273.15,
+    "metersInSecToKmH": 3.6,
+    "milesToKm": 1.609344
   },
   "messages": {
       "fs": {

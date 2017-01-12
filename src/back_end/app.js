@@ -1,5 +1,4 @@
 'use strict';
-
 var http        = require('http'),
     express     = require('express'),
     bodyParser  = require("body-parser"),
@@ -34,12 +33,12 @@ app.get('/weather/v01/current', function (req, res) {
     });
 });
 app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
-    weatherController.getServiceStatByCities(req.query.from, req.query.to).then(function (data) {
+    weatherController.getServiceStatByCities(req.query.from, req.query.to, req.query.city).then(function (data) {
         res.send(data);
     });
 });
 
-//TODO: Make parameters for send day or time interval
+
 app.get('/weather/v01/statistic/day', function (req, res) {
     weatherController.getServiceDayStat(req.query.from, req.query.to).then(function (data) {
         res.send(data);
