@@ -53,17 +53,6 @@ app.appView = Backbone.View.extend({
                 label: 'Wind speed',
                 units: 'meter/sec',
                 max: 50
-            },
-            {
-                name: 'windDir',
-                label: 'Wind direction',
-                units: 'degrees'
-            },
-            {
-                name: 'clouds',
-                label: 'Clouds',
-                units: '%',
-                max: 100
             }
 
         ],
@@ -227,6 +216,7 @@ app.appView = Backbone.View.extend({
         this.listenTo(this.statisticData, 'update', this.renderStatisticsChart);
     },
     renderStatisticsChart: function () {
+        console.log(this.statisticData);
         var data = chartService.getStatisticChartData(this.statisticData.getModelsByCity(this.params.city),
                 this.params.param, this.appConfig),
             chartParams = this.currentData.getWeatherByParams(this.params.city, this.params.param);
