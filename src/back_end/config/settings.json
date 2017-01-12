@@ -25,11 +25,15 @@
     "max_": "max_",
     "avg_": "avg_",
     "decimal": 10,
-    "mSecToSec": 1000
+    "mSecToSec": 1000,
+    "fahrenheitToCelsius": 273.15,
+    "metersInSecToKmH": 3.6,
+    "milesToKm": 1.609344
   },
   "messages": {
       "fs": {
-          "cantReadFile": "Can not read from file "
+          "cantReadFile": "Can not read from file ",
+          "cantWriteToFile": "Failed saving data to file, data: "
       },
       "logger": {
         "error": "ERROR",
@@ -50,6 +54,11 @@
     "mins": 59,
     "sec": 59,
     "mSec": 999
-  }
-
+  },
+  "cronTask": {
+    "everyDay": "0 0 0 * * *",
+    "everyMonth": "0 0 0 1 * *",
+    "everyFourHours": "0 0 */4 * * *"
+  },
+  "lastWeatherUpdateTime": 0
 }

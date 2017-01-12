@@ -1,10 +1,10 @@
 'use strict';
-
-var http = require('http'), express = require('express');
-var bodyParser = require("body-parser");
-var app = express();
-var logger = require('./services/logger.js');
-var weatherController = require('./controllers/weather');
+var http        = require('http'),
+    express     = require('express'),
+    bodyParser  = require("body-parser"),
+    app         = express(),
+    logger      = require('./services/logger.js'),
+    weatherController = require('./controllers/weather');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -33,23 +33,18 @@ app.get('/weather/v01/current', function (req, res) {
     });
 });
 app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
-    var date = new Date();
-    weatherController.getServiceDayStatByCities(date).then(function (data) {
+    weatherController.getServiceStatByCities(req.query.from, req.query.to, req.query.city).then(function (data) {
         res.send(data);
     });
 });
 
-//TODO: Make parameters for send day or time interval
+
 app.get('/weather/v01/statistic/day', function (req, res) {
-    var date = new Date();
-    weatherController.getServiceDayStat(date).then(function (data) {
+    weatherController.getServiceDayStat(req.query.from, req.query.to).then(function (data) {
         res.send(data);
     });
 });
-
 
 http.createServer(app).listen(3000, function () {
     console.log('App listening on port 3000!');
 });
-
-weatherController.initialize();

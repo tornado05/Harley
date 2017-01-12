@@ -4,11 +4,11 @@ var app = app || {};
 
 app.appView = Backbone.View.extend({
     el: '#app',
-
     currentData: new app.currentWeatherCollection(),
-
+    statisticData: new app.statisticWeatherCollection(),
     currentWeatherChart: null,
-
+    statisticChart: null,
+    params: null,
     appConfig: {
         cities: [
             {
@@ -24,36 +24,35 @@ app.appView = Backbone.View.extend({
                 cords: [50.73977, 25.2639655]
             }
         ],
+        servicesNames: [
+            "openWeather",
+            "wunderground",
+            "darkSky"],
         params: [
             {
                 name: 'temp',
                 label: 'Temperature',
-                units: 'C'
+                units: 'C',
+                max: 30,
+                min: -30
             },
             {
                 name: 'pressure',
                 label: 'Pressure',
-                units: 'mmHg'
+                units: 'mmHg',
+                max: 1200
             },
             {
                 name: 'humidity',
                 label: 'Humidity',
-                units: '%'
+                units: '%',
+                max: 100
             },
             {
                 name: 'windSpeed',
                 label: 'Wind speed',
-                units: 'meter/sec'
-            },
-            {
-                name: 'windDir',
-                label: 'Wind direction',
-                units: 'degrees'
-            },
-            {
-                name: 'clouds',
-                label: 'Clouds',
-                units: '%'
+                units: 'meter/sec',
+                max: 50
             }
 
         ],
@@ -76,18 +75,18 @@ app.appView = Backbone.View.extend({
             images: '../img/images',
             colors: {
                 background: [
-                    "rgba(103, 58, 183, 0.3)",
-                    "rgba(63, 81, 181, 0.3)",
+                    "rgba(255, 23, 68, 0.3)",
+                    "rgba(156, 204, 101, 0.3)",
                     "rgba(33, 150, 243, 0.3)"
                 ],
                 border: [
-                    "rgba(103, 58, 183, 1)",
-                    "rgba(63, 81, 181, 1)",
+                    "rgba(255, 23, 68, 1)",
+                    "rgba(156, 204, 101, 1)",
                     "rgba(33, 150, 243, 1)"
                 ]
-            },
+            }
         },
-        map:{
+        map: {
             startPoint: [50.9, 27.8],
             startZoom: 7,
             url: 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}',
@@ -96,21 +95,50 @@ app.appView = Backbone.View.extend({
             token: 'pk.eyJ1IjoiZHJvYmVueXVrIiwiYSI6ImNpdXp3aDczZTAwM2wyb3IzbXF0OTZ5YjgifQ.2WbUs9CJ8XuPlG3coCxBbg'
         }
     },
-
     events: {
-        "change .cur-params": "changeDatasets"
+        "change .cur-params": "changeDatasets",
+        "click #statistics": "verifyParams"
     },
-
     initialize: function () {
         this.currentData.fetch();
-        this.listenTo(this.currentData, 'update', this.render)
+        this.listenTo(this.currentData, 'update', this.render);
     },
-
     render: function () {
+        this.$el.html(templates.render('home_page'), {});
+        this.renderControls();
         this.showMap();
         this.showCurrentWeatherChart();
+        this.updateMaterialize();
     },
-
+    renderControls: function () {
+        var cityOptions = '';
+        var params = {};
+        params.options = '';
+        params.radio = '';
+        _.each(this.appConfig.cities, function(city){
+            cityOptions += templates.render('option', city);
+        });
+        _.each(this.appConfig.params, function(param){
+            params.options += templates.render('option', param);
+            params.radio += templates.render('menu_radio', param);
+        });
+        this.$el.find('select[name="city"]').html(cityOptions);
+        this.$el.find('select[name="cities"]').html(cityOptions);
+        this.$el.find('select[name="param"]').html(params.options);
+        this.$el.find('li.params').html(params.radio);
+    },
+    updateMaterialize: function () {
+        /**
+         * Initialization of materialize menu button
+         */
+        $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 240
+                edge: 'right', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            }
+        );
+    },
     showMap: function () {
         var ourMap = L.map('map').setView(this.appConfig.map.startPoint, this.appConfig.map.startZoom);
         L.tileLayer(this.appConfig.map.url, {
@@ -131,46 +159,76 @@ app.appView = Backbone.View.extend({
             }));
         });
     },
-
     showCurrentWeatherChart: function () {
-        var city        = _.first(this.appConfig.cities).name,
-            param       = _.first(this.appConfig.params).name,
-            label       = this._createLabel(city, param),
+        var city = this.$el.find('select[name="city"]').val(),
+            param = this.$el.find('select[name="param"]').val(),
             chartParams = this.currentData.getWeatherByParams(city, param);
         this.currentWeatherChart = new Chart(this.$el.find("#chart-current-weather"), {
             type: 'bar',
             data: {
                 labels: chartParams.labels,
-                datasets: [
-                    {
-                        label: label,
-                        data: chartParams.data,
-                        backgroundColor: this.appConfig.chart.colors.background,
-                        borderColor: this.appConfig.chart.colors.border,
-                        borderWidth: 2
-                    }
-                ]
+                datasets: chartService.getCurrentChartDataset(this.appConfig, chartParams.data, param, city)
             },
-            options: this.appConfig.chart.options
+            options: chartService.getOptions(this.appConfig, param, chartParams.data)
         });
     },
-
-    _createLabel: function (city, param) {
-        _.each(this.appConfig.params, function (item) {
-            if (item.name == param) {
-                param = item;
+    changeDatasets: function () {
+        var city = this.$el.find('select[name="city"]').val(),
+            param = this.$el.find('select[name="param"]').val(),
+            chartParams = this.currentData.getWeatherByParams(city, param),
+            limits = chartService.updateTicks(this.appConfig, param, chartParams.data);
+        _.first(this.currentWeatherChart.data.datasets).label = configService.createLabel(this.appConfig, param, city);
+        _.first(this.currentWeatherChart.data.datasets).data = chartParams.data;
+        _.first(this.currentWeatherChart.options.scales.yAxes).ticks.max = limits.max;
+        _.first(this.currentWeatherChart.options.scales.yAxes).ticks.min = limits.min;
+        this.currentWeatherChart.update();
+    },
+    getParams: function () {
+        var result = {};
+        result.city = this.$el.find('select[name="cities"]').val();
+        result.param = this.$el.find('input[name="parameter"]:checked').val();
+        result.from = this.$el.find('input[name="date-from"]').val();
+        result.to = this.$el.find('input[name="date-to"]').val();
+        return result;
+    },
+    verifyParams: function () {
+        var params = this.getParams();
+        _.each(params, function (item) {
+            if (_.isNull(item) || _.isUndefined(item) || _.isEmpty(item)) {
+                params = false;
             }
         });
-        return param.label + ' in ' + city + ' (' + param.units + ')';
-    },
+        this.params = params;
 
-    changeDatasets: function () {
-        var city        = this.$el.find('select[name="city"]').val() || _.first(this.appConfig.cities).name,
-            param       = this.$el.find('select[name="param"]').val() || _.first(this.appConfig.params).name,
-            label       = this._createLabel(city, param),
-            chartParams = this.currentData.getWeatherByParams(city, param);
-        _.first(this.currentWeatherChart.data.datasets).label = label;
-        _.first(this.currentWeatherChart.data.datasets).data = chartParams.data;
-        this.currentWeatherChart.update();
+        if (!params) {
+            alert("Enter valid data");
+        } else {
+            this.showStatistics();
+        }
+    },
+    showStatistics: function () {
+        this.statisticData.fetch({
+            data: $.param({
+                from: this.params.from,
+                to: this.params.to,
+                city: this.params.city
+            })
+        });
+        this.listenTo(this.statisticData, 'update', this.renderStatisticsChart);
+    },
+    renderStatisticsChart: function () {
+        var data = chartService.getStatisticChartData(this.statisticData.models,
+                this.params.param, this.appConfig),
+            chartParams = this.currentData.getWeatherByParams(this.params.city, this.params.param);
+        this.params.label = configService.getParamFullName(this.appConfig, this.params.param);
+        this.$el.find('main').html(templates.render('statistic_chart', this.params));
+        this.statisticChart = new Chart(this.$el.find("#statistic_chart"), {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets
+            },
+            options: chartService.getOptions(this.appConfig, this.params.param, chartParams.data)
+        });
     }
 });

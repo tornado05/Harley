@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12 m12 l12 statistic_chart">
+            <div class="card-panel z-depth-1 hoverable chart-current-weather">
+                <div class="row">
+                    <div class="col l12 m12 s12 left center-align">
+                        <h5><%= it.label %> in <b><%= it.city %></b></h5>
+                        <p>
+                            by the period from: <b><%= it.from %></b> to: <b><%= it.to %></b>
+                        </p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <canvas id="statistic_chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

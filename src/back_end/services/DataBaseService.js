@@ -1,14 +1,13 @@
 'use strict';
-var config = require('./ConfigService.js'),
-    MongoClient = require('mongodb').MongoClient,
-    logger = require('./logger.js');
+var MongoClient = require('mongodb').MongoClient,
+    logger      = require('./logger.js');
 
 module.exports = (function () {
-    var getLastRecords = function (url, collectionName) {
+    var getLastRecords = function (url, collectionName, count) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find().sort({$natural: -1}).limit(9).toArray(),
+                    data: collection.find().sort({$natural: -1}).limit(count).toArray(),
                     db : db
                 };
             }).then(function (items) {
@@ -16,7 +15,6 @@ module.exports = (function () {
                 return items.data;
             });
         },
-
         setDataToDB = function (url, collectionName, data) {
             MongoClient.connect(url, function (error, db) {
                 if (error) {
@@ -32,12 +30,11 @@ module.exports = (function () {
                 db.close();
             });
         },
-
         getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}, {'sourceAPI' : serviceName}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gte: start}}, {'time': {$lte: end}}, {'city': cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -45,12 +42,11 @@ module.exports = (function () {
                 return items.data;
             });
         },
-
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -62,7 +58,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -70,12 +66,11 @@ module.exports = (function () {
                 return items.data;
             });
         },
-
         getStatisticsOnCities = function (url, collectionName, start, end, cityName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -83,7 +78,6 @@ module.exports = (function () {
                 return items.data;
             });
         },
-
         getAllStatistic = function (url, collectionName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
@@ -96,7 +90,6 @@ module.exports = (function () {
                 return items.data;
             });
         };
-
     return {
         getLastRecords: getLastRecords,
         setDataToDB: setDataToDB,

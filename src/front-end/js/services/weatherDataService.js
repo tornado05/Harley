@@ -1,7 +1,6 @@
 var weatherDataService = (function () {
     
     var getAverageParams = function (collection, cities) {
-        console.log(collection);
         var services = collection.getAllServices();
         _.each(collection.models, function (model) {
             //TODO: move this into another function
