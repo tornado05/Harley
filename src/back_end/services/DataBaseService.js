@@ -35,7 +35,8 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    data: collection.find({$and: [{'time': {$gte: 1484245701}}, {'time': {$lte: 1484246280}}, {'city':'Rivne'}]}).toArray(),
+                    // data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {

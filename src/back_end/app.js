@@ -34,18 +34,14 @@ app.get('/weather/v01/current', function (req, res) {
     });
 });
 app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
-    var dateFrom = req.query.from;
-    var dateTo =  req.query.to;
-    weatherController.getServiceStatByCities(dateFrom, dateTo).then(function (data) {
-        console.log(data);
+    weatherController.getServiceStatByCities(req.query.from, req.query.to).then(function (data) {
         res.send(data);
     });
 });
 
 //TODO: Make parameters for send day or time interval
 app.get('/weather/v01/statistic/day', function (req, res) {
-    var date = new Date();
-    weatherController.getServiceDayStat(date).then(function (data) {
+    weatherController.getServiceDayStat(req.query.from, req.query.to).then(function (data) {
         res.send(data);
     });
 });
