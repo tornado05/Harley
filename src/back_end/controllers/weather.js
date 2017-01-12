@@ -86,11 +86,13 @@ module.exports = (function () {
             return result;
         },
         getServiceStatByCities = function (dateFrom, dateTo) {
-            var date = getDate(dateFrom, dateTo),
-                result =  dataBaseService.getLastRecords(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end)
+            var date = getDate(dateFrom, dateTo);
+            console.log(date.start);
+            console.log(date.end);
+            var result =  dataBaseService.getLastRecords(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end)
                 dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity).then(function (items) {
-                console.info('All statistic data from DB has been returned successfully!');
-                return items;
+                    console.info('All statistic data from DB has been returned successfully!');
+                    return items;
             }, function (err) {
                 logger.logError(err);
                 var path = './data/serviceDayStatByCities.json';
@@ -133,8 +135,8 @@ module.exports = (function () {
             start.setHours(0, 0, 0, 0);
             end.setHours(23, 59, 59, 999);
             return {
-                start: start,
-                end: end
+                start: parseInt(start.getTime()/1000),
+                end: parseInt(end.getTime()/1000)
             }
         };
 
