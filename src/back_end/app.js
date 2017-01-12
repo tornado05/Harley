@@ -37,6 +37,7 @@ app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
     var dateFrom = req.query.from;
     var dateTo =  req.query.to;
     weatherController.getServiceStatByCities(dateFrom, dateTo).then(function (data) {
+        console.log(data);
         res.send(data);
     });
 });

@@ -15,6 +15,4 @@ app.statisticWeatherCollection = Backbone.Collection.extend({
         });
         return result;
     }
-
-
 });
