@@ -34,11 +34,11 @@ app.get('/weather/v01/current', function (req, res) {
     });
 });
 app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
-    var date = new Date();
-    weatherController.getServiceDayStatByCities(date).then(function (data) {
+    var dateFrom = req.query.from;
+    var dateTo =  req.query.to;
+    weatherController.getServiceStatByCities(dateFrom, dateTo).then(function (data) {
         res.send(data);
     });
-    console.log(req.query); //params from front-end to search stat by date
 });
 
 //TODO: Make parameters for send day or time interval
