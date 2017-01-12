@@ -85,9 +85,8 @@ var chartService = (function(){
                 result.push(_getDataByService(collection, service, param, date));
             });
         } else {
-            result = _getDataByService(collection, service, param, dates)
+            result.push(_getDataByService(collection, service, param, dates));
         }
-
         return result;
     };
 
@@ -99,17 +98,12 @@ var chartService = (function(){
                     result = _getDataByParam(param, model.get('stat'));
                 }
             });
+
         return result;
     };
 
     var _getDataByParam = function (param, statistics){
-        var result = null;
-        _.each(statistics, function(stat){
-            if(stat.name == param){
-                result = stat.avg;
-            }
-        });
-        return result;
+        return statistics[param].avg;
     };
     
     return {

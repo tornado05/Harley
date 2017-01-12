@@ -210,17 +210,17 @@ app.appView = Backbone.View.extend({
         this.statisticData.fetch({
             data: $.param({
                 from: this.params.from,
-                to: this.params.to
+                to: this.params.to,
+                city: this.params.city
             })
         });
         this.listenTo(this.statisticData, 'update', this.renderStatisticsChart);
     },
     renderStatisticsChart: function () {
-        console.log(this.statisticData);
-        var data = chartService.getStatisticChartData(this.statisticData.getModelsByCity(this.params.city),
+        var data = chartService.getStatisticChartData(this.statisticData.models,
                 this.params.param, this.appConfig),
             chartParams = this.currentData.getWeatherByParams(this.params.city, this.params.param);
-            this.params.label = configService.getParamFullName(this.appConfig, this.params.param);
+        this.params.label = configService.getParamFullName(this.appConfig, this.params.param);
         this.$el.find('main').html(templates.render('statistic_chart', this.params));
         this.statisticChart = new Chart(this.$el.find("#statistic_chart"), {
             type: 'line',
