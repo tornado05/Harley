@@ -66,11 +66,35 @@ module.exports = (function () {
                 return items.data;
             });
         },
+        getMonthStatisticsOnServices = function (url, collectionName, start, service) {
+            return MongoClient.connect(url).then(function (db) {
+                var collection = db.collection(collectionName);
+                return {
+                    data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: start}},  {'sourceAPI' : service}]}).toArray(),
+                    db: db
+                };
+            }).then(function (items) {
+                items.db.close();
+                return items.data;
+            });
+        },
         getStatisticsOnCities = function (url, collectionName, start, end, cityName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
                     data: collection.find({$and: [{'time': {$gt: start}}, {'time': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
+                    db: db
+                };
+            }).then(function (items) {
+                items.db.close();
+                return items.data;
+            });
+        },
+        getMonthStatisticsOnCities = function (url, collectionName, start, cityName) {
+            return MongoClient.connect(url).then(function (db) {
+                var collection = db.collection(collectionName);
+                return {
+                    data: collection.find({$and: [{'time': {$gte: start}}, {'time': {$lte: start}},  {'cityName' : cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -97,6 +121,8 @@ module.exports = (function () {
         getStatisticsOnServices: getStatisticsOnServices,
         getStatisticsOnCities: getStatisticsOnCities,
         getAllStatistic: getAllStatistic,
+        getMonthStatisticsOnCities: getMonthStatisticsOnCities,
+        getMonthStatisticsOnServices: getMonthStatisticsOnServices,
         getServiceStatisticsByCities: getServiceStatisticsByCities
     };
 }());

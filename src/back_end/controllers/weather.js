@@ -1,8 +1,6 @@
 'use strict';
 var logger              = require('./../services/logger.js'),
-    getWeatherFromAPI   = require('./../services/getDataFromAPI'),
     dataBaseService     = require('./../services/DataBaseService'),
-    statisticsService   = require('./../services/StatisticService'),
     pathToDBs           = require('./../config/pathConfig.json'),
     set                 = require('./../config/settings.json'),
     config              = require('./../services/ConfigService.js'),
@@ -22,23 +20,46 @@ module.exports = (function () {
                 return [];
             }
         },
-
-    /**
-     *  @desc: temporary methods to return data of MOCK.
-     *
-     *
-     */
-        getServiceMonthStat = function () {
-            var path = './data/serviceMonthStatMock.json';
-            return readData(path);
+        //TODO: Need to be tested.
+        getServiceMonthStat = function (date, service) {
+            var date = getDate(date, null, "M"),
+                result =  dataBaseService.getMonthStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, date, service).then(function (items) {
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    var path = './data/serviceMonthStatMock.json';
+                    return readData(path);
+                });
+            return result;
         },
-        getCityDayStat = function () {
-            var path = './data/cityDayStatMock.json';
-            return readData(path);
+        //TODO: Need to be tested.
+        /**
+         * @desc:
+         * Method returns an array of city day statistic from the database.
+         * If the database not available -  returned mock data from JSON.
+         */
+        getCityDayStat = function (dateFrom, dateTo, city) {
+            var date = getDate(dateFrom, dateTo),
+                result =  dataBaseService.getStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, date.start, date.end, city).then(function (items) {
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    var path = './data/cityDayStatMock.json';
+                    return readData(path);
+                });
+            return result;
         },
-        getCityMonthStat = function () {
-            var path = './data/cityMonthStatMock.json';
-            return readData(path);
+        //TODO: Need to be tested.
+        getCityMonthStat = function (date, city) {
+            var date = getDate(date, null, "M"),
+                result =  dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    var path = './data/cityMonthStatMock.json';
+                    return readData(path);
+                });
+            return result;
         },
     /**
      *  @desc: Method returns an array of current weather from the database.
@@ -46,9 +67,8 @@ module.exports = (function () {
      *
      */
         getCurrentWeather = function () {
-            var count = config.countFields();
-            var result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
-                console.info('The current weather data from DB returned successfully!');
+            var count = config.countFields(),
+                result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
                 return items;
             }, function (err) {
                 logger.logError(err);
@@ -61,22 +81,9 @@ module.exports = (function () {
      * Method returns an array of day statistic from the database.
      * If the database not available -  returned mock data from JSON.
      */
-        getServiceDayStat = function (date) {
-            var start = new Date(date.getTime()),
-                end = new Date(date.getTime());
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
-    //TODO: Use this method after router get params
-    //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
-    //         console.info('The statistic data from DB returned successfully!');
-    //         return items;
-    //     }, function(err) {
-    //         console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
-    //         return readData(currentStatJSONpath);
-    //     });
-    //     return result;
-            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics).then(function (items) {
-                console.info('All statistic data from DB has been returned successfully!');
+        getServiceDayStat = function (dateFrom, dateTo, service) {
+            var date = getDate(dateFrom, dateTo),
+                result = dataBaseService.getStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, date.start, date.end, service).then(function (items) {
                 return items;
             }, function (err) {
                 logger.logError(err);
@@ -86,9 +93,8 @@ module.exports = (function () {
             return result;
         },
         getServiceStatByCities = function (dateFrom, dateTo, city) {
-            var date = getDate(dateFrom, dateTo);
-            var result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
-                console.info('All statistic data from DB has been returned successfully!');
+            var date = getDate(dateFrom, dateTo),
+                result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
                 return items;
             }, function (err) {
                 logger.logError(err);
@@ -98,21 +104,7 @@ module.exports = (function () {
             return result;
         },
         getServiceMonthStatByCities = function (date) {
-            var start = new Date(date.getTime()),
-                end = new Date(date.getTime());
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
-            //TODO: Use this method after router get params
-            //     var result = dataBaseService.getLastRecords(urlStatisticsDataDB, 'Day_Statistics', start, end).then(function(items) {
-            //         console.info('The statistic data from DB returned successfully!');
-            //         return items;
-            //     }, function(err) {
-            //         console.error('Something went wrong, data from JSON will be return\n', err, err.stack);
-            //         return readData(currentStatJSONpath);
-            //     });
-            //     return result;
-            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity).then(function (items) {
-                console.info('All statistic data from DB has been returned successfully!');
+            var result = dataBaseService.getAllStatistic(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, getDate(date).start).then(function (items) {
                 return items;
             }, function (err) {
                 logger.logError(err);
@@ -121,7 +113,7 @@ module.exports = (function () {
             });
             return result;
         },
-        getDate = function (dateFrom, dateTo) {
+        getDate = function (dateFrom, dateTo, needMonth) {
             if (_.isString(dateTo)) {
                 var start = new Date(dateFrom),
                     end = new Date(dateTo);
@@ -131,6 +123,9 @@ module.exports = (function () {
             }
             start.setHours(0, 0, 0, 0);
             end.setHours(23, 59, 59, 999);
+            if (_.isString(needMonth) && needMonth == "M") {
+                return new Date(dateFrom.getFullYear(), dateFrom.getMonth(), 1);
+            }
             return {
                 start: parseInt(start.getTime()/1000),
                 end: parseInt(end.getTime()/1000)

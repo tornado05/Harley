@@ -13,19 +13,27 @@ app.use(express.static('public'));
 
 // route to mock data with services statistics per day
 app.get('/weather/v01/stat/service/day', function (req, res) {
-    res.send(weatherController.getServiceDayStat(req.query));
+    weatherController.getServiceDayStat(req.query.from, req.query.to, req.query.service).then(function (data) {
+        res.send(data);
+    });
 });
 // route to mock data with services statistics per month
 app.get('/weather/v01/stat/service/month', function (req, res) {
-    res.send(weatherController.getServiceMonthStat(req.query));
+    weatherController.getServiceMonthStat(req.query.from, req.query.service).then(function (data) {
+        res.send(data);
+    });
 });
 // route to mock data with cities statistics per day
 app.get('/weather/v01/stat/city/day', function (req, res) {
-    res.send(weatherController.getCityDayStat(req.query));
+    weatherController.getCityDayStat(req.query.from, req.query.to, req.query.city).then(function (data) {
+        res.send(data);
+    });
 });
 // route to mock data with cities statistics per month
 app.get('/weather/v01/stat/city/month', function (req, res) {
-    res.send(weatherController.getCityMonthStat(req.query));
+    weatherController.getCityMonthStat(req.query.from, req.query.city).then(function (data) {
+        res.send(data);
+    });
 });
 app.get('/weather/v01/current', function (req, res) {
     weatherController.getCurrentWeather().then(function (data) {
