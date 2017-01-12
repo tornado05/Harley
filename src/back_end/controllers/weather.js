@@ -123,13 +123,13 @@ module.exports = (function () {
             }
             start.setHours(0, 0, 0, 0);
             end.setHours(23, 59, 59, 999);
-            if (_.isString(needMonth) && needMonth == "M") {
+            if (_.isString(needMonth) && needMonth === "M") {
                 return new Date(dateFrom.getFullYear(), dateFrom.getMonth(), 1);
             }
             return {
-                start: parseInt(start.getTime()/1000),
-                end: parseInt(end.getTime()/1000)
-            }
+                start: parseInt(start.getTime() / 1000),
+                end: parseInt(end.getTime() / 1000)
+            };
         };
 
     return {

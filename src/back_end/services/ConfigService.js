@@ -82,7 +82,7 @@ module.exports = (function () {
         updateSettings = function (fieldName, data) {
             var settings = readData(settingsPath);
             _.each(settings, function (setField) {
-                if (fieldName == setField) {
+                if (fieldName === setField) {
                     settings[fieldName] = data;
                 }
             });
