@@ -2,33 +2,15 @@
     <div class="row">
         <div class="col s12 m12 l12 statistic_chart">
             <div class="card-panel z-depth-1 hoverable chart-current-weather">
-                <div class="section">
-                    <div class="row">
-                        <div class="col l6 m6 s6 left">
-                            <h5>WEATHER COMPARE</h5>
-                            <p>By period from: <b><%= it.from %></b> to: <b><%= it.to %></b></p>
-                        </div>
-                        <div class="col l3 m3 s3 right">
-                            <label>CITY:</label>
-                            <select class="browser-default cur-params" name="city">
-                                <option value="Rivne">Rivne</option>
-                                <option value="Luts'k">Lutsk</option>
-                                <option value="Kiev">Kiev</option>
-                            </select>
-                        </div>
-                        <div class="col l3 m3 s3 right">
-                            <label>PARAMETER:</label>
-                            <select class="browser-default cur-params" name="param">
-                                <option value="temp">Temperature</option>
-                                <option value="pressure">Pressure</option>
-                                <option value="humidity">Humidity</option>
-                                <option value="windSpeed">Wind speed</option>
-                                <option value="clouds">Clouds</option>
-                            </select>
-                        </div>
+                <div class="row">
+                    <div class="col l12 m12 s12 left center-align">
+                        <h5><%= it.label %> in <b><%= it.city %></b></h5>
+                        <p>
+                            by the period from: <b><%= it.from %></b> to: <b><%= it.to %></b>
+                        </p>
                     </div>
-                    <div class="divider"></div>
                 </div>
+                <div class="divider"></div>
                 <canvas id="statistic_chart"></canvas>
             </div>
         </div>

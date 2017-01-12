@@ -25,12 +25,12 @@ module.exports = (function () {
         getWeatherData = function () {
             var date = parseInt((new Date()).getTime() / 1000);
             config.updateSettings("lastWeatherUpdateTime", date);
-            // var citiesURLs = config.getCitiesURLs(),
-            //     data = [];
-            // citiesURLs.forEach(function (city) {
-            //     data.push(requestData(city));
-            // });
-            // return data;
+            var citiesURLs = config.getCitiesURLs(),
+                data = [];
+            citiesURLs.forEach(function (city) {
+                data.push(requestData(city));
+            });
+            return data;
         };
     return {
         getWeatherData: getWeatherData
