@@ -1,1 +1,140 @@
-[{"_id":"58747bd94c2ed51f44653af2","time":1484026200,"city":"Rivne","service":"openWeather","stat":{"temp":{"min":-10,"max":-10,"avg":-10},"hum":{"min":85,"max":85,"avg":85},"windSpeed":{"min":7.45,"max":7.45,"avg":7.45}}},{"_id":"58747bd94c2ed51f44653af3","time":1484028866,"city":"Rivne","service":"wunderground","stat":{"temp":{"min":-7.6,"max":-7.6,"avg":-7.6},"hum":{"min":85,"max":85,"avg":85},"windSpeed":{"min":1.6,"max":1.6,"avg":1.6}}},{"_id":"58747bd94c2ed51f44653af4","time":1484028867,"city":"Rivne","service":"darkSky","stat":{"temp":{"min":-12.32,"max":-12.32,"avg":-12.32},"hum":{"min":87,"max":87,"avg":87},"windSpeed":{"min":2.56,"max":2.56,"avg":2.56}}},{"_id":"5877cd202d7dd41a00fe0aa4","time":1484245701,"city":"Rivne","service":"openWeather","stat":{"temp":{"min":0.05,"max":0.05,"avg":0.05},"hum":{"min":96,"max":96,"avg":96},"windSpeed":{"min":27.58,"max":27.58,"avg":27.58}}},{"_id":"5877cd202d7dd41a00fe0aa5","time":1484246280,"city":"Rivne","service":"wunderground","stat":{"temp":{"min":0.6,"max":0.6,"avg":0.6},"hum":{"min":95,"max":95,"avg":95},"windSpeed":{"min":17.7,"max":17.7,"avg":17.7}}},{"_id":"5877cd202d7dd41a00fe0aa9","time":1484246280,"city":"Rivne","service":"darkSky","stat":{"temp":{"min":-1.69,"max":-1.69,"avg":-1.69},"hum":{"min":93,"max":93,"avg":93},"windSpeed":{"min":24.09,"max":24.09,"avg":24.09}}}]
+[
+  {
+    "_id": "58747bd94c2ed51f44653af2",
+    "time": 1484026200,
+    "city": "Rivne",
+    "service": "openWeather",
+    "stat": {
+      "temp": {
+        "min": -10,
+        "max": -10,
+        "avg": -10
+      },
+      "hum": {
+        "min": 85,
+        "max": 85,
+        "avg": 85
+      },
+      "windSpeed": {
+        "min": 7.45,
+        "max": 7.45,
+        "avg": 7.45
+      }
+    }
+  },
+  {
+    "_id": "58747bd94c2ed51f44653af3",
+    "time": 1484028866,
+    "city": "Rivne",
+    "service": "wunderground",
+    "stat": {
+      "temp": {
+        "min": -7.6,
+        "max": -7.6,
+        "avg": -7.6
+      },
+      "hum": {
+        "min": 85,
+        "max": 85,
+        "avg": 85
+      },
+      "windSpeed": {
+        "min": 1.6,
+        "max": 1.6,
+        "avg": 1.6
+      }
+    }
+  },
+  {
+    "_id": "58747bd94c2ed51f44653af4",
+    "time": 1484028867,
+    "city": "Rivne",
+    "service": "darkSky",
+    "stat": {
+      "temp": {
+        "min": -12.32,
+        "max": -12.32,
+        "avg": -12.32
+      },
+      "hum": {
+        "min": 87,
+        "max": 87,
+        "avg": 87
+      },
+      "windSpeed": {
+        "min": 2.56,
+        "max": 2.56,
+        "avg": 2.56
+      }
+    }
+  },
+  {
+    "_id": "5877cd202d7dd41a00fe0aa4",
+    "time": 1484245701,
+    "city": "Rivne",
+    "service": "openWeather",
+    "stat": {
+      "temp": {
+        "min": 0.05,
+        "max": 0.05,
+        "avg": 0.05
+      },
+      "hum": {
+        "min": 96,
+        "max": 96,
+        "avg": 96
+      },
+      "windSpeed": {
+        "min": 27.58,
+        "max": 27.58,
+        "avg": 27.58
+      }
+    }
+  },
+  {
+    "_id": "5877cd202d7dd41a00fe0aa5",
+    "time": 1484246280,
+    "city": "Rivne",
+    "service": "wunderground",
+    "stat": {
+      "temp": {
+        "min": 0.6,
+        "max": 0.6,
+        "avg": 0.6
+      },
+      "hum": {
+        "min": 95,
+        "max": 95,
+        "avg": 95
+      },
+      "windSpeed": {
+        "min": 17.7,
+        "max": 17.7,
+        "avg": 17.7
+      }
+    }
+  },
+  {
+    "_id": "5877cd202d7dd41a00fe0aa9",
+    "time": 1484246280,
+    "city": "Rivne",
+    "service": "darkSky",
+    "stat": {
+      "temp": {
+        "min": -1.69,
+        "max": -1.69,
+        "avg": -1.69
+      },
+      "hum": {
+        "min": 93,
+        "max": 93,
+        "avg": 93
+      },
+      "windSpeed": {
+        "min": 24.09,
+        "max": 24.09,
+        "avg": 24.09
+      }
+    }
+  }
+]
