@@ -24,7 +24,6 @@ module.exports = (function (isDebugModeOn) {
                 now.getUTCSeconds()
             ].join('');
         },
-
         writeMessageToFile = function (message) {
             console.log(message);
             fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
@@ -35,21 +34,17 @@ module.exports = (function (isDebugModeOn) {
                 }
             });
         },
-
         logError = function (message) {
             writeMessageToFile(set.messages.logger.error + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         },
-
         logWarning = function (message) {
             writeMessageToFile(set.messages.logger.warning + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         },
-
         logDebug = function (message) {
             if (isDebugModeOn) {
                 writeMessageToFile(set.messages.logger.debug + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
             }
         },
-
         logInfo = function (message) {
             writeMessageToFile(set.messages.logger.info + SEPARATOR + getCurrentTime() + SEPARATOR + message + ENDLINE);
         };

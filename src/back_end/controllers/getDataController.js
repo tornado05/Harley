@@ -23,6 +23,12 @@ module.exports = (function () {
             dayTask.start();
             monthTask.start();
             everyFourHourTask.start();
+            statisticsService.serviceDayStatistics(date);
+            statisticsService.cityDayStatistics(date);
+            statisticsService.serviceDayStatisticByCity(date);
+            statisticsService.serviceMonthStatistics(date);
+            statisticsService.cityMonthStatistics(date);
+            statisticsService.serviceMonthStatisticByCity(date);
         };
 
     return {
