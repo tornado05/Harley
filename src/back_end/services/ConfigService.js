@@ -79,6 +79,9 @@ module.exports = (function () {
         getTotalConfig = function () {
             return config;
         },
+        getSettings = function () {
+            return readData(settingsPath);
+        },
         updateSettings = function (fieldName, data) {
             var settings = readData(settingsPath);
             _.each(settings, function (setField) {
@@ -104,6 +107,7 @@ module.exports = (function () {
         getTotalConfig: getTotalConfig,
         getServicesNames: getServicesNames,
         updateSettings: updateSettings,
-        countFields: countFields
+        countFields: countFields,
+        getSettings: getSettings
     };
 }());

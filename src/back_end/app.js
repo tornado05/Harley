@@ -3,7 +3,8 @@ var http        = require('http'),
     express     = require('express'),
     bodyParser  = require("body-parser"),
     app         = express(),
-    logger      = require('./services/logger.js'),
+    logger      = require('./services/logger'),
+    configService     = require('./services/ConfigService'),
     weatherController = require('./controllers/weather');
 
 
@@ -46,11 +47,18 @@ app.get('/weather/v01/stat/service-by-city/day', function (req, res) {
     });
 });
 
-
 app.get('/weather/v01/statistic/day', function (req, res) {
     weatherController.getServiceDayStat(req.query.from, req.query.to).then(function (data) {
         res.send(data);
     });
+});
+
+app.get('/weather/v01/settings', function (req, res) {
+    res.send(configService.getSettings());
+});
+
+app.get('/weather/v01/configs', function (req, res) {
+    res.send(configService.getTotalConfig());
 });
 
 http.createServer(app).listen(3000, function () {
