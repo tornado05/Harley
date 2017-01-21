@@ -10,7 +10,8 @@ var gulp            = require('gulp'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
     browserSync     = require('browser-sync').create(),
-    watch           = require('gulp-watch');
+    watch           = require('gulp-watch'),
+    webpack         = require('gulp-webpack');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -45,16 +46,24 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/front-end/js/models/**',
-        './src/front-end/js/collections/**',
-        './src/front-end/js/services/**',
-        './src/front-end/js/views/**',
-        './src/front-end/js/initialize.js'
+        './src/front-end/js/**/*.jsx'
     ])
-        .pipe(sourcemaps.init())
-        .pipe(concat('bundle.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(webpack({
+            module: {
+                loaders: [
+                    {
+                         loader: 'babel-loader',
+                         exclude: /node_modules/,
+                         query: {
+                            presets: ['es2015', 'react']
+                        }
+                    }
+                ]
+            },
+            output: {
+                filename: 'bundle.js'
+            }
+        }))        
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
