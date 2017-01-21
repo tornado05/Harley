@@ -1,3 +1,12 @@
+v.1.0.0
+
+---------------------------
+
+Released: 
+
+Introduces new platform for frontent ui
+
+
 v.0.0.0
 
 ---------------------------
