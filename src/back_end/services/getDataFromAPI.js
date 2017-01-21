@@ -23,10 +23,10 @@ module.exports = (function () {
             });
         },
         getWeatherData = function () {
-            var date = parseInt((new Date()).getTime() / 1000);
-            config.updateSettings("lastWeatherUpdateTime", date);
-            var citiesURLs = config.getCitiesURLs(),
+            var date = parseInt((new Date()).getTime() / set.variables.mSecToSec, set.variables.decimal),
+                citiesURLs = config.getCitiesURLs(),
                 data = [];
+            config.updateSettings("lastWeatherUpdateTime", date);
             citiesURLs.forEach(function (city) {
                 data.push(requestData(city));
             });
