@@ -10,9 +10,6 @@ var logger              = require('./../services/logger.js'),
     _                   = require('lodash');
 
 module.exports = (function () {
-    //var data = [],
-        //date = new Date(),
-
     var readData = function (path) {
             try {
                 var result = fs.readFileSync(path, 'utf8');
