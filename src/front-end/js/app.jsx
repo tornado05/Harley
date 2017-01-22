@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Menu from './components/menu.jsx';
- 
+import Header from './components/header.jsx';
+import Content from './components/content.jsx';
+import Footer from './components/footer.jsx';
+
 class World extends React.Component {
   render() {
     return (
-    	<div>
-	    	<Menu text='first item'/>
-	    	<Menu text='second item'/>
-	    	<Menu text='third item'/>
-	    	<Menu text='fourth item'/>
-	    	<Menu text='fifth item'/>
+    	<div className="row">
+	    	<Header/>
+            <Content/>
+            <Footer/>
     	</div>
     );
   }
