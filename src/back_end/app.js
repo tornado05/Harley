@@ -1,3 +1,4 @@
+/*jslint unparam: true*/
 'use strict';
 var http        = require('http'),
     express     = require('express'),
