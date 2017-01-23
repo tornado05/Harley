@@ -1,6 +1,8 @@
 @import "variables";
 
 .sideNav {
+  display: block;
+  opacity: 1;
   width: 300px;
   height: 100vh;
   position: absolute;
@@ -15,7 +17,9 @@
     padding: 15px;
   }
 }
-
 .collapsed {
+  display: none;
+  transition: opacity 1s ease-out;
+  opacity: 0;
   width: 0;
 }
