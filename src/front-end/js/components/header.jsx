@@ -4,9 +4,9 @@ import React from 'react';
 export default class Header extends React.Component {
     constructor() {
         super();
-        this.collapseSideNav = this.collapseSideNav.bind(this);
-        this.showSideNav = this.showSideNav.bind(this);
-        this._setSideNavClassName = this._setSideNavClassName.bind(this);
+        this.collapseSideNav        = this.collapseSideNav.bind(this);
+        this._getSideNavClassName   = this._getSideNavClassName.bind(this);
+        this._getBurgerClassName    = this._getBurgerClassName.bind(this);
         this.state = {
             sideNavCollapsed: true
         };
@@ -17,27 +17,28 @@ export default class Header extends React.Component {
             sideNavCollapsed: !this.state.sideNavCollapsed
         });
     }
-
-    showSideNav() {
-        console.log('hi');
-    }
-
-    _setSideNavClassName() {
+    _getSideNavClassName() {
         return this.state.sideNavCollapsed ? 'sideNav collapsed' : 'sideNav';
     }
+    _getBurgerClassName() {
+        return this.state.sideNavCollapsed ? 'burger' : 'burger open';
+    }
+    
 
     render() {
         return (
             <header>
                 <div className="nav">
                     <a href="#" className="logo">Harley weather</a>
-                    <a href="#" onClick={this.collapseSideNav} className="burger">
-                        <i className="material-icons">menu</i>
-                    </a>
+                    <div onClick={this.collapseSideNav} className={this._getBurgerClassName()}>
+                        <div className="burger-brick"></div>
+                        <div className="burger-brick middle"></div>
+                        <div className="burger-brick"></div>
+                    </div>
                 </div>
-                <div className={this._setSideNavClassName()}>
+                <div className={this._getSideNavClassName()}>
                     <div className="row">
-                        <a href="#" onClick={this.showSideNav()} className="close-btn">
+                        <a href="#" onClick={this.collapseSideNav} className="close-btn">
                             <i className="">close</i>
                         </a>
                     </div>
