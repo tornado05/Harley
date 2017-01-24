@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/header.jsx';
-import Map from './components/map.jsx';
-import Footer from './components/footer.jsx';
+import Menu from './menu/menu.jsx';
+import Map from './map/map.jsx';
+import Footer from './footer/footer.jsx';
 
 class Harley extends React.Component {
     render() {
         return (
             <div className="container">
-                <Header user='John Doe'/>
+                <Menu/>
                 <Map/>
                 <Footer text='2017'/>
             </div>
