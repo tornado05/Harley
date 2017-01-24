@@ -73,8 +73,7 @@ gulp.task('vendor-js', function () {
         './bower_components/underscore/underscore-min.js',
         './bower_components/bootstrap/dist/js/bootstrap.min.js',
         './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/chart.js/dist/Chart.min.js',
-        './node_modules/react-chartjs/dist/react-chartjs.min.js'
+        './bower_components/leaflet/dist/leaflet-src.js'
     ])
         .pipe(concat('vendor.js'))
         .pipe(sourcemaps.write())

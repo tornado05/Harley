@@ -1,25 +1,37 @@
 @import "variables";
 
 .sideNav {
-  display: block;
-  opacity: 1;
-  width: 300px;
-  height: 100vh;
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 9999;
+  width: 300px;
+  height: 100vh;
   transition: all 250ms;
   background: @secondaryBGcolor;
+  font-size: 16px;
+  font-family: 'Roboto';
   .close-btn {
     float: left;
     font-size: 20px;
     color: black;
     padding: 15px;
   }
+  ul {
+    li {
+      list-style: none;
+    }
+  }
+  .select-params {
+    label {
+      padding-left: 10px;
+      font-weight: normal;
+    }
+  }
+  .city-select {
+    margin-left: 10px;
+  }
 }
 .collapsed {
-  display: none;
-  transition: opacity 1s ease-out;
-  opacity: 0;
   width: 0;
 }

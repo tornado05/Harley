@@ -14,13 +14,13 @@ export default class SideNav extends React.Component {
                         </li>
                         <li>
                             <label>Select city:</label>
-                            <select className="" name="cities">
+                            <select className="city-select" name="cities">
                                 <option value="Rivne">Rivne</option>
                                 <option value="Kiev">Kiev</option>
                                 <option value="Luts'k">Luts'k</option>
                             </select>
                         </li>
-                        <li className=""><p>
+                        <li className="select-params"><p>
                             <input className="with-gap" name="parameter" type="radio" value="temp"
                                    id="Temperature"/>
                             <label htmlFor="Temperature">Temperature</label>
@@ -38,17 +38,15 @@ export default class SideNav extends React.Component {
                             <label htmlFor="Wind speed">Wind speed</label>
                         </p></li>
                         <li>
-                            <div className="row">
-                                <h5 className="">SELECT PERIOD</h5>
-                                <form className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <p className="">From</p>
-                                    <input type="date" name="date-from" className=""/>
-                                </form>
-                                <form className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <p className="">to</p>
-                                    <input type="date" name="date-to" className=""/>
-                                </form>
-                            </div>
+                            <h5 className="">Select period</h5>
+                            <form className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <p className="">From</p>
+                                <input type="date" name="date-from" className=""/>
+                            </form>
+                            <form className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <p className="">to</p>
+                                <input type="date" name="date-to" className=""/>
+                            </form>
                             <a className="btn" id="statistics">Show</a>
                         </li>
                     </div>
