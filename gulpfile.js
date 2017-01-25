@@ -85,7 +85,8 @@ gulp.task('compile-less', function () {
 //TODO: update this
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './src/front-end/libs/css/foundation.css'
+        './src/front-end/libs/css/foundation.css',
+        './bower_components/leaflet/dist/leaflet.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))
@@ -144,8 +145,8 @@ gulp.task('watch-fr', function () {
 
 gulp.task('react',[
     'build',
-    'browser-sync',
-    'watch-fr'
+    'watch-fr',
+    'browser-sync'
 ]);
 
 gulp.task('front-end', [

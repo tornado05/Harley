@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Menu from './menu/menu.jsx';
-import Map from './map/map.jsx';
+import MyMap from './map/map.jsx';
 import Footer from './footer/footer.jsx';
 
 class Harley extends React.Component {
@@ -9,7 +9,13 @@ class Harley extends React.Component {
         return (
             <div className="container">
                 <Menu/>
-                <Map/>
+                <div className="container">
+                    <div className="row">
+                        <div className="columns small-12 text-center">
+                            <MyMap/>
+                        </div>
+                    </div>
+                </div>
                 <Footer text='2017'/>
             </div>
         );
