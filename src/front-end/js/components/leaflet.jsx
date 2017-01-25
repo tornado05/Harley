@@ -2,7 +2,7 @@ import React from 'react';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 
-L.Icon.Default.imagePath = './img/images';
+L.Icon.Default.imagePath = './img/leaflet/';
 let state = {
     lat: 51.505,
     lng: -0.09,

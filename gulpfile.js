@@ -111,7 +111,7 @@ gulp.task('vendor-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/*.*'
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/img/images'));
+        .pipe(gulp.dest(DIST_DIR + '/public/img/leaflet'));
 });
 
 gulp.task('fonts', function(){
