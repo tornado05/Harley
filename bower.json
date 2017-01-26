@@ -17,10 +17,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "jquery": "^3.0.0",
-    "underscore": "^1.8.3",
-    "backbone": "1.2.3",
-    "materialize": "^0.97.8",
+    "foundation": "^5.5.3",
     "leaflet": "0.7.x",
     "chart.js": "^2.4.0"
   }

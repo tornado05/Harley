@@ -47,7 +47,7 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/**/*.jsx'
+        './src/front-end/js/**/*.jsx'
     ])
         .pipe(webpack({
             module: {
@@ -85,7 +85,8 @@ gulp.task('compile-less', function () {
 //TODO: update this
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './src/front-end/libs/css/foundation.css',
+        './bower_components/foundation/css/normalize.min.css',
+        './bower_components/foundation/css/foundation.min.css',
         './bower_components/leaflet/dist/leaflet.css'
     ])
         .pipe(sourcemaps.init())
@@ -95,11 +96,11 @@ gulp.task('vendor-css', function () {
         .pipe(gulp.dest(DIST_DIR + '/public/css'));
 });
 
-gulp.task('vendor-images', function () {
+gulp.task('leaflet-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/*.*'
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/img/images'));
+        .pipe(gulp.dest(DIST_DIR + '/public/img/leaflet'));
 });
 
 gulp.task('fonts', function(){
@@ -151,7 +152,7 @@ gulp.task('react',[
 
 gulp.task('front-end', [
     'vendor-css',
-    'vendor-images',
+    'leaflet-images',
     'compile-html',
     'compile-less',
     'img',
