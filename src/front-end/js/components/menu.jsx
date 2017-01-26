@@ -22,7 +22,7 @@ export default class Menu extends React.Component {
 
     render(){
         return(
-            <header id="header" className="row expanded">
+            <header id="header" className="row fluid">
                 <div className="columns small-6 medium-4">
                     <h1>Harley</h1>
                 </div>

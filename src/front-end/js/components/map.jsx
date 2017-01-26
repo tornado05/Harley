@@ -2,7 +2,7 @@ import React from 'react';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
 
-L.Icon.Default.imagePath = './img/images/';
+L.Icon.Default.imagePath = './img/leaflet/';
 
 export default class MyMap extends React.Component {
     constructor() {
