@@ -26,57 +26,63 @@ export default class MyMap extends React.Component {
         const kiev = [50.4308286, 30.4966362];
         const lutsk = [50.73977, 25.2639655];
         return (
-            <Map center={position} zoom={this.state.zoom}>
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url={this.getURL()}
-                />
-                <Marker position={rivne}>
-                    <Popup>
-                        <div className="popup-average">
-                            <header>
-                                City: <b>Rivne</b>
-                            </header>
-                            <div className="content">
-                                <p>Temperature: <b>-8</b></p>
-                                <p>Pressure: <b>788</b></p>
-                                <p>Humidity: <b>98</b></p>
-                                <p>Fall out: <b>none</b></p>
-                            </div>
-                        </div>
-                    </Popup>
-                </Marker>
-                <Marker position={kiev}>
-                    <Popup>
-                        <div className="popup-average">
-                            <header>
-                                City: <b>Kiev</b>
-                            </header>
-                            <div className="content">
-                                <p>Temperature: <b>-12</b></p>
-                                <p>Pressure: <b>798</b></p>
-                                <p>Humidity: <b>95</b></p>
-                                <p>Fall out: <b>snow</b></p>
-                            </div>
-                        </div>
-                    </Popup>
-                </Marker>
-                <Marker position={lutsk}>
-                    <Popup>
-                        <div className="popup-average">
-                            <header>
-                                City: <b>Luts`k</b>
-                            </header>
-                            <div className="content">
-                                <p>Temperature: <b>-9</b></p>
-                                <p>Pressure: <b>795</b></p>
-                                <p>Humidity: <b>92</b></p>
-                                <p>Fall out: <b>snow</b></p>
-                            </div>
-                        </div>
-                    </Popup>
-                </Marker>
-            </Map>
+            <div className="container">
+                <div className="row">
+                    <div className="columns small-12 text-center">
+                        <Map center={position} zoom={this.state.zoom}>
+                            <TileLayer
+                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url={this.getURL()}
+                            />
+                            <Marker position={rivne}>
+                                <Popup>
+                                    <div className="popup-average">
+                                        <header>
+                                            City: <b>Rivne</b>
+                                        </header>
+                                        <div className="content">
+                                            <p>Temperature: <b>-8</b></p>
+                                            <p>Pressure: <b>788</b></p>
+                                            <p>Humidity: <b>98</b></p>
+                                            <p>Fall out: <b>none</b></p>
+                                        </div>
+                                    </div>
+                                </Popup>
+                            </Marker>
+                            <Marker position={kiev}>
+                                <Popup>
+                                    <div className="popup-average">
+                                        <header>
+                                            City: <b>Kiev</b>
+                                        </header>
+                                        <div className="content">
+                                            <p>Temperature: <b>-12</b></p>
+                                            <p>Pressure: <b>798</b></p>
+                                            <p>Humidity: <b>95</b></p>
+                                            <p>Fall out: <b>snow</b></p>
+                                        </div>
+                                    </div>
+                                </Popup>
+                            </Marker>
+                            <Marker position={lutsk}>
+                                <Popup>
+                                    <div className="popup-average">
+                                        <header>
+                                            City: <b>Luts`k</b>
+                                        </header>
+                                        <div className="content">
+                                            <p>Temperature: <b>-9</b></p>
+                                            <p>Pressure: <b>795</b></p>
+                                            <p>Humidity: <b>92</b></p>
+                                            <p>Fall out: <b>snow</b></p>
+                                        </div>
+                                    </div>
+                                </Popup>
+                            </Marker>
+                        </Map>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

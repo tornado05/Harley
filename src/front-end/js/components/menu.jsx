@@ -1,4 +1,6 @@
 import React from 'react';
+import {Button, Colors, InputTypes, Switch, Sizes} from 'react-foundation';
+
 
 
 export default class Menu extends React.Component {
@@ -46,22 +48,22 @@ export default class Menu extends React.Component {
                             </li>
                             <li>
                                 <h5 className="text-center">Select parameter:</h5>
-                                <label>
-                                    <input type="radio" name="parameter" value="temp"/>
-                                    <span>Temperature</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="parameter" value="pressure"/>
-                                    <span>Pressure</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="parameter" value="humidity"/>
-                                    <span>Humidity</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="parameter" value="windSpeed"/>
-                                    <span>Wind speed</span>
-                                </label>
+                                <div className="switch-inner-label-example">
+                                    <p>Temperature:</p>
+                                    <Switch input={{ type: InputTypes.RADIO, name: 'parameter', value:'temp' }}/>
+                                </div>
+                                <div className="switch-inner-label-example">
+                                    <p>Pressure:</p>
+                                    <Switch input={{ type: InputTypes.RADIO, name: 'parameter', value:'pressure' }}/>
+                                </div>
+                                <div className="switch-inner-label-example">
+                                    <p>Humidity:</p>
+                                    <Switch input={{ type: InputTypes.RADIO, name: 'parameter', value:'humidity' }}/>
+                                </div>
+                                <div className="switch-inner-label-example">
+                                    <p>Wind speed</p>
+                                    <Switch input={{ type: InputTypes.RADIO, name: 'parameter', value:'windSpeed' }}/>
+                                </div>
                             </li>
                             <li>
                                 <h5 className="text-center">Select period:</h5>
@@ -69,7 +71,7 @@ export default class Menu extends React.Component {
                                 <input type="date" name="date-from"/>
                                 <p className="text-leftn">to</p>
                                 <input type="date" name="date-to"/>
-                                <span className="button" onClick={this._toggleMenu}>Show</span>
+                                <Button color={Colors.PRIMARY}>Save</Button>
                             </li>
                         </ul>
                     </aside>
