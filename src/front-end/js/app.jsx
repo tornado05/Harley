@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Header from './components/header.jsx';
 import Content from './components/content.jsx';
 import Footer from './components/footer.jsx';
+import FetchDemo from './components/getData.jsx';
 
 class Harley extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class Harley extends React.Component {
     	<div className="row">
 	    	<Header/>
             <Content/>
+            <FetchDemo/>
             <Footer/>
     	</div>
     );

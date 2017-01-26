@@ -1,6 +1,7 @@
-import React from 'react';
+import React    from 'react';
+import axios    from 'axios';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import L from 'leaflet';
+import L        from 'leaflet';
 
 L.Icon.Default.imagePath = './img/leaflet/';
 let state = {
@@ -13,7 +14,24 @@ let state = {
 export default class LeafletMap extends React.Component {
     constructor() {
         super();
+        this.state = {
+            leafletConf: {}
+        };
     }
+
+    componentWillMount() {
+        axios.get(`http://localhost:3000/weather/v01/configs`)
+            .then(res => {
+                const leafletConf = res.data.leaflet;
+                this.setState({ leafletConf });
+                console.log("leaflet conf");
+                console.log(this.state);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     render () {
         const position = [state.lat, state.lng];
         return (

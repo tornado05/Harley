@@ -35,7 +35,7 @@ export default class SideNav extends React.Component {
     render() {
         return (
             <div>
-                <h2>Line Example</h2>
+                <h2>Chart Example</h2>
                 <Line data={data} />
             </div>
         );
