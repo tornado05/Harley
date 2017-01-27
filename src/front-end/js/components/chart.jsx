@@ -32,10 +32,11 @@ export default class SideNav extends React.Component {
     constructor() {
         super();
     }
+    
     render() {
         return (
             <div>
-                <h2>Chart Example</h2>
+                <h2>{this.props.chartType} Chart</h2>
                 <Line data={data} />
             </div>
         );

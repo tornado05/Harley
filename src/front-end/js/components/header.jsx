@@ -24,7 +24,6 @@ export default class Header extends React.Component {
         return this.state.sideNavCollapsed ? 'burger' : 'burger active';
     }
     
-
     render() {
         return (
             <header>
@@ -35,7 +34,10 @@ export default class Header extends React.Component {
                 <div className={this._getSideNavClassName()}>
 
                 </div>
-                <SideNav className={this._getSideNavClassName()}/>
+                <SideNav 
+                    className={this._getSideNavClassName()}
+                    changeChartType={this.props.changeChartType}
+                />
             </header>
         );
     }

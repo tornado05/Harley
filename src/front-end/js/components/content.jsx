@@ -11,7 +11,9 @@ export default class Content extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <Chart/>
+                        <Chart
+                            chartType={this.props.chartType}
+                        />
                     </div>
                 </div>
                 <div className="row">
