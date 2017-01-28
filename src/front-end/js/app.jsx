@@ -27,14 +27,14 @@ class Harley extends React.Component {
   render() {
     return (
     	<div className="row">
-	    	<Header
-          changeChartType={this.changeChartType}
-        />
-        <Content
-          chartType={this.state.chartType}
-        />
-        <FetchDemo/>
-        <Footer/>
+		    <Header
+	          changeChartType={this.changeChartType}
+	        />
+	        <Content
+	          chartType={this.state.chartType}
+	        />
+	        <FetchDemo/>
+	        <Footer/>
     	</div>
     );
   }
