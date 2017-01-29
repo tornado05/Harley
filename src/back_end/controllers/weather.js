@@ -1,3 +1,5 @@
+/*jslint nomen: true*/
+/*jslint unparam: true*/
 'use strict';
 var logger              = require('./../services/logger.js'),
     dataBaseService     = require('./../services/DataBaseService'),
@@ -8,10 +10,7 @@ var logger              = require('./../services/logger.js'),
     _                   = require('lodash');
 
 module.exports = (function () {
-    var data = [],
-        date = new Date(),
-
-        readData = function (path) {
+    var readData = function (path) {
             try {
                 var result = fs.readFileSync(path, 'utf8');
                 return JSON.parse(result);
@@ -20,10 +19,28 @@ module.exports = (function () {
                 return [];
             }
         },
-        //TODO: Need to be tested.
-        getServiceMonthStat = function (date, service) {
-            var date = getDate(date, null, "M"),
-                result =  dataBaseService.getMonthStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, date, service).then(function (items) {
+        getDate = function (dateFrom, dateTo, needMonth) {
+            var start, end;
+            if (_.isString(dateTo)) {
+                start = new Date(dateFrom);
+                end = new Date(dateTo);
+            } else {
+                start = new Date(dateFrom);
+                end = new Date(dateFrom);
+            }
+            start.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
+            end.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
+            if (_.isString(needMonth) && needMonth === "M") {
+                return new Date(dateFrom.getFullYear(), dateFrom.getMonth(), 1);
+            }
+            return {
+                start: parseInt(start.getTime() / set.variables.mSecToSec, set.variables.decimal),
+                end: parseInt(end.getTime() / set.variables.mSecToSec, set.variables.decimal)
+            };
+        },
+        getServiceMonthStat = function (month, service) {
+            var date = getDate(month, null, "M"),
+                result = dataBaseService.getMonthStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, date, service).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
@@ -32,7 +49,6 @@ module.exports = (function () {
                 });
             return result;
         },
-        //TODO: Need to be tested.
         /**
          * @desc:
          * Method returns an array of city day statistic from the database.
@@ -49,9 +65,8 @@ module.exports = (function () {
                 });
             return result;
         },
-        //TODO: Need to be tested.
-        getCityMonthStat = function (date, city) {
-            var date = getDate(date, null, "M"),
+        getCityMonthStat = function (month, city) {
+            var date = getDate(month, null, "M"),
                 result =  dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
                     return items;
                 }, function (err) {
@@ -69,11 +84,11 @@ module.exports = (function () {
         getCurrentWeather = function () {
             var count = config.countFields(),
                 result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
-                return items;
-            }, function (err) {
-                logger.logError(err);
-                return readData('./data/common_data.json');
-            });
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    return readData('./data/common_data.json');
+                });
             return result;
         },
     /**
@@ -84,23 +99,23 @@ module.exports = (function () {
         getServiceDayStat = function (dateFrom, dateTo, service) {
             var date = getDate(dateFrom, dateTo),
                 result = dataBaseService.getStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, date.start, date.end, service).then(function (items) {
-                return items;
-            }, function (err) {
-                logger.logError(err);
-                var path = './data/serviceDayStatMock.json';
-                return readData(path);
-            });
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    var path = './data/serviceDayStatMock.json';
+                    return readData(path);
+                });
             return result;
         },
         getServiceStatByCities = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo),
                 result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
-                return items;
-            }, function (err) {
-                logger.logError(err);
-                var path = './data/serviceDayStatByCities.json';
-                return readData(path);
-            });
+                    return items;
+                }, function (err) {
+                    logger.logError(err);
+                    var path = './data/serviceDayStatByCities.json';
+                    return readData(path);
+                });
             return result;
         },
         getServiceMonthStatByCities = function (date) {
@@ -112,24 +127,6 @@ module.exports = (function () {
                 return readData(path);
             });
             return result;
-        },
-        getDate = function (dateFrom, dateTo, needMonth) {
-            if (_.isString(dateTo)) {
-                var start = new Date(dateFrom),
-                    end = new Date(dateTo);
-            } else {
-                var start = new Date(dateFrom),
-                    end = new Date(dateFrom);
-            }
-            start.setHours(0, 0, 0, 0);
-            end.setHours(23, 59, 59, 999);
-            if (_.isString(needMonth) && needMonth === "M") {
-                return new Date(dateFrom.getFullYear(), dateFrom.getMonth(), 1);
-            }
-            return {
-                start: parseInt(start.getTime() / 1000),
-                end: parseInt(end.getTime() / 1000)
-            };
         };
 
     return {

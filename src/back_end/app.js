@@ -1,3 +1,4 @@
+/*jslint unparam: true*/
 'use strict';
 var http        = require('http'),
     express     = require('express'),
@@ -58,6 +59,8 @@ app.get('/weather/v01/settings', function (req, res) {
 });
 
 app.get('/weather/v01/configs', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(configService.getTotalConfig());
 });
 

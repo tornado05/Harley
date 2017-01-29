@@ -10,7 +10,8 @@ var gulp            = require('gulp'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
     browserSync     = require('browser-sync').create(),
-    watch           = require('gulp-watch');
+    watch           = require('gulp-watch'),
+    webpack         = require('gulp-webpack');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -45,16 +46,24 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/front-end/js/models/**',
-        './src/front-end/js/collections/**',
-        './src/front-end/js/services/**',
-        './src/front-end/js/views/**',
-        './src/front-end/js/initialize.js'
+        './src/front-end/js/**/*.jsx'
     ])
-        .pipe(sourcemaps.init())
-        .pipe(concat('bundle.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(webpack({
+            module: {
+                loaders: [
+                    {
+                         loader: 'babel-loader',
+                         exclude: /node_modules/,
+                         query: {
+                            presets: ['es2015', 'react']
+                        }
+                    }
+                ]
+            },
+            output: {
+                filename: 'bundle.js'
+            }
+        }))        
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
@@ -62,10 +71,9 @@ gulp.task('vendor-js', function () {
     return gulp.src([
         './bower_components/jquery/dist/jquery.min.js*',
         './bower_components/underscore/underscore-min.js',
-        './bower_components/backbone/backbone-min.js',
+        './bower_components/bootstrap/dist/js/bootstrap.min.js',
         './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/materialize/dist/js/materialize.min.js',
-        './bower_components/chart.js/dist/Chart.min.js'
+        './bower_components/leaflet/dist/leaflet-src.js'
     ])
         .pipe(concat('vendor.js'))
         .pipe(sourcemaps.write())
@@ -89,8 +97,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './bower_components/materialize/dist/css/materialize.min.css',
-        './bower_components/leaflet/dist/leaflet.css'
+        './bower_components/leaflet/dist/leaflet.css',
+        './bower_components/bootstrap/dist/css/bootstrap.min.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))
@@ -103,13 +111,12 @@ gulp.task('vendor-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/*.*'
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/img/images'));
+        .pipe(gulp.dest(DIST_DIR + '/public/img/leaflet'));
 });
 
 gulp.task('fonts', function(){
     return gulp.src([
-        './src/front-end/fonts/roboto/**/**',
-        './src/front-end/fonts/Material-Design-Icons/**/*.*'
+        './src/front-end/fonts/roboto/**/**'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
