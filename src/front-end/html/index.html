@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
+<h2>Login user</h2>
 <form action="/login" method="post">
     <div>
         <label>Username:</label>
@@ -20,6 +21,22 @@
     </div>
     <div>
         <input type="submit" value="Log In"/>
+    </div>
+</form>
+<h2>Register user</h2>
+<form action="/register" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username"/>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <button type="Register">
+            Register
+        </button>
     </div>
 </form>
 <div class="container-fluid" id="app"></div>

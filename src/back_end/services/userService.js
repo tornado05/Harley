@@ -87,7 +87,7 @@ module.exports = (function () {
     };
 
     var register = function(req, res, next) {
-        var user = new User({ username: req.body.email, password: req.body.password});
+        var user = new User({ username: req.body.username, password: req.body.password});
         user.save(function(err) {
             return err
                 ? next(err)

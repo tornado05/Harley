@@ -88,7 +88,7 @@ app.get('/logout', user.logout);
 
 
 app.get('/users', function (req, res) {
-    res.send('hello ' + req.session.passport.user.username);
+    res.send('hello ' + req.session.passport.user.username + '<br/><a href="/logout">Logout</a>');
 });
 
 http.createServer(app).listen(3000, function () {
