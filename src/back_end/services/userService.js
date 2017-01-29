@@ -28,19 +28,6 @@ module.exports = (function () {
         console.log('data base opend');
     });
 
-
-    /**
-     * Create new user
-     * TODO: create method for this
-     */
-    var test = new User({
-        username: "test",
-        password: 1
-    });
-    test.save(function(err, test) {
-        if (err) return console.error(err);
-    });
-
     /**
      * Mongoose method for password validation
      */
