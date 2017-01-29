@@ -1,17 +1,35 @@
 /*jslint unparam: true*/
 'use strict';
-var http        = require('http'),
-    express     = require('express'),
-    bodyParser  = require("body-parser"),
-    app         = express(),
-    logger      = require('./services/logger'),
-    configService     = require('./services/ConfigService'),
+var http            = require('http'),
+    express         = require('express'),
+    bodyParser      = require("body-parser"),
+    passport    = require('passport'),
+    session = require('express-session'),
+    app             = express(),
+    logger          = require('./services/logger'),
+    configService   = require('./services/ConfigService'),
+    user          = require('./services/userService'),
     weatherController = require('./controllers/weather');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 // route to mock data with services statistics per day
 app.get('/weather/v01/stat/service/day', function (req, res) {
@@ -62,6 +80,15 @@ app.get('/weather/v01/configs', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.send(configService.getTotalConfig());
+});
+
+app.post('/login', user.login);
+app.post('/register', user.register);
+app.get('/logout', user.logout);
+
+
+app.get('/users', function (req, res) {
+    res.send('hello ' + req.session.passport.user.username);
 });
 
 http.createServer(app).listen(3000, function () {

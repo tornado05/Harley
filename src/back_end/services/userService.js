@@ -1,15 +1,9 @@
 var passport    = require('passport'),
     session = require('express-session'),
     LocalStrategy = require('passport-local').Strategy,
-    MongoClient = require('mongodb').MongoClient,
     mongoose = require('mongoose');
 
 module.exports = (function () {
-
-
-
-
-
     var db = mongoose.connection;
 
     var Schema = mongoose.Schema;
@@ -85,7 +79,7 @@ module.exports = (function () {
                     ? req.logIn(user, function(err) {
                     return err
                         ? next(err)
-                        : res.redirect('/users2');
+                        : res.redirect('/users');
                 })
                     : res.redirect('/');
             }
