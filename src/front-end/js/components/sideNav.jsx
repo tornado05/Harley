@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from 'react-bootstrap';
 import {CHART_TYPES} from './../constants/constants.jsx';
-import {LoginForm} from './form-login.jsx';
+import {Footer} from './footer.jsx';
 
 
 export default class SideNav extends React.Component {
@@ -42,9 +42,6 @@ export default class SideNav extends React.Component {
     render() {
         return (
             <div className={this.props.className}>
-                <LoginForm 
-                    text={this.getClassName('login')}
-                />
                 <div className={this.getClassName('controls')}>
                     <form>
                         <h3 className="">Show information</h3>
@@ -92,6 +89,7 @@ export default class SideNav extends React.Component {
                         </Button>
                     </form>
                 </div>
+                <Footer/>
             </div>
         );
     }
