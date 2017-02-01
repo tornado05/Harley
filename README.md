@@ -54,4 +54,9 @@ v. 0.0.1
 ## Відновлення БД з дампу
 - mongorestore --db database_name path_to_bson_file
 
-
+### How To
+- Запускам командную строку от администратора
+- Переходим в папку C:\Program Files\MongoDB\Server\3.4\bin\
+- Вводим команду mongorestore.exe --db weatherProject D:\git\Harley\dump\weatherProject (пример пути)
+- Вводи команду mongorestore.exe --db Weather_Statistics D:\git\Harley\dump\Weather_Statistics (пример пути)
+- Для визуального представления БД юзайте [Compass](https://drive.google.com/open?id=0B6Bti9TG7cUpTU5yM1VBMm1Fc2c)
