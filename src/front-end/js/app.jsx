@@ -8,36 +8,36 @@ import FetchDemo from './components/getData.jsx';
 import {CHART_TYPES} from './constants/constants.jsx';
 
 class Harley extends React.Component {
-  constructor () {
-    super();  
+    constructor() {
+        super();
 
-    this.changeChartType = this.changeChartType.bind(this);
+        this.changeChartType = this.changeChartType.bind(this);
 
-    this.state = {
-      chartType: CHART_TYPES.TEMPERATURE
-    };
-  }
+        this.state = {
+            chartType: CHART_TYPES.TEMPERATURE
+        };
+    }
 
-  changeChartType (type) {
-      this.setState({
-        chartType: type
-      });
-  }
+    changeChartType(type) {
+        this.setState({
+            chartType: type
+        });
+    }
 
-  render() {
-    return (
-    	<div className="row">
-	    	<Header
-          changeChartType={this.changeChartType}
-        />
-        <Content
-          chartType={this.state.chartType}
-        />
-        <FetchDemo/>
-        <Footer/>
-    	</div>
-    );
-  }
+    render() {
+        return (
+            <div className="row">
+                <Header
+                    changeChartType={this.changeChartType}
+                />
+                <Content
+                    chartType={this.state.chartType}
+                />
+                <FetchDemo/>
+                <Footer/>
+            </div>
+        );
+    }
 }
- 
+
 ReactDOM.render(<Harley/>, document.getElementById('app'));

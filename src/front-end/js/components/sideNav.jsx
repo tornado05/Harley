@@ -1,36 +1,51 @@
 import React from 'react';
 import DatePicker from 'react-bootstrap-date-picker';
-import { FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup } from 'react-bootstrap';
+import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from 'react-bootstrap';
 import {CHART_TYPES} from './../constants/constants.jsx';
+import {LoginForm} from './form-login.jsx';
+
 
 export default class SideNav extends React.Component {
     constructor() {
         super();
 
-        this.showChart = this.showChart.bind(this);
+        this.showChart    = this.showChart.bind(this);
         this.setChartType = this.setChartType.bind(this);
+        this.getClassName  = this.getClassName.bind(this);
 
         this.state = {
-            chartType: CHART_TYPES.TEMPERATURE
+            chartType: CHART_TYPES.TEMPERATURE,
+            token: sessionStorage.getItem('token')
         }
     }
 
-    showChart () {
+    showChart() {
         if (this.props.changeChartType) {
             this.props.changeChartType(this.state.chartType);
         }
     }
 
-    setChartType (type) {
+    setChartType(type) {
         this.setState({
             chartType: type
         });
     }
 
-    render () {
+    getClassName(type){
+        switch (type){
+            case 'login':  return (this.state.token) ? "hidden" : '';
+            case 'controls': return (this.state.token) ? "col-xs-12 col-sm-12 col-md-12 col-lg-12" : 'hidden';
+        }
+
+    }
+
+    render() {
         return (
             <div className={this.props.className}>
-                <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <LoginForm 
+                    text={this.getClassName('login')}
+                />
+                <div className={this.getClassName('controls')}>
                     <form>
                         <h3 className="">Show information</h3>
                         <FormGroup>
@@ -42,15 +57,15 @@ export default class SideNav extends React.Component {
                             </FormControl>
                         </FormGroup>
                         <FormGroup>
-                            <Radio 
-                                name="groupOptions" 
+                            <Radio
+                                name="groupOptions"
                                 onClick={() => this.setChartType(CHART_TYPES.TEMPERATURE)}
                                 checked={CHART_TYPES.TEMPERATURE === this.state.chartType}
                                 onChange={()=>{}}
                             >
                                 Temperature
                             </Radio>
-                            <Radio 
+                            <Radio
                                 name="groupOptions"
                                 onClick={() => this.setChartType(CHART_TYPES.PREASURE)}
                                 checked={CHART_TYPES.PREASURE === this.state.chartType}
@@ -58,7 +73,7 @@ export default class SideNav extends React.Component {
                             >
                                 Pressure
                             </Radio>
-                            <Radio 
+                            <Radio
                                 name="groupOptions"
                                 onClick={() => this.setChartType(CHART_TYPES.WIND_SPEED)}
                                 checked={CHART_TYPES.WIND_SPEED === this.state.chartType}

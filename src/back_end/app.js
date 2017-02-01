@@ -1,25 +1,35 @@
 /*jslint unparam: true*/
 'use strict';
-var http            = require('http'),
-    express         = require('express'),
-    bodyParser      = require("body-parser"),
-    passport    = require('passport'),
-    session = require('express-session'),
-    app             = express(),
-    logger          = require('./services/logger'),
-    configService   = require('./services/ConfigService'),
-    user          = require('./services/userService'),
+var http              = require('http'),
+    express           = require('express'),
+    bodyParser        = require("body-parser"),
+    passport          = require('passport'),
+    session           = require('express-session'),
+    logger            = require('./services/logger'),
+    configService     = require('./services/ConfigService'),
+    user              = require('./services/userService'),
     weatherController = require('./controllers/weather');
 
+//Init App
+var app = express();
 
+// BodyParsers
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// Init static folder
 app.use(express.static('public'));
+
+// Init Session
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
 }));
+
+// TODO: install express validator https://www.npmjs.com/package/express-validator
+
+// Passport init
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -91,6 +101,9 @@ app.get('/users', function (req, res) {
     res.send('hello ' + req.session.passport.user.username + '<br/><a href="/logout">Logout</a>');
 });
 
-http.createServer(app).listen(3000, function () {
-    console.log('App listening on port 3000!');
+// Setting a port
+app.set('port', (process.env.PORT || 3000));
+
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('App listening on port '+ app.get('port') +'!');
 });
