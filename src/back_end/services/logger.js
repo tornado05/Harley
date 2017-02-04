@@ -1,35 +1,34 @@
-'use strict';
+var fs  = require("fs"),
+    set = require("./../config/settings.json");
 
-var fs  = require('fs'),
-    set = require('./../config/settings.json');
-
-var SEPARATOR   = ' | ',
+var SEPARATOR   = " | ",
     ENDLINE     = "\r\n";
 
 module.exports = (function (isDebugModeOn) {
-    var path = './logs/log.txt',
+    "use strict";
+    var path = "./logs/log.txt",
         getCurrentTime = function () {
             var now = new Date();
             return [
                 now.getUTCFullYear(),
-                '-',
+                "-",
                 now.getUTCMonth() + 1,
-                '-',
+                "-",
                 now.getUTCDate(),
-                ' ',
+                " ",
                 now.getUTCHours() + 2,
-                ':',
+                ":",
                 now.getUTCMinutes(),
-                ':',
+                ":",
                 now.getUTCSeconds()
-            ].join('');
+            ].join("");
         },
         writeMessageToFile = function (message) {
             console.log(message);
-            fs.writeFileSync(path, message, { encoding: 'utf8', flag: 'a+'}, function (err) {
+            fs.writeFileSync(path, message, { encoding: "utf8", flag: "a+"}, function (err) {
                 if (err) {
                     throw {
-                        'message': set.messages.logger.failToWrite
+                        "message": set.messages.logger.failToWrite
                     };
                 }
             });

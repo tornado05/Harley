@@ -1,18 +1,16 @@
-/*jslint nomen: true*/
-/*jslint unparam: true*/
-'use strict';
-var logger              = require('./../services/logger.js'),
-    dataBaseService     = require('./../services/DataBaseService'),
-    pathToDBs           = require('./../config/pathConfig.json'),
-    set                 = require('./../config/settings.json'),
-    config              = require('./../services/ConfigService.js'),
-    fs                  = require('fs'),
-    _                   = require('lodash');
+var logger              = require("./../services/logger.js"),
+    dataBaseService     = require("./../services/DataBaseService"),
+    pathToDBs           = require("./../config/pathConfig.json"),
+    set                 = require("./../config/settings.json"),
+    config              = require("./../services/ConfigService.js"),
+    fs                  = require("fs"),
+    _                   = require("lodash");
 
 module.exports = (function () {
+    "use strict";
     var readData = function (path) {
             try {
-                var result = fs.readFileSync(path, 'utf8');
+                var result = fs.readFileSync(path, "utf8");
                 return JSON.parse(result);
             } catch (e) {
                 logger.logError(set.messages.fs.cantReadFile + path);
@@ -44,7 +42,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceMonthStatMock.json';
+                    var path = "./data/serviceMonthStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -60,7 +58,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/cityDayStatMock.json';
+                    var path = "./data/cityDayStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -71,7 +69,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/cityMonthStatMock.json';
+                    var path = "./data/cityMonthStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -87,7 +85,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    return readData('./data/common_data.json');
+                    return readData("./data/common_data.json");
                 });
             return result;
         },
@@ -102,7 +100,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceDayStatMock.json';
+                    var path = "./data/serviceDayStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -113,7 +111,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceDayStatByCities.json';
+                    var path = "./data/serviceDayStatByCities.json";
                     return readData(path);
                 });
             return result;
@@ -123,7 +121,7 @@ module.exports = (function () {
                 return items;
             }, function (err) {
                 logger.logError(err);
-                var path = './data/serviceMonthStatByCities.json';
+                var path = "./data/serviceMonthStatByCities.json";
                 return readData(path);
             });
             return result;
