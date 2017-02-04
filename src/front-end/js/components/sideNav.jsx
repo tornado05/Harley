@@ -2,13 +2,14 @@ import React         from 'react';
 import DatePicker    from 'react-bootstrap-date-picker';
 import { FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup } from 'react-bootstrap';
 import {CHART_TYPES} from './../constants/constants.jsx';
+import { testAction } from './../actions/pointsActions.jsx';
+import { changeChartType } from './../actions/chartActions.jsx';
 
 export default class SideNav extends React.Component {
     constructor() {
         super();
 
         this.showChart = this.showChart.bind(this);
-        this.setChartType = this.setChartType.bind(this);
 
         this.state = {
             chartType: CHART_TYPES.TEMPERATURE
@@ -16,9 +17,7 @@ export default class SideNav extends React.Component {
     }
 
     showChart () {
-        if (this.props.changeChartType) {
-            this.props.changeChartType(this.state.chartType);
-        }
+        changeChartType(this.state.chartType);        
     }
 
     setChartType (type) {

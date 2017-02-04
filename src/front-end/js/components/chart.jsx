@@ -16,6 +16,7 @@ export default class Chart extends React.Component{
       }
   }
   render(){
+    console.log('chart.jsx', this.props);
     const data = {
         labels: this.props.weather.map(weathers=>weathers.date),
         datasets: [

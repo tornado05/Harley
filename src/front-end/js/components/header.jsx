@@ -36,7 +36,6 @@ export default class Header extends React.Component {
                 </div>
                 <SideNav 
                     className={this._getSideNavClassName()}
-                    changeChartType={this.props.changeChartType}
                 />
             </header>
         );
