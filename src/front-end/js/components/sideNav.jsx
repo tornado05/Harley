@@ -1,5 +1,5 @@
-import React from 'react';
-import DatePicker from 'react-bootstrap-date-picker';
+import React         from 'react';
+import DatePicker    from 'react-bootstrap-date-picker';
 import { FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup } from 'react-bootstrap';
 import {CHART_TYPES} from './../constants/constants.jsx';
 
