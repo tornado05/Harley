@@ -13,6 +13,7 @@ export default class Content extends React.Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <Chart
                             chartType={this.props.chartType}
+                            weather={this.props.weather}
                         />
                     </div>
                 </div>
