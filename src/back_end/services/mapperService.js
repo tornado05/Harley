@@ -1,6 +1,6 @@
-var set    = require("./../config/settings.json"),
+var set = require("./../config/settings.json"),
     config = require("./../config/config.json"),
-    _      = require("lodash"),
+    _ = require("lodash"),
     logger = require("./logger.js");
 
 module.exports = (function () {
@@ -54,7 +54,7 @@ module.exports = (function () {
         },
         prepareDataFromWunderground = function (serviceName, city, data) {
             var humidity = parseInt((data.current_observation.relative_humidity).replace(/%/g, ""), 10),
-                result =  prepareData(city, parseFloat(data.current_observation.temp_c), parseFloat(data.current_observation.pressure_mb),
+                result = prepareData(city, parseFloat(data.current_observation.temp_c), parseFloat(data.current_observation.pressure_mb),
                     humidity, parseFloat(data.current_observation.wind_gust_kph), data.current_observation.wind_degrees, null,
                     getFallOut(data.current_observation.icon, serviceName), serviceName, parseFloat(data.current_observation.display_location.longitude),
                     parseFloat(data.current_observation.display_location.latitude), parseFloat(data.current_observation.local_epoch));

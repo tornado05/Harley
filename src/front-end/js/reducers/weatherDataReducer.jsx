@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from './../constants/constants.jsx';
+import {ACTION_TYPES} from "./../constants/constants.jsx";
 
 export function weather (state = {}, action) {
 	switch (action.type) {
@@ -6,8 +6,8 @@ export function weather (state = {}, action) {
 			console.log(action);
 			let newState = state;
 			newState.weather = action.weather;
-			console.log('weather reducer', state, newState);
+			console.log("weather reducer", state, newState);
 			return newState;
 		default: return state
-	} 
+	}
 }

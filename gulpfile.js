@@ -18,6 +18,9 @@ var DIST_DIR = 'dist',
 gulp.task('lint', function (cb) {
     return gulp.src(['./src/**/*.js', './src/**/*.jsx'])
         .pipe(eslint({
+            "env": {
+                "es6": true
+            },
             "plugins": [
                 "react"
             ],
@@ -33,8 +36,10 @@ gulp.task('lint', function (cb) {
                 "comma-dangle": 2,
                 "quotes": 1,
                 //"strict": 2,
+                "no-trailing-spaces": 1,
+                "no-multi-spaces": 1,
+                "no-multiple-empty-lines": 1,
                 "react/display-name": 1,
-                "react/forbid-prop-types": 1,
                 "react/jsx-boolean-value": 1,
                 "react/jsx-closing-bracket-location": 1,
                 "react/jsx-curly-spacing": 1,
@@ -42,9 +47,7 @@ gulp.task('lint', function (cb) {
                 "react/jsx-indent-props": 1,
                 "react/jsx-key": 1,
                 "react/jsx-max-props-per-line": 1,
-                "react/jsx-no-bind": 1,
                 "react/jsx-no-duplicate-props": 1,
-                "react/jsx-no-literals": 1,
                 "react/jsx-no-undef": 1,
                 "react/jsx-pascal-case": 1,
                 "react/jsx-sort-props": 1,
@@ -59,10 +62,8 @@ gulp.task('lint', function (cb) {
                 "react/prefer-es6-class": 1,
                 "react/prop-types": 1,
                 "react/react-in-jsx-scope": 1,
-                "react/require-extension": 1,
-                "react/self-closing-comp": 1,
                 "react/sort-comp": 1,
-                "react/wrap-multilines": 1
+                "react/jsx-wrap-multilines": 1
             }
         }))
         .pipe(eslint.format())

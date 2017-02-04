@@ -1,16 +1,16 @@
-var config              = require("./ConfigService.js"),
-    dataBaseService     = require("./DataBaseService"),
-    _                   = require("lodash"),
-    logger              = require("./logger.js"),
-    set                 = require("./../config/settings.json"),
-    pathToDBs           = require("./../config/pathConfig.json");
+var config = require("./ConfigService.js"),
+    dataBaseService = require("./DataBaseService"),
+    _ = require("lodash"),
+    logger = require("./logger.js"),
+    set = require("./../config/settings.json"),
+    pathToDBs = require("./../config/pathConfig.json");
 module.exports = (function () {
     "use strict";
-    var  minValue = function (paramName, data, cityNameNeeded) {
-            var lowest      = Number.POSITIVE_INFINITY,
-                fieldName   = set.variables.min_ + paramName,
-                result      = {},
-                city        = "";
+    var minValue = function (paramName, data, cityNameNeeded) {
+            var lowest = Number.POSITIVE_INFINITY,
+                fieldName = set.variables.min_ + paramName,
+                result = {},
+                city = "";
             _.each(data, function (item) {
                 if (item[paramName] < lowest) {
                     lowest = item[paramName];
@@ -28,10 +28,10 @@ module.exports = (function () {
 
         },
         maxValue = function (paramName, data, cityNameNeeded) {
-            var highest     = Number.NEGATIVE_INFINITY,
-                fieldName   = set.variables.max_ + paramName,
-                result      = {},
-                city        = "";
+            var highest = Number.NEGATIVE_INFINITY,
+                fieldName = set.variables.max_ + paramName,
+                result = {},
+                city = "";
             _.each(data, function (item) {
                 if (item[paramName] > highest) {
                     highest = item[paramName];
@@ -49,9 +49,9 @@ module.exports = (function () {
         },
 
         avgValue = function (paramName, data, cityNameNeeded) {
-            var avg         = 0,
-                fieldName   = set.variables.avg + paramName,
-                result      = {};
+            var avg = 0,
+                fieldName = set.variables.avg + paramName,
+                result = {};
             _.each(data, function (item) {
                 avg += item[paramName];
                 if (cityNameNeeded) {
@@ -68,18 +68,18 @@ module.exports = (function () {
             var output,
                 citiesAndServices = {
                     date: _.first(dataArr).date,
-                    cityName : cityName,
-                    sourceAPI : serviceName
+                    cityName: cityName,
+                    sourceAPI: serviceName
                 },
                 onlyCities = {
                     date: _.first(dataArr).date,
-                    cityName : cityName
+                    cityName: cityName
                 },
                 onlyServices = {
                     date: _.first(dataArr).date,
-                    sourceAPI : serviceName
+                    sourceAPI: serviceName
                 },
-                commonPart  = {
+                commonPart = {
                     temp: {
                         min: minValue(set.variables.temp, dataArr),
                         max: maxValue(set.variables.temp, dataArr),
@@ -110,17 +110,17 @@ module.exports = (function () {
         },
 
         getTime = function (searchTime, timePeriodNeeded) {
-            var dayStart    = new Date(),
-                dayEnd      = new Date();
+            var dayStart = new Date(),
+                dayEnd = new Date();
             switch (timePeriodNeeded) {
-            case "day":
-                dayStart    = new Date(searchTime.getTime());
-                dayEnd      = new Date(searchTime.getTime());
-                break;
-            case "month":
-                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-                break;
+                case "day":
+                    dayStart = new Date(searchTime.getTime());
+                    dayEnd = new Date(searchTime.getTime());
+                    break;
+                case "month":
+                    dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
+                    dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
+                    break;
             }
             dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
             dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);

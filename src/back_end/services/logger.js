@@ -1,8 +1,8 @@
-var fs  = require("fs"),
+var fs = require("fs"),
     set = require("./../config/settings.json");
 
-var SEPARATOR   = " | ",
-    ENDLINE     = "\r\n";
+var SEPARATOR = " | ",
+    ENDLINE = "\r\n";
 
 module.exports = (function (isDebugModeOn) {
     "use strict";

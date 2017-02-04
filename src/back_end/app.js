@@ -1,9 +1,9 @@
-var http        = require("http"),
-    express     = require("express"),
-    bodyParser  = require("body-parser"),
-    app         = express(),
-    logger      = require("./services/logger"),
-    configService     = require("./services/ConfigService"),
+var http = require("http"),
+    express = require("express"),
+    bodyParser = require("body-parser"),
+    app = express(),
+    logger = require("./services/logger"),
+    configService = require("./services/ConfigService"),
     weatherController = require("./controllers/weather");
 
 

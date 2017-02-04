@@ -1,7 +1,7 @@
-var getWeatherFromAPI   = require("./../services/getDataFromAPI"),
-    statisticsService   = require("./../services/StatisticService"),
-    set                 = require("./../config/settings.json"),
-    cron                = require("node-cron");
+var getWeatherFromAPI = require("./../services/getDataFromAPI"),
+    statisticsService = require("./../services/StatisticService"),
+    set = require("./../config/settings.json"),
+    cron = require("node-cron");
 
 module.exports = (function () {
     "use strict";

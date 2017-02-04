@@ -1,10 +1,10 @@
-var request                         = require("request"),
-    config                          = require("./ConfigService.js"),
-    mapperService                   = require("./mapperService"),
-    dataBaseService                 = require("./DataBaseService"),
-    pathToDBs                       = require("./../config/pathConfig.json"),
-    set                             = require("./../config/settings.json"),
-    logger                          = require("./logger.js");
+var request = require("request"),
+    config = require("./ConfigService.js"),
+    mapperService = require("./mapperService"),
+    dataBaseService = require("./DataBaseService"),
+    pathToDBs = require("./../config/pathConfig.json"),
+    set = require("./../config/settings.json"),
+    logger = require("./logger.js");
 
 module.exports = (function () {
     "use strict";

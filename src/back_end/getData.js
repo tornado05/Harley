@@ -1,10 +1,8 @@
-
-
-var http        = require("http"),
-    express     = require("express"),
-    bodyParser  = require("body-parser"),
-    app         = express(),
-    logger      = require("./services/logger.js"),
+var http = require("http"),
+    express = require("express"),
+    bodyParser = require("body-parser"),
+    app = express(),
+    logger = require("./services/logger.js"),
     getDataController = require("./controllers/getDataController");
 
 

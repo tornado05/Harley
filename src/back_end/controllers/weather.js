@@ -1,10 +1,10 @@
-var logger              = require("./../services/logger.js"),
-    dataBaseService     = require("./../services/DataBaseService"),
-    pathToDBs           = require("./../config/pathConfig.json"),
-    set                 = require("./../config/settings.json"),
-    config              = require("./../services/ConfigService.js"),
-    fs                  = require("fs"),
-    _                   = require("lodash");
+var logger = require("./../services/logger.js"),
+    dataBaseService = require("./../services/DataBaseService"),
+    pathToDBs = require("./../config/pathConfig.json"),
+    set = require("./../config/settings.json"),
+    config = require("./../services/ConfigService.js"),
+    fs = require("fs"),
+    _ = require("lodash");
 
 module.exports = (function () {
     "use strict";
@@ -54,7 +54,7 @@ module.exports = (function () {
          */
         getCityDayStat = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo),
-                result =  dataBaseService.getStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, date.start, date.end, city).then(function (items) {
+                result = dataBaseService.getStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, date.start, date.end, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
@@ -65,7 +65,7 @@ module.exports = (function () {
         },
         getCityMonthStat = function (month, city) {
             var date = getDate(month, null, "M"),
-                result =  dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
+                result = dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
@@ -74,11 +74,11 @@ module.exports = (function () {
                 });
             return result;
         },
-    /**
-     *  @desc: Method returns an array of current weather from the database.
-     *  If the database not available -  returned mock data from JSON.
-     *
-     */
+        /**
+         *  @desc: Method returns an array of current weather from the database.
+         *  If the database not available -  returned mock data from JSON.
+         *
+         */
         getCurrentWeather = function () {
             var count = config.countFields(),
                 result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
@@ -89,11 +89,11 @@ module.exports = (function () {
                 });
             return result;
         },
-    /**
-     * @desc:
-     * Method returns an array of day statistic from the database.
-     * If the database not available -  returned mock data from JSON.
-     */
+        /**
+         * @desc:
+         * Method returns an array of day statistic from the database.
+         * If the database not available -  returned mock data from JSON.
+         */
         getServiceDayStat = function (dateFrom, dateTo, service) {
             var date = getDate(dateFrom, dateTo),
                 result = dataBaseService.getStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, date.start, date.end, service).then(function (items) {
@@ -107,7 +107,7 @@ module.exports = (function () {
         },
         getServiceStatByCities = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo),
-                result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
+                result = dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);

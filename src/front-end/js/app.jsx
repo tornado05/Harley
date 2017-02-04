@@ -1,9 +1,9 @@
-import React         from "react";
-import ReactDOM      from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Header        from "./components/header.jsx";
-import Content       from "./components/content.jsx";
-import Footer        from "./components/footer.jsx";
+import Header from "./components/header.jsx";
+import Content from "./components/content.jsx";
+import Footer from "./components/footer.jsx";
 
 import { getWeatherData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
@@ -41,5 +41,5 @@ class Harley extends React.Component {
     );
   }
 }
- 
+
 ReactDOM.render(<Harley/>, document.getElementById("app"));
