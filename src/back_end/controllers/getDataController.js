@@ -1,10 +1,10 @@
-'use strict';
-var getWeatherFromAPI   = require('./../services/getDataFromAPI'),
-    statisticsService   = require('./../services/StatisticService'),
-    set                 = require('./../config/settings.json'),
-    cron                = require('node-cron');
+var getWeatherFromAPI = require("./../services/getDataFromAPI"),
+    statisticsService = require("./../services/StatisticService"),
+    set = require("./../config/settings.json"),
+    cron = require("node-cron");
 
 module.exports = (function () {
+    "use strict";
     var date = new Date(),
         dayTask = cron.schedule(set.cronTask.everyDay, function () {
             statisticsService.serviceDayStatistics(date);

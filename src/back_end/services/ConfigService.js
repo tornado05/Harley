@@ -1,17 +1,15 @@
-/*jslint nomen: true*/
-/*jslint unparam: true*/
-'use strict';
-var settingsPath = './config/settings.json',
-    configPath  = './config/config.json',
-    logger      = require('./logger.js'),
-    set         = require('./../config/settings.json'),
-    _           = require('lodash'),
-    fs          = require('fs');
+var settingsPath = "./config/settings.json",
+    configPath = "./config/config.json",
+    logger = require("./logger.js"),
+    set = require("./../config/settings.json"),
+    _ = require("lodash"),
+    fs = require("fs");
 
 module.exports = (function () {
+    "use strict";
     var readData = function (path) {
             try {
-                var result = fs.readFileSync(path, 'utf8');
+                var result = fs.readFileSync(path, "utf8");
                 return JSON.parse(result);
             } catch (e) {
                 logger.logError(set.messages.fs.cantReadFile + path);
@@ -23,7 +21,7 @@ module.exports = (function () {
                 fs.writeFileSync(
                     path,
                     JSON.stringify(data),
-                    { flag: 'w+' }
+                    {flag: "w+"}
                 );
             } catch (e) {
                 logger.logError(set.messages.fs.cantWriteToFile +
@@ -34,9 +32,9 @@ module.exports = (function () {
         },
         config = readData(configPath),
         getCitiesURLs = function () {
-            var configsAPI_URLs = [];
+            var configsApiUrls = [];
             _.each(config.cities, function (city) {
-                var cityName = '';
+                var cityName = "";
                 if (city.wundergroundName) {
                     cityName = city.wundergroundName;
                 } else {
@@ -44,32 +42,32 @@ module.exports = (function () {
                 }
                 _.each(config.services, function (service) {
                     switch (service.name) {
-                    case "openWeather":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + cityName + service.urlPart2
-                        });
-                        break;
-                    case "wunderground":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + cityName + service.urlPart2
-                        });
-                        break;
-                    case "darkSky":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
-                        });
-                        break;
+                        case "openWeather":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + cityName + service.urlPart2
+                            });
+                            break;
+                        case "wunderground":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + cityName + service.urlPart2
+                            });
+                            break;
+                        case "darkSky":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + city.xCords.toFixed(2) + "," + city.yCords.toFixed(2)
+                            });
+                            break;
                     }
                 });
             });
 
-            return configsAPI_URLs;
+            return configsApiUrls;
         },
         getServicesNames = function () {
             var servicesNames = [];

@@ -1,6 +1,6 @@
-import React from 'react';
-import Chart from './chart.jsx';
-import Leaflet from './leaflet.jsx';
+import React from "react";
+import Chart from "./chart.jsx";
+import Leaflet from "./leaflet.jsx";
 
 export default class Content extends React.Component {
     constructor() {
@@ -28,4 +28,9 @@ export default class Content extends React.Component {
         );
     }
 }
+
+Content.propTypes = {
+    chartType: React.PropTypes.string,
+    weather: React.PropTypes.array
+};
 
