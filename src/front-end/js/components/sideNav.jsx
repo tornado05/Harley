@@ -84,5 +84,5 @@ export default class SideNav extends React.Component {
 }
 
 SideNav.propTypes = {
-    className: React.propTypes.string
+    className: React.PropTypes.string
 };
