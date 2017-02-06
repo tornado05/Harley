@@ -6,7 +6,7 @@ import {CHART_TYPES} from "./../constants/constants.jsx";
 export default class Chart extends React.Component{
   constructor(props) {
     super(props);
-    this._getChartValue = this._getChartValue.bind(this);
+    this._getChartValue = this._getChartValue.bind(this);    
   }
   _getChartValue() {
       switch(this.props.chartType) {
@@ -14,11 +14,12 @@ export default class Chart extends React.Component{
           case CHART_TYPES.PREASURE: return this.props.weather.map(weathers=>weathers.pressure);
           case CHART_TYPES.WIND_SPEED: return this.props.weather.map(weathers=>weathers.humidity);
       }
-  }
-  render(){
-    console.log("chart.jsx", this.props);
+  }  
+  render(){    
     const data = {
-        labels: this.props.weather.map(weathers=>weathers.date),
+        labels: this.props.weather.map(weathers=>( 
+          (new Date(weathers.date * 1000)).getDate()+'-'+((new Date(weathers.date * 1000)).getMonth()+1)+'-'+(new Date(weathers.date * 1000)).getFullYear()
+        )),
         datasets: [
             {
                 label: this.props.chartType,
