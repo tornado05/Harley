@@ -6,7 +6,7 @@ export function getWeatherData () {
 	axios.get("http://localhost:3000/weather/v01/current")
       .then(setWeatherData)
       .catch(function (error) {
-        console.log(error);
+        console.log("File: dataActions", error);
       });
 }
 
