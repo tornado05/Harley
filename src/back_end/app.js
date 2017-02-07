@@ -45,6 +45,7 @@ app.get("/weather/v01/current", function (req, res) {
         res.send(data);
     });
 });
+//Example of url: http://localhost:3000/weather/v01/stat/service-by-city/day?from=2017-01-01&to=2017-01-20&city=Rivne
 app.get("/weather/v01/stat/service-by-city/day", function (req, res) {
     "use strict";
     weatherController.getServiceStatByCities(req.query.from, req.query.to, req.query.city).then(function (data) {
