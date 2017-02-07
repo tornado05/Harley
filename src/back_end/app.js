@@ -2,14 +2,69 @@ var http = require("http"),
     express = require("express"),
     bodyParser = require("body-parser"),
     app = express(),
+    passport = require('passport'),
+    bcrypt = require('bcrypt-nodejs'),
+    session = require('express-session'),
     logger = require("./services/logger"),
     configService = require("./services/ConfigService"),
+    user = require('./services/userService'),
+    cookieParser = require('cookie-parser'),
+    flash = require('connect-flash');
     weatherController = require("./controllers/weather");
 
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(require('express-session')({
+    secret: 'someFunnyPhrase',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+
+app.get('/login', function(req, res) {
+    res.render('login.ejs', { message: req.flash('loginMessage') });
+});
+
+// app.post('/login', user.login);
+app.post('/login', user.login);
+app.get('/signup', function(req, res) {
+    res.render('signup.ejs', { message: req.flash('signupMessage') });
+});
+app.post('/signup', user.register);
+
+app.get('/logout', user.logout);
+
+// route middleware to make sure
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/');
+}
+
+app.get('/profile', isLoggedIn, function(req, res) {
+    res.render('profile.ejs', {
+        user : req.user
+    });
+});
+
+// route for facebook authentication and login
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+// handle the callback after facebook has authenticated the user
+app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+}));
+
+app.get('/users', function (req, res) {
+    res.send('hello ' + req.session.passport.user.username + '<br/><a href="/logout">Logout</a>');
+});
 
 // route to mock data with services statistics per day
 app.get("/weather/v01/stat/service/day", function (req, res) {
