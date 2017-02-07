@@ -1,8 +1,8 @@
 [
   {
     "_id" : "58725769cff4351d243896da",
-    "time" : 1483884000,
-    "service" : "openWeather",
+    "date" : 1483884000,
+    "sourceAPI" : "openWeather",
     "stat" :
       {
         "temp" : {
@@ -10,7 +10,7 @@
           "max" : -10.66,
           "avg" : -11.8866666666667
         },
-        "hum" : {
+        "humidity" : {
           "min" : 78,
           "max" : 85,
           "avg" : 82.3333333333333
@@ -24,8 +24,8 @@
      },
   {
     "_id" : "58725769cff4351d243896dc",
-    "time" : 1483886272,
-    "service" : "darkSky",
+    "date" : 1483886272,
+    "sourceAPI" : "darkSky",
     "stat" :
       {
         "temp" : {
@@ -33,7 +33,7 @@
           "max" : -9.32,
           "avg" : -11.31
         },
-        "hum" : {
+        "humidity" : {
           "min" : 67,
           "max" : 87,
           "avg" : 76.1666666666667
@@ -48,8 +48,8 @@
   },
   {
     "_id" : "58725769cff4351d243896db",
-    "time" : 1483886271,
-    "service" : "wunderground",
+    "date" : 1483886271,
+    "sourceAPI" : "wunderground",
     "stat" :
       {
         "temp" : {
@@ -57,7 +57,7 @@
           "max" : -8.6,
           "avg" : -10.4833333333333
         },
-        "hum" : {
+        "humidity" : {
           "min" : 79,
           "max" : 92,
           "avg" : 85.1666666666667
