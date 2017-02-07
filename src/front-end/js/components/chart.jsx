@@ -4,6 +4,7 @@ import {CHART_TYPES, CHART_PARAMS} from "./../constants/constants.jsx";
 
 import {getWeatherData} from "../actions/dataActions.jsx";
 
+
 import store from "../stores/harleyStore.jsx";
 
 export default class Chart extends React.Component {
