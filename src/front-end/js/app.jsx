@@ -9,37 +9,38 @@ import { getWeatherData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
 console.log(store);
-
 class Harley extends React.Component {
-  constructor () {
-    super();
 
-    this.unsubscribe = store.subscribe(() => {
-        this.setState(store.getState());
-      }
-    );
+    constructor() {
+        super();
 
-    this.state = store.getState();
-    getWeatherData();
-  }
+        this.unsubscribe = store.subscribe(() => {
+                this.setState(store.getState());
+            }
+        );
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+        this.state = store.getState();
+        getWeatherData();
+    }
 
-  render() {
-    console.log("app.jsx", this.state);
-    return (
-        <div className="row">
-            <Header/>
-            <Content
-                chartType={this.state.chart.chartType}
-                weather={this.state.weather.weather}
-            />
-            <Footer/>
-        </div>
-    );
-  }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
+    render() {
+        console.log("app.jsx", this.state);
+        return (
+            <div className="row">
+                <Header/>
+                <Content
+                    chartType={this.state.chart.chartType}
+                    weather={this.state.weather.weather}
+                />
+                <Footer/>
+            </div>
+        );
+    }
 }
 
 ReactDOM.render(<Harley/>, document.getElementById("app"));
+
