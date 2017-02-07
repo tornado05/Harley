@@ -1,19 +1,16 @@
-import React         from 'react';
-import ReactDOM      from 'react-dom';
-import axios         from 'axios';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Header        from './components/header.jsx';
-import Content       from './components/content.jsx';
-import Footer        from './components/footer.jsx';
+import Header from "./components/header.jsx";
+import Content from "./components/content.jsx";
+import Footer from "./components/footer.jsx";
 
-import {CHART_TYPES} from './constants/constants.jsx';
-
-import {getWeatherData} from './actions/dataActions.jsx';
-import store from './stores/harleyStore.jsx';
+import { getWeatherData } from "./actions/dataActions.jsx";
+import store from "./stores/harleyStore.jsx";
 
 console.log(store);
-
 class Harley extends React.Component {
+
     constructor() {
         super();
 
@@ -47,3 +44,4 @@ class Harley extends React.Component {
 }
 
 ReactDOM.render(<Harley/>, document.getElementById('app'));
+}

@@ -1,26 +1,25 @@
-import React         from 'react';
-import DatePicker    from 'react-bootstrap-date-picker';
-import { FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup } from 'react-bootstrap';
-import {CHART_TYPES} from './../constants/constants.jsx';
-import { testAction } from './../actions/pointsActions.jsx';
-import { changeChartType } from './../actions/chartActions.jsx';
+import React from "react";
+import DatePicker from "react-bootstrap-date-picker";
+import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from "react-bootstrap";
+import {CHART_TYPES} from "./../constants/constants.jsx";
+import {changeChartType} from "./../actions/chartActions.jsx";
 
 export default class SideNav extends React.Component {
     constructor() {
         super();
 
-        this.showChart = this.showChart.bind(this);
+        this.handleShowChartClick = this.handleShowChartClick.bind(this);
 
         this.state = {
             chartType: CHART_TYPES.TEMPERATURE
         }
     }
 
-    showChart () {
-        changeChartType(this.state.chartType);        
+    handleShowChartClick () {
+        changeChartType(this.state.chartType);
     }
 
-    setChartType (type) {
+    handleChartType (type) {
         this.setState({
             chartType: type
         });
@@ -34,34 +33,37 @@ export default class SideNav extends React.Component {
                         <h3 className="">Show information</h3>
                         <FormGroup>
                             <ControlLabel>Select city:</ControlLabel>
-                            <FormControl componentClass="select" placeholder="select">
+                            <FormControl
+                                componentClass="select"
+                                placeholder="select"
+                            >
                                 <option value="Rivne">Rivne</option>
                                 <option value="Kiev">Kiev</option>
                                 <option value="Luts'k">Lutsk</option>
                             </FormControl>
                         </FormGroup>
                         <FormGroup>
-                            <Radio 
-                                name="groupOptions" 
-                                onClick={() => this.setChartType(CHART_TYPES.TEMPERATURE)}
+                            <Radio
                                 checked={CHART_TYPES.TEMPERATURE === this.state.chartType}
+                                name="groupOptions"
                                 onChange={()=>{}}
+                                onClick={() => this.handleChartType(CHART_TYPES.TEMPERATURE)}
                             >
                                 Temperature
                             </Radio>
-                            <Radio 
-                                name="groupOptions"
-                                onClick={() => this.setChartType(CHART_TYPES.PREASURE)}
+                            <Radio
                                 checked={CHART_TYPES.PREASURE === this.state.chartType}
+                                name="groupOptions"
                                 onChange={()=>{}}
+                                onClick={() => this.handleChartType(CHART_TYPES.PREASURE)}
                             >
                                 Pressure
                             </Radio>
-                            <Radio 
-                                name="groupOptions"
-                                onClick={() => this.setChartType(CHART_TYPES.WIND_SPEED)}
+                            <Radio
                                 checked={CHART_TYPES.WIND_SPEED === this.state.chartType}
+                                name="groupOptions"
                                 onChange={()=>{}}
+                                onClick={() => this.handleChartType(CHART_TYPES.WIND_SPEED)}
                             >
                                 Wind speed
                             </Radio>
@@ -71,7 +73,7 @@ export default class SideNav extends React.Component {
                             <DatePicker id="example-datepicker-from"/>
                             <DatePicker id="example-datepicker-to"/>
                         </FormGroup>
-                        <Button onClick={this.showChart}>
+                        <Button onClick={this.handleShowChartClick}>
                             Show
                         </Button>
                     </form>
@@ -80,3 +82,7 @@ export default class SideNav extends React.Component {
         );
     }
 }
+
+SideNav.propTypes = {
+    className: React.PropTypes.string
+};
