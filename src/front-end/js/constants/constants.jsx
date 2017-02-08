@@ -15,11 +15,17 @@ export const ACTION_TYPES = {
 export const CHART_PARAMS = {
     TEMPERATURE: {
     	NAME: "Temperature",
-		LABEL: "temp"
+		LABEL: "temp",
+		UNITS: "C",
+		MIN: "30",
+		MAX: "-30"
 	},
     PREASURE: {
     	NAME: "Pressure",
-        LABEL: "pressure"
+        LABEL: "pressure",
+        UNITS: "C",
+        MIN: "30",
+        MAX: "-30"
     },
     HUMIDITY: {
         NAME: "Humidity",
