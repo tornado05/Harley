@@ -11,6 +11,8 @@ export default class Chart extends React.Component {
         this._getServicesByCity = this._getServicesByCity.bind(this);
         this.handleCity = this.handleCity.bind(this);
         this.handleParam = this.handleParam.bind(this);
+        this._getOptionsByParam = this._getOptionsByParam.bind(this);
+        this._getMaximalValue = this._getMaximalValue.bind(this);
         this.state = store.getState();
         getWeatherData();
     }
@@ -18,8 +20,9 @@ export default class Chart extends React.Component {
     componentWillMount(){
         this.setState({
             param: CHART_PARAMS.TEMPERATURE.LABEL,
-            city: "Rivne"
-        })
+            city: "Rivne",
+            options: this._getOptionsByParam(CHART_PARAMS.TEMPERATURE.LABEL)
+        });
     }
 
     handleCity(event){
@@ -27,8 +30,41 @@ export default class Chart extends React.Component {
     }
 
     handleParam(event){
-        this.setState({param: event.target.value});
+        let options = this._getOptionsByParam(event.target.value);
+        this.setState({
+            param: event.target.value,
+            options
+        });
+        console.log("handleParam", this._getOptionsByParam(event.target.value));
     }
+
+    _getOptionsByParam(param){
+        const options = {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        };
+        //TODO: this do not work properly
+        // options.scales.yAxes[0].ticks.max = this._getMaximalValue(param);
+        // if (param === CHART_PARAMS.TEMPERATURE.LABEL){
+        //     console.log(param, "<>", CHART_PARAMS.TEMPERATURE.LABEL);
+        //    options.scales.yAxes[0].ticks.min = CHART_PARAMS.TEMPERATURE.MIN;
+        // } else {
+        //     delete options.scales.yAxes[0].ticks.min;
+        // }
+        return options
+    }
+
 
     _getServicesByCity(){
         let services = [];
@@ -43,7 +79,20 @@ export default class Chart extends React.Component {
         });
         return {services, data};
     }
-    
+    //TODO this should be taken from config
+    _getMaximalValue(param){
+        switch (param) {
+            case CHART_PARAMS.PREASURE.LABEL:
+                return CHART_PARAMS.PREASURE.MAX;
+            case CHART_PARAMS.HUMIDITY.LABEL:
+                return CHART_PARAMS.HUMIDITY.MAX;
+            case CHART_PARAMS.WIND_SPEED.LABEL:
+                return CHART_PARAMS.WIND_SPEED.MAX;
+            case CHART_PARAMS.TEMPERATURE.LABEL:
+                return CHART_PARAMS.TEMPERATURE.MAX;
+        }
+    }
+    //TODO this should be taken from config
     _getChartLabel(){
         switch (this.state.param) {
             case CHART_PARAMS.PREASURE.LABEL:
@@ -58,7 +107,7 @@ export default class Chart extends React.Component {
     }
 
     render() {
-        console.log("State", this.state);
+        console.log("State:", this.state);
         let weather = this._getServicesByCity();
         const data = {
             labels: weather.services,
@@ -80,9 +129,6 @@ export default class Chart extends React.Component {
                     data: weather.data
                 }
             ]
-        };
-        const option = {
-            responsive: true
         };
 
         return (
@@ -119,7 +165,7 @@ export default class Chart extends React.Component {
                 </div>
                 <Bar
                     data={data}
-                    options={option}
+                    options={this.state.options}
                 />
             </section>
         );

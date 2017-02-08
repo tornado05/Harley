@@ -17,22 +17,25 @@ export const CHART_PARAMS = {
     	NAME: "Temperature",
 		LABEL: "temp",
 		UNITS: "C",
-		MIN: "30",
-		MAX: "-30"
+		MIN: 30,
+		MAX: -30
 	},
     PREASURE: {
     	NAME: "Pressure",
         LABEL: "pressure",
-        UNITS: "C",
-        MIN: "30",
-        MAX: "-30"
+        UNITS: "mmHg",
+        MAX: 1200
     },
     HUMIDITY: {
         NAME: "Humidity",
-        LABEL: "humidity"
+        LABEL: "humidity",
+        UNITS: "%",
+        MAX: 100
     },
     WIND_SPEED: {
     	NAME: "Wind Speed",
-		LABEL: "windSpeed"
+		LABEL: "windSpeed",
+        UNITS: "meter/sec",
+        MAX: 50
 	}
 };
