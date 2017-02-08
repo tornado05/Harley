@@ -17,7 +17,8 @@ export function setWeatherData (data) {
 	});
 }
 
-export function getStatisticsData () {
+export function getStatisticsData (from, to, cityName) {
+	console.log(from, to, cityName);
 	axios.get("http://localhost:3000/weather/v01/stat/service-by-city/day?from=2017-01-01&to=2017-01-20&city=Rivne")
 		.then(setStatisticsData)
 		.catch(function (error) {

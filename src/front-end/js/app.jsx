@@ -20,6 +20,7 @@ class Harley extends React.Component {
         );
 
         this.state = store.getState();
+        console.log('IMPORTANT', this.state);
         getWeatherData();
         getStatisticsData();
     }
