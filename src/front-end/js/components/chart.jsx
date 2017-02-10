@@ -48,6 +48,9 @@ export default class Chart extends React.Component{
         responsive: true
     };
 
+    // specially for 3/4 guy
+    //return false ? (<div>Hi</div>) : (<div>Bye</div>);
+
     return(
       <div>
         <Line

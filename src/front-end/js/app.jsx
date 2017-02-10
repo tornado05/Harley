@@ -8,7 +8,8 @@ import Footer from "./components/footer.jsx";
 import { getWeatherData, getStatisticsData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
-console.log(store);
+console.log(store.getState());
+
 class Harley extends React.Component {
 
     constructor() {
@@ -19,10 +20,10 @@ class Harley extends React.Component {
             }
         );
 
-        this.state = store.getState();
-        console.log('IMPORTANT', this.state);
+        this.state = store.getState();        
+        
         getWeatherData();
-        getStatisticsData();
+        getStatisticsData(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
     }
 
     componentWillUnmount() {
@@ -33,7 +34,9 @@ class Harley extends React.Component {
         console.log("app.jsx", this.state);
         return (
             <div className="row">
-                <Header/>
+                <Header                    
+                    chartState={this.state.chart}
+                />
                 <Content
                     chartType={this.state.chart.chartType}
                     weather={this.state.weather.weather}

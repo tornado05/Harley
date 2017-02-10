@@ -2,27 +2,23 @@ import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
-import {changeChartType, changeCity, changeDateFrom, changeDateTo, changeStatType} from "./../actions/chartActions.jsx";
+import { changeChartType, changeCity, changeDateFrom, changeDateTo, changeStatType } from "./../actions/chartActions.jsx";
 import { getStatisticsData } from "./../actions/dataActions.jsx";
 
 export default class SideNav extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.handleShowChartClick = this.handleShowChartClick.bind(this);
+        this.handleChartType = this.handleChartType.bind(this);
         this._setInputData = this._setInputData.bind(this);
         this._setRadioData = this._setRadioData.bind(this);
         this._setDateFrom = this._setDateFrom.bind(this);
         this._setDateTo = this._setDateTo.bind(this);
+        this._getFormData = this._getFormData.bind(this);
 
-        let value = new Date().toISOString();
-        this.state = {
-            chartType: CHART_TYPES.TEMPERATURE,
-            cityName: 'Rivne',
-            periodFrom: value,
-            periodTo: value,
-            statType: CHART_TYPES.TEMPERATURE
-        }
+        this.state = props.chartState;
+        console.log("nav state", this.state);
     }
 
     handleShowChartClick () {
@@ -30,6 +26,7 @@ export default class SideNav extends React.Component {
     }
 
     handleChartType (type) {
+        console.log('handleChartType', type);
         this.setState({
             chartType: type
         });
@@ -50,6 +47,7 @@ export default class SideNav extends React.Component {
         // this.setState({statType: value});
         changeStatType(event.target.value);
     }
+
     _setDateFrom (value) {
         // this.setState({periodFrom: value});
         changeDateFrom(value);
@@ -60,6 +58,8 @@ export default class SideNav extends React.Component {
     }
 
     _getFormData () {
+        changeChartType(this.state.chartType);
+        console.log("I'll crash here", this.state, this.props);
         getStatisticsData(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
@@ -83,23 +83,23 @@ export default class SideNav extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <Radio
-                                value = {CHART_TYPES.TEMPERATURE}
+                                checked = {CHART_TYPES.TEMPERATURE === this.state.chartType}
                                 name="groupOptions"
-                                onChange={this._setRadioData}
+                                onChange={() => this.handleChartType(CHART_TYPES.TEMPERATURE)}
                             >
                                 Temperature
                             </Radio>
                             <Radio
-                                value = {CHART_TYPES.PREASURE}
+                                checked = {CHART_TYPES.PREASURE === this.state.chartType}
                                 name="groupOptions"
-                                onChange={this._setRadioData}
+                                onChange={() => this.handleChartType(CHART_TYPES.PREASURE)}
                             >
                                 Pressure
                             </Radio>
                             <Radio
-                                value = {CHART_TYPES.WIND_SPEED}
+                                checked = {CHART_TYPES.WIND_SPEED === this.state.chartType}
                                 name="groupOptions"
-                                onChange={this._setRadioData}
+                                onChange={() => this.handleChartType(CHART_TYPES.WIND_SPEED)}
                             >
                                 Wind speed
                             </Radio>

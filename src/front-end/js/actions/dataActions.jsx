@@ -17,9 +17,8 @@ export function setWeatherData (data) {
 	});
 }
 
-export function getStatisticsData (from, to, cityName) {
-	console.log(from, to, cityName);
-	axios.get("http://localhost:3000/weather/v01/stat/service-by-city/day?from=2017-01-01&to=2017-01-20&city=Rivne")
+export function getStatisticsData (from, to, cityName = "Rivne") {
+	axios.get(`http://localhost:3000/weather/v01/stat/service-by-city/day?from=${castDate(from)}&to=${castDate(to)}&city=${cityName}`)
 		.then(setStatisticsData)
 		.catch(function (error) {
 			console.log(error);
@@ -31,4 +30,10 @@ export function setStatisticsData (data) {
 		type: ACTION_TYPES.GET_STATISTICS_DATA,
 		statistics: data.data
 	});
+}
+
+function castDate(date) {	
+	console.log('cast function',date);
+	let rawDate = new Date(date);
+	return `${rawDate.getFullYear()}-${rawDate.getMonth() + 1}-${rawDate.getDate()}`;
 }
