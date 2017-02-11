@@ -83,8 +83,8 @@
       }],
     "auth": {
       "facebook": {
-        "clientID": "739983522852639",
-        "clientSecret": "153ed461fdd2d09f1ab0bea58d966064",
+        "clientID": "",
+        "clientSecret": "",
         "callbackURL": "http://localhost:3000/"
       }
     }
