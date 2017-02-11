@@ -32,8 +32,7 @@ export function setStatisticsData (data) {
 	});
 }
 
-function castDate(date) {	
-	console.log('cast function',date);
+function castDate(date) {
 	let rawDate = new Date(date);
 	return `${rawDate.getFullYear()}-${rawDate.getMonth() + 1}-${rawDate.getDate()}`;
 }

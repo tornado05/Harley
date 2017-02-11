@@ -13,6 +13,7 @@ export default class Content extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <StatChart
+                            chartType={this.props.chartType}
                             statistics={this.props.statistics}
                         />
                     </div>
@@ -39,6 +40,7 @@ export default class Content extends React.Component {
 
 Content.propTypes = {
     chartType: React.PropTypes.string,
-    weather: React.PropTypes.array
+    weather: React.PropTypes.array,
+    statistics: React.PropTypes.array
 };
 

@@ -9,23 +9,38 @@ export default class StatChart extends React.Component{
         super(props);
         this._getChartData = this._getChartData.bind(this);
         this._getTimeLabel = this._getTimeLabel.bind(this);
+        console.log("statChart !!", props);
     }
     // TODO: TEMP FUNCTIONs
     _getChartData() {
-        console.log('StatChart', this.props.statistics);
         let openWeatherData = [];
         _.each(this.props.statistics, function (data) {
            if (data.sourceAPI === "openWeather") openWeatherData.push(data.stat)
         });
-        console.log(openWeatherData);
-        return openWeatherData.map(stat=>stat.temp.avg);
+        switch (this.props.chartType) {
+            case "Temperature": {
+                return openWeatherData.map(stat=>stat.temp.avg);
+            }
+            case "Humidity": {
+                return openWeatherData.map(stat=>stat.humidity.avg);
+            }
+            case "Wind speed": {
+                return openWeatherData.map(stat=>stat.windSpeed.avg);
+            }
+            case "Pressure": {
+                return openWeatherData.map(stat=>stat.humidity.avg);
+            }
+            default : return openWeatherData.map(stat=>stat.temp.avg);
+        }
+
+
     }
     _getTimeLabel() {
         let timeLabel = [];
         _.each(this.props.statistics, function (data) {
             if (data.sourceAPI === "openWeather") {
                 let date = new Date(data.date * 1000);
-                timeLabel.push(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+                timeLabel.push(`${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`);
             }
         });
         return timeLabel;
@@ -73,5 +88,6 @@ export default class StatChart extends React.Component{
 }
 
 StatChart.propTypes = {
-    statistics: React.PropTypes.array
+    statistics: React.PropTypes.array,
+    chartType: React.PropTypes.string
 };

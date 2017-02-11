@@ -7,7 +7,7 @@ let initialDate = new Date().toISOString();
 let store = createStore(harleyReducer, {
     chart: {
         chartType: CHART_TYPES.TEMPERATURE,
-        cityName: 'Rivne',
+        cityName: "Rivne",
         periodFrom: initialDate,
         periodTo: initialDate,
         statType: CHART_TYPES.TEMPERATURE

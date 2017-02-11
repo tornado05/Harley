@@ -19,9 +19,7 @@ class Harley extends React.Component {
                 this.setState(store.getState());
             }
         );
-
-        this.state = store.getState();        
-        
+        this.state = store.getState();
         getWeatherData();
         getStatisticsData(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
     }
@@ -34,13 +32,13 @@ class Harley extends React.Component {
         console.log("app.jsx", this.state);
         return (
             <div className="row">
-                <Header                    
+                <Header
                     chartState={this.state.chart}
                 />
                 <Content
                     chartType={this.state.chart.chartType}
-                    weather={this.state.weather.weather}
                     statistics={this.state.statistics.statistics}
+                    weather={this.state.weather.weather}
                 />
                 <Footer/>
             </div>

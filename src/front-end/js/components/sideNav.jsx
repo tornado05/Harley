@@ -11,11 +11,11 @@ export default class SideNav extends React.Component {
 
         this.handleShowChartClick = this.handleShowChartClick.bind(this);
         this.handleChartType = this.handleChartType.bind(this);
-        this._setInputData = this._setInputData.bind(this);
+        this.handleSetInputData = this.handleSetInputData.bind(this);
         this._setRadioData = this._setRadioData.bind(this);
-        this._setDateFrom = this._setDateFrom.bind(this);
-        this._setDateTo = this._setDateTo.bind(this);
-        this._getFormData = this._getFormData.bind(this);
+        this.handleSetDateFrom = this.handleSetDateFrom.bind(this);
+        this.handleSetDateTo = this.handleSetDateTo.bind(this);
+        this.handleGetFormData = this.handleGetFormData.bind(this);
 
         this.state = props.chartState;
         console.log("nav state", this.state);
@@ -26,7 +26,6 @@ export default class SideNav extends React.Component {
     }
 
     handleChartType (type) {
-        console.log('handleChartType', type);
         this.setState({
             chartType: type
         });
@@ -39,27 +38,22 @@ export default class SideNav extends React.Component {
      */
 
 
-    _setInputData (event) {
-        // this.setState({cityName: event.target.value});
+    handleSetInputData (event) {
         changeCity(event.target.value);
     }
     _setRadioData (event) {
-        // this.setState({statType: value});
         changeStatType(event.target.value);
     }
 
-    _setDateFrom (value) {
-        // this.setState({periodFrom: value});
+    handleSetDateFrom (value) {
         changeDateFrom(value);
     }
-    _setDateTo (value) {
-        // this.setState({periodTo: value});
+    handleSetDateTo (value) {
         changeDateTo(value);
     }
 
-    _getFormData () {
+    handleGetFormData () {
         changeChartType(this.state.chartType);
-        console.log("I'll crash here", this.state, this.props);
         getStatisticsData(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
@@ -73,8 +67,8 @@ export default class SideNav extends React.Component {
                             <ControlLabel>Select city:</ControlLabel>
                             <FormControl
                                 componentClass="select"
+                                onChange={this.handleSetInputData}
                                 placeholder="select"
-                                onChange={this._setInputData}
                             >
                                 <option value="Rivne">Rivne</option>
                                 <option value="Kiev">Kiev</option>
@@ -106,16 +100,16 @@ export default class SideNav extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <ControlLabel>Select period:</ControlLabel>
-                            <DatePicker id="example-datepicker-from"
-                                        value={this.state.value}
-                                        onChange={this._setDateFrom}
+                            <DatePicker
+                                id = "example-datepicker-from"
+                                onChange = {this.handleSetDateFrom}
                             />
-                            <DatePicker id="example-datepicker-to"
-                                        value={this.state.value}
-                                        onChange={this._setDateTo}
+                            <DatePicker
+                                id = "example-datepicker-to"
+                                onChange = {this.handleSetDateTo}
                             />
                         </FormGroup>
-                        <Button onClick={this._getFormData}>
+                        <Button onClick={this.handleGetFormData}>
                             Show
                         </Button>
                     </form>
@@ -126,5 +120,6 @@ export default class SideNav extends React.Component {
 }
 
 SideNav.propTypes = {
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    chartState: React.PropTypes.object
 };
