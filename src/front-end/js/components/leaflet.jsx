@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
+import {CHART_TYPES} from "./../constants/constants.jsx";
 
 L.Icon.Default.imagePath = "./img/leaflet/";
 let state = {
@@ -16,6 +17,7 @@ export default class LeafletMap extends React.Component {
         super();
 
         this.updatePoints = this.updatePoints.bind(this);
+        this.getParamByCity = this.getParamByCity.bind(this);
 
         this.state = {
             leafletConf: {},
@@ -55,7 +57,15 @@ export default class LeafletMap extends React.Component {
         });
     }
 
+    getParamByCity(city, param){
+        console.log("city and param", city, param);
+        return _.map(_.filter(this.props.weather, weatherItem => {
+            return weatherItem.cityName === city && weatherItem.sourceAPI === "openWeather";
+        }), item => item["temp"]);        
+    }
+
     render () {
+        console.log("statistic weather - ", this.props.weather);
         const position = [state.lat, state.lng];
         return (
             <Map
@@ -73,7 +83,12 @@ export default class LeafletMap extends React.Component {
                             position={point.position}
                         >
                             <Popup>
-                                <h4>{point.name}</h4>
+                                <div className="popup-statistic">
+                                    <h4>{point.name}</h4>
+                                    <ul>
+                                        <li>{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                    </ul>
+                                </div>
                             </Popup>
                         </Marker>
                     );
@@ -82,3 +97,6 @@ export default class LeafletMap extends React.Component {
         )
     }
 }
+LeafletMap.propTypes = {
+    weather: React.PropTypes.array
+};

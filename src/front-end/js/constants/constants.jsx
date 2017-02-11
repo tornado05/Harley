@@ -1,7 +1,8 @@
 export const CHART_TYPES = {
 	TEMPERATURE: "Temperature",
 	PREASURE: "Preasure",
-	WIND_SPEED: "Wind Speed"
+	WIND_SPEED: "Wind Speed",
+	HUMIDITY: "Humidity"
 };
 
 export const ACTION_TYPES = {

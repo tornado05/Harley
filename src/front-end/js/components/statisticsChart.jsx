@@ -8,26 +8,27 @@ export default class StatChart extends React.Component{
     constructor(props) {
         super(props);
         this._getChartData = this._getChartData.bind(this);
-        this._getTimeLabel = this._getTimeLabel.bind(this);
-        console.log("statChart !!", props);
+        this._getTimeLabel = this._getTimeLabel.bind(this);        
     }
     // TODO: TEMP FUNCTIONs
     _getChartData() {
         let openWeatherData = [];
         _.each(this.props.statistics, function (data) {
+
            if (data.sourceAPI === "openWeather") openWeatherData.push(data.stat)
         });
+        console.log("statChart last ===", this.props.chartType)
         switch (this.props.chartType) {
-            case "Temperature": {
+            case CHART_TYPES.TEMPERATURE: {
                 return openWeatherData.map(stat=>stat.temp.avg);
             }
-            case "Humidity": {
+            case CHART_TYPES.HUMIDITY: {
                 return openWeatherData.map(stat=>stat.humidity.avg);
             }
-            case "Wind speed": {
+            case CHART_TYPES.WIND_SPEED: {
                 return openWeatherData.map(stat=>stat.windSpeed.avg);
             }
-            case "Pressure": {
+            case CHART_TYPES.PREASURE: {
                 return openWeatherData.map(stat=>stat.humidity.avg);
             }
             default : return openWeatherData.map(stat=>stat.temp.avg);
@@ -46,6 +47,7 @@ export default class StatChart extends React.Component{
         return timeLabel;
     }
     render(){
+        console.log('_getChartData ===', this._getChartData());
         const data = {
             labels: this._getTimeLabel(),
             datasets: [

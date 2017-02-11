@@ -8,8 +8,6 @@ import Footer from "./components/footer.jsx";
 import { getWeatherData, getStatisticsData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
-console.log(store.getState());
-
 class Harley extends React.Component {
 
     constructor() {
@@ -29,7 +27,7 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("app.jsx", this.state);
+        console.log("app.jsx === ", this.state);
         return (
             <div className="row">
                 <Header

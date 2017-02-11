@@ -8,6 +8,7 @@ export default class Content extends React.Component {
         super();
     }
     render () {
+        // console.log("statistic weather - ", this.props);
         return (
             <div className="container">
                 <div className="row">
@@ -29,7 +30,9 @@ export default class Content extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="map-wrapper">
-                            <Leaflet/>
+                            <Leaflet
+                                weather={this.props.weather}
+                            />
                         </div>
                     </div>
                 </div>
