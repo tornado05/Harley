@@ -94,6 +94,11 @@ module.exports = (function () {
                         min: minValue(set.variables.windSpeed, dataArr),
                         max: maxValue(set.variables.windSpeed, dataArr),
                         avg: avgValue(set.variables.windSpeed, dataArr)
+                    },
+                    pressure: {
+                        min: minValue(set.variables.pressure, dataArr),
+                        max: maxValue(set.variables.pressure, dataArr),
+                        avg: avgValue(set.variables.pressure, dataArr)
                     }
                 };
             if (cityName !== 0 && serviceName !== 0) {

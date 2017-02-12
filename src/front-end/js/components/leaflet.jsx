@@ -28,9 +28,10 @@ export default class LeafletMap extends React.Component {
     }
 
     componentWillMount() {
-
+    //TODO: CHANGE THIS FUNCTIONS TO ACTIONS FOR UPLOAD DATA + MAKE CITY NAME FILTER ON BACKEND SIDE
         axios.get("http://localhost:3000/weather/v01/configs")
             .then(res => {
+                console.log("RES DATA", res.data);
                 this.updatePoints(res.data.cities);
             })
             .catch(function (error) {
@@ -38,18 +39,28 @@ export default class LeafletMap extends React.Component {
             });
 
     }
-
     updatePoints (data) {
         let points = [];
 
         data.forEach(point => {
-            points.push({
-                position: [
-                    point.xCords,
-                    point.yCords
-                ],
-                name: point.name
-            });
+            if (!point.wundergroundName) {
+                points.push({
+                    position: [
+                        point.xCords,
+                        point.yCords
+                    ],
+                    name: point.name
+                });
+            } else {
+                points.push({
+                    position: [
+                        point.xCords,
+                        point.yCords
+                    ],
+                    name: point.wundergroundName
+                });
+            }
+
         });
 
         this.setState({
@@ -58,14 +69,12 @@ export default class LeafletMap extends React.Component {
     }
 
     getParamByCity(city, param){
-        console.log("city and param", city, param);
         return _.map(_.filter(this.props.weather, weatherItem => {
             return weatherItem.cityName === city && weatherItem.sourceAPI === "openWeather";
-        }), item => item["temp"]);        
+        }), item => item[param]);
     }
 
     render () {
-        console.log("statistic weather - ", this.props.weather);
         const position = [state.lat, state.lng];
         return (
             <Map

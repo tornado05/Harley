@@ -18,7 +18,6 @@ export default class SideNav extends React.Component {
         this.handleGetFormData = this.handleGetFormData.bind(this);
 
         this.state = props.chartState;
-        console.log("nav state", this.state);
     }
 
     handleShowChartClick () {
@@ -84,9 +83,9 @@ export default class SideNav extends React.Component {
                                 Temperature
                             </Radio>
                             <Radio
-                                checked = {CHART_TYPES.PREASURE === this.state.chartType}
+                                checked = {CHART_TYPES.PRESSURE === this.state.chartType}
                                 name="groupOptions"
-                                onChange={() => this.handleChartType(CHART_TYPES.PREASURE)}
+                                onChange={() => this.handleChartType(CHART_TYPES.PRESSURE)}
                             >
                                 Pressure
                             </Radio>

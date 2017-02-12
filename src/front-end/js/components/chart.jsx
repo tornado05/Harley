@@ -11,7 +11,7 @@ export default class Chart extends React.Component{
   _getChartValue() {
       switch(this.props.chartType) {
           case CHART_TYPES.TEMPERATURE: return this.props.weather.map(weathers=>weathers.temp);
-          case CHART_TYPES.PREASURE: return this.props.weather.map(weathers=>weathers.pressure);
+          case CHART_TYPES.PRESSURE: return this.props.weather.map(weathers=>weathers.pressure);
           case CHART_TYPES.WIND_SPEED: return this.props.weather.map(weathers=>weathers.humidity);
       }
   }
