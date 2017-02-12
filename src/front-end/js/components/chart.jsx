@@ -6,20 +6,19 @@ import {CHART_TYPES} from "./../constants/constants.jsx";
 export default class Chart extends React.Component{
   constructor(props) {
     super(props);
-    this._getChartValue = this._getChartValue.bind(this);    
+    this._getChartValue = this._getChartValue.bind(this);
   }
   _getChartValue() {
       switch(this.props.chartType) {
           case CHART_TYPES.TEMPERATURE: return this.props.weather.map(weathers=>weathers.temp);
-          case CHART_TYPES.PREASURE: return this.props.weather.map(weathers=>weathers.pressure);
+          case CHART_TYPES.PRESSURE: return this.props.weather.map(weathers=>weathers.pressure);
           case CHART_TYPES.WIND_SPEED: return this.props.weather.map(weathers=>weathers.humidity);
       }
-  }  
-  render(){    
+  }
+  render(){
     const data = {
-        labels: this.props.weather.map(weathers=>( 
-          (new Date(weathers.date * 1000)).getDate()+'-'+((new Date(weathers.date * 1000)).getMonth()+1)+'-'+(new Date(weathers.date * 1000)).getFullYear()
-        )),
+        labels: this.props.weather.map(weathers=>(
+          `${(new Date(weathers.date * 1000)).getDate()}-${((new Date(weathers.date * 1000)).getMonth()+1)}-${(new Date(weathers.date * 1000)).getFullYear()}`)),
         datasets: [
             {
                 label: this.props.chartType,
@@ -47,6 +46,9 @@ export default class Chart extends React.Component{
     const option = {
         responsive: true
     };
+
+    // specially for 3/4 guy
+    //return false ? (<div>Hi</div>) : (<div>Bye</div>);
 
     return(
       <div>
