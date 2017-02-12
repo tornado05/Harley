@@ -73,7 +73,7 @@ export default class LeafletMap extends React.Component {
             return weatherItem.cityName === city && weatherItem.sourceAPI === "openWeather";
         }), item => item[param]);
     }
-
+       
     render () {
         const position = [state.lat, state.lng];
         return (
@@ -95,7 +95,10 @@ export default class LeafletMap extends React.Component {
                                 <div className="popup-statistic">
                                     <h4>{point.name}</h4>
                                     <ul>
-                                        <li>{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>{CHART_TYPES.TEMPERATURE}{":"}{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>{CHART_TYPES.PRESSURE }{":"}{this.getParamByCity(point.name, CHART_TYPES.PRESSURE)}</li>
+                                        <li>{CHART_TYPES.WIND_SPEED }{":"}{this.getParamByCity(point.name, CHART_TYPES.WIND_SPEED)}</li>
+                                        <li>{CHART_TYPES.HUMIDITY }{":"}{this.getParamByCity(point.name, CHART_TYPES.HUMIDITY)}</li>
                                     </ul>
                                 </div>
                             </Popup>
