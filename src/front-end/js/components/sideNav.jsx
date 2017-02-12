@@ -2,8 +2,8 @@ import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
-import { changeChartType, changeCity, changeDateFrom, changeDateTo, changeStatType } from "./../actions/chartActions.jsx";
-import { getStatisticsData } from "./../actions/dataActions.jsx";
+import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
+import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
 
 export default class SideNav extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class SideNav extends React.Component {
     }
 
     handleShowChartClick () {
-        changeChartType(this.state.chartType);
+        changeChartTypeAction(this.state.chartType);
     }
 
     handleChartType (type) {
@@ -38,22 +38,22 @@ export default class SideNav extends React.Component {
 
 
     handleSetInputData (event) {
-        changeCity(event.target.value);
+        changeCityAction(event.target.value);
     }
     _setRadioData (event) {
-        changeStatType(event.target.value);
+        changeStatTypeAction(event.target.value);
     }
 
     handleSetDateFrom (value) {
-        changeDateFrom(value);
+        changeDateFromAction(value);
     }
     handleSetDateTo (value) {
-        changeDateTo(value);
+        changeDateToAction(value);
     }
 
     handleGetFormData () {
         changeChartType(this.state.chartType);
-        getStatisticsData(this.state.periodFrom, this.state.periodTo, this.state.cityName);
+        getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
     render () {

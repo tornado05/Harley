@@ -5,7 +5,7 @@ import Header from "./components/header.jsx";
 import Content from "./components/content.jsx";
 import Footer from "./components/footer.jsx";
 
-import { getWeatherData, getStatisticsData } from "./actions/dataActions.jsx";
+import { getWeatherData, getStatisticsDataAction } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
 class Harley extends React.Component {
@@ -19,7 +19,7 @@ class Harley extends React.Component {
         );
         this.state = store.getState();
         getWeatherData();
-        getStatisticsData(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
+        getStatisticsDataAction(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
     }
 
     componentWillUnmount() {
