@@ -95,7 +95,10 @@ export default class LeafletMap extends React.Component {
                                 <div className="popup-statistic">
                                     <h4>{point.name}</h4>
                                     <ul>
-                                        <li>{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>TEMPERATURE:  {this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>PRESSURE: {this.getParamByCity(point.name, CHART_TYPES.PRESSURE)}</li>
+                                        <li>WIND_SPEED: {this.getParamByCity(point.name, CHART_TYPES.WIND_SPEED)}</li>
+                                        <li>HUMIDITY: {this.getParamByCity(point.name, CHART_TYPES.HUMIDITY)}</li>
                                     </ul>
                                 </div>
                             </Popup>
