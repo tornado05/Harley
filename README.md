@@ -57,8 +57,11 @@ v. 1.0.0
 ### How To
 - Запускаем командную строку от администратора
 - Переходим в папку C:\Program Files\MongoDB\Server\3.4\bin\
-- Вводим команду mongorestore.exe --db weatherProject D:\git\Harley\dump\weatherProject (пример пути)
-- Вводи команду mongorestore.exe --db Weather_Statistics D:\git\Harley\dump\Weather_Statistics (пример пути)
+- Windows - Вводим команду mongorestore.exe --db weatherProject D:\git\Harley\dump\weatherProject (пример пути)
+- Windows - Вводи команду mongorestore.exe --db Weather_Statistics D:\git\Harley\dump\Weather_Statistics (пример пути)
+- Linux - Вводим команду в терминале `mongorestore -d weatherProject /home/`username`/git/Harley/dump/weatherProject` (пример пути)
+- Linux - Вводим команду в терминале `mongorestore -d Weather_Statistics /home/`username`/git/Harley/dump/Weather_Statistics` (пример пути)
+- Linux - Удаление БД `mongo <dbname> --eval "db.dropDatabase()"`
 - Для визуального представления БД юзайте [Compass](https://drive.google.com/open?id=0B6Bti9TG7cUpTU5yM1VBMm1Fc2c)
 
 ## Структура React Components ##

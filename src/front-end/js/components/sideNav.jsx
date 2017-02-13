@@ -52,7 +52,7 @@ export default class SideNav extends React.Component {
     }
 
     handleGetFormData () {
-        changeChartType(this.state.chartType);
+        changeChartTypeAction(this.state.chartType);
         getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
