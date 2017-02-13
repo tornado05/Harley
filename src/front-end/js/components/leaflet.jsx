@@ -33,6 +33,7 @@ export default class LeafletMap extends React.Component {
             .then(res => {
                 console.log("RES DATA", res.data);
                 this.updatePoints(res.data.cities);
+                console.log("RES DATA", res.data.cities);
             })
             .catch(function (error) {
                 console.log(error);
@@ -73,7 +74,7 @@ export default class LeafletMap extends React.Component {
             return weatherItem.cityName === city && weatherItem.sourceAPI === "openWeather";
         }), item => item[param]);
     }
-       
+
     render () {
         const position = [state.lat, state.lng];
         return (
