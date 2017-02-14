@@ -102,10 +102,12 @@ export default class SideNav extends React.Component {
                             <DatePicker
                                 id = "example-datepicker-from"
                                 onChange = {this.handleSetDateFrom}
+                                value = {this.props.chartState.periodFrom}
                             />
                             <DatePicker
                                 id = "example-datepicker-to"
                                 onChange = {this.handleSetDateTo}
+                                value = {this.props.chartState.periodTo}
                             />
                         </FormGroup>
                         <Button onClick={this.handleGetFormData}>
