@@ -23,6 +23,16 @@ module.exports = (function () {
             dayTask.start();
             monthTask.start();
             everyFourHourTask.start();
+
+
+            /**
+             * template for gather statistic from unifiedWeather collection
+             */
+
+            // for (var d = new Date(2017, 0, 1); d <= date; d.setDate(d.getDate() + 1)) {
+            //     statisticsService.serviceDayStatisticByCity(new Date(d));
+            // }
+
         };
 
     return {

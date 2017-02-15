@@ -2,34 +2,36 @@ import React from "react";
 import axios from "axios";
 import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from "leaflet";
+import {CHART_TYPES} from "./../constants/constants.jsx";
 
 L.Icon.Default.imagePath = "./img/leaflet/";
+
 let state = {
     lat: 50.75,
     lng: 27.37,
     zoom: 7
 };
 
-
 export default class LeafletMap extends React.Component {
     constructor() {
         super();
 
         this.updatePoints = this.updatePoints.bind(this);
+        this.getParamByCity = this.getParamByCity.bind(this);
 
         this.state = {
             leafletConf: {},
             points: [{
-                position: [state.lat, state.lng],
-                name: ""
+                position: [state.lat, state.lng]
             }]
         };
     }
 
     componentWillMount() {
-
+    //TODO: CHANGE THIS FUNCTIONS TO ACTIONS FOR UPLOAD DATA + MAKE CITY NAME FILTER ON BACKEND SIDE
         axios.get("http://localhost:3000/weather/v01/configs")
             .then(res => {
+                console.log("RES DATA", res.data);
                 this.updatePoints(res.data.cities);
             })
             .catch(function (error) {
@@ -37,17 +39,27 @@ export default class LeafletMap extends React.Component {
             });
 
     }
-
-    updatePoints(data) {
+    updatePoints (data) {
         let points = [];
+
         data.forEach(point => {
-            points.push({
-                position:[
-                    point.xCords,
-                    point.yCords
-                ],
-                name: point.name
-            });
+            if (!point.wundergroundName) {
+                points.push({
+                    position: [
+                        point.xCords,
+                        point.yCords
+                    ],
+                    name: point.name
+                });
+            } else {
+                points.push({
+                    position: [
+                        point.xCords,
+                        point.yCords
+                    ],
+                    name: point.wundergroundName
+                });
+            }
         });
 
         this.setState({
@@ -55,7 +67,14 @@ export default class LeafletMap extends React.Component {
         });
     }
 
-    render() {
+
+    getParamByCity(city, param){
+        return _.map(_.filter(this.props.weather, weatherItem => {
+            return weatherItem.cityName === city && weatherItem.sourceAPI === "openWeather";
+        }), item => item[param]);
+    }
+
+    render () {
         const position = [state.lat, state.lng];
         return (
             <Map
@@ -73,7 +92,12 @@ export default class LeafletMap extends React.Component {
                             position={point.position}
                         >
                             <Popup>
-                                <h4>{point.name}</h4>
+                                <div className="popup-statistic">
+                                    <h4>{point.name}</h4>
+                                    <ul>
+                                        <li>{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                    </ul>
+                                </div>
                             </Popup>
                         </Marker>
                     );
@@ -82,3 +106,6 @@ export default class LeafletMap extends React.Component {
         )
     }
 }
+LeafletMap.propTypes = {
+    weather: React.PropTypes.array
+};

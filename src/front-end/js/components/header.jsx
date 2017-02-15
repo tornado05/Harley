@@ -44,9 +44,14 @@ export default class Header extends React.Component {
                 </div>
                 <div className={this._getSideNavClassName()}></div>
                 <SideNav
+                    chartState={this.props.chartState}
                     className={this._getSideNavClassName()}
                 />
             </header>
         );
     }
 }
+
+Header.propTypes = {
+    chartState: React.PropTypes.object
+};

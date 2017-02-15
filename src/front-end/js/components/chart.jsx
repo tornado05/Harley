@@ -65,6 +65,8 @@ export default class Chart extends React.Component {
         return options
     }
 
+    // specially for 3/4 guy
+    //return false ? (<div>Hi</div>) : (<div>Bye</div>);
 
     _getServicesByCity(){
         let services = [];
