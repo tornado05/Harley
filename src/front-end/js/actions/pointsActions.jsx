@@ -13,6 +13,6 @@ export function getLeafletPointsData () {
 export function setLeafletPointsData (data) {
 	store.dispatch({
 		type: ACTION_TYPES.GET_LEAFLET_DATA,
-		leaflet: data.data
+		leafletConfig: data.data
 	});
 }

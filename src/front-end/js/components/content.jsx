@@ -8,7 +8,7 @@ export default class Content extends React.Component {
         super();
     }
     render () {
-        //console.log('content props === ',this.props);
+        console.log('content props === ',this.props);
         return (
             <div className="container">
                 <div className="row">
@@ -32,7 +32,7 @@ export default class Content extends React.Component {
                         <div className="map-wrapper">
                             <Leaflet
                                 weather={this.props.weather}
-
+                                leafletConfig={this.props.leafletConfig}
                             />
                         </div>
                     </div>

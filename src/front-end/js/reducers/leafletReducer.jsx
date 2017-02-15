@@ -4,7 +4,7 @@ export function leaflet (state = {}, action) {
 	switch (action.type) {
 		case ACTION_TYPES.GET_LEAFLET_DATA:
 			let newState = state;
-			newState.leaflet = action.leaflet;
+			newState.leafletConfig = action.leafletConfig;
 			return newState;		
 		default: return state
 	}

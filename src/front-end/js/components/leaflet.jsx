@@ -76,7 +76,7 @@ export default class LeafletMap extends React.Component {
     }
 
     render () {
-
+        console.log('leaflet props === ',this.props);
         const position = [state.lat, state.lng];
         return (
             <Map
