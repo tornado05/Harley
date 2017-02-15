@@ -45,6 +45,7 @@ export default class Content extends React.Component {
 Content.propTypes = {
     chartType: React.PropTypes.string,
     weather: React.PropTypes.array,
-    statistics: React.PropTypes.array
+    statistics: React.PropTypes.array,
+    leafletConfig: React.PropTypes.object
 };
 

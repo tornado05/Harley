@@ -23,8 +23,8 @@ let store = createStore(harleyReducer, {
     statistics: {
         statistics: []
     },
-    leafletConfig: {
-        leafletConfig:[]
+    leaflet: {
+        leaflet:[]
     }
 });
 
