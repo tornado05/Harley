@@ -1,59 +1,48 @@
-import React         from 'react';
-import ReactDOM      from 'react-dom';
-import axios         from 'axios';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Header        from './components/header.jsx';
-import Content       from './components/content.jsx';
-import Footer        from './components/footer.jsx';
+import Header from "./components/header.jsx";
+import Content from "./components/content.jsx";
+import Footer from "./components/footer.jsx";
 
-import {CHART_TYPES} from './constants/constants.jsx';
+import { getWeatherData, getStatisticsDataAction } from "./actions/dataActions.jsx";
+import store from "./stores/harleyStore.jsx";
 
 class Harley extends React.Component {
-  constructor () {
-    super();  
 
-    this.changeChartType = this.changeChartType.bind(this);
+    constructor() {
+        super();
 
-    this.state = {
-      chartType: CHART_TYPES.TEMPERATURE,
-      weather: []
-    };
-  }
+        this.unsubscribe = store.subscribe(() => {
+                this.setState(store.getState());
+            }
+        );
+        this.state = store.getState();
+        getWeatherData();
+        getStatisticsDataAction(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
+    }
 
-  changeChartType (type) {
-      this.setState({
-        chartType: type
-      });
-  }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
 
-  componentDidMount() {
-    axios.get(`http://localhost:3000/weather/v01/current`)
-      .then(res => {
-        const weather = res.data;
-        //console.log(weather);
-        this.setState({
-          weather: weather
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  render() {
-    return (
-    	<div className="row">
-		      <Header
-	          changeChartType={this.changeChartType}
-	        />
-	        <Content
-	          chartType={this.state.chartType}
-            weather={this.state.weather}
-	        />	        
-	        <Footer/>
-    	</div>
-    );
-  }
+    render() {
+        console.log(this.state);
+        return (
+            <div className="row">
+                <Header
+                    chartState={this.state.chart}
+                />
+                <Content
+                    chartType={this.state.chart.chartType}
+                    statistics={this.state.statistics.statistics}
+                    weather={this.state.weather.weather}
+                />
+                <Footer/>
+            </div>
+        );
+    }
 }
- 
-ReactDOM.render(<Harley/>, document.getElementById('app'));
+
+ReactDOM.render(<Harley/>, document.getElementById("app"));
+

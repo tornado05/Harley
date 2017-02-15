@@ -1,17 +1,16 @@
-/*jslint nomen: true */
-'use strict';
-var config              = require('./ConfigService.js'),
-    dataBaseService     = require('./DataBaseService'),
-    _                   = require('lodash'),
-    logger              = require('./logger.js'),
-    set                 = require('./../config/settings.json'),
-    pathToDBs           = require('./../config/pathConfig.json');
+var config = require("./ConfigService.js"),
+    dataBaseService = require("./DataBaseService"),
+    _ = require("lodash"),
+    logger = require("./logger.js"),
+    set = require("./../config/settings.json"),
+    pathToDBs = require("./../config/pathConfig.json");
 module.exports = (function () {
-    var  minValue = function (paramName, data, cityNameNeeded) {
-            var lowest      = Number.POSITIVE_INFINITY,
-                fieldName   = set.variables.min_ + paramName,
-                result      = {},
-                city        = '';
+    "use strict";
+    var minValue = function (paramName, data, cityNameNeeded) {
+            var lowest = Number.POSITIVE_INFINITY,
+                fieldName = set.variables.min_ + paramName,
+                result = {},
+                city = "";
             _.each(data, function (item) {
                 if (item[paramName] < lowest) {
                     lowest = item[paramName];
@@ -29,10 +28,10 @@ module.exports = (function () {
 
         },
         maxValue = function (paramName, data, cityNameNeeded) {
-            var highest     = Number.NEGATIVE_INFINITY,
-                fieldName   = set.variables.max_ + paramName,
-                result      = {},
-                city        = '';
+            var highest = Number.NEGATIVE_INFINITY,
+                fieldName = set.variables.max_ + paramName,
+                result = {},
+                city = "";
             _.each(data, function (item) {
                 if (item[paramName] > highest) {
                     highest = item[paramName];
@@ -50,9 +49,9 @@ module.exports = (function () {
         },
 
         avgValue = function (paramName, data, cityNameNeeded) {
-            var avg         = 0,
-                fieldName   = set.variables.avg + paramName,
-                result      = {};
+            var avg = 0,
+                fieldName = set.variables.avg + paramName,
+                result = {};
             _.each(data, function (item) {
                 avg += item[paramName];
                 if (cityNameNeeded) {
@@ -65,22 +64,22 @@ module.exports = (function () {
             }
             return avg / data.length;
         },
-        result = function (dataArr, cityName, serviceName) {
+        getResultData = function (dataArr, cityName, serviceName) {
             var output,
                 citiesAndServices = {
                     date: _.first(dataArr).date,
-                    cityName : cityName,
-                    sourceAPI : serviceName
+                    cityName: cityName,
+                    sourceAPI: serviceName
                 },
                 onlyCities = {
                     date: _.first(dataArr).date,
-                    cityName : cityName
+                    cityName: cityName
                 },
                 onlyServices = {
                     date: _.first(dataArr).date,
-                    sourceAPI : serviceName
+                    sourceAPI: serviceName
                 },
-                commonPart  = {
+                commonPart = {
                     temp: {
                         min: minValue(set.variables.temp, dataArr),
                         max: maxValue(set.variables.temp, dataArr),
@@ -95,6 +94,11 @@ module.exports = (function () {
                         min: minValue(set.variables.windSpeed, dataArr),
                         max: maxValue(set.variables.windSpeed, dataArr),
                         avg: avgValue(set.variables.windSpeed, dataArr)
+                    },
+                    pressure: {
+                        min: minValue(set.variables.pressure, dataArr),
+                        max: maxValue(set.variables.pressure, dataArr),
+                        avg: avgValue(set.variables.pressure, dataArr)
                     }
                 };
             if (cityName !== 0 && serviceName !== 0) {
@@ -111,17 +115,17 @@ module.exports = (function () {
         },
 
         getTime = function (searchTime, timePeriodNeeded) {
-            var dayStart    = new Date(),
-                dayEnd      = new Date();
+            var dayStart = new Date(),
+                dayEnd = new Date();
             switch (timePeriodNeeded) {
-            case "day":
-                dayStart    = new Date(searchTime.getTime());
-                dayEnd      = new Date(searchTime.getTime());
-                break;
-            case "month":
-                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-                break;
+                case "day":
+                    dayStart = new Date(searchTime.getTime());
+                    dayEnd = new Date(searchTime.getTime());
+                    break;
+                case "month":
+                    dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
+                    dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
+                    break;
             }
             dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
             dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);
@@ -140,8 +144,8 @@ module.exports = (function () {
                 _.each(_.uniq(config.getServicesNames()), function (serviceName) {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
-                        logger.logInfo('Data services successfully collected!');
-                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, result(dataArr, cityName, serviceName));
+                        logger.logInfo("Data services successfully collected!");
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, getResultData(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -159,8 +163,8 @@ module.exports = (function () {
                 _.each(_.uniq(config.getServicesNames()), function (serviceName) {
                     dataBaseService.getServiceStatisticsByCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                         time.dayStart, time.dayEnd, cityName, serviceName).then(function (dataArr) {
-                        logger.logInfo('Data services successfully collected!');
-                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, result(dataArr, cityName, serviceName));
+                        logger.logInfo("Data services successfully collected!");
+                        dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatisticsByCity, getResultData(dataArr, cityName, serviceName));
                     }, function (err) {
                         logger.logError(err);
                     });
@@ -178,8 +182,8 @@ module.exports = (function () {
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
-                    logger.logInfo('Data services successfully collected!');
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, result(dataArr, cityName, service));
+                    logger.logInfo("Data services successfully collected!");
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, getResultData(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -195,8 +199,8 @@ module.exports = (function () {
             _.each(_.uniq(cities), function (cityName) {
                 dataBaseService.getStatisticsOnCities(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, cityName).then(function (dataArr) {
-                    logger.logInfo('Data services successfully collected!');
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, result(dataArr, cityName, service));
+                    logger.logInfo("Data services successfully collected!");
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, getResultData(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });
@@ -208,8 +212,8 @@ module.exports = (function () {
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, service).then(function (dataArr) {
-                    logger.logInfo('Data services successfully collected!');
-                    var res = result(dataArr, cityName, service);
+                    logger.logInfo("Data services successfully collected!");
+                    var res = getResultData(dataArr, cityName, service);
                     dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, res);
                 }, function (err) {
                     logger.logError(err);
@@ -222,8 +226,8 @@ module.exports = (function () {
             _.each(config.getServicesNames(), function (service) {
                 dataBaseService.getStatisticsOnServices(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName,
                     time.dayStart, time.dayEnd, service).then(function (dataArr) {
-                    logger.logInfo('Data services successfully collected!');
-                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, result(dataArr, cityName, service));
+                    logger.logInfo("Data services successfully collected!");
+                    dataBaseService.setDataToDB(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceMonthStatistics, getResultData(dataArr, cityName, service));
                 }, function (err) {
                     logger.logError(err);
                 });

@@ -1,44 +1,57 @@
-import React from 'react';
-import SideNav from './sideNav.jsx';
+import React from "react";
+import SideNav from "./sideNav.jsx";
 
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.collapseSideNav        = this.collapseSideNav.bind(this);
-        this._getSideNavClassName   = this._getSideNavClassName.bind(this);
-        this._getBurgerClassName    = this._getBurgerClassName.bind(this);
+        this.handleCollapseSideNav = this.handleCollapseSideNav.bind(this);
+        this._getSideNavClassName = this._getSideNavClassName.bind(this);
+        this._getBurgerClassName = this._getBurgerClassName.bind(this);
         this.state = {
             sideNavCollapsed: true
         };
     }
 
-    collapseSideNav() {
+    handleCollapseSideNav() {
         this.setState({
             sideNavCollapsed: !this.state.sideNavCollapsed
         });
     }
     _getSideNavClassName() {
-        return this.state.sideNavCollapsed ? 'sideNav collapsed' : 'sideNav';
+        return this.state.sideNavCollapsed ? "sideNav collapsed" : "sideNav";
     }
     _getBurgerClassName() {
-        return this.state.sideNavCollapsed ? 'burger' : 'burger active';
+        return this.state.sideNavCollapsed ? "burger" : "burger active";
     }
-    
+
     render() {
         return (
             <header>
                 <div className="nav">
-                    <a href="/" className="logo">Harley weather</a>
-                    <a href="#" onClick={this.collapseSideNav} className={this._getBurgerClassName()}><span></span></a>
+                    <a
+                        className="logo"
+                        href="/"
+                    >
+                        Harley weather
+                    </a>
+                    <a
+                        className={this._getBurgerClassName()}
+                        href="#"
+                        onClick={this.handleCollapseSideNav}
+                    >
+                        <span></span>
+                    </a>
                 </div>
-                <div className={this._getSideNavClassName()}>
-
-                </div>
-                <SideNav 
+                <div className={this._getSideNavClassName()}></div>
+                <SideNav
+                    chartState={this.props.chartState}
                     className={this._getSideNavClassName()}
-                    changeChartType={this.props.changeChartType}
                 />
             </header>
         );
     }
 }
+
+Header.propTypes = {
+    chartState: React.PropTypes.object
+};

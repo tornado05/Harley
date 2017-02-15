@@ -1,15 +1,14 @@
-/*jslint unparam: true*/
-'use strict';
-var MongoClient = require('mongodb').MongoClient,
-    logger      = require('./logger.js');
+var MongoClient = require("mongodb").MongoClient,
+    logger = require("./logger.js");
 
 module.exports = (function () {
+    "use strict";
     var getLastRecords = function (url, collectionName, count) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
                     data: collection.find().sort({$natural: -1}).limit(count).toArray(),
-                    db : db
+                    db: db
                 };
             }).then(function (items) {
                 items.db.close();
@@ -32,22 +31,40 @@ module.exports = (function () {
             });
         },
         getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
-            return MongoClient.connect(url).then(function (db) {
-                var collection = db.collection(collectionName);
-                return {
-                    data: collection.find({$and: [{'date': {$gte: start}}, {'date': {$lte: end}}, {'cityName': cityName}]}).toArray(),
-                    db: db
-                };
-            }).then(function (items) {
-                items.db.close();
-                return items.data;
-            });
+
+            // if (!serviceName) {
+            //     serviceName = {$exists: false}
+            // }
+            if (!serviceName) {
+                return MongoClient.connect(url).then(function (db) {
+                    var collection = db.collection(collectionName);
+                    return {
+                        data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: end}}, {"cityName": cityName}]}).toArray(),
+                        db: db
+                    };
+                }).then(function (items) {
+                    items.db.close();
+                    return items.data;
+                });
+            } else {
+                return MongoClient.connect(url).then(function (db) {
+                    var collection = db.collection(collectionName);
+                    return {
+                        data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: end}}, {"cityName": cityName}, {"sourceAPI": serviceName}]}).toArray(),
+                        db: db
+                    };
+                }).then(function (items) {
+                    items.db.close();
+                    return items.data;
+                });
+            }
+
         },
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}}]}).toArray(),
+                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -55,11 +72,11 @@ module.exports = (function () {
                 return items.data;
             });
         },
-        getStatisticsOnServices = function (url, collectionName, start, end, service) {
+        getStatisticsOnServices = function (url, collectionName, start, end, serviceName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'sourceAPI' : service}]}).toArray(),
+                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}, {"sourceAPI": serviceName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -71,7 +88,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: start}},  {'sourceAPI' : service}]}).toArray(),
+                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: start}}, {"sourceAPI": service}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -83,7 +100,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gt: start}}, {'date': {$lt: end}},  {'cityName' : cityName}]}).toArray(),
+                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}, {"cityName": cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
@@ -95,7 +112,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{'date': {$gte: start}}, {'date': {$lte: start}},  {'cityName' : cityName}]}).toArray(),
+                    data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: start}}, {"cityName": cityName}]}).toArray(),
                     db: db
                 };
             }).then(function (items) {
