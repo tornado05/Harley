@@ -8,6 +8,7 @@ export default class Content extends React.Component {
         super();
     }
     render () {
+        //console.log('content props === ',this.props);
         return (
             <div className="container">
                 <div className="row">
@@ -31,6 +32,7 @@ export default class Content extends React.Component {
                         <div className="map-wrapper">
                             <Leaflet
                                 weather={this.props.weather}
+                                leaflet={this.props.leaflet}
                             />
                         </div>
                     </div>
@@ -43,6 +45,7 @@ export default class Content extends React.Component {
 Content.propTypes = {
     chartType: React.PropTypes.string,
     weather: React.PropTypes.array,
-    statistics: React.PropTypes.array
+    statistics: React.PropTypes.array,
+    leaflet: React.PropTypes.array
 };
 

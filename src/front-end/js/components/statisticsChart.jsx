@@ -11,11 +11,11 @@ export default class StatChart extends React.Component{
         this._getTimeLabel = this._getTimeLabel.bind(this);
     }
     // TODO: TEMP FUNCTIONs
-    _getChartData(service = "openWeather") {
+    _getChartData() {
 
         let openWeatherData = [];
         _.each(this.props.statistics, function (data) {
-           if (data.sourceAPI === service) openWeatherData.push(data.stat)
+           if (data.sourceAPI === "openWeather") openWeatherData.push(data.stat)
         });
         switch (this.props.chartType) {
             case CHART_TYPES.TEMPERATURE: {
@@ -44,37 +44,32 @@ export default class StatChart extends React.Component{
         return timeLabel;
     }
     render(){
-        //TODO: change this to props after other guys will do action :)
-        let serviceList = ["openWeather", "wunderground", "darkSky"];
-        let colorsList = ["#FFC300", "#C70039", "#581845"];
-        let dataSet = [];
-        { serviceList.map((service, index) => {
-            dataSet.push({
-                label: `Data from ${service}`,
-                fill: false,
-                lineTension: 0.1,
-                backgroundColor: colorsList[index],
-                borderColor: colorsList[index],
-                borderCapStyle: "butt",
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: "miter",
-                pointBorderColor: "rgba(75,192,192,1)",
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 2,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: colorsList[index],
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                pointHoverBorderWidth: 2,
-                pointRadius: 5,
-                pointHitRadius: 10,
-                data: this._getChartData(service)
-            });
-        })}
-
+        //console.log(this.props);
         const data = {
             labels: this._getTimeLabel(),
-            datasets: dataSet
+            datasets: [
+                {
+                    label: "StatChart",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: "butt",
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: "miter",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: this._getChartData()
+                }
+            ]
         };
         const option = {
             responsive: true

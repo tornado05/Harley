@@ -13,59 +13,11 @@ let state = {
 
 
 export default class LeafletMap extends React.Component {
-    constructor() {
-        super();
-
-        this.updatePoints = this.updatePoints.bind(this);
+    constructor(props) {
+        super(props);
+        
         this.getParamByCity = this.getParamByCity.bind(this);
-
-        this.state = {
-            leafletConf: {},
-            points: [{
-                position: [state.lat, state.lng]
-            }]
-        };
-    }
-
-    componentWillMount() {
-    //TODO: CHANGE THIS FUNCTIONS TO ACTIONS FOR UPLOAD DATA + MAKE CITY NAME FILTER ON BACKEND SIDE
-        axios.get("http://localhost:3000/weather/v01/configs")
-            .then(res => {
-                console.log("RES DATA", res.data);
-                this.updatePoints(res.data.cities);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-    }
-    updatePoints (data) {
-        let points = [];
-
-        data.forEach(point => {
-            if (!point.wundergroundName) {
-                points.push({
-                    position: [
-                        point.xCords,
-                        point.yCords
-                    ],
-                    name: point.name
-                });
-            } else {
-                points.push({
-                    position: [
-                        point.xCords,
-                        point.yCords
-                    ],
-                    name: point.wundergroundName
-                });
-            }
-
-        });
-
-        this.setState({
-            points: points
-        });
+        this.getCities = this.getCities.bind(this);
     }
 
     getParamByCity(city, param){
@@ -74,7 +26,13 @@ export default class LeafletMap extends React.Component {
         }), item => item[param]);
     }
 
+    getCities(){
+        //console.log('this.props.leaflet === ',this.props);
+        //return this.props.leaflet.cities.map(citi=>citi.name);
+    }
+
     render () {
+        console.log('leaflet.jsx props === ', this.props.weather);
         const position = [state.lat, state.lng];
         return (
             <Map
@@ -88,7 +46,7 @@ export default class LeafletMap extends React.Component {
                 { this.state.points.map((point, index) => {
                     return (
                         <Marker
-                            key={"point" + index}
+                            key={index}
                             position={point.position}
                         >
                             <Popup>
@@ -107,5 +65,6 @@ export default class LeafletMap extends React.Component {
     }
 }
 LeafletMap.propTypes = {
-    weather: React.PropTypes.array
+    weather: React.PropTypes.array,
+    leaflet: React.PropTypes.array
 };
