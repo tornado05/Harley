@@ -11,6 +11,8 @@ export function getWeatherData () {
 }
 
 export function setWeatherData (data) {
+	console.log("Action:", ACTION_TYPES.SET_WEATHER_DATA);
+	console.log(data);
 	store.dispatch({
 		type: ACTION_TYPES.SET_WEATHER_DATA,
 		weather: data.data

@@ -1,8 +1,9 @@
 import React from "react";
 import {Bar} from "react-chartjs-2";
 import {CHART_TYPES, CHART_PARAMS} from "./../constants/constants.jsx";
-import store from "../stores/harleyStore.jsx";
-import {getWeatherData} from "../actions/dataActions.jsx";
+import {changeChartCityAction, changeChartParamAction} from "./../actions/currentWeatherChartActions.jsx";
+import _ from "lodash";
+
 
 export default class Chart extends React.Component {
     constructor(props){
@@ -13,29 +14,25 @@ export default class Chart extends React.Component {
         this.handleParam = this.handleParam.bind(this);
         this._getOptionsByParam = this._getOptionsByParam.bind(this);
         this._getMaximalValue = this._getMaximalValue.bind(this);
-        this.state = store.getState();
-        getWeatherData();
     }
 
     componentWillMount(){
         this.setState({
-            param: CHART_PARAMS.TEMPERATURE.LABEL,
-            city: "Rivne",
-            options: this._getOptionsByParam(CHART_PARAMS.TEMPERATURE.LABEL)
+            options: this._getOptionsByParam(this.props.currentChart.chartParam)
         });
     }
 
     handleCity(event){
-        this.setState({city: event.target.value});
+        changeChartCityAction(event.target.value);
+        // this.setState({city: event.target.value});
     }
 
     handleParam(event){
         let options = this._getOptionsByParam(event.target.value);
+        changeChartParamAction(event.target.value);
         this.setState({
-            param: event.target.value,
             options
         });
-        console.log("handleParam", this._getOptionsByParam(event.target.value));
     }
 
     _getOptionsByParam(param){
@@ -71,10 +68,10 @@ export default class Chart extends React.Component {
     _getServicesByCity(){
         let services = [];
         let data = [];
-        let label = this.state.param;
-
-        this.state.weather.weather.forEach( (item) => {
-            if (item.cityName === this.state.city){
+        let city = this.props.currentChart.chartCity;
+        let label = this.props.currentChart.chartParam;
+        _.each(this.props.weather, (item) => {
+            if (item.cityName === city){
                 services.push(item.sourceAPI);
                 data.push(item[label]);
             }
@@ -96,7 +93,7 @@ export default class Chart extends React.Component {
     }
     //TODO this should be taken from config
     _getChartLabel(){
-        switch (this.state.param) {
+        switch (this.props.currentChart.chartParam) {
             case CHART_PARAMS.PREASURE.LABEL:
                 return CHART_PARAMS.PREASURE.NAME;
             case CHART_PARAMS.HUMIDITY.LABEL:
@@ -109,8 +106,10 @@ export default class Chart extends React.Component {
     }
 
     render() {
+        console.log("Props:", this.props);
         console.log("State:", this.state);
         let weather = this._getServicesByCity();
+        console.log(weather);
         const data = {
             labels: weather.services,
             datasets: [
@@ -144,7 +143,7 @@ export default class Chart extends React.Component {
                             <label>City:</label>
                             <select
                                 onChange={this.handleCity}
-                                value={this.state.city}
+                                value={this.props.currentChart.chartCity}
                             >
                                 <option value="Rivne">Rivne</option>
                                 <option value="Kiev">Kiev</option>
@@ -155,7 +154,7 @@ export default class Chart extends React.Component {
                             <label>Parameter:</label>
                             <select
                                 onChange={this.handleParam}
-                                value={this.state.param}
+                                value={this.props.currentChart.chartParam}
                             >
                                 <option value="temp">Temperature</option>
                                 <option value="pressure">Pressure</option>
@@ -172,4 +171,8 @@ export default class Chart extends React.Component {
             </section>
         );
     }
+}
+Chart.propTypes = {
+    currentChart: React.PropTypes.object,
+    weather: React.PropTypes.array
 }

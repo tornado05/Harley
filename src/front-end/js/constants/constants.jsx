@@ -15,7 +15,9 @@ export const ACTION_TYPES = {
     GET_DATE_FROM: "get_date_from",
     GET_DATE_TO: "get_date_to",
     STAT_TYPE: "stat_type",
-    GET_CURRENT_WEATHER_DATA: "get_current_weather_data"
+    GET_CURRENT_WEATHER_DATA: "get_current_weather_data",
+    CHANGED_CURRENT_CITY: "changed_current_city",
+    CHANGED_CURRENT_PARAM: "changed_current_param"
 };
 
 export const CHART_PARAMS = {
