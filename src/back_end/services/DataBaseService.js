@@ -31,16 +31,36 @@ module.exports = (function () {
             });
         },
         getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
-            return MongoClient.connect(url).then(function (db) {
-                var collection = db.collection(collectionName);
-                return {
-                    data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: end}}, {"cityName": cityName}]}).toArray(),
-                    db: db
-                };
-            }).then(function (items) {
-                items.db.close();
-                return items.data;
-            });
+
+
+            // if (!serviceName) {
+            //     serviceName = {$exists: false}
+            // }
+            if (!serviceName) {
+                return MongoClient.connect(url).then(function (db) {
+                    var collection = db.collection(collectionName);
+                    return {
+                        data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: end}}, {"cityName": cityName}]}).toArray(),
+                        db: db
+                    };
+                }).then(function (items) {
+                    items.db.close();
+                    return items.data;
+                });
+            } else {
+                return MongoClient.connect(url).then(function (db) {
+                    var collection = db.collection(collectionName);
+                    return {
+                        data: collection.find({$and: [{"date": {$gte: start}}, {"date": {$lte: end}}, {"cityName": cityName}, {"sourceAPI": serviceName}]}).toArray(),
+                        db: db
+                    };
+                }).then(function (items) {
+                    items.db.close();
+                    return items.data;
+                });
+            }
+
+
         },
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
@@ -54,11 +74,13 @@ module.exports = (function () {
                 return items.data;
             });
         },
-        getStatisticsOnServices = function (url, collectionName, start, end, service) {
+        getStatisticsOnServices = function (url, collectionName, start, end, serviceName) {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}, {"sourceAPI": service}]}).toArray(),
+
+                    data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}, {"sourceAPI": serviceName}]}).toArray(),
+
                     db: db
                 };
             }).then(function (items) {

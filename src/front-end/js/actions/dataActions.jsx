@@ -32,20 +32,6 @@ export function setStatisticsData (data) {
 	});
 }
 
-/*export function getLeafletPointsData () {
-	axios.get(`http://localhost:3000/weather/v01/configs`)
-		.then(setLeafletPointsData)
-		.catch(function (error) {
-			console.log(error);
-		});
-}
-
-export function setLeafletPointsData (data) {
-	store.dispatch({
-		type: ACTION_TYPES.GET_LEAFLET_DATA,
-		leaflet: data.data
-	});
-}*/
 
 function castDate(date) {
 	let rawDate = new Date(date);
