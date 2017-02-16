@@ -14,5 +14,5 @@ export const ACTION_TYPES = {
 	GET_DATE_FROM: "get_date_from",
 	GET_DATE_TO: "get_date_to",
     STAT_TYPE: "stat_type",
-	GET_LEAFLET_DATA: "get_leaflet_data"
+    GET_LEAFLET_DATA: "get_leaflet_data"
 };

@@ -32,7 +32,6 @@ module.exports = (function () {
         },
         getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
 
-
             // if (!serviceName) {
             //     serviceName = {$exists: false}
             // }
@@ -60,7 +59,6 @@ module.exports = (function () {
                 });
             }
 
-
         },
         getDayStatistics = function (url, collectionName, start, end) {
             return MongoClient.connect(url).then(function (db) {
@@ -78,9 +76,7 @@ module.exports = (function () {
             return MongoClient.connect(url).then(function (db) {
                 var collection = db.collection(collectionName);
                 return {
-
                     data: collection.find({$and: [{"date": {$gt: start}}, {"date": {$lt: end}}, {"sourceAPI": serviceName}]}).toArray(),
-
                     db: db
                 };
             }).then(function (items) {

@@ -5,9 +5,7 @@ import Header from "./components/header.jsx";
 import Content from "./components/content.jsx";
 import Footer from "./components/footer.jsx";
 
-import { getWeatherData, getStatisticsDataAction } from "./actions/dataActions.jsx";
-import { getLeafletPointsData } from "./actions/pointsActions.jsx";
-
+import { getWeatherData, getStatisticsDataAction, getLeafletData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
 class Harley extends React.Component {
@@ -20,11 +18,9 @@ class Harley extends React.Component {
             }
         );
         this.state = store.getState();
-
         getWeatherData();
-        getLeafletPointsData();
+        getLeafletData();
         getStatisticsDataAction(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
-
     }
 
     componentWillUnmount() {
@@ -32,9 +28,7 @@ class Harley extends React.Component {
     }
 
     render() {
-
-        console.log("APP.JSX", this.state);
-
+        console.log(this.state);
         return (
             <div className="row">
                 <Header
@@ -44,7 +38,7 @@ class Harley extends React.Component {
                     chartType={this.state.chart.chartType}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
-                    leafletConfig={this.state.leaflet.leafletConfig}
+                    leaflet={this.state.leaflet.leaflet}
                 />
                 <Footer/>
             </div>
@@ -54,3 +48,9 @@ class Harley extends React.Component {
 
 ReactDOM.render(<Harley/>, document.getElementById("app"));
 
+Harley.propTypes = {
+    chartType: React.PropTypes.string,
+    weather: React.PropTypes.array,
+    statistics: React.PropTypes.array,
+    leaflet: React.PropTypes.array
+};

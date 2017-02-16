@@ -17,6 +17,21 @@ export function setWeatherData (data) {
 	});
 }
 
+export function getLeafletData () {
+	axios.get("http://localhost:3000/weather/v01/configs")
+      .then(setLeafletData)
+      .catch(function (error) {
+        console.log(error);
+      });
+}
+
+export function setLeafletData (data) {
+	store.dispatch({
+		type: ACTION_TYPES.GET_LEAFLET_DATA,
+		leaflet: data.data
+	});
+}
+
 export function getStatisticsDataAction (from, to, cityName = "Rivne") {
 	axios.get(`http://localhost:3000/weather/v01/stat/service-by-city/day?from=${castDate(from)}&to=${castDate(to)}&city=${cityName}`)
 		.then(setStatisticsData)
@@ -31,7 +46,6 @@ export function setStatisticsData (data) {
 		statistics: data.data
 	});
 }
-
 
 function castDate(date) {
 	let rawDate = new Date(date);

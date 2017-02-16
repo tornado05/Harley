@@ -11,13 +11,11 @@ export default class StatChart extends React.Component{
         this._getTimeLabel = this._getTimeLabel.bind(this);
     }
     // TODO: TEMP FUNCTIONs
-
     _getChartData(service = "openWeather") {
 
         let openWeatherData = [];
         _.each(this.props.statistics, function (data) {
            if (data.sourceAPI === service) openWeatherData.push(data.stat)
-
         });
         switch (this.props.chartType) {
             case CHART_TYPES.TEMPERATURE: {
@@ -46,7 +44,6 @@ export default class StatChart extends React.Component{
         return timeLabel;
     }
     render(){
-
         //TODO: change this to props after other guys will do action :)
         let serviceList = ["openWeather", "wunderground", "darkSky"];
         let colorsList = ["#FFC300", "#C70039", "#581845"];
@@ -78,7 +75,6 @@ export default class StatChart extends React.Component{
         const data = {
             labels: this._getTimeLabel(),
             datasets: dataSet
-
         };
         const option = {
             responsive: true
