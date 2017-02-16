@@ -6,7 +6,6 @@ var http = require("http"),
     configService = require("./services/ConfigService"),
     weatherController = require("./controllers/weather");
 
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));

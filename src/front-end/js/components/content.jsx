@@ -41,6 +41,7 @@ export default class Content extends React.Component {
     }
 }
 Content.propTypes = {
+    chartType: React.PropTypes.object,
     currentChart: React.PropTypes.object,
     statistics: React.PropTypes.array,
     weather: React.PropTypes.array
