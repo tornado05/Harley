@@ -2,7 +2,6 @@ var set = require("./../config/settings.json"),
     config = require("./../config/config.json"),
     _ = require("lodash"),
     logger = require("./logger.js");
-
 module.exports = (function () {
     "use strict";
     var getFallOut = function (weather, serviceName) {
@@ -65,7 +64,6 @@ module.exports = (function () {
             }
             return result;
         },
-
         prepareDataFromDarkSky = function (serviceName, city, data) {
             var tempInCelsius = parseFloat(((data.currently.temperature - 32) * (5 / 9)).toFixed(2)),
                 windSpeedInKmH = parseFloat(((data.currently.windSpeed) * set.variables.milesToKm).toFixed(2)),

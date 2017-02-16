@@ -5,9 +5,8 @@ var logger = require("./../services/logger.js"),
     config = require("./../services/ConfigService.js"),
     fs = require("fs"),
     _ = require("lodash");
-
 module.exports = (function () {
-    "use strict";
+
     var readData = function (path) {
             try {
                 var result = fs.readFileSync(path, "utf8");
@@ -86,6 +85,7 @@ module.exports = (function () {
                 }, function (err) {
                     logger.logError(err);
                     return readData("./data/common_data.json");
+
                 });
             return result;
         },

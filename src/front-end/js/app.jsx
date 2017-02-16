@@ -28,7 +28,7 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log("App.jsx state:", this.state);
         return (
             <div className="row">
                 <Header
@@ -36,6 +36,7 @@ class Harley extends React.Component {
                 />
                 <Content
                     chartType={this.state.chart.chartType}
+                    currentChart={this.state.currentChart}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
 

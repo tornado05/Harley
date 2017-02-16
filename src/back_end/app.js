@@ -12,7 +12,6 @@ var http = require("http"),
     flash = require('connect-flash');
     weatherController = require("./controllers/weather");
 
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
