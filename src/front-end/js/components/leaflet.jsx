@@ -28,12 +28,9 @@ export default class LeafletMap extends React.Component {
     }
 
     componentWillMount() {
-    //TODO: CHANGE THIS FUNCTIONS TO ACTIONS FOR UPLOAD DATA + MAKE CITY NAME FILTER ON BACKEND SIDE
         axios.get("http://localhost:3000/weather/v01/configs")
             .then(res => {
-                console.log("RES DATA", res.data);
                 this.updatePoints(res.data.cities);
-                console.log("RES DATA", res.data.cities);
             })
             .catch(function (error) {
                 console.log(error);

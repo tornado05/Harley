@@ -29,7 +29,6 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("state of app - ", this.state);
         return (
             <div className="row">
                 <Header

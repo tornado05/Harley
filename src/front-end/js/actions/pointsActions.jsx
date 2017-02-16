@@ -16,7 +16,6 @@ export function getPoints () {
 		});
 }
 export function setPoints (data) {
-	console.log("data.data - ", data.data);
 	store.dispatch({
 		type: ACTION_TYPES.GET_POINTS,
 		leaflet: data.data
