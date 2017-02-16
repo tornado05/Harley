@@ -5,7 +5,7 @@ export function leaflet (state = {}, action) {
 		case ACTION_TYPES.GET_LEAFLET_DATA:
 			let newState = state;
 			newState.leaflet = action.leaflet;
-			return newState;		
+			return newState;
 		default: return state;
 	}
 }
