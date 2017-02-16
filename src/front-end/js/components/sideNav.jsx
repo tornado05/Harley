@@ -1,7 +1,9 @@
 import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
-import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup} from "react-bootstrap";
+import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
+import Auth from '../modules/auth';
+// import Login from "./login.jsx";
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
 
@@ -16,7 +18,14 @@ export default class SideNav extends React.Component {
         this.handleSetDateFrom = this.handleSetDateFrom.bind(this);
         this.handleSetDateTo = this.handleSetDateTo.bind(this);
         this.handleGetFormData = this.handleGetFormData.bind(this);
+        this.getInitialState = this.getInitialState.bind(this);
+        this.modalClose = this.modalClose.bind(this);
+        this.modalOpen = this.modalOpen.bind(this);
+        this.handleEmail = this.handleEmail.bind(this);
+        this.handlePassword = this.handlePassword.bind(this);
 
+
+        this.getInitialState();
         this.state = props.chartState;
     }
 
@@ -30,12 +39,17 @@ export default class SideNav extends React.Component {
         });
     }
 
-    /**
-     *
-     * TODO: Need to replace this by react-redux-form
-     *
-     */
+    getInitialState() {
+        return { showModal: false };
+    }
 
+    modalClose() {
+        this.setState({ showModal: false });
+    }
+
+    modalOpen() {
+        this.setState({ showModal: true });
+    }
 
     handleSetInputData (event) {
         changeCityAction(event.target.value);
@@ -56,7 +70,16 @@ export default class SideNav extends React.Component {
         getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
+    handleEmail(value) {
+        this.setState({ userEmail: value.target.value });
+    }
+
+    handlePassword(value) {
+        this.setState({ userEmail: value.target.value });
+    }
+
     render () {
+        console.log('SIDE NAV ', this.state);
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -114,6 +137,38 @@ export default class SideNav extends React.Component {
                             Show
                         </Button>
                     </form>
+                </div>
+                <div className="static-modal">
+                    <Button
+                        bsStyle="primary"
+                        bsSize="large"
+                        onClick={this.modalOpen}
+                    >
+                        Log in
+                    </Button>
+                    <Modal show={this.state.showModal} onHide={this.close}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <FormControl
+                                type="text"
+                                value={this.state.value}
+                                placeholder="Enter email"
+                                onChange={this.handleEmail}
+                            />
+                            <FormControl
+                                type="password"
+                                value={this.state.value}
+                                placeholder="Enter password"
+                                onChange={this.handlePassword}
+                            />
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button onClick={this.modalClose}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
         );

@@ -31,10 +31,6 @@ module.exports = (function () {
             });
         },
         getServiceStatisticsByCities = function (url, collectionName, start, end, cityName, serviceName) {
-
-            // if (!serviceName) {
-            //     serviceName = {$exists: false}
-            // }
             if (!serviceName) {
                 return MongoClient.connect(url).then(function (db) {
                     var collection = db.collection(collectionName);
