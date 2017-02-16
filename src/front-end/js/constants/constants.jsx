@@ -5,6 +5,7 @@ export const CHART_TYPES = {
 	WIND_SPEED: "windSpeed",
 	HUMIDITY: "humidity"
 };
+
 export const ACTION_TYPES = {
 	TEST: "test",
 	CHANGE_CHART_TYPE: "change_chart_type",
@@ -18,6 +19,7 @@ export const ACTION_TYPES = {
     CHANGED_CURRENT_CITY: "changed_current_city",
     CHANGED_CURRENT_PARAM: "changed_current_param"
 };
+
 export const CHART_PARAMS = {
     TEMPERATURE: {
     	NAME: "Temperature",
