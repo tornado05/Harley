@@ -19,6 +19,9 @@ let store = createStore(harleyReducer, {
     },
     statistics: {
         statistics: []
+    },
+    pointsReducer: {
+        leaflet:[]
     }
 });
 

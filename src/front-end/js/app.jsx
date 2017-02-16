@@ -7,6 +7,7 @@ import Footer from "./components/footer.jsx";
 
 import { getWeatherData, getStatisticsDataAction } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
+import { getPoints } from "./actions/pointsActions.jsx";
 
 class Harley extends React.Component {
 
@@ -20,6 +21,7 @@ class Harley extends React.Component {
         this.state = store.getState();
         getWeatherData();
         getStatisticsDataAction(this.state.chart.periodFrom, this.state.chart.periodTo, this.state.chart.cityName);
+        getPoints();
     }
 
     componentWillUnmount() {
@@ -27,7 +29,7 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log("state of app - ", this.state);
         return (
             <div className="row">
                 <Header
@@ -37,6 +39,7 @@ class Harley extends React.Component {
                     chartType={this.state.chart.chartType}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
+                    leaflet={this.state.pointsReducer.leaflet}
                 />
                 <Footer/>
             </div>
