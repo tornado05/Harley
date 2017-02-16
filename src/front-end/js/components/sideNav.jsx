@@ -2,8 +2,8 @@ import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
-import Auth from '../modules/auth';
-// import Login from "./login.jsx";
+//import Auth from '../modules/auth';
+
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
 
@@ -19,14 +19,18 @@ export default class SideNav extends React.Component {
         this.handleSetDateTo = this.handleSetDateTo.bind(this);
         this.handleGetFormData = this.handleGetFormData.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
-        this.modalClose = this.modalClose.bind(this);
-        this.modalOpen = this.modalOpen.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);
+        this.handleModalOpen = this.handleModalOpen.bind(this);
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
 
 
         this.getInitialState();
         this.state = props.chartState;
+    }
+
+    getInitialState() {
+        return { showModal: false };
     }
 
     handleShowChartClick () {
@@ -39,15 +43,11 @@ export default class SideNav extends React.Component {
         });
     }
 
-    getInitialState() {
-        return { showModal: false };
-    }
-
-    modalClose() {
+    handleModalClose() {
         this.setState({ showModal: false });
     }
 
-    modalOpen() {
+    handleModalOpen() {
         this.setState({ showModal: true });
     }
 
@@ -79,7 +79,6 @@ export default class SideNav extends React.Component {
     }
 
     render () {
-        console.log('SIDE NAV ', this.state);
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -138,35 +137,39 @@ export default class SideNav extends React.Component {
                         </Button>
                     </form>
                 </div>
-                <div className="static-modal">
+                <div className="static-modal text-center">
                     <Button
-                        bsStyle="primary"
                         bsSize="large"
-                        onClick={this.modalOpen}
+                        bsStyle="primary"
+                        onClick={this.handleModalOpen}
                     >
                         Log in
                     </Button>
-                    <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal
+                        onHide={this.handleModalClose}
+                        show={this.state.showModal}
+                    >
                         <Modal.Header closeButton>
                             <Modal.Title>Modal heading</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <FormControl
+                                onChange={this.handleEmail}
+                                placeholder="Enter email"
                                 type="text"
                                 value={this.state.value}
-                                placeholder="Enter email"
-                                onChange={this.handleEmail}
+
                             />
                             <FormControl
+                                onChange={this.handlePassword}
+                                placeholder="Enter password"
                                 type="password"
                                 value={this.state.value}
-                                placeholder="Enter password"
-                                onChange={this.handlePassword}
-                            />
 
+                            />
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button onClick={this.modalClose}>Close</Button>
+                            <Button onClick={this.handleModalClose}>Close</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
