@@ -2,6 +2,7 @@ import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
+import { changeUserEmailAction, changeUserPasswordAction, catchErrorAction } from "./../actions/authAction.jsx";
 //import Auth from '../modules/auth';
 
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
@@ -23,7 +24,6 @@ export default class SideNav extends React.Component {
         this.handleModalOpen = this.handleModalOpen.bind(this);
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
-
 
         this.getInitialState();
         this.state = props.chartState;
@@ -70,15 +70,16 @@ export default class SideNav extends React.Component {
         getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
-    handleEmail(value) {
-        this.setState({ userEmail: value.target.value });
+    handleEmail(email) {
+        changeUserEmailAction(email.target.value);
     }
 
-    handlePassword(value) {
-        this.setState({ userEmail: value.target.value });
+    handlePassword(password) {
+        changeUserPasswordAction(password.target.value);
     }
 
     render () {
+        console.log("side nav", this.props);
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -157,14 +158,14 @@ export default class SideNav extends React.Component {
                                 onChange={this.handleEmail}
                                 placeholder="Enter email"
                                 type="text"
-                                value={this.state.value}
+                                value={this.props.userName}
 
                             />
                             <FormControl
                                 onChange={this.handlePassword}
                                 placeholder="Enter password"
                                 type="password"
-                                value={this.state.value}
+                                value={this.props.userPassword}
 
                             />
                         </Modal.Body>
@@ -180,5 +181,8 @@ export default class SideNav extends React.Component {
 
 SideNav.propTypes = {
     className: React.PropTypes.string,
-    chartState: React.PropTypes.object
+    chartState: React.PropTypes.object,
+    authError: React.PropTypes.object,
+    userName: React.PropTypes.string,
+    userPassword: React.PropTypes.string
 };
