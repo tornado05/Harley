@@ -28,7 +28,6 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("App.jsx state:", this.state);
         return (
             <div className="row">
                 <Header

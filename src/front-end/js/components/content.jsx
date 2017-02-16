@@ -8,7 +8,6 @@ export default class Content extends React.Component {
         super(props);
     }
     render () {
-        console.log("Content weather:", this.props);
         return (
             <div className="container">
                 <div className="row">
