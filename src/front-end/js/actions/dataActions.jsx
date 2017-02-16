@@ -32,6 +32,21 @@ export function setStatisticsData (data) {
 	});
 }
 
+export function getLeafletData () {
+	axios.get("http://localhost:3000/weather/v01/configs")
+      .then(setLeafletData)
+      .catch(function (error) {
+        console.log(error);
+      });
+}
+
+export function setLeafletData (data) {
+	store.dispatch({
+		type: ACTION_TYPES.GET_LEAFLET_DATA,
+		leaflet: data.data
+	});
+}
+
 function castDate(date) {
 	let rawDate = new Date(date);
 	return `${rawDate.getFullYear()}-${rawDate.getMonth() + 1}-${rawDate.getDate()}`;
