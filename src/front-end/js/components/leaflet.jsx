@@ -40,7 +40,6 @@ export default class LeafletMap extends React.Component {
     }
     updatePoints (data) {
         let points = [];
-
         data.forEach(point => {
             if (!point.wundergroundName) {
                 points.push({
@@ -60,7 +59,6 @@ export default class LeafletMap extends React.Component {
                 });
             }
         });
-
         this.setState({
             points: points
         });
@@ -94,7 +92,10 @@ export default class LeafletMap extends React.Component {
                                 <div className="popup-statistic">
                                     <h4>{point.name}</h4>
                                     <ul>
-                                        <li>{this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>Temperature: {this.getParamByCity(point.name, CHART_TYPES.TEMPERATURE)}</li>
+                                        <li>Pressure: {this.getParamByCity(point.name, CHART_TYPES.PRESSURE)}</li>
+                                        <li>Wind speed: {this.getParamByCity(point.name, CHART_TYPES.WIND_SPEED)}</li>
+                                        <li>Humidity: {this.getParamByCity(point.name, CHART_TYPES.HUMIDITY)}</li>
                                     </ul>
                                 </div>
                             </Popup>

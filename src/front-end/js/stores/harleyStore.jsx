@@ -26,7 +26,10 @@ let store = createStore(harleyReducer, {
     },
     leaflet: {
         leaflet: []
-    }
+    },
+    userName: "",
+    userPassword: "",
+    authError: {}
 });
 
 export default store;

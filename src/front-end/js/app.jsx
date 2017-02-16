@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import Header from "./components/header.jsx";
 import Content from "./components/content.jsx";
 import Footer from "./components/footer.jsx";
-
 import { getWeatherData, getStatisticsDataAction, getLeafletData } from "./actions/dataActions.jsx";
 import store from "./stores/harleyStore.jsx";
 
@@ -28,18 +27,20 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("App.jsx state:", this.state);
+        console.log("app.jsx", this.state);
         return (
             <div className="row">
                 <Header
+                    authError={this.state.authError}
                     chartState={this.state.chart}
+                    userName={this.state.userName}
+                    userPassword={this.state.userPassword}
                 />
                 <Content
                     chartType={this.state.chart.chartType}
                     currentChart={this.state.currentChart}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
-
                 />
                 <Footer/>
             </div>

@@ -106,10 +106,7 @@ export default class Chart extends React.Component {
     }
 
     render() {
-        console.log("Props:", this.props);
-        console.log("State:", this.state);
         let weather = this._getServicesByCity();
-        console.log(weather);
         const data = {
             labels: weather.services,
             datasets: [
