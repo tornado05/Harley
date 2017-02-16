@@ -80,6 +80,13 @@
             }
           ]
         }
-      }]
+      }],
+    "auth": {
+      "facebook": {
+        "clientID": "",
+        "clientSecret": "",
+        "callbackURL": "http://localhost:3000/"
+      }
+    }
   }
 
