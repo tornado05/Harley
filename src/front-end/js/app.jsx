@@ -39,7 +39,6 @@ class Harley extends React.Component {
                     chartType={this.state.chart.chartType}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
-                    leaflet={this.state.pointsReducer.leaflet}
                 />
                 <Footer/>
             </div>
