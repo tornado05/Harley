@@ -6,11 +6,13 @@ export function getWeatherData () {
 	axios.get("http://localhost:3000/weather/v01/current")
       .then(setWeatherData)
       .catch(function (error) {
-        console.log(error);
+        console.log("File: dataActions", error);
       });
 }
 
 export function setWeatherData (data) {
+	console.log("Action:", ACTION_TYPES.SET_WEATHER_DATA);
+	console.log(data);
 	store.dispatch({
 		type: ACTION_TYPES.SET_WEATHER_DATA,
 		weather: data.data

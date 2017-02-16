@@ -1,6 +1,6 @@
 import harleyReducer from "./../reducers/harleyReducer.jsx";
 import {createStore} from "redux";
-import {CHART_TYPES} from "./../constants/constants.jsx";
+import {CHART_TYPES, CHART_PARAMS} from "./../constants/constants.jsx";
 
 let date = new Date();
 let firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).toISOString();
@@ -13,6 +13,10 @@ let store = createStore(harleyReducer, {
         periodFrom: firstDayOfMonth,
         periodTo: lastDayOfMonth,
         statType: CHART_TYPES.TEMPERATURE
+    },
+    currentChart:{
+        chartCity: "Rivne",
+        chartParam: CHART_PARAMS.TEMPERATURE.LABEL
     },
     weather: {
         weather: []

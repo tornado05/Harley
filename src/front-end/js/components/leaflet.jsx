@@ -1,16 +1,16 @@
 import React from "react";
 import axios from "axios";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from "leaflet";
 import {CHART_TYPES} from "./../constants/constants.jsx";
 
 L.Icon.Default.imagePath = "./img/leaflet/";
+
 let state = {
     lat: 50.75,
     lng: 27.37,
     zoom: 7
 };
-
 
 export default class LeafletMap extends React.Component {
     constructor() {
@@ -31,7 +31,6 @@ export default class LeafletMap extends React.Component {
     //TODO: CHANGE THIS FUNCTIONS TO ACTIONS FOR UPLOAD DATA + MAKE CITY NAME FILTER ON BACKEND SIDE
         axios.get("http://localhost:3000/weather/v01/configs")
             .then(res => {
-                console.log("RES DATA", res.data);
                 this.updatePoints(res.data.cities);
             })
             .catch(function (error) {
@@ -60,13 +59,13 @@ export default class LeafletMap extends React.Component {
                     name: point.wundergroundName
                 });
             }
-
         });
 
         this.setState({
             points: points
         });
     }
+
 
     getParamByCity(city, param){
         return _.map(_.filter(this.props.weather, weatherItem => {
