@@ -1,19 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Menu from './components/menu.jsx';
- 
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import LinkList from "./containers/LinkList.jsx";
+import LinkReducer from "./reducers/LinkReducer.jsx"
+
+let store = createStore(LinkReducer, {clicked: 0})
+
 class World extends React.Component {
   render() {
-    return (
-    	<div>
-	    	<Menu text='first item'/>
-	    	<Menu text='second item'/>
-	    	<Menu text='third item'/>
-	    	<Menu text='fourth item'/>
-	    	<Menu text='fifth item'/>
-    	</div>
-    );
+    return (      	
+          <div>
+            <LinkList />
+          </div>
+    )
   }
 }
+/* Specially for Gagarin */
+/*a => a.test*/
+/*a => { return a.test; }*/
+/*(a) => { return a.test; }*/
+/*(a) => { return (<div>{a.test}</div>) }*/
  
-ReactDOM.render(<World/>, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={store}>
+    <World/>
+  </Provider>, 
+  document.getElementById('app')
+);
