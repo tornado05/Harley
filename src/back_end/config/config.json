@@ -1,8 +1,8 @@
 
   {
-    "leaflet": {
+    "leafletConfig": {
       "imagePath": "./img/leaflet/",
-      "state": {
+      "mapLocation": {
         "lat": 50.15,
         "lng": 27.37,
         "zoom": 7
