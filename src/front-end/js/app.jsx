@@ -26,7 +26,7 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("app.jsx", this.state);
+        //console.log("app.jsx", this.state);
         return (
             <div className="row">
                 <Header
@@ -40,6 +40,7 @@ class Harley extends React.Component {
                     currentChart={this.state.currentChart}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
+                    leaflet={this.state.leaflet.leaflet}
                 />
                 <Footer/>
             </div>
@@ -48,4 +49,3 @@ class Harley extends React.Component {
 }
 
 ReactDOM.render(<Harley/>, document.getElementById("app"));
-

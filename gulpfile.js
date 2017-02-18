@@ -50,7 +50,7 @@ gulp.task('lint', function (cb) {
                 "react/jsx-no-duplicate-props": 1,
                 "react/jsx-no-undef": 1,
                 "react/jsx-pascal-case": 1,
-                "react/jsx-sort-props": 1,
+                "react/jsx-sort-props": 0,
                 "react/jsx-uses-react": 1,
                 "react/jsx-uses-vars": 1,
                 "react/no-danger": 1,
