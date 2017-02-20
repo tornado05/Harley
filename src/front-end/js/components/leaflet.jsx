@@ -20,7 +20,12 @@ export default class LeafletMap extends React.Component {
     getParamByLeaflet(){
         var Citie = [];
         _.map(this.props.leaflet.cities, citie => {
-            Citie.push(citie);
+            if (!citie.wundergroundName) {
+                Citie.push(citie);
+            }else{
+                citie.name = citie.wundergroundName;
+                Citie.push(citie);
+            }
         });
         return Citie;
     }
