@@ -28,13 +28,14 @@ export default class Leaflet extends React.Component {
     }
 
     getParamByState(){
-        var State = [];
-        _.map(this.props.leaflet.leafletConfig, (mapLocation,key) => {
-            if(key === 'mapLocation'){
-                State.push(mapLocation)
-            }
-        });
-        return _.head(State);        
+        var State = {};
+        _.map(this.props.leaflet.leafletConfig, state => {
+            console.log(state);
+            State.lat = lat;
+            State.lng = lng;
+            State.zoom = zoom;           
+        });        
+        return State;        
     }
 
     render () {
@@ -43,8 +44,8 @@ export default class Leaflet extends React.Component {
         console.log("getParamByState === ",this.getParamByState());
         //const position = [this.getParamByState().lat,this.getParamByState().lan];
         //const zoom = this.getParamByState().zoom;
-        const position = [this.getParamByState().lat,this.getParamByState().lng];
-        const zoom = this.getParamByState().zoom;
+        const position = [this.props.leaflet.leafletConfig.lat,this.props.leaflet.leafletConfig.lng];
+        const zoom = this.props.leaflet.leafletConfig.zoom;
 
         return (            
             <Map

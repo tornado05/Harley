@@ -1,12 +1,10 @@
 
   {
     "leafletConfig": {
-      "imagePath": "./img/leaflet/",
-      "mapLocation": {
-        "lat": 50.15,
-        "lng": 27.37,
-        "zoom": 7
-      },
+      "imagePath": "./img/leaflet/",      
+      "lat": 50.15,
+      "lng": 27.37,
+      "zoom": 7,
       "accessToken": "pk.eyJ1IjoiYW5keWtobWFyYSIsImEiOiJjaXVscXF5NTkwMDBiMm9waWlhamZldHB2In0.4ooYXIW33pagGNU4r9Hggw"
     },
     "cities": [
