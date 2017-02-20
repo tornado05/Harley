@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import Header from "./components/header.jsx";
 import Content from "./components/content.jsx";
 import Footer from "./components/footer.jsx";
@@ -8,10 +7,8 @@ import { getWeatherData, getStatisticsDataAction, getLeafletData } from "./actio
 import store from "./stores/harleyStore.jsx";
 
 class Harley extends React.Component {
-
     constructor() {
         super();
-
         this.unsubscribe = store.subscribe(() => {
                 this.setState(store.getState());
             }
@@ -27,7 +24,6 @@ class Harley extends React.Component {
     }
 
     render() {
-        console.log("app.jsx", this.state);
         return (
             <div className="row">
                 <Header
@@ -39,6 +35,7 @@ class Harley extends React.Component {
                 <Content
                     chartType={this.state.chart.chartType}
                     currentChart={this.state.currentChart}
+                    leaflet={this.state.leaflet.leaflet}
                     statistics={this.state.statistics.statistics}
                     weather={this.state.weather.weather}
                 />
@@ -49,4 +46,7 @@ class Harley extends React.Component {
 }
 
 ReactDOM.render(<Harley/>, document.getElementById("app"));
-
+Harley.propTypes = {
+    weather: React.PropTypes.array,
+    leaflet: React.PropTypes.object
+};
