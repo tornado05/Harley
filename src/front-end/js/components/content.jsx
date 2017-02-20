@@ -4,11 +4,11 @@ import StatChart from "./statisticsChart.jsx";
 import LeafletMap from "./leaflet.jsx";
 
 export default class Content extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
     }
     render () {
-        console.log("Props from content.jsx === ", this.props);
+        //console.log("Props from content.jsx === ", this.props);
         return (
             <div className="container">
                 <div className="row">
@@ -31,8 +31,8 @@ export default class Content extends React.Component {
                     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div className="map-wrapper">
                             <LeafletMap
-                                weather={this.props.weather}
                                 leaflet={this.props.leaflet}
+                                weather={this.props.weather}
                             />
                         </div>
                     </div>

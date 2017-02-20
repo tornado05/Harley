@@ -134,7 +134,7 @@ export default class Chart extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-12 col-sm-4">
-                            <h2>Curren Weather Chart</h2>
+                            <h2>Current Weather Chart</h2>
                         </div>
                         <div className="col-xs-12 col-sm-4">
                             <label>City:</label>

@@ -25,7 +25,7 @@ let store = createStore(harleyReducer, {
         statistics: []
     },
     leaflet: {
-        leaflet: []
+        leaflet: {}
     },
     userName: "",
     userPassword: "",
