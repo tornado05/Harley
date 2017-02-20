@@ -3,14 +3,12 @@ import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import L from "leaflet";
 import {CHART_TYPES} from "./../constants/constants.jsx";
 
-L.Icon.Default.imagePath = "./img/leaflet/";
-
-export default class Leaflet extends React.Component {
+export default class LeafletMap extends React.Component {
     constructor() {
         super();        
         this.getParamByCity = this.getParamByCity.bind(this);
         this.getParamByLeaflet = this.getParamByLeaflet.bind(this); 
-        this.getParamByState = this.getParamByState.bind(this);       
+        this.getParamByleafletConfig = this.getParamByleafletConfig.bind(this);       
     }
 
     getParamByCity(city, param){
@@ -27,30 +25,17 @@ export default class Leaflet extends React.Component {
         return Citie;
     }
 
-    getParamByState(){
-        var State = {};
-        _.map(this.props.leaflet.leafletConfig, state => {
-            console.log(state);
-            State.lat = lat;
-            State.lng = lng;
-            State.zoom = zoom;           
-        });        
-        return State;        
+    getParamByleafletConfig(){        
+        return _.defaults(this.props.leaflet.leafletConfig);        
     }
 
     render () {
-        console.log("Leaflet leaflet props === ",this.props);
-        console.log("getParamByLeaflet === ",this.getParamByLeaflet());
-        console.log("getParamByState === ",this.getParamByState());
-        //const position = [this.getParamByState().lat,this.getParamByState().lan];
-        //const zoom = this.getParamByState().zoom;
-        const position = [this.props.leaflet.leafletConfig.lat,this.props.leaflet.leafletConfig.lng];
-        const zoom = this.props.leaflet.leafletConfig.zoom;
-
+        console.log("Proprs from leaflet.jsx === ",this.props);
+        L.Icon.Default.imagePath = this.getParamByleafletConfig().imagePath;
         return (            
             <Map
-                center={position}
-                zoom={zoom}
+                center={[this.getParamByleafletConfig().lat,this.getParamByleafletConfig().lng]}
+                zoom={this.getParamByleafletConfig().zoom}
             >
                 <TileLayer
                     attribution="Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, Imagery © <a href='http://mapbox.com'>Mapbox</a>"
@@ -80,7 +65,7 @@ export default class Leaflet extends React.Component {
         );
     }
 }
-Leaflet.propTypes = {
+LeafletMap.propTypes = {
     weather: React.PropTypes.array,
     leaflet: React.PropTypes.array
 };

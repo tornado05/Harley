@@ -26,7 +26,7 @@ class Harley extends React.Component {
     }
 
     render() {
-        //console.log("app.jsx", this.state);
+        console.log("Props from app.jsx === ", this.state);
         return (
             <div className="row">
                 <Header
@@ -49,3 +49,7 @@ class Harley extends React.Component {
 }
 
 ReactDOM.render(<Harley/>, document.getElementById("app"));
+
+Harley.propTypes = {    
+    leaflet: React.PropTypes.array
+};
