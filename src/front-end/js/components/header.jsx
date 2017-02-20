@@ -25,7 +25,7 @@ export default class Header extends React.Component {
     }
 
     render() {
-        console.log("header", this.props);
+        //console.log("header", this.props);
         return (
             <header>
                 <div className="nav">

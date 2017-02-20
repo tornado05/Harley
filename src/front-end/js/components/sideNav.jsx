@@ -58,7 +58,7 @@ export default class SideNav extends React.Component {
 
 
     render () {
-        console.log("side nav", this.props);
+        //console.log("side nav", this.props);
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
