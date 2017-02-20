@@ -8,7 +8,6 @@ export default class Content extends React.Component {
         super();
     }
     render () {
-        //console.log("Props from content.jsx === ", this.props);
         return (
             <div className="container">
                 <div className="row">
