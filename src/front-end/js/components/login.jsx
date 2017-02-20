@@ -1,8 +1,9 @@
 import React from "react";
 import { Modal, Button, FormControl } from "react-bootstrap";
+import { FIELD_NAMES } from "./../constants/constants.jsx";
 
 
-import { changeUserEmailAction, changeUserPasswordAction, catchErrorAction } from "./../actions/authAction.jsx";
+import { changeUserEmailAction, changeUserPasswordAction, catchErrorAction, authorize } from "./../actions/authAction.jsx";
 //import Auth from '../modules/auth';
 
 export default class Login extends React.Component {
@@ -31,18 +32,23 @@ export default class Login extends React.Component {
     }
 
     handleEmail(email) {
-        changeUserEmailAction(email.target.value);
+        this.setState({
+            userName: email.target.value
+        });
     }
 
     handlePassword(password) {
-        changeUserPasswordAction(password.target.value);
+        this.setState({
+            userPassword: password.target.value
+        });
     }
 
-    handleGetAuth(value) {
-
+    handleGetAuth() {
+        authorize(this.state.userName, this.state.userPassword)
     }
 
     render () {
+        console.log("LOGIN", this.state, this.props);
         return (
             <div className="static-modal text-center">
                 <Button
@@ -64,15 +70,13 @@ export default class Login extends React.Component {
                             onChange={this.handleEmail}
                             placeholder="Enter email"
                             type="text"
-                            value={this.props.userName}
-
+                            value={this.state.userName}
                         />
                         <FormControl
                             onChange={this.handlePassword}
                             placeholder="Enter password"
                             type="password"
-                            value={this.props.userPassword}
-
+                            value={this.state.userPassword}
                         />
                         <Button onClick={this.handleGetAuth}>
                             Login

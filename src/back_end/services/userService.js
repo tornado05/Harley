@@ -125,6 +125,7 @@ module.exports = (function () {
     // }));
 
     var login = function (req, res, next) {
+        console.log(req);
         passport.authenticate("local-login", {
             successRedirect : "/profile",
             failureRedirect : "/login",

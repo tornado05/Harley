@@ -6,6 +6,11 @@ export const CHART_TYPES = {
 	HUMIDITY: "humidity"
 };
 
+export const FIELD_NAMES = {
+    USER_EMAIL: "userName",
+    USER_PASSWORD: "userPassword"
+};
+
 export const ACTION_TYPES = {
 	TEST: "test",
 	CHANGE_CHART_TYPE: "change_chart_type",

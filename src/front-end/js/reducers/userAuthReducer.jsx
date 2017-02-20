@@ -4,6 +4,7 @@ export function userName (state = {}, action) {
     switch (action.type) {
         case ACTION_TYPES.SET_USER_EMAIL:
             console.log("user reducer", state);
+            console.log(action.userName);
             let nameState = state;
             nameState.userName = action.userName;
             return newState;
