@@ -48,7 +48,6 @@ export default class Login extends React.Component {
     }
 
     render () {
-        console.log("LOGIN", this.state, this.props);
         return (
             <div className="static-modal text-center">
                 <Button

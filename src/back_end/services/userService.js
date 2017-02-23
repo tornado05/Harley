@@ -63,10 +63,20 @@ module.exports = (function () {
                     return done(err);
                 }
                 if (!user) {
-                    return done(null, false, req.flash("loginMessage", "No user found."));
+                    new Error('Incorrect email or password');
+                    error.name = 'IncorrectCredentialsError';
+
+                    return done(error);
+                    // return done(null, false, req.flash("loginMessage", "No user found."));
                 }
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash("loginMessage", "Oops! Wrong password."));
+                {
+                    new Error('Incorrect email or password');
+                    error.name = 'IncorrectCredentialsError';
+
+                    return done(error);
+                    // return done(null, false, req.flash("loginMessage", "Oops! Wrong password."));
+                }
                 return done(null, user);
             });
     }));

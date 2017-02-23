@@ -1,9 +1,11 @@
+import axios from "axios";
 import { ACTION_TYPES } from "./../constants/constants.jsx";
 import store from "./../stores/harleyStore.jsx";
 
-export function authorize (userName, password) {
-    console.log(userName, password);
-    axios.get(`http://localhost:3000/login`)
+export function authorize (email, password) {
+    console.log(email, password);
+
+    axios.post(`http://localhost:3000/login?email=${email}&password=${password}`)
         .then(
             function (data) {
                 console.log(data);
@@ -11,6 +13,7 @@ export function authorize (userName, password) {
         )
         .catch(function (error) {
             console.log(error);
+            console.log(error.messages);
         });
 }
 
