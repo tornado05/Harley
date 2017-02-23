@@ -1,5 +1,4 @@
 import {combineReducers} from "redux";
-import {pointerReducer} from "./pointReducer.jsx";
 import {chart} from "./chartReducer.jsx";
 import {weather} from "./weatherDataReducer.jsx";
 import {statistics} from "./statisticsDataReducer.jsx";
@@ -8,7 +7,6 @@ import { leaflet } from "./leafletReducer.jsx";
 import { userName, userPassword, authError } from "./userAuthReducer.jsx";
 
 let harleyReducer = combineReducers({
-    pointerReducer,
     chart,
     weather,
     statistics,
@@ -17,7 +15,6 @@ let harleyReducer = combineReducers({
     userName,
     userPassword,
     authError
-
 });
 
 export default harleyReducer;

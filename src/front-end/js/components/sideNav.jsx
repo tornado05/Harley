@@ -2,16 +2,12 @@ import React from "react";
 import DatePicker from "react-bootstrap-date-picker";
 import {FormGroup, ControlLabel, FormControl, Radio, Button, ButtonGroup, Modal} from "react-bootstrap";
 import {CHART_TYPES} from "./../constants/constants.jsx";
-import { changeUserEmailAction, changeUserPasswordAction, catchErrorAction } from "./../actions/authAction.jsx";
-//import Auth from '../modules/auth';
-
 import { changeChartTypeAction, changeCityAction, changeDateFromAction, changeDateToAction, changeStatTypeAction } from "./../actions/chartActions.jsx";
 import { getStatisticsDataAction } from "./../actions/dataActions.jsx";
 
 export default class SideNav extends React.Component {
     constructor(props) {
         super(props);
-
         this.handleShowChartClick = this.handleShowChartClick.bind(this);
         this.handleChartType = this.handleChartType.bind(this);
         this.handleSetInputData = this.handleSetInputData.bind(this);
@@ -19,18 +15,9 @@ export default class SideNav extends React.Component {
         this.handleSetDateFrom = this.handleSetDateFrom.bind(this);
         this.handleSetDateTo = this.handleSetDateTo.bind(this);
         this.handleGetFormData = this.handleGetFormData.bind(this);
-        this.getInitialState = this.getInitialState.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleModalOpen = this.handleModalOpen.bind(this);
-        this.handleEmail = this.handleEmail.bind(this);
-        this.handlePassword = this.handlePassword.bind(this);
-
-        this.getInitialState();
         this.state = props.chartState;
-    }
-
-    getInitialState() {
-        return { showModal: false };
     }
 
     handleShowChartClick () {
@@ -70,16 +57,7 @@ export default class SideNav extends React.Component {
         getStatisticsDataAction(this.state.periodFrom, this.state.periodTo, this.state.cityName);
     }
 
-    handleEmail(email) {
-        changeUserEmailAction(email.target.value);
-    }
-
-    handlePassword(password) {
-        changeUserPasswordAction(password.target.value);
-    }
-
     render () {
-        //console.log("side nav", this.props);
         return (
             <div className={this.props.className}>
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -137,42 +115,6 @@ export default class SideNav extends React.Component {
                             Show
                         </Button>
                     </form>
-                </div>
-                <div className="static-modal text-center">
-                    <Button
-                        bsSize="large"
-                        bsStyle="primary"
-                        onClick={this.handleModalOpen}
-                    >
-                        Log in
-                    </Button>
-                    <Modal
-                        onHide={this.handleModalClose}
-                        show={this.state.showModal}
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <FormControl
-                                onChange={this.handleEmail}
-                                placeholder="Enter email"
-                                type="text"
-                                value={this.props.userName}
-
-                            />
-                            <FormControl
-                                onChange={this.handlePassword}
-                                placeholder="Enter password"
-                                type="password"
-                                value={this.props.userPassword}
-
-                            />
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button onClick={this.handleModalClose}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
                 </div>
             </div>
         );
