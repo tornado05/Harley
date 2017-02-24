@@ -1,5 +1,5 @@
 var gulp            = require('gulp'),
-    jslint          = require('gulp-jslint'),
+    eslint          = require('gulp-eslint'),
     fs              = require('fs'),
     less            = require('gulp-less'),
     autoprefixer    = require('gulp-autoprefixer'),
@@ -9,19 +9,65 @@ var gulp            = require('gulp'),
     concat          = require('gulp-concat'),
     compile         = require('gulp-ejs-template'),
     concatCss       = require('gulp-concat-css'),
-    browserSync     = require('browser-sync').create(),
-    watch           = require('gulp-watch');
+    watch           = require('gulp-watch'),
+    webpack         = require('gulp-webpack');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
 
 gulp.task('lint', function (cb) {
-    return gulp.src(['./src/**/*.js'])
-        .pipe(jslint({
-            node: true,
-            stupid: true
+    return gulp.src(['./src/**/*.js', './src/**/*.jsx'])
+        .pipe(eslint({
+            "env": {
+                "es6": true
+            },
+            "plugins": [
+                "react"
+            ],
+            "parser": "babel-eslint",
+            "parserOptions": {
+                "ecmaFeatures": {
+                    "jsx": true,
+                    "modules": true
+                }
+            },
+            "rules": {
+                "camelcase": 1,
+                "comma-dangle": 2,
+                "quotes": 1,
+                //"strict": 2,
+                "no-trailing-spaces": 1,
+                "no-multi-spaces": 1,
+                "no-multiple-empty-lines": 1,
+                "react/display-name": 1,
+                "react/jsx-boolean-value": 1,
+                "react/jsx-closing-bracket-location": 1,
+                "react/jsx-curly-spacing": 1,
+                "react/jsx-handler-names": 1,
+                "react/jsx-indent-props": 1,
+                "react/jsx-key": 1,
+                "react/jsx-max-props-per-line": 1,
+                "react/jsx-no-duplicate-props": 1,
+                "react/jsx-no-undef": 1,
+                "react/jsx-pascal-case": 1,
+                "react/jsx-sort-props": 1,
+                "react/jsx-uses-react": 1,
+                "react/jsx-uses-vars": 1,
+                "react/no-danger": 1,
+                "react/no-did-mount-set-state": 1,
+                "react/no-did-update-set-state": 1,
+                "react/no-direct-mutation-state": 1,
+                "react/no-multi-comp": 1,
+                "react/no-unknown-property": 1,
+                "react/prefer-es6-class": 1,
+                "react/prop-types": 1,
+                "react/react-in-jsx-scope": 1,
+                "react/sort-comp": 1,
+                "react/jsx-wrap-multilines": 1
+            }
         }))
-        .pipe(jslint.reporter('default', {}));
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
     cb();
 });
 
@@ -45,30 +91,24 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/front-end/js/models/**',
-        './src/front-end/js/collections/**',
-        './src/front-end/js/services/**',
-        './src/front-end/js/views/**',
-        './src/front-end/js/initialize.js'
+        './src/front-end/js/**/*.jsx'
     ])
-        .pipe(sourcemaps.init())
-        .pipe(concat('bundle.js'))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(DIST_DIR + '/public/js'));
-});
-
-gulp.task('vendor-js', function () {
-    return gulp.src([
-        './bower_components/jquery/dist/jquery.min.js*',
-        './bower_components/underscore/underscore-min.js',
-        './bower_components/backbone/backbone-min.js',
-        './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/materialize/dist/js/materialize.min.js',
-        './bower_components/chart.js/dist/Chart.min.js'
-    ])
-        .pipe(concat('vendor.js'))
-        .pipe(sourcemaps.write())
+        .pipe(webpack({
+            module: {
+                loaders: [
+                    {
+                         loader: 'babel-loader',
+                         exclude: /node_modules/,
+                         query: {
+                            presets: ['es2015', 'react']
+                        }
+                    }
+                ]
+            },
+            output: {
+                filename: 'bundle.js'
+            }
+        }))        
         .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
@@ -89,8 +129,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        './bower_components/materialize/dist/css/materialize.min.css',
-        './bower_components/leaflet/dist/leaflet.css'
+        './bower_components/leaflet/dist/leaflet.css',
+        './bower_components/bootstrap/dist/css/bootstrap.min.css'
     ])
         .pipe(sourcemaps.init())
         .pipe(concatCss('vendor.css'))
@@ -103,13 +143,12 @@ gulp.task('vendor-images', function () {
     return gulp.src([
         './bower_components/leaflet/dist/images/*.*'
     ])
-        .pipe(gulp.dest(DIST_DIR + '/public/img/images'));
+        .pipe(gulp.dest(DIST_DIR + '/public/img/leaflet'));
 });
 
 gulp.task('fonts', function(){
     return gulp.src([
-        './src/front-end/fonts/roboto/**/**',
-        './src/front-end/fonts/Material-Design-Icons/**/*.*'
+        './src/front-end/fonts/roboto/**/**'
     ])
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
@@ -121,72 +160,35 @@ gulp.task('img', function(){
         .pipe(gulp.dest(DIST_DIR + '/public/img/'));
 });
 
-gulp.task('templates', function() {
-    return gulp.src('./src/front-end/templates/*.ejs')
-        .pipe(compile({
-            moduleName: 'templates',
-            escape: false
-        }))
-        .pipe(uglify())
-        .pipe(gulp.dest(DIST_DIR + '/public/js'));
-});
-
-gulp.task('browser-sync', function() {
-    browserSync.init({
-        port: LAYOUT_PORT,
-        server: {
-            baseDir: DIST_DIR +"/public"
-        }
-    });
-});
-
-gulp.task('watch-fr', function () {
-    return gulp.watch('./src/front-end/**', [
+gulp.task('watch', function () {
+    return gulp.watch('./src/**/**', [
         'update-front-end',
-        browserSync.reload
+        'build-back-end'
     ]);
 });
 
-gulp.task('watch', function () {
-    return gulp.watch('./src/**/**', ['build']);
-});
-
-gulp.task('front-end', [
-    'vendor-js',
+gulp.task('build-front-end', [
     'vendor-css',
     'vendor-images',
-    'compile-html',
-    'compile-js',
-    'compile-less',
+    'update-front-end',
     'fonts',
-    'templates',
     'img'
 ]);
 
 gulp.task('update-front-end', [
     'compile-html',
     'compile-js',
-    'compile-less',
-    'templates',
-    'img'
-]);
-
-gulp.task('layout', [
-    'front-end',
-    'browser-sync',
-    'watch-fr'
-]);
-
-gulp.task('backbone', [
-    'front-end',
-    'watch-fr'
+    'compile-less'
 ]);
 
 gulp.task('build', [
     'lint', 
     'make-dirs',
     'build-back-end',
-    'front-end'
+    'build-front-end'
 ]);
 
-gulp.task('default', ['build']);
+gulp.task('default', [
+    'build',
+    'watch'
+]);

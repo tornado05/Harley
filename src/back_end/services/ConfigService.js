@@ -9,9 +9,10 @@ var settingsPath = './config/settings.json',
     fs          = require('fs');
 
 module.exports = (function () {
+    "use strict";
     var readData = function (path) {
             try {
-                var result = fs.readFileSync(path, 'utf8');
+                var result = fs.readFileSync(path, "utf8");
                 return JSON.parse(result);
             } catch (e) {
                 logger.logError(set.messages.fs.cantReadFile + path);
@@ -23,7 +24,7 @@ module.exports = (function () {
                 fs.writeFileSync(
                     path,
                     JSON.stringify(data),
-                    { flag: 'w+' }
+                    {flag: "w+"}
                 );
             } catch (e) {
                 logger.logError(set.messages.fs.cantWriteToFile +
@@ -34,9 +35,9 @@ module.exports = (function () {
         },
         config = readData(configPath),
         getCitiesURLs = function () {
-            var configsAPI_URLs = [];
+            var configsApiUrls = [];
             _.each(config.cities, function (city) {
-                var cityName = '';
+                var cityName = "";
                 if (city.wundergroundName) {
                     cityName = city.wundergroundName;
                 } else {
@@ -69,7 +70,7 @@ module.exports = (function () {
                 });
             });
 
-            return configsAPI_URLs;
+            return configsApiUrls;
         },
         getServicesNames = function () {
             var servicesNames = [];

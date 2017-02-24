@@ -1,9 +1,9 @@
 [
   {
     "_id" : "58725769cff4351d243896ee",
-    "time" : 1483886272,
-    "city" : "Kiev",
-    "service" : "darkSky",
+    "date" : 1483886272,
+    "cityName" : "Kiev",
+    "sourceAPI" : "darkSky",
     "stat" :
       {
         "temp" : {
@@ -11,7 +11,7 @@
           "max" : -9.32,
           "avg" : -9.515
         },
-        "hum" : {
+        "humidity" : {
           "min" : 87,
           "max" : 87,
           "avg" : 87
@@ -26,9 +26,9 @@
   },
   {
     "_id" : "58725769cff4351d243896ed",
-    "time" : 1483886271,
-    "city" : "Kiev",
-    "service" : "wunderground",
+    "date" : 1483886271,
+    "cityName" : "Kiev",
+    "sourceAPI" : "wunderground",
     "stat" :
       {
         "temp" : {
@@ -36,7 +36,7 @@
           "max" : -10.1,
           "avg" : -10.15
         },
-        "hum" : {
+        "humidity" : {
           "min" : 92,
           "max" : 92,
           "avg" : 92
@@ -51,9 +51,9 @@
   },
   {
     "_id" : "58725769cff4351d243896ec",
-    "time" : 1483884000,
-    "city" : "Kiev",
-    "service" : "openWeather",
+    "date" : 1483884000,
+    "cityName" : "Kiev",
+    "sourceAPI" : "openWeather",
     "stat" :
       {
         "temp" : {
@@ -61,7 +61,7 @@
           "max" : -10.66,
           "avg" : -10.66
         },
-        "hum" : {
+        "humidity" : {
           "min" : 85,
           "max" : 85,
           "avg" : 85
@@ -76,9 +76,9 @@
   },
   {
     "_id" : "58725769cff4351d243896eb",
-    "time" : 1483886272,
-    "city" : "Luts'k",
-    "service" : "darkSky",
+    "date" : 1483886272,
+    "cityName" : "Luts'k",
+    "sourceAPI" : "darkSky",
     "stat" :
       {
         "temp" : {
@@ -86,7 +86,7 @@
           "max" : -12.19,
           "avg" : -12.215
         },
-        "hum" : {
+        "humidity" : {
           "min" : 72,
           "max" : 72,
           "avg" : 72
@@ -101,9 +101,9 @@
   },
   {
     "_id" : "58725769cff4351d243896ea",
-    "time" : 1483886271,
-    "city" : "Luts'k",
-    "service" : "wunderground",
+    "date" : 1483886271,
+    "cityName" : "Luts'k",
+    "sourceAPI" : "wunderground",
     "stat" :
       {
         "temp" : {
@@ -111,7 +111,7 @@
           "max" : -12,
           "avg" : -12.5
         },
-        "hum" : {
+        "humidity" : {
           "min" : 79,
           "max" : 85,
           "avg" : 82
@@ -126,16 +126,16 @@
   },
   {
     "_id" : "58725769cff4351d243896e8",
-    "time" : 1483886272,
-    "city" : "Rivne",
-    "service" : "darkSky",
+    "date" : 1483886272,
+    "cityName" : "Rivne",
+    "sourceAPI" : "darkSky",
     "stat" :       {
         "temp" : {
           "min" : -12.28,
           "max" : -12.12,
           "avg" : -12.2
         },
-        "hum" : {
+        "humidity" : {
           "min" : 67,
           "max" : 72,
           "avg" : 69.5
@@ -150,9 +150,9 @@
   },
   {
     "_id" : "58725769cff4351d243896e9",
-    "time" : 1483884000,
-    "city" : "Luts'k",
-    "service" : "openWeather",
+    "date" : 1483884000,
+    "cityName" : "Luts'k",
+    "sourceAPI" : "openWeather",
     "stat" :
       {
         "temp" : {
@@ -160,7 +160,7 @@
           "max" : -12,
           "avg" : -12.5
         },
-        "hum" : {
+        "humidity" : {
           "min" : 78,
           "max" : 84,
           "avg" : 81
@@ -175,9 +175,9 @@
   },
   {
     "_id" : "58725769cff4351d243896e7",
-    "time" : 1483886271,
-    "city" : "Rivne",
-    "service" : "wunderground",
+    "date" : 1483886271,
+    "cityName" : "Rivne",
+    "sourceAPI" : "wunderground",
     "stat" :
       {
         "temp" : {
@@ -185,7 +185,7 @@
           "max" : -8.6,
           "avg" : -8.8
         },
-        "hum" : {
+        "humidity" : {
           "min" : 81,
           "max" : 82,
           "avg" : 81.5
@@ -200,16 +200,16 @@
   },
   {
     "_id" : "58725769cff4351d243896e6",
-    "time" : 1483884000,
-    "city" : "Rivne",
-    "service" : "openWeather",
+    "date" : 1483884000,
+    "cityName" : "Rivne",
+    "sourceAPI" : "openWeather",
     "stat" :       {
         "temp" : {
           "min" : -13,
           "max" : -12,
           "avg" : -12.5
         },
-        "hum" : {
+        "humidity" : {
           "min" : 78,
           "max" : 84,
           "avg" : 81

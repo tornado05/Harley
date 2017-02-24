@@ -7,7 +7,6 @@ var set    = require('./../config/settings.json'),
     logger = require('./logger.js');
 
 module.exports = (function () {
-
     var getFallOut = function (weather, serviceName) {
             var fallOut = "none";
             _.each(config.services, function (service) {
@@ -50,6 +49,7 @@ module.exports = (function () {
                     serviceName, data.coord.lon, data.coord.lat, data.dt);
             if (result.length === 0) {
                 logger.logError('No data from service ' + serviceName);
+
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }
@@ -58,17 +58,18 @@ module.exports = (function () {
         prepareDataFromWunderground = function (serviceName, city, data) {
             var humidity = parseInt((data.current_observation.relative_humidity).replace(/%/g, ''), 10),
                 result =  prepareData(city, parseFloat(data.current_observation.temp_c), parseFloat(data.current_observation.pressure_mb),
+
                     humidity, parseFloat(data.current_observation.wind_gust_kph), data.current_observation.wind_degrees, null,
                     getFallOut(data.current_observation.icon, serviceName), serviceName, parseFloat(data.current_observation.display_location.longitude),
                     parseFloat(data.current_observation.display_location.latitude), parseFloat(data.current_observation.local_epoch));
             if (result.length === 0) {
                 logger.logError('No data from service ' + serviceName);
+
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }
             return result;
         },
-
         prepareDataFromDarkSky = function (serviceName, city, data) {
             var tempInCelsius = parseFloat(((data.currently.temperature - 32) * (5 / 9)).toFixed(2)),
                 windSpeedInKmH = parseFloat(((data.currently.windSpeed) * set.variables.milesToKm).toFixed(2)),
@@ -77,6 +78,7 @@ module.exports = (function () {
                     data.longitude, data.latitude, data.currently.time);
             if (result.length === 0) {
                 logger.logError('No data from service ' + serviceName);
+
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }

@@ -12,7 +12,7 @@ var logger              = require('./../services/logger.js'),
 module.exports = (function () {
     var readData = function (path) {
             try {
-                var result = fs.readFileSync(path, 'utf8');
+                var result = fs.readFileSync(path, "utf8");
                 return JSON.parse(result);
             } catch (e) {
                 logger.logError(set.messages.fs.cantReadFile + path);
@@ -44,7 +44,7 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceMonthStatMock.json';
+                    var path = "./data/serviceMonthStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -56,11 +56,11 @@ module.exports = (function () {
          */
         getCityDayStat = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo),
-                result =  dataBaseService.getStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, date.start, date.end, city).then(function (items) {
+                result = dataBaseService.getStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityDayStatistics, date.start, date.end, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/cityDayStatMock.json';
+                    var path = "./data/cityDayStatMock.json";
                     return readData(path);
                 });
             return result;
@@ -68,19 +68,20 @@ module.exports = (function () {
         getCityMonthStat = function (month, city) {
             var date = getDate(month, null, "M"),
                 result =  dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
+
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/cityMonthStatMock.json';
+                    var path = "./data/cityMonthStatMock.json";
                     return readData(path);
                 });
             return result;
         },
-    /**
-     *  @desc: Method returns an array of current weather from the database.
-     *  If the database not available -  returned mock data from JSON.
-     *
-     */
+        /**
+         *  @desc: Method returns an array of current weather from the database.
+         *  If the database not available -  returned mock data from JSON.
+         *
+         */
         getCurrentWeather = function () {
             var count = config.countFields(),
                 result = dataBaseService.getLastRecords(pathToDBs.urlWeatherDataDB, pathToDBs.dataAfterMapperCollectionName, count).then(function (items) {
@@ -91,11 +92,11 @@ module.exports = (function () {
                 });
             return result;
         },
-    /**
-     * @desc:
-     * Method returns an array of day statistic from the database.
-     * If the database not available -  returned mock data from JSON.
-     */
+        /**
+         * @desc:
+         * Method returns an array of day statistic from the database.
+         * If the database not available -  returned mock data from JSON.
+         */
         getServiceDayStat = function (dateFrom, dateTo, service) {
             var date = getDate(dateFrom, dateTo),
                 result = dataBaseService.getStatisticsOnServices(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatistics, date.start, date.end, service).then(function (items) {
@@ -123,7 +124,7 @@ module.exports = (function () {
                 return items;
             }, function (err) {
                 logger.logError(err);
-                var path = './data/serviceMonthStatByCities.json';
+                var path = "./data/serviceMonthStatByCities.json";
                 return readData(path);
             });
             return result;
