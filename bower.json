@@ -19,9 +19,9 @@
   "dependencies": {
     "jquery": "^3.0.0",
     "underscore": "^1.8.3",
-    "backbone": "1.2.3",
     "leaflet": "0.7.x",
     "chart.js": "^2.4.0",
-    "bootstrap": "^3.3.7"
+    "angular": "1.6.x",
+    "angular-route": "1.6.x"
   }
 }
