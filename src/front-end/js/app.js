@@ -1,5 +1,7 @@
 var Harley = angular.module('harley', [
-    "ngRoute"
+    "ngRoute",
+    "ui.bootstrap",
+    "ngResource"
 ]);
 
 Harley.controller("MainController", ["$scope", "$rootScope", function ($scope, $rootScope) {
@@ -22,6 +24,88 @@ Harley.controller("TestController", ["$scope", "$rootScope", function ($scope, $
     };
 
     initialize();
+}]);
+
+Harley.controller("HarleyModalController", ["$scope", "$uibModal", function ($scope, $uibModal) {
+    $scope.openModal = function () {
+        console.log("Modal will be open here!!!");
+
+        $scope.modalInstance = $uibModal.open({
+            size: "sm",
+            templateUrl: "modal.html",
+            controller: ["$scope", "$uibModalInstance", function ($scope, $uibModalInstance) {
+                console.log($uibModalInstance);
+                $scope.ok = function () {
+                    console.log($scope.modalText);
+                    $uibModalInstance.close({modalText: $scope.modalText});
+                };
+
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+            }]
+        });
+
+        $scope.modalInstance.result.then(function (data) {
+            console.log("Ok");
+            console.log(data);
+            $scope.modalText = data["modalText"];
+        }, function () {
+            console.log("Reject");
+        });
+    };
+}]);
+
+Harley.controller("HarleyController", ["$scope", "CONST", "HarleyService", "Configs", function ($scope, CONST, HarleyService, Configs) {
+    console.log("Const = ", CONST);
+    console.log(HarleyService.getTestValue());
+    // this won't work
+    //console.log(HarleyService.innerFuction());
+
+    $scope.config = Configs.get({});
+    console.log($scope.config);
+    Configs.get({}).$promise.then(function (data) {
+        console.log("Config data ", data, data.auth);
+    }, function (error) {
+        console.log("Config error ", error);
+    });
+}]);
+
+Harley.factory("Configs", ["$resource", function ($resource) {
+    return $resource("/weather/v01/configs", {}, {
+        'get': {
+            method: "GET"
+        }
+    });
+}]);
+
+Harley.service("HarleyService", ["CONST", function (CONST) {
+    var innerFuction = function () {
+        return CONST;
+    };
+
+    this.getTestValue = function () {
+        return innerFuction();
+    };
+}]);
+
+Harley.component("harleyTestComponent", {
+    controller: "HarleyTestComponentController",
+    templateUrl: "harley_component.html"
+});
+
+Harley.constant("CONST", "test const");
+
+Harley.controller("HarleyTestComponentController", ["$scope", "$element", "$attrs", function ($scope, $element, $attrs) {
+    $scope.setAttr = function () {
+      console.log("setAttr", $element, $attrs);
+      $element.attr("data-test", "test");
+    };
+
+    $scope.getAttr = function () {
+        var value = $element.attr("data-test");
+        console.log("Data attribute value: ", value);
+    };
 }]);
 
 Harley.config(['$routeProvider', function ($routeProvider) {

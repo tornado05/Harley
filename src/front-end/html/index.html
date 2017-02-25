@@ -14,6 +14,22 @@
     <!--<button ng-click="setTest()">Set test to 5</button>-->
 <!--</div>-->
 
+<div ng-controller="HarleyController">
+    <div uib-alert template-url="alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>
+</div>
+
+<harley-test-component>
+
+</harley-test-component>
+
+<div ng-controller="HarleyModalController">
+    <button ng-click="openModal()">Open Modal</button>
+    <div>
+        <label>Modal text</label>
+        <div>{{modalText}}</div>
+    </div>
+</div>
+
 <a href="#!/main">Main</a>
 <a href="#!/test">Test</a>
 
