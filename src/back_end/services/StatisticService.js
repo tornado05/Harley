@@ -118,14 +118,14 @@ module.exports = (function () {
             var dayStart = new Date(),
                 dayEnd = new Date();
             switch (timePeriodNeeded) {
-            case "day":
-                dayStart    = new Date(searchTime.getTime());
-                dayEnd      = new Date(searchTime.getTime());
-                break;
-            case "month":
-                dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
-                dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
-                break;
+                case "day":
+                    dayStart = new Date(searchTime.getTime());
+                    dayEnd = new Date(searchTime.getTime());
+                    break;
+                case "month":
+                    dayStart = new Date(searchTime.getFullYear(), searchTime.getMonth(), 1);
+                    dayEnd = new Date(searchTime.getFullYear(), searchTime.getMonth() + 1, 0);
+                    break;
             }
             dayStart.setHours(set.dayStart.hour, set.dayStart.mins, set.dayStart.sec, set.dayStart.mSec);
             dayEnd.setHours(set.dayEnd.hour, set.dayEnd.mins, set.dayEnd.sec, set.dayEnd.mSec);

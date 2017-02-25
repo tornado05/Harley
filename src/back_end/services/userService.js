@@ -69,7 +69,7 @@ module.exports = (function () {
                     return done(null, false, req.flash("loginMessage", "Oops! Wrong password."));
                 return done(null, user);
             });
-    }));
+        }));
     passport.use("local-register", new LocalStrategy({
             usernameField : "email",
             passwordField : "password",
@@ -94,7 +94,7 @@ module.exports = (function () {
                     });
                 }
             });
-    }));
+        }));
     // passport.use('facebook', new FacebookStrategy({
     //         clientID : config.auth.facebook.clientID,
     //         clientSecret : config.auth.facebook.clientSecret,

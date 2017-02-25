@@ -1,13 +1,17 @@
+var http = require("http"),
+    express = require("express"),
+    bodyParser = require("body-parser"),
+    app = express(),
+    passport = require("passport"),
+    bcrypt = require("bcrypt-nodejs"),
+    session = require("express-session"),
+    logger = require("./services/logger"),
+    configService = require("./services/ConfigService"),
+    user = require("./services/userService"),
+    cookieParser = require("cookie-parser"),
+    flash = require("connect-flash");
+weatherController = require("./controllers/weather");
 
-/*jslint unparam: true*/
-'use strict';
-var http        = require('http'),
-    express     = require('express'),
-    bodyParser  = require("body-parser"),
-    app         = express(),
-    logger      = require('./services/logger'),
-    configService     = require('./services/ConfigService'),
-    weatherController = require('./controllers/weather');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));

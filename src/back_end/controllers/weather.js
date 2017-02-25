@@ -1,15 +1,12 @@
-/*jslint nomen: true*/
-/*jslint unparam: true*/
-'use strict';
-var logger              = require('./../services/logger.js'),
-    dataBaseService     = require('./../services/DataBaseService'),
-    pathToDBs           = require('./../config/pathConfig.json'),
-    set                 = require('./../config/settings.json'),
-    config              = require('./../services/ConfigService.js'),
-    fs                  = require('fs'),
-    _                   = require('lodash');
-
+var logger = require("./../services/logger.js"),
+    dataBaseService = require("./../services/DataBaseService"),
+    pathToDBs = require("./../config/pathConfig.json"),
+    set = require("./../config/settings.json"),
+    config = require("./../services/ConfigService.js"),
+    fs = require("fs"),
+    _ = require("lodash");
 module.exports = (function () {
+    "use strict";
     var readData = function (path) {
             try {
                 var result = fs.readFileSync(path, "utf8");
@@ -67,8 +64,7 @@ module.exports = (function () {
         },
         getCityMonthStat = function (month, city) {
             var date = getDate(month, null, "M"),
-                result =  dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
-
+                result = dataBaseService.getMonthStatisticsOnCities(pathToDBs.urlStatisticsDataDB, pathToDBs.CityMonthStatistics, date, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
@@ -88,7 +84,8 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    return readData('./data/common_data.json');
+                    return readData("./data/common_data.json");
+
                 });
             return result;
         },
@@ -103,18 +100,18 @@ module.exports = (function () {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceDayStatMock.json';
+                    var path = "./data/serviceDayStatMock.json";
                     return readData(path);
                 });
             return result;
         },
         getServiceStatByCities = function (dateFrom, dateTo, city) {
             var date = getDate(dateFrom, dateTo),
-                result =  dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
+                result = dataBaseService.getServiceStatisticsByCities(pathToDBs.urlStatisticsDataDB, pathToDBs.ServiceDayStatisticsByCity, date.start, date.end, city).then(function (items) {
                     return items;
                 }, function (err) {
                     logger.logError(err);
-                    var path = './data/serviceDayStatByCities.json';
+                    var path = "./data/serviceDayStatByCities.json";
                     return readData(path);
                 });
             return result;

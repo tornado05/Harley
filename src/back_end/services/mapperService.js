@@ -1,12 +1,9 @@
-/*jslint nomen: true*/
-/*jslint unparam: true*/
-'use strict';
-var set    = require('./../config/settings.json'),
-    config = require('./../config/config.json'),
-    _      = require('lodash'),
-    logger = require('./logger.js');
-
+var set = require("./../config/settings.json"),
+    config = require("./../config/config.json"),
+    _ = require("lodash"),
+    logger = require("./logger.js");
 module.exports = (function () {
+    "use strict";
     var getFallOut = function (weather, serviceName) {
             var fallOut = "none";
             _.each(config.services, function (service) {
@@ -48,23 +45,20 @@ module.exports = (function () {
                     windSpeedInKmH, data.wind.deg, data.clouds.all, getFallOut(_.first(data.weather).main, serviceName),
                     serviceName, data.coord.lon, data.coord.lat, data.dt);
             if (result.length === 0) {
-                logger.logError('No data from service ' + serviceName);
-
+                logger.logError("No data from service " + serviceName);
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }
             return result;
         },
         prepareDataFromWunderground = function (serviceName, city, data) {
-            var humidity = parseInt((data.current_observation.relative_humidity).replace(/%/g, ''), 10),
-                result =  prepareData(city, parseFloat(data.current_observation.temp_c), parseFloat(data.current_observation.pressure_mb),
-
+            var humidity = parseInt((data.current_observation.relative_humidity).replace(/%/g, ""), 10),
+                result = prepareData(city, parseFloat(data.current_observation.temp_c), parseFloat(data.current_observation.pressure_mb),
                     humidity, parseFloat(data.current_observation.wind_gust_kph), data.current_observation.wind_degrees, null,
                     getFallOut(data.current_observation.icon, serviceName), serviceName, parseFloat(data.current_observation.display_location.longitude),
                     parseFloat(data.current_observation.display_location.latitude), parseFloat(data.current_observation.local_epoch));
             if (result.length === 0) {
-                logger.logError('No data from service ' + serviceName);
-
+                logger.logError("No data from service " + serviceName);
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }
@@ -77,8 +71,7 @@ module.exports = (function () {
                     data.currently.windBearing, data.currently.cloudCover * 100, getFallOut(data.currently.icon, serviceName), serviceName,
                     data.longitude, data.latitude, data.currently.time);
             if (result.length === 0) {
-                logger.logError('No data from service ' + serviceName);
-
+                logger.logError("No data from service " + serviceName);
             } else {
                 logger.logInfo("Data from " + serviceName + " collected");
             }
@@ -87,15 +80,15 @@ module.exports = (function () {
         prepareDataFromService = function (serviceName, city, data) {
             var result = {};
             switch (serviceName) {
-            case "openWeather":
-                result = prepareDataFromOpenWeather(serviceName, city, data);
-                break;
-            case "darkSky":
-                result = prepareDataFromDarkSky(serviceName, city, data);
-                break;
-            case "wunderground":
-                result = prepareDataFromWunderground(serviceName, city, data);
-                break;
+                case "openWeather":
+                    result = prepareDataFromOpenWeather(serviceName, city, data);
+                    break;
+                case "darkSky":
+                    result = prepareDataFromDarkSky(serviceName, city, data);
+                    break;
+                case "wunderground":
+                    result = prepareDataFromWunderground(serviceName, city, data);
+                    break;
             }
             return result;
         };

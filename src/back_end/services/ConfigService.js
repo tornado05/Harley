@@ -1,12 +1,9 @@
-/*jslint nomen: true*/
-/*jslint unparam: true*/
-'use strict';
-var settingsPath = './config/settings.json',
-    configPath  = './config/config.json',
-    logger      = require('./logger.js'),
-    set         = require('./../config/settings.json'),
-    _           = require('lodash'),
-    fs          = require('fs');
+var settingsPath = "./config/settings.json",
+    configPath = "./config/config.json",
+    logger = require("./logger.js"),
+    set = require("./../config/settings.json"),
+    _ = require("lodash"),
+    fs = require("fs");
 
 module.exports = (function () {
     "use strict";
@@ -45,27 +42,27 @@ module.exports = (function () {
                 }
                 _.each(config.services, function (service) {
                     switch (service.name) {
-                    case "openWeather":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + cityName + service.urlPart2
-                        });
-                        break;
-                    case "wunderground":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + cityName + service.urlPart2
-                        });
-                        break;
-                    case "darkSky":
-                        configsAPI_URLs.push({
-                            name: service.name,
-                            city: cityName,
-                            url: service.urlPart1 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
-                        });
-                        break;
+                        case "openWeather":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + cityName + service.urlPart2
+                            });
+                            break;
+                        case "wunderground":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + cityName + service.urlPart2
+                            });
+                            break;
+                        case "darkSky":
+                            configsApiUrls.push({
+                                name: service.name,
+                                city: cityName,
+                                url: service.urlPart1 + city.xCords.toFixed(2) + "," + city.yCords.toFixed(2)
+                            });
+                            break;
                     }
                 });
             });
