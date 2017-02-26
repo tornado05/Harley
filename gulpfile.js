@@ -91,7 +91,12 @@ gulp.task('compile-html', function () {
 
 gulp.task('compile-js', function () {
     return gulp.src([
-        './src/front-end/js/**/*.js'
+        './src/front-end/js/app.js',
+        './src/front-end/js/components/*.js',
+        './src/front-end/js/constants/*.js',
+        './src/front-end/js/controllers/*.js',
+        './src/front-end/js/factories/*.js',
+        './src/front-end/js/services/*.js'
     ])
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest(DIST_DIR + "/public/js"))
@@ -101,8 +106,8 @@ gulp.task('vendor-js', function () {
     return gulp.src([
         './bower_components/jquery/dist/jquery.min.js*',
         './bower_components/underscore/underscore.min.js*',
-        './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/chart.js/dist/Chart.min.js',
+        './bower_components/leaflet/dist/leaflet.js',//TODO: replace this with angular items
+        './bower_components/chart.js/dist/Chart.min.js',//TODO: replace this with angular items
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
         './bower_components/angular-resource/angular-resource.min.js',
