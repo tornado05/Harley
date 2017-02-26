@@ -19,12 +19,11 @@
   "dependencies": {
     "jquery": "^3.0.0",
     "underscore": "^1.8.3",
-    "leaflet": "0.7.x",
-    "chart.js": "^2.4.0",
     "angular": "1.6.x",
     "angular-route": "1.6.x",
     "angular-resource": "1.6.x",
-    "angular-ui-bootstrap": "2.5.x",
-    "bootstrap": "3.3.x"
+    "angular-chart": "0.3.x",
+    "angular-leaflet-directive": "0.10.x",
+    "angular-ui-bootstrap": "2.5.x"
   }
 }
