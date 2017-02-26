@@ -8,3 +8,18 @@ Harley.factory("Configs", ["$resource", function ($resource) {
         }
     });
 }]);
+Harley.factory("LoginFactory", ["$resource", function ($resource) {
+    return $resource("/login", {}, {
+        'post': {
+            method: "post"
+        }
+    });
+}]);
+
+Harley.factory("SignupFactory", ["$resource", function ($resource) {
+    return $resource("/signup", {}, {
+        'post': {
+            method: "post"
+        }
+    });
+}]);

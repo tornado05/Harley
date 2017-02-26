@@ -77,6 +77,8 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
+        './bower_components/bootstrap/dist/css/bootstrap.min.css',
+        './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0-csp.css'
     ])
         .pipe(sourcemaps.init())

@@ -11,7 +11,17 @@ var http = require("http"),
     cookieParser = require("cookie-parser"),
     flash = require("connect-flash"),
     weatherController = require("./controllers/weather");
+    var User = require('./services/userService.js');
 
+var mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost:27017/Users");
+
+mongoose.set("debug", true);
+
+module.exports.User = require("./services/userService.js");
+
+
+require('./config/passport')(passport);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -22,30 +32,84 @@ app.use(require("express-session")({
     saveUninitialized: true
 }));
 
-
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+//Body-parser
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); //for parsing application/json
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
-app.post("/login", user.login);
 
-app.post("/signup", user.register);
+app.post("/login", passport.authenticate('local-login'), function(req, res) {
+    console.log("hi");
+    console.log(req);
+    console.log(json(req.user));
+    res.json(req.user);
+});
 
-app.get("/logout", user.logout);
+// handle logout
+app.post("/logout", function(req, res) {
+    req.logOut();
+    res.send(200);
+});
 
-// route middleware to make sure
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
-        return next();
-    res.redirect("/");
-}
+// loggedin
+app.get("/loggedin", function(req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
+});
 
-app.get("/profile", isLoggedIn, function(req, res) {
-    res.render("profile.ejs", {
-        user : req.user
+// signup
+app.post("/signup", function(req, res, next) {
+    User.findOne({
+        username: req.body.username
+    }, function(err, user) {
+        if (user) {
+            res.json(null);
+            return;
+        } else {
+            var newUser = new User();
+            newUser.username = req.body.username.toLowerCase();
+            newUser.password = newUser.generateHash(req.body.password);
+            newUser.save(function(err, user) {
+                req.login(user, function(err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.json(user);
+                });
+            });
+        }
     });
 });
+
+
+
+
+
+// app.post("/login", user.login);
+
+
+// app.post("/signup", user.register);
+//
+// app.get("/logout", user.logout);
+//
+// // route middleware to make sure
+// function isLoggedIn(req, res, next) {
+//     if (req.isAuthenticated())
+//         return next();
+//     res.redirect("/");
+// }
+//
+// app.get("/profile", isLoggedIn, function(req, res) {
+//     res.render("profile.ejs", {
+//         user : req.user
+//     });
+// });
 
 // // route for facebook authentication and login
 // app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
