@@ -5,11 +5,11 @@ Harley.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when("/main", {
             controller: "MainController",
-            templateUrl: "main.html"
+            templateUrl: "pages/main.html"
         })
         .when("/test", {
             controller: "TestController",
-            templateUrl: "test.html"
+            templateUrl: "pages/test.html"
         })
         .otherwise({
             redirectTo: "/main"

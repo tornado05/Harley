@@ -85,7 +85,7 @@ gulp.task('build-back-end', function () {
 });
 
 gulp.task('compile-html', function () {
-    return gulp.src(['./src/front-end/html/*'])
+    return gulp.src(['./src/front-end/html/**/*.*'])
         .pipe(gulp.dest(DIST_DIR + '/public'));
 });
 

@@ -1,4 +1,4 @@
 Harley.component("harleyTestComponent", {
     controller: "HarleyTestComponentController",
-    templateUrl: "harley_component.html"
+    templateUrl: "views/harley_component.html"
 });

@@ -4,7 +4,7 @@ Harley.controller("HarleyModalController", ["$scope", "$uibModal", function ($sc
 
         $scope.modalInstance = $uibModal.open({
             size: "sm",
-            templateUrl: "modal.html",
+            templateUrl: "views/modal.html",
             controller: ["$scope", "$uibModalInstance", function ($scope, $uibModalInstance) {
                 console.log($uibModalInstance);
                 $scope.ok = function () {
