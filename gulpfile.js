@@ -85,13 +85,14 @@ gulp.task('build-back-end', function () {
 });
 
 gulp.task('compile-html', function () {
-    return gulp.src(['./src/front-end/html/*'])
+    return gulp.src(['./src/front-end/html/**/**'])
         .pipe(gulp.dest(DIST_DIR + '/public'));
 });
 
 gulp.task('compile-js', function () {
     return gulp.src([
         './src/front-end/js/app.js',
+        './src/front-end/js/router.js',
         './src/front-end/js/components/*.js',
         './src/front-end/js/constants/*.js',
         './src/front-end/js/controllers/*.js',

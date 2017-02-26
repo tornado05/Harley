@@ -4,8 +4,13 @@
     <meta charset="UTF-8"/>
     <title>Harley</title>
     <link rel="stylesheet" href="css/vendor.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
+<header ng-controller="sideNavCtrl" class="text-center">
+    SideNav is: {{status}}
+    <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
+</header>
 
 <div ng-controller="HarleyController">
     <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
