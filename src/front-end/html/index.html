@@ -6,13 +6,14 @@
     <link rel="stylesheet" href="css/vendor.css"/>
 </head>
 <body>
-<!--<div class="container-fluid" ng-controller="MainController">-->
-    <!--<div>{{test}}</div>-->
+<div class="container-fluid" ng-controller="MainController">
 
-    <!--<input type="text" ng-model="test"/>-->
+</div>
 
-    <!--<button ng-click="setTest()">Set test to 5</button>-->
-<!--</div>-->
+<div ng-controller="LeafletController">
+<leaflet width="100%" height="480px"></leaflet>
+<h1>First steps, basic example</h1>
+</div>
 
 <div ng-controller="HarleyController">
     <div uib-alert template-url="views/alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>
@@ -36,6 +37,13 @@
 <div ng-view>
 
 </div>
+
+<div ng-controller="AuthModalController">
+    <button ng-click="authModalOpen()">
+        Log in / Register
+    </button>
+</div>
+
 <nav ng-controller="NavCtrl">
     <a href="#!/home">Home</a> |
     <span ng-show="!currentUser">

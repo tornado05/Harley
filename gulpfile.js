@@ -47,11 +47,12 @@ gulp.task('vendor-js', function () {
     return gulp.src([
         './bower_components/jquery/dist/jquery.min.js*',
         './bower_components/underscore/underscore.min.js*',
+        './bower_components/leaflet/dist/leaflet.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
         './bower_components/angular-resource/angular-resource.min.js',
         './bower_components/angular-resource/angular-chart.min.js',
-        './bower_components/angular-resource/dist/angular-leaflet-directive.min.js',
+        './bower_components/ui-leaflet/dist/ui-leaflet.min.js',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0.min.js',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls-2.5.0.min.js'
     ])

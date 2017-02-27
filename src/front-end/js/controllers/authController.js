@@ -1,43 +1,47 @@
-Harley.config(function($routeProvider) {
-    $routeProvider
-        .when('/home', {
-            templateUrl: 'views/home.html'
-        })
-        .when('/login', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginCtrl'
-        })
-        .when('/signup', {
-            templateUrl: 'views/signup.html',
-            controller: 'SignUpCtrl'
-        })
-        .when('/profile', {
-            templateUrl: 'views/profile.html',
-            resolve: {
-                logincheck: checkLoggedin
-            }
-        })
-        .otherwise({
-            redirectTo: '/home'
-        })
-});
+Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory", function ($scope, $uibModal, LoginFactory) {
+    $scope.authModalOpen = function () {
+        console.log("Modal will be open here!!!");
 
-var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
-    var deferred = $q.defer();
+        $scope.modalInstance = $uibModal.open({
+            size: "sm",
+            templateUrl: "views/authModal.html",
+            controller: ["$scope", "$uibModalInstance", function ($scope, $uibModalInstance) {
+                console.log($uibModalInstance);
+                $scope.ok = function () {
+                    console.log($scope.modalText);
+                    $uibModalInstance.close({modalText: $scope.modalText});
+                };
 
-    $http.get('/loggedin').success(function(user) {
-        $rootScope.errorMessage = null;
-        if (user !== '0') {
-            $rootScope.currentUser = user;
-            deferred.resolve();
-        } else {
-            $rootScope.errorMessage = 'You need to log in.';
-            deferred.reject();
-            $location.url('/login');
-        }
-    });
-    return deferred.promise;
-};
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+            }]
+        });
+
+        $scope.modalInstance.result.then(function (data) {
+            console.log("Ok");
+            console.log(data);
+            $scope.modalText = data["modalText"];
+        }, function () {
+            console.log("Reject");
+        });
+
+        $scope.login = function (user) {
+            console.log("LoginCtrl", user);
+            LoginFactory.post(user);
+        };
+    };
+    $scope.tabs = [
+        { title:'Dynamic Title 1', content:'Dynamic content 1' },
+        { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+    ];
+
+    $scope.model = {
+        name: 'Tabs'
+    };
+
+
+}]);
 
 Harley.controller("NavCtrl", ["$scope", "$rootScope", "$location", "$http", function($rootScope, $scope, $http, $location) {
     $scope.logout = function() {
@@ -62,7 +66,6 @@ Harley.controller("SignUpCtrl", ["$scope", "$rootScope", "$location", "$http", "
         }
     }
 }]);
-
 
 Harley.controller("LoginCtrl", ["$scope", "$rootScope", "$location", "$http", "LoginFactory", function($location, $scope, $http, $rootScope, LoginFactory) {
     $scope.login = function (user) {

@@ -3,76 +3,58 @@ var http = require("http"),
     bodyParser = require("body-parser"),
     app = express(),
     passport = require("passport"),
-    bcrypt = require("bcrypt-nodejs"),
     session = require("express-session"),
     logger = require("./services/logger"),
     configService = require("./services/ConfigService"),
-    user = require("./services/userService"),
     cookieParser = require("cookie-parser"),
     flash = require("connect-flash"),
-    weatherController = require("./controllers/weather");
-    var User = require('./services/userService.js');
-
-var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/Users");
-
-mongoose.set("debug", true);
-
-module.exports.User = require("./services/userService.js");
-
+    weatherController = require("./controllers/weather"),
+    db = require("./models/dbModel");
 
 require('./config/passport')(passport);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(express.static("public"));
-app.use(require("express-session")({
-    secret: "someFunnyPhrase",
-    resave: true,
-    saveUninitialized: true
+app.use(bodyParser.urlencoded({
+    extended: true
 }));
+app.use(express.static("public"));
+app.use(session({
+    secret: 'this is the secret'
+}));
+// app.use(require("express-session")({
+//     secret: "someFunnyPhrase",
+//     resave: true,
+//     saveUninitialized: true
+// }));
 
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//Body-parser
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); //for parsing application/json
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-
 app.post("/login", passport.authenticate('local-login'), function(req, res) {
-    console.log("hi");
-    console.log(req);
-    console.log(json(req.user));
     res.json(req.user);
 });
 
-// handle logout
 app.post("/logout", function(req, res) {
     req.logOut();
     res.send(200);
 });
 
-// loggedin
 app.get("/loggedin", function(req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
 });
 
-// signup
 app.post("/signup", function(req, res, next) {
-    User.findOne({
+    db.User.findOne({
         username: req.body.username
     }, function(err, user) {
         if (user) {
             res.json(null);
             return;
         } else {
-            var newUser = new User();
+            var newUser = new db.User();
             newUser.username = req.body.username.toLowerCase();
             newUser.password = newUser.generateHash(req.body.password);
             newUser.save(function(err, user) {
@@ -87,9 +69,24 @@ app.post("/signup", function(req, res, next) {
     });
 });
 
+// // Facebook auth routes
+// app.get('/auth/facebook', function authenticateFacebook (req, res, next) {
+//   req.session.returnTo = '/#' + req.query.returnTo;
+//   next ();
+// },
+// passport.authenticate ('facebook'));
+//
+// app.get('/auth/facebook/callback', function (req, res, next) {
+//  var authenticator = passport.authenticate ('facebook', {
+//    successRedirect: req.session.returnTo,
+//    failureRedirect: '/'
+//   });
+//
+// delete req.session.returnTo;
+// authenticator (req, res, next);
+// })
 
-
-
+/************************************************************/
 
 // app.post("/login", user.login);
 
