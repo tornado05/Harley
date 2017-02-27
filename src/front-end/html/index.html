@@ -16,6 +16,35 @@
     <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
 </div>
 
+<form class="form-horizontal">
+<div ng-controller="formController" class="text-center">
+
+    <p>Enter you name</p>
+        <input ng-model="name">
+    <p>Enter you Lastname</p>
+        <input ng-model="lastname">
+    <p>How old are you?</p>
+        <input ng-model="age">
+
+    <h1>Welcom dear, {{name + " " + lastname}}</h1>
+    </br>
+
+    <h2>You age {{age}}</h2>
+    </br>
+    <button ng-click="setAttr()">Show attribute in console))</button>
+    </br>
+    </br>
+</div>
+<div ng-controller="selectController" class="text-center">
+     <select ng-model="selectedTime" ng-options="x for (x, y) in time"></select>
+    </br>
+    <h2>{{selectedTime}}</h2>
+    </br>
+    <button ng-click="setSelect()">Show select in console))</button>
+    </br>
+</div>
+
+</form>
 <harley-test-component></harley-test-component>
 
 <div ng-controller="HarleyModalController">
