@@ -107,13 +107,14 @@ gulp.task('vendor-js', function () {
     return gulp.src([
         './bower_components/jquery/dist/jquery.min.js*',
         './bower_components/underscore/underscore.min.js*',
-        './bower_components/leaflet/dist/leaflet.js',//TODO: replace this with angular items
+        './bower_components/leaflet/dist/leaflet.js',
         './bower_components/chart.js/dist/Chart.min.js',//TODO: replace this with angular items
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
         './bower_components/angular-resource/angular-resource.min.js',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0.min.js',
-        './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls-2.5.0.min.js'
+        './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls-2.5.0.min.js',
+        './bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
     ])
         .pipe(concat('vendor.js'))
         .pipe(sourcemaps.write())
@@ -137,7 +138,7 @@ gulp.task('compile-less', function () {
 
 gulp.task('vendor-css', function () {
     return gulp.src([
-        //'./bower_components/leaflet/dist/leaflet.css',
+        './bower_components/leaflet/dist/leaflet.css',
         './bower_components/bootstrap/dist/css/bootstrap.min.css',
         './bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0-csp.css'

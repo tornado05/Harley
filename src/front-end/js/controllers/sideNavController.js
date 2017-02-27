@@ -1,4 +1,4 @@
-Harley.controller("sideNavCtrl", ["$scope",  function ($scope) {
+Harley.controller("sideNavController", ["$scope",  function ($scope) {
     $scope.status = 'closed';
 
     $scope.toggleSideNav = function () {

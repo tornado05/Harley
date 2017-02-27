@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
-<header ng-controller="sideNavCtrl" class="text-center">
+<header ng-controller="sideNavController" class="text-center">
     SideNav is: {{status}}
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
 </header>
+
+<div class="map" ng-controller="mapController">
+    <leaflet lf-center="center" defaults="defaults" layers="layers" markers="markers"></leaflet>
+</div>
 
 <div ng-controller="HarleyController">
     <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
