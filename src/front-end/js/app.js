@@ -89,22 +89,18 @@ Harley.service("HarleyService", ["CONST", function (CONST) {
     };
 }]);
 
-Harley.component("harleyTestComponent", {
-    controller: "HarleyTestComponentController",
-    templateUrl: "harley_component.html"
+Harley.component("formComponent", {
+    controller: "formComponentController",
+    templateUrl: "form_component.html"
 });
 
 Harley.constant("CONST", "test const");
 
-Harley.controller("HarleyTestComponentController", ["$scope", "$element", "$attrs", function ($scope, $element, $attrs) {
+Harley.controller("formComponentController", ["$scope", "$element", "$attrs", function ($scope, $element, $attrs) {
     $scope.setAttr = function () {
-      console.log("setAttr", $element, $attrs);
-      $element.attr("data-test", "test");
-    };
-
-    $scope.getAttr = function () {
-        var value = $element.attr("data-test");
-        console.log("Data attribute value: ", value);
+        console.log("name - ", $scope.name);
+        console.log("username - ", $scope.username);
+        console.log("remember me -",  $scope.checked);
     };
 }]);
 

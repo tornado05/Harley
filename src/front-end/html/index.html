@@ -6,21 +6,14 @@
     <link rel="stylesheet" href="css/vendor.css"/>
 </head>
 <body>
-<!--<div class="container-fluid" ng-controller="MainController">-->
-    <!--<div>{{test}}</div>-->
-
-    <!--<input type="text" ng-model="test"/>-->
-
-    <!--<button ng-click="setTest()">Set test to 5</button>-->
-<!--</div>-->
 
 <div ng-controller="HarleyController">
     <div uib-alert template-url="alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>
 </div>
 
-<harley-test-component>
+<form-component>
 
-</harley-test-component>
+</form-component>
 
 <div ng-controller="HarleyModalController">
     <button ng-click="openModal()">Open Modal</button>
