@@ -105,16 +105,17 @@ gulp.task('compile-js', function () {
 
 gulp.task('vendor-js', function () {
     return gulp.src([
-        './bower_components/jquery/dist/jquery.min.js*',
-        './bower_components/underscore/underscore.min.js*',
+        './bower_components/jquery/dist/jquery.min.js',
+        './bower_components/underscore/underscore-min.js',
         './bower_components/leaflet/dist/leaflet.js',
-        './bower_components/chart.js/dist/Chart.min.js',//TODO: replace this with angular items
+        './bower_components/chart.js/dist/Chart.min.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
         './bower_components/angular-resource/angular-resource.min.js',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-2.5.0.min.js',
         './bower_components/angular-ui-bootstrap/dist/ui-bootstrap-tpls-2.5.0.min.js',
-        './bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js'
+        './bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+        './bower_components/angular-chart.js/dist/angular-chart.min.js'
     ])
         .pipe(concat('vendor.js'))
         .pipe(sourcemaps.write())

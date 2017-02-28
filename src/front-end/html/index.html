@@ -15,6 +15,14 @@
     <leaflet lf-center="center" defaults="defaults" layers="layers" markers="markers"></leaflet>
 </div>
 
+<div class="current-weather-chart" ng-controller="currentChartController">
+    <select ng-options="item as item.label for item in cities" ng-change="updateChart()" ng-model="selectedCity"></select>
+    <select ng-options="item as item.label for item in params" ng-change="updateChart()" ng-model="selectedParam"></select>
+    <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options">
+    </canvas>
+</div>
+
+
 <div ng-controller="HarleyController">
     <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
 </div>

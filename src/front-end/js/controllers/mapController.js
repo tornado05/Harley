@@ -1,4 +1,6 @@
-Harley.controller("mapController", ["$scope", '$http', function ($scope, $http) {
+Harley.controller("mapController", [
+    "$rootScope", "$scope", '$http', 'WeatherService',
+    function ($rootScope, $scope, $http, WeatherService) {
 
     var initialize = function () {
         //TODO: take this values from user config, by default from constants
@@ -35,12 +37,15 @@ Harley.controller("mapController", ["$scope", '$http', function ($scope, $http) 
                 }
             }
         });
-        //TODO: this should be redo into some model to manipulate with data
         $http.get('/weather/v01/current')
             .then(function (response) {
-                renderMarkers(response);
+                var service = $rootScope.preferedService || "darkSky";
+                var data = WeatherService.getDataByService(response.data, service);
+                //TODO: move to module which will be responsible for data grab
+                $rootScope.currentWeather = response.data;
+                renderMarkers(data);
             }, function (response) {
-                //Second function handles error
+                //Handles error
                 console.log("Something went wrong:", response.statusText);
             });
     };
@@ -48,45 +53,35 @@ Harley.controller("mapController", ["$scope", '$http', function ($scope, $http) 
     var prepareMarkerMsg = function (data) {
         return [
             '<h4>',
-            data,
-            '</h4>',
-            '<ul><li>Temperature: <b>8 &deg;C</b></li>',
-            '<li>Pressure: <b>1170 mmHg</b></li>',
-            '<li>Humidity: <b>70 %</b></li>',
-            '<li>Wind speed: <b>12 meter/sec</b></li></ul>'
+            data.cityName,
+            '</h4><ul><li>Temperature: <b>',
+            data. temp,
+            ' &deg;C</b></li>',
+            '<li>Pressure: <b>',
+            data.pressure,
+            ' mmHg</b></li>',
+            '<li>Humidity: <b>',
+            data.humidity,' %</b></li>',
+            '<li>Wind speed: <b>',
+            data.windSpeed,
+            ' meter/sec</b></li></ul>'
         ].join('')
     };
 
     var renderMarkers = function (data) {
         var markers = [];
-        console.log('Weather', data);
+        _.each(data, function (item){
+            markers.push({
+                lat: item.coords.lat,
+                lng: item.coords.lon,
+                focus: false,
+                draggable: false,
+                message: prepareMarkerMsg(item),
+                icon: {}
+            });
+        });
         angular.extend($scope, {
-            markers: [
-                {
-                    lat: 50.630694,
-                    lng: 26.239034,
-                    focus: false,
-                    draggable: false,
-                    message: prepareMarkerMsg("Rivne"),
-                    icon: {}
-                },
-                {
-                    lat: 50.4308286,
-                    lng: 30.4966362,
-                    focus: false,
-                    draggable: false,
-                    message: prepareMarkerMsg("Kiev"),
-                    icon: {}
-                },
-                {
-                    lat: 50.73977,
-                    lng: 25.2639655,
-                    focus: false,
-                    draggable: false,
-                    message: prepareMarkerMsg("Luts'k"),
-                    icon: {}
-                }
-            ]
+            markers: markers
         })
     };
     initialize();
