@@ -22,7 +22,8 @@
     "angular": "1.6.x",
     "angular-route": "1.6.x",
     "angular-resource": "1.6.x",
-    "angular-chart": "0.3.x",
+    "angular-chart.js": "1.1.1",
+    "chart.js": "^2.4.0",
     "angular-leaflet-directive": "0.10.x",
     "angular-ui-bootstrap": "2.5.x",
     "bootstrap": "3.3.x"

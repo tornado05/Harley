@@ -49,6 +49,7 @@ gulp.task('vendor-js', function () {
         './bower_components/underscore/underscore.min.js*',
         './bower_components/leaflet/dist/leaflet.js',
         './bower_components/chart.js/dist/Chart.min.js',
+        './bower_components/angular-chart.js/angular-chart.min.js',
         './bower_components/angular/angular.min.js',
         './bower_components/angular-route/angular-route.min.js',
         './bower_components/angular-resource/angular-resource.min.js',
