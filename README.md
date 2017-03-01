@@ -65,5 +65,6 @@ v. 1.0.0
 - Для визуального представления БД юзайте [Compass](https://drive.google.com/open?id=0B6Bti9TG7cUpTU5yM1VBMm1Fc2c)
 
 ### Angular leaflet
-
 Документація з приклади: [link](http://tombatossals.github.io/angular-leaflet-directive/examples/0000-viewer.html#/markers/popup-example)
+### Angular Chart.js
+Документація з прикладами: [link](http://jtblin.github.io/angular-chart.js/)
