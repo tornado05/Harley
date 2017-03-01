@@ -1,69 +1,86 @@
 Harley.controller("currentChartController", [
     "$rootScope", "$scope", '$http', 'WeatherService',
     function ($rootScope, $scope, $http, WeatherService) {
+        var initialize = function (){
+            getConfigs();
+            setSelectedOptions();
+        };
         $rootScope.$watch('currentWeather', function (){
-            $scope.labels = WeatherService.getWeatherServices($rootScope.currentWeather);
-            $scope.data = [];
-            console.log('Weather', $rootScope.currentWeather);
+            $scope.updateChart();
         });
+
+        var getConfigs = function (){
+            $http({
+                method: 'GET',
+                url: '/weather/v01/configs'
+            }).then(function(res){
+                $scope.cities = res.data.cities;
+                $scope.params = res.data.params;
+                setSelectedOptions();
+            },function(res){
+                console.log('Loading configs failed! Code: ', res.statusCode)
+            });
+        };
+
         $scope.cities = [
             {
-                label: 'Rivne',
-                value: 'Rivne'
-            },
-            {
-                label: 'Kiev',
-                value: 'Kiev'
-            },
-            {
-                label: 'Luts`k',
-                value: 'Luts`k'
+                label: "city",
+                value: "city"
             }
-
         ];
         $scope.params = [
             {
-                label: 'Temperature',
-                value: 'temp'
-            },
-            {
-                label: 'Pressure',
-                value: 'pressure'
-            },
-            {
-                label: 'Humidity',
-                value: 'humidity'
-            },
-            {
-                label: 'Wind speed',
-                value: 'huwindSpeed'
+                label: 'value',
+                value: 'value'
             }
         ];
-        $scope.selectedCity = _.first($scope.cities);
-        $scope.selectedParam = _.first($scope.params);
-        $scope.updateChart = function (){
-            console.log($scope.selectedCity, $scope.selectedParam);
+
+        var setSelectedOptions = function (){
+            $scope.selectedCity = _.first($scope.cities).value;
+            $scope.selectedParam = _.first($scope.params).name;
         };
 
-        var setChartData = function (city, param){
-            var result = [];
-            _.each($rootScope.currentWeather, function (item){
-                if (item.cityName === city){
-                    result.push(item[param])
+        $scope.updateChart = function(){
+            $scope.labels = [];
+            $scope.data = [];
+            $scope.options = updateChartOptions();
+            _.each($rootScope.currentWeather, function (data){
+                if ((data.cityName == $scope.selectedCity)){
+                    $scope.labels.push(data.sourceAPI);
+                    $scope.data.push(data[$scope.selectedParam])
+                }
+            });
+        };
+
+        var getTicksByParam = function (){
+            var result = {};
+                result.beginAtZero = true;
+            _.each($scope.params, function (param){
+                if (param.name === $scope.selectedParam){
+                    result.max = param.max;
+                    result.min = param.min;
+                    $scope.series = param.label;
                 }
             });
             return result;
         };
 
-        $scope.labels = ['API', 'API', 'API'];
-        $scope.series = ['SERIES'];
-        $scope.data = [
-            [65, 59, 80]
-        ];
-        $scope.options = {
-            scales: {
-
+        var updateChartOptions = function(){
+           return {
+                responsive: true,
+                scales: {
+                    yAxes: [{
+                        ticks: getTicksByParam()
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             }
-        }
+        };
+
+        initialize();
     }
 ]);
