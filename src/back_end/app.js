@@ -22,11 +22,6 @@ app.use(express.static("public"));
 app.use(session({
     secret: 'this is the secret'
 }));
-// app.use(require("express-session")({
-//     secret: "someFunnyPhrase",
-//     resave: true,
-//     saveUninitialized: true
-// }));
 
 app.use(cookieParser());
 app.use(passport.initialize());
@@ -68,55 +63,6 @@ app.post("/signup", function(req, res, next) {
         }
     });
 });
-
-// // Facebook auth routes
-// app.get('/auth/facebook', function authenticateFacebook (req, res, next) {
-//   req.session.returnTo = '/#' + req.query.returnTo;
-//   next ();
-// },
-// passport.authenticate ('facebook'));
-//
-// app.get('/auth/facebook/callback', function (req, res, next) {
-//  var authenticator = passport.authenticate ('facebook', {
-//    successRedirect: req.session.returnTo,
-//    failureRedirect: '/'
-//   });
-//
-// delete req.session.returnTo;
-// authenticator (req, res, next);
-// })
-
-/************************************************************/
-
-// app.post("/login", user.login);
-
-
-// app.post("/signup", user.register);
-//
-// app.get("/logout", user.logout);
-//
-// // route middleware to make sure
-// function isLoggedIn(req, res, next) {
-//     if (req.isAuthenticated())
-//         return next();
-//     res.redirect("/");
-// }
-//
-// app.get("/profile", isLoggedIn, function(req, res) {
-//     res.render("profile.ejs", {
-//         user : req.user
-//     });
-// });
-
-// // route for facebook authentication and login
-// app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
-//
-// // handle the callback after facebook has authenticated the user
-// app.get('/auth/facebook/callback',
-//     passport.authenticate('facebook', {
-//         successRedirect : '/profile',
-//         failureRedirect : '/'
-// }));
 
 app.get("/users", function (req, res) {
     res.send("hello " + req.session.passport.user.username + "<br/><a href=\"/logout\">Logout</a>");

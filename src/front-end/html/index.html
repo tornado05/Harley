@@ -7,19 +7,14 @@
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
-<<<<<<< HEAD
+
 <div class="container-fluid" ng-controller="MainController">
 
 </div>
 
-<div ng-controller="LeafletController">
-<leaflet width="100%" height="480px"></leaflet>
-<h1>First steps, basic example</h1>
-</div>
-
 <div ng-controller="HarleyController">
     <div uib-alert template-url="views/alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>
-=======
+
 <header ng-controller="sideNavController" class="text-center">
     SideNav is: {{status}}
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
@@ -33,12 +28,6 @@
     <select ng-options="item as item.label for item in params" ng-change="updateChart()" ng-model="selectedParam"></select>
     <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options">
     </canvas>
-</div>
-
-
-<div ng-controller="HarleyController">
-    <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
->>>>>>> fba18f0881ff392611a4127426396dbe00ef000a
 </div>
 
 <harley-test-component></harley-test-component>

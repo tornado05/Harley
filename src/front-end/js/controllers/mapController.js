@@ -46,7 +46,7 @@ Harley.controller("mapController", [
                 renderMarkers(data);
             }, function (response) {
                 //Handles error
-                console.log("Something went wrong:", response.statusText);
+
             });
     };
 

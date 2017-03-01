@@ -4,7 +4,7 @@ Harley.controller("currentChartController", [
         $rootScope.$watch('currentWeather', function (){
             $scope.labels = WeatherService.getWeatherServices($rootScope.currentWeather);
             $scope.data = [];
-            console.log('Weather', $rootScope.currentWeather);
+
         });
         $scope.cities = [
             {
@@ -42,7 +42,7 @@ Harley.controller("currentChartController", [
         $scope.selectedCity = _.first($scope.cities);
         $scope.selectedParam = _.first($scope.params);
         $scope.updateChart = function (){
-            console.log($scope.selectedCity, $scope.selectedParam);
+
         };
 
         var setChartData = function (city, param){

@@ -113,6 +113,13 @@ gulp.task('fonts', function(){
         .pipe(gulp.dest(DIST_DIR + '/public/fonts/'));
 });
 
+gulp.task('leaflet-images', function(){
+    return gulp.src([
+        './bower_components/leaflet/dist/images/**'
+    ])
+        .pipe(gulp.dest(DIST_DIR + '/public/css/images'));
+});
+
 gulp.task('img', function(){
     return gulp.src([
         './src/front-end/img/**/*.*'
@@ -133,7 +140,8 @@ gulp.task('build-front-end', [
     'vendor-images',
     'update-front-end',
     'fonts',
-    'img'
+    'img',
+    'leaflet-images'
 ]);
 
 gulp.task('update-front-end', [
