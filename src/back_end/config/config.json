@@ -10,18 +10,24 @@
     "cities": [
       {
         "name": "Rivne",
+        "label": "Rivne",
+        "value": "Rivne",
         "wundergroundName" : "",
         "xCords": 50.630694,
         "yCords": 26.239034
       },
       {
         "name": "Lutsk",
+        "label": "Luts'k",
+        "value": "Luts'k",
         "wundergroundName" : "Luts'k",
         "xCords": 50.73977,
         "yCords": 25.2639655
       },
       {
         "name": "Kiev",
+        "label": "Kiev",
+        "value": "Kiev",
         "wundergroundName" : "",
         "xCords": 50.4308286,
         "yCords": 30.4966362
@@ -79,6 +85,33 @@
           ]
         }
       }],
+    "params": [
+      {
+        "name": "temp",
+        "label": "Temperature",
+        "units": "C",
+        "max": 30,
+        "min": -30
+      },
+      {
+        "name": "pressure",
+        "label": "Pressure",
+        "units": "mmHg",
+        "max": 1200
+      },
+      {
+        "name": "humidity",
+        "label": "Humidity",
+        "units": "%",
+        "max": 100
+      },
+      {
+        "name": "windSpeed",
+        "label": "Wind speed",
+        "units": "meter/sec",
+        "max": 50
+      }
+    ],
     "auth": {
       "facebook": {
         "clientID": "12123123",

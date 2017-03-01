@@ -24,8 +24,16 @@
 </div>
 
 <div class="current-weather-chart" ng-controller="currentChartController">
-    <select ng-options="item as item.label for item in cities" ng-change="updateChart()" ng-model="selectedCity"></select>
-    <select ng-options="item as item.label for item in params" ng-change="updateChart()" ng-model="selectedParam"></select>
+    <header>
+        <label>City: </label>
+        <select ng-change="updateChart()" ng-model="selectedCity">
+            <option ng-repeat="option in cities" ng-value="option.value">{{option.label}}</option>
+        </select>
+        <label>Parameter: </label>
+        <select ng-change="updateChart()" ng-model="selectedParam">
+            <option ng-repeat="option in params" ng-value="option.name">{{option.label}}</option>
+        </select>
+    </header>
     <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options">
     </canvas>
 </div>
