@@ -1,1 +1,1 @@
-Harley.constant("CONST", "test const");
+Harley.constant("CONST", "Hello Harley");

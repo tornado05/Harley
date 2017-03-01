@@ -4,8 +4,10 @@
     <meta charset="UTF-8"/>
     <title>Harley</title>
     <link rel="stylesheet" href="css/vendor.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body>
+<<<<<<< HEAD
 <div class="container-fluid" ng-controller="MainController">
 
 </div>
@@ -17,11 +19,21 @@
 
 <div ng-controller="HarleyController">
     <div uib-alert template-url="views/alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>
+=======
+<header ng-controller="sideNavController" class="text-center">
+    SideNav is: {{status}}
+    <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
+</header>
+<div class="map" ng-controller="mapController">
+    <leaflet lf-center="center" defaults="defaults" layers="layers" markers="markers"></leaflet>
 </div>
 
-<harley-test-component>
+<div ng-controller="HarleyController">
+    <div uib-alert class="alert-warning" template-url="alert.html">A happy alert!</div>
+>>>>>>> fba18f0881ff392611a4127426396dbe00ef000a
+</div>
 
-</harley-test-component>
+<harley-test-component></harley-test-component>
 
 <div ng-controller="HarleyModalController">
     <button ng-click="openModal()">Open Modal</button>
@@ -55,6 +67,7 @@
         <a href="#!/logout" ng-click="logout()">Logout</a>
     </span>
 </nav>
+
 <script src="js/vendor.js" type="text/javascript"></script>
 <script src="js/bundle.js" type="text/javascript"></script>
 </body>
