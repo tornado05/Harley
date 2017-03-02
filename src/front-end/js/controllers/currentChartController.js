@@ -27,6 +27,7 @@ Harley.controller("currentChartController", [
                 method: 'GET',
                 url: '/weather/v01/configs'
             }).then(function (res) {
+                $rootScope.config = res.data;
                 $scope.cities = res.data.cities;
                 $scope.params = res.data.params;
                 setSelectedOptions();

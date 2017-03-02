@@ -8,16 +8,50 @@
 </head>
 <body>
 
-<!--<div class="container-fluid" ng-controller="MainController">-->
-
-<!--</div>-->
-
-<!--<div ng-controller="HarleyController">-->
-    <!--<div uib-alert template-url="views/alert.html" style="background-color:#fa39c3;color:white">A happy alert!</div>-->
-
 <header ng-controller="sideNavController" class="text-center">
-    SideNav is: {{status}}
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
+    <div class="side-nav close">
+        <label for="repeatSelect"> Select city: </label>
+        <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
+                ng-options="cityName for cityName in cities">
+            <option value="">Select city</option>
+        </select>
+        </br>
+        <div class="row">
+            <div class="col-xs-12">
+                <label ng-repeat="(type, typeName) in chartTypes">
+                    <input type="radio" ng-model="typeName.isSelected"/> {{typeName.name}}
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Select period:</h2>
+            <div class="col-md-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
+                           is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
+                           close-text="Close" alt-input-formats="altInputFormats"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open1()">
+                            <i class="mdi mdi-calendar-question"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+
+            <div class="col-md-12">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup2.opened"
+                           datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2()">
+                            <i class="mdi mdi-calendar-question"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
 </header>
 <div class="map" ng-controller="mapController">
     <leaflet lf-center="center" defaults="defaults" layers="layers" markers="markers"></leaflet>
@@ -34,26 +68,16 @@
             <option ng-repeat="option in params" ng-value="option.name">{{option.label}}</option>
         </select>
     </header>
-    <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options">
+    <canvas class="chart chart-bar" chart-data="Data" chart-labels="labels" chart-series="series"
+            chart-options="options">
     </canvas>
 </div>
 
-<!--<harley-test-component></harley-test-component>-->
-
-<!--<div ng-controller="HarleyModalController">-->
-    <!--<button ng-click="openModal()">Open Modal</button>-->
-    <!--<div>-->
-        <!--<label>Modal text</label>-->
-        <!--<div>{{modalText}}</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-<!--<a href="#!/main">Main</a>-->
-<!--<a href="#!/test">Test</a>-->
-
-<!--<div ng-view>-->
-
-<!--</div>-->
+<div class="statistic-chart" ng-controller="statisticsChart">
+    <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
+            chart-series="series" chart-options="options">
+    </canvas>
+</div>
 
 <div ng-controller="AuthModalController">
     <button ng-click="authModalOpen()">
@@ -62,15 +86,15 @@
 </div>
 
 <!--<nav ng-controller="NavCtrl">-->
-    <!--<a href="#!/home">Home</a> |-->
-    <!--<span ng-show="!currentUser">-->
-        <!--<a href="#!/login">Login</a> |-->
-        <!--<a href="#!/signup">Sign Up</a>-->
-    <!--</span>-->
-    <!--<span ng-show="currentUser">-->
-        <!--<a href="#!/profile">Profile</a> |-->
-        <!--<a href="#!/logout" ng-click="logout()">Logout</a>-->
-    <!--</span>-->
+<!--<a href="#!/home">Home</a> |-->
+<!--<span ng-show="!currentUser">-->
+<!--<a href="#!/login">Login</a> |-->
+<!--<a href="#!/signup">Sign Up</a>-->
+<!--</span>-->
+<!--<span ng-show="currentUser">-->
+<!--<a href="#!/profile">Profile</a> |-->
+<!--<a href="#!/logout" ng-click="logout()">Logout</a>-->
+<!--</span>-->
 <!--</nav>-->
 
 <script src="js/vendor.js" type="text/javascript"></script>
