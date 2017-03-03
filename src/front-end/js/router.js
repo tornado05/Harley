@@ -4,10 +4,6 @@ Harley.config(['$routeProvider', function ($routeProvider) {
             controller: "MainController",
             templateUrl: "pages/main.html"
         })
-        .when("/test", {
-            controller: "TestController",
-            templateUrl: "pages/test.html"
-        })
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'LoginCtrl'

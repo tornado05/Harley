@@ -1,6 +1,9 @@
 Harley.controller("currentChartController", [
-    "$rootScope", "$scope", '$http', 'WeatherService',
-    function ($rootScope, $scope, $http, WeatherService) {
+    "$rootScope", "$scope", '$http', 'WeatherService', "Configs",
+    function ($rootScope, $scope, $http, WeatherService, Configs) {
+
+        $scope.config = $rootScope.configs;
+
         var initialize = function () {
             angular.extend($scope, {
                 labels: [],
@@ -15,26 +18,12 @@ Harley.controller("currentChartController", [
                     value: 'value'
                 }]
             });
-            getConfigs();
             setSelectedOptions();
         };
+
         $rootScope.$watch('currentWeather', function () {
             $scope.updateChart();
         });
-
-        var getConfigs = function () {
-            $http({
-                method: 'GET',
-                url: '/weather/v01/configs'
-            }).then(function (res) {
-                $rootScope.config = res.data;
-                $scope.cities = res.data.cities;
-                $scope.params = res.data.params;
-                setSelectedOptions();
-            }, function (res) {
-                console.log('Loading configs failed! Code: ', res.statusCode)
-            });
-        };
 
         var setSelectedOptions = function () {
             $scope.selectedCity = _.first($scope.cities).value;

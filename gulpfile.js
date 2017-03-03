@@ -43,7 +43,8 @@ gulp.task('compile-js', function () {
         './src/front-end/js/constants/*.js',
         './src/front-end/js/controllers/*.js',
         './src/front-end/js/factories/*.js',
-        './src/front-end/js/services/*.js'
+        './src/front-end/js/services/*.js',
+        './src/front-end/js/filters/*.js'
     ])
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest(DIST_DIR + "/public/js"))

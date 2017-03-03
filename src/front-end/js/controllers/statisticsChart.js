@@ -1,6 +1,6 @@
 Harley.controller("statisticsChart", [
-    "$rootScope", "$scope", '$http', 'CHART_TYPE',
-    function ($rootScope, $scope, $http, CHART_TYPE) {
+    "$rootScope", "$scope", '$http', "Configs", 'CHART_TYPE',
+    function ($rootScope, $scope, $http, Configs, CHART_TYPE) {
         var serviceList = ["openWeather", "wunderground", "darkSky"];
         $scope.statisticsData = getStatistics();
         $scope.$watch('statisticsData', function () {

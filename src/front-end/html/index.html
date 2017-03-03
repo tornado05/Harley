@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/vendor.css"/>
     <link rel="stylesheet" href="css/main.css"/>
 </head>
-<body>
+<body ng-controller="MainController">
 
 <header ng-controller="sideNavController" class="text-center">
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <label ng-repeat="(type, typeName) in chartTypes">
-                    <input type="radio" ng-model="typeName.isSelected"/> {{typeName.name}}
+                    <input type="radio" ng-model="typeName.isSelected"/> {{typeName.name | demoFilter: "test"}}
                 </label>
             </div>
         </div>
@@ -61,23 +61,29 @@
     <header>
         <label>City: </label>
         <select ng-change="updateChart()" ng-model="selectedCity">
-            <option ng-repeat="option in cities" ng-value="option.value">{{option.label}}</option>
+            <option ng-repeat="option in config.cities" ng-value="option.value">{{option.label}}</option>
         </select>
         <label>Parameter: </label>
         <select ng-change="updateChart()" ng-model="selectedParam">
-            <option ng-repeat="option in params" ng-value="option.name">{{option.label}}</option>
+            <option ng-repeat="option in config.params" ng-value="option.name">{{option.label}}</option>
         </select>
     </header>
-    <canvas class="chart chart-bar" chart-data="Data" chart-labels="labels" chart-series="series"
+    <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
             chart-options="options">
     </canvas>
 </div>
-
-<div class="statistic-chart" ng-controller="statisticsChart">
-    <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
-            chart-series="series" chart-options="options">
-    </canvas>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="statistic-chart" ng-controller="statisticsChart">
+                <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
+                        chart-series="series" chart-options="options">
+                </canvas>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div ng-controller="AuthModalController">
     <button ng-click="authModalOpen()">
