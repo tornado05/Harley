@@ -21,12 +21,14 @@ Harley.controller("currentChartController", [
         $rootScope.$watch('currentWeather', function () {
             $scope.updateChart();
         });
+        $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
 
         var getConfigs = function () {
             $http({
                 method: 'GET',
                 url: '/weather/v01/configs'
             }).then(function (res) {
+                console.log("Configs", res.data);
                 $rootScope.config = res.data;
                 $scope.cities = res.data.cities;
                 $scope.params = res.data.params;
@@ -42,13 +44,15 @@ Harley.controller("currentChartController", [
         };
 
         $scope.updateChart = function () {
+            console.log("CurrentWeather", $rootScope.currentWeather);
             $scope.labels = [];
             $scope.data = [];
             $scope.options = updateChartOptions();
             _.each($rootScope.currentWeather, function (data) {
                 if ((data.cityName == $scope.selectedCity)) {
                     $scope.labels.push(data.sourceAPI);
-                    $scope.data.push(data[$scope.selectedParam])
+                    $scope.data.push(data[$scope.selectedParam]);
+                    console.log("DATA:",$scope.data);
                 }
             });
         };
@@ -81,7 +85,7 @@ Harley.controller("currentChartController", [
                 }
             }
         };
-
+        console.log("Scope:", $scope);
         initialize();
     }
 ]);

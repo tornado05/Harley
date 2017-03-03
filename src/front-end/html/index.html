@@ -68,13 +68,13 @@
             <option ng-repeat="option in params" ng-value="option.name">{{option.label}}</option>
         </select>
     </header>
-    <canvas class="chart chart-bar" chart-data="Data" chart-labels="labels" chart-series="series"
+    <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
             chart-options="options">
     </canvas>
 </div>
 
-<div class="statistic-chart" ng-controller="statisticsChart">
-    <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
+<div class="statistic-chart" ng-controller="statisticsChart" style="width: 75%; margin: 0 auto;">
+    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels"
             chart-series="series" chart-options="options">
     </canvas>
 </div>
