@@ -8,7 +8,8 @@ var gulp            = require('gulp'),
     uglify          = require('gulp-uglify'),
     concat          = require('gulp-concat'),
     concatCss       = require('gulp-concat-css'),
-    watch           = require('gulp-watch');
+    watch           = require('gulp-watch'),
+    typescript      = require('gulp-typescript');
 
 var DIST_DIR = 'dist',
     LAYOUT_PORT = 8000;
@@ -48,6 +49,18 @@ gulp.task('compile-js', function () {
     ])
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest(DIST_DIR + "/public/js"))
+});
+
+gulp.task('compile-ts', function () {
+    return gulp.src([
+        './src/front-end/ts/**/**'
+    ])
+        .pipe(typescript({
+            noImplicitAny: true,
+            out: 'ts_app.js',
+            target: "ES5"
+        }))
+        .pipe(gulp.dest(DIST_DIR + '/public/js'));
 });
 
 gulp.task('vendor-js', function () {
@@ -148,6 +161,7 @@ gulp.task('build-front-end', [
 gulp.task('update-front-end', [
     'compile-html',
     'compile-js',
+    'compile-ts',
     'compile-less'
 ]);
 
