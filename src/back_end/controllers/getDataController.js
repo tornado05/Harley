@@ -24,7 +24,6 @@ module.exports = (function () {
             monthTask.start();
             everyFourHourTask.start();
 
-
             /**
              * template for gather statistic from unifiedWeather collection
              */

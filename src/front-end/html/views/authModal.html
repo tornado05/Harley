@@ -1,0 +1,31 @@
+<div class="modal-header">
+    Some modal
+</div>
+<div class="modal-body">
+    <uib-tabset active="activeJustified" justified="true">
+        <uib-tab index="0" heading="Log In">
+            <div>
+                <input ng-model="user.username" id="loginUserName"/>
+                <label for="loginUserName">Login</label>
+                <input ng-model="user.password" type="password" id="loginUserPassword"/>
+                <label for="loginUserPassword">Password</label>
+                <button ng-click="login(user)">Login</button>
+            </div>
+        </uib-tab>
+        <uib-tab index="1" heading="Sign Up">
+            <p>
+                <input ng-model="user.username" id="signupUserName"/>
+                <label for="signupUserName">Login</label>
+                <input ng-model="user.password" type="password" id="signupFirstPassword"/>
+                <label for="signupFirstPassword">Password</label>
+                <input ng-model="user.password2" type="password" id="signupSecondPassword"/>
+                <label for="signupSecondPassword">Repeat your password</label>
+                <button ng-click="signup(user)">Sign Up</button>
+            </p>
+        </uib-tab>
+    </uib-tabset>
+</div>
+<div class="modal-footer">
+    <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

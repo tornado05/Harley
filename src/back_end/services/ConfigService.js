@@ -46,21 +46,21 @@ module.exports = (function () {
                 _.each(config.services, function (service) {
                     switch (service.name) {
                     case "openWeather":
-                        configsAPI_URLs.push({
+                        configsApiUrls.push({
                             name: service.name,
                             city: cityName,
                             url: service.urlPart1 + cityName + service.urlPart2
                         });
                         break;
                     case "wunderground":
-                        configsAPI_URLs.push({
+                        configsApiUrls.push({
                             name: service.name,
                             city: cityName,
                             url: service.urlPart1 + cityName + service.urlPart2
                         });
                         break;
                     case "darkSky":
-                        configsAPI_URLs.push({
+                        configsApiUrls.push({
                             name: service.name,
                             city: cityName,
                             url: service.urlPart1 + city.xCords.toFixed(2) + ',' + city.yCords.toFixed(2)
