@@ -19,14 +19,14 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
-app.use(session({
-    secret: 'this is the secret'
-}));
+// app.use(session({
+//     secret: 'this is the secret'
+// }));
 
-app.use(cookieParser());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+// app.use(cookieParser());
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
 app.post("/login", passport.authenticate('local-login'), function(req, res) {
     res.json(req.user);

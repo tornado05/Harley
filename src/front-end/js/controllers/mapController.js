@@ -32,11 +32,11 @@ Harley.controller("mapController", [
         };
 
         var getCurrentWeatherData = function(){
+            //TODO: redo this into factory
             $http.get('/weather/v01/current')
                 .then(function (res) {
                     var service = $rootScope.preferedService || "darkSky";
                     var data = WeatherService.getDataByService(res.data, service);
-                    //TODO: move to module which will be responsible for data grab
                     $rootScope.currentWeather = res.data;
                     renderMarkers(data);
                 }, function (res) {

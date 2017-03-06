@@ -27,7 +27,6 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "$http", "CHART_
                 _.each(res.data.cities, function (cityName) {
                     $scope.cities.push(cityName.label)
                 });
-                console.log("new", $scope.cities);
 
             }, function (res) {
                 console.log("Loading configs failed! Code: ", res.statusCode)
