@@ -10,7 +10,7 @@ Harley.service("WeatherService", [ function () {
         return result;
     };
 
-    this.getWeatherServices = function (data){
+    this.getWeatherByServices = function (data){
         var result = [];
         _.each(data, function (item){
             result.push(item.sourceAPI);

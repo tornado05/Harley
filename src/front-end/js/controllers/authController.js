@@ -1,5 +1,5 @@
 Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory", "SignupFactory", "$rootScope",
-    function ($scope, $uibModal, LoginFactory, SignupFactory, $rootScope) {
+    function ( $scope, $uibModal, LoginFactory, SignupFactory, $rootScope ) {
     $scope.authModalOpen = function () {
         $scope.modalInstance = $uibModal.open({
             size: "sm",
@@ -15,22 +15,57 @@ Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory",
                 };
 
                 $scope.login = function (user) {
-                    console.log("hi");
-                    LoginFactory.post(user);
+                    LoginFactory.post(user).$promise.then(function (data) {
+                        console.log("lofin data", data);
+                        if (data.alert) {
+                            $scope.alerts = [
+                                { type: 'danger', msg: data.alert }
+                            ];
+                        } else {
+                            $uibModalInstance.dismiss();
+                        }
+                        $scope.closeAlert = function(index) {
+                            $scope.alerts.splice(index, 1);
+                        };
+                    }, function (err) {
+                        console.log("loggin error", err);
+                    });
                 };
 
                 $scope.signup = function(user) {
                     // TODO: notify if user passwords are not the same
                     if (user.password == user.password2) {
                         SignupFactory.post(user).$promise.then(function (data) {
-                            console.log(data);
+                            if (data.alert) {
+                                $scope.alerts = [
+                                    { type: 'danger', msg: data.alert }
+                                ];
+                            } else {
+                                $uibModalInstance.dismiss();
+                            }
+                            $scope.closeAlert = function(index) {
+                                $scope.alerts.splice(index, 1);
+                            };
                             $rootScope.currentUser = user;
                         }, function (error) {
                             console.log("SignUpCtrl", error);
                         });
+                    } else {
+                        $scope.alerts = [
+                            { type: 'danger', msg: "Passwords do not match" }
+                        ];
+                        $scope.closeAlert = function(index) {
+                            $scope.alerts.splice(index, 1);
+                        };
                     }
                 }
+
+
             }]
+        });
+
+        $rootScope.$watch('currentUser', function () {
+            console.log($rootScope.currentUser);
         });
 
         $scope.modalInstance.result.then(function (data) {

@@ -20,10 +20,9 @@ module.exports = function(passport) {
                 username: username.toLowerCase()
             }, function(err, user) {
                 if (err)
-                    console.log(err);
-                    return done(err);
+                    return done(err, {alert: "Enter valid password"});
                 if (!user)
-                    return done(null);
+                    return done(null, {alert: "No such user"});
                 if (!user.validPassword(password))
                     return done(null, {loginMessage: "Oops! Wrong password."});
                 return done(null, user);
