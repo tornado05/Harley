@@ -15,17 +15,17 @@ module.exports = function(passport) {
 
     passport.use('local-login', new LocalStrategy(
         function(username, password, done) {
-            // console.log("local strategy");
-            // console.log(username, password);
+
             User.findOne({
                 username: username.toLowerCase()
             }, function(err, user) {
                 if (err)
+                    console.log(err);
                     return done(err);
                 if (!user)
-                    return done(null, false);
+                    return done(null);
                 if (!user.validPassword(password))
-                    return done(null, false);
+                    return done(null, {loginMessage: "Oops! Wrong password."});
                 return done(null, user);
             });
         }

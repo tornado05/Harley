@@ -1,4 +1,5 @@
-Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory", function ($scope, $uibModal, LoginFactory) {
+Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory", "SignupFactory", "$rootScope",
+    function ($scope, $uibModal, LoginFactory, SignupFactory, $rootScope) {
     $scope.authModalOpen = function () {
         $scope.modalInstance = $uibModal.open({
             size: "sm",
@@ -12,6 +13,23 @@ Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory",
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss();
                 };
+
+                $scope.login = function (user) {
+                    console.log("hi");
+                    LoginFactory.post(user);
+                };
+
+                $scope.signup = function(user) {
+                    // TODO: notify if user passwords are not the same
+                    if (user.password == user.password2) {
+                        SignupFactory.post(user).$promise.then(function (data) {
+                            console.log(data);
+                            $rootScope.currentUser = user;
+                        }, function (error) {
+                            console.log("SignUpCtrl", error);
+                        });
+                    }
+                }
             }]
         });
 
@@ -24,14 +42,21 @@ Harley.controller("AuthModalController", ["$scope", "$uibModal", "LoginFactory",
         $scope.login = function (user) {
             LoginFactory.post(user);
         };
+
+        $scope.tabs = [
+            { title:'Dynamic Title 1', content:'Dynamic content 1' },
+            { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+        ];
+        $scope.model = {
+            name: 'Tabs'
+        };
+
+
+
+
     };
-    $scope.tabs = [
-        { title:'Dynamic Title 1', content:'Dynamic content 1' },
-        { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-    ];
-    $scope.model = {
-        name: 'Tabs'
-    };
+
+
 
 
 }]);
@@ -53,6 +78,7 @@ Harley.controller("SignUpCtrl", ["$scope", "$rootScope", "$location", "$http", "
             SignupFactory.post(user).$promise.then(function (data) {
                 $rootScope.currentUser = user;
             }, function (error) {
+                console.log("SignUpCtrl", error);
             });
         }
     }
@@ -60,6 +86,10 @@ Harley.controller("SignUpCtrl", ["$scope", "$rootScope", "$location", "$http", "
 
 Harley.controller("LoginCtrl", ["$scope", "$rootScope", "$location", "$http", "LoginFactory", function($location, $scope, $http, $rootScope, LoginFactory) {
     $scope.login = function (user) {
-        LoginFactory.post(user);
+        LoginFactory.post(user).then(function (data) {
+            console.log("LoginCtrl", data);
+        }, function (error) {
+            console.log("LoginCtrl error", error);
+        });
     };
 }]);

@@ -29,6 +29,7 @@ app.use(passport.session());
 app.use(flash());
 
 app.post("/login", passport.authenticate('local-login'), function(req, res) {
+    console.log(req);
     res.json(req.user);
 });
 
@@ -46,7 +47,7 @@ app.post("/signup", function(req, res, next) {
         username: req.body.username
     }, function(err, user) {
         if (user) {
-            res.json(null);
+            res.json(null, false, req.flash("signupMessage", "That user name is already taken."));
             return;
         } else {
             var newUser = new db.User();
