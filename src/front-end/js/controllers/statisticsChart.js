@@ -1,8 +1,18 @@
 Harley.controller("statisticsChart", [
-    "$rootScope", "$scope", '$http', "Configs", 'CHART_TYPE',
-    function ($rootScope, $scope, $http, Configs, CHART_TYPE) {
+    "$rootScope", "$scope", "statisticData",
+    function ($rootScope, $scope, statisticData) {
         var serviceList = ["openWeather", "wunderground", "darkSky"];
-        $scope.statisticsData = getStatistics();
+
+        statisticData.get({
+            periodFrom: "2017-01-01",
+            periodTo: "2017-01-20",
+            city: "Rivne"
+        }).$promise.then(function (data) {
+            $scope.statisticsData = data;
+        }, function (err) {
+            console.log(err);
+        });
+
         $scope.$watch('statisticsData', function () {
             var dataSet = [];
             _.each(serviceList, function (service) {
@@ -12,17 +22,6 @@ Harley.controller("statisticsChart", [
             $scope.labels = _getTimeLabel("openWeather");
             $scope.series = serviceList;
         });
-
-        function getStatistics() {
-            $http({
-                method: 'GET',
-                url: '/weather/v01/stat/service-by-city/day?from=2017-01-01&to=2017-03-20&city=Rivne'
-            }).then(function (res) {
-                $scope.statisticsData = res.data;
-            }, function (res) {
-                console.log('Loading configs failed! Code: ', res.statusCode)
-            });
-        }
 
         var _getTimeLabel = function(serviceName) {
             var timeLabel = [];

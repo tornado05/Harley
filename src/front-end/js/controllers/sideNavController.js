@@ -1,122 +1,106 @@
-Harley.controller("sideNavController", ["$scope", "$rootScope", "$http", "CHART_TYPE",
-    function ($scope, $rootScope, $http, CHART_TYPE) {
+Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
+    function ($scope, $rootScope, CHART_TYPE) {
+        var selectedChartType = "temp",
+            city = "Rivne",
+            dateFrom = "2017-08-03",
+            dateTo="2017-08-03";
         $scope.status = "closed";
-        $scope.citiesModel = null;
         $scope.cities = [];
-        $scope.chartTypes = CHART_TYPE;
+        $scope.dateFromModel = new Date();
+        $scope.dateToModel = new Date();
+        $scope.configs = $rootScope.config;
+        $scope.chartTypes = [{
+            "name": "Temperature",
+            "type": "temp",
+            "isSelected": true
+        },
+            {
+                "name": "Pressure",
+                "type": "pressure",
+                "isSelected": false
+            },
+            {
+                "name": "Wind speed",
+                "type": "windSpeed",
+                "isSelected": false
+            },
+            {
+                "name": "Humidity",
+                "type": "humidity",
+                "isSelected": false
+            }];
 
-
-
-        getConfigs();
-
-        $scope.toggleSideNav = function () {
-           $('.side-nav').toggleClass("open close");
-        };
-
-        $scope.selectedChartType = function () {
-
-        };
-
-        function getConfigs () {
-            $http({
-                method: "GET",
-                url: "/weather/v01/configs"
-            }).then(function (res) {
-                _.each(res.data.cities, function (cityName) {
+        $scope.$watch('configs', function () {
+            $scope.configs.$promise.then(function (data) {
+                _.each(data.cities, function (cityName) {
                     $scope.cities.push(cityName.label)
                 });
-                console.log("new", $scope.cities);
+            }, function (err) {
+                console.log(err);
+            })
+        });
 
-            }, function (res) {
-                console.log("Loading configs failed! Code: ", res.statusCode)
-            });
-        }
-
-        $scope.today = function() {
-            $scope.dt = new Date();
+        $scope.getDateFrom = function (date) {
+            console.log(date);
         };
-        $scope.today();
 
-        $scope.clear = function() {
-            $scope.dt = null;
+        $scope.setCityName = function (cityName) {
+            console.log(cityName)
+        };
+
+        $scope.setChartType = function (name) {
+            angular.forEach($scope.chartTypes, function (element) {
+                if (element.name !== name) {
+                    element.isSelected = false;
+                } else {
+                    selectedChartType = element.type;
+                    element.isSelected = true;
+                }
+            });
+        };
+
+        $scope.getStatChart = function () {
+            console.log(selectedChartType);
+            console.log($scope.cities);
+            console.log($scope.dateFromModel);
+            console.log($scope.dateToModel);
+        };
+
+        $scope.toggleSideNav = function () {
+            $('.side-nav').toggleClass("open close");
+        };
+
+        $scope.clear = function () {
+            if ($scope.datePickerFrom.opened) {
+                $scope.dateFromModel = null;
+            } else {
+                $scope.dateToModel = null;
+            }
         };
 
         $scope.inlineOptions = {
-            customClass: getDayClass,
             minDate: new Date(),
             showWeeks: true
         };
 
-        $scope.dateOptions = {
-            formatYear: 'yy',
-            maxDate: new Date(2020, 5, 22),
-            minDate: new Date(),
-            startingDay: 1
+        $scope.dateFromPicker = function () {
+            $scope.datePickerFrom.opened = true;
         };
 
-
-        $scope.toggleMin = function() {
-            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-        };
-
-        $scope.toggleMin();
-
-        $scope.open1 = function() {
-            $scope.popup1.opened = true;
-        };
-
-        $scope.open2 = function() {
-            $scope.popup2.opened = true;
-        };
-
-        $scope.setDate = function(year, month, day) {
-            $scope.dt = new Date(year, month, day);
+        $scope.dateToPicker = function () {
+            $scope.datePickerTo.opened = true;
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
         $scope.altInputFormats = ['M!/d!/yyyy'];
 
-        $scope.popup1 = {
+        $scope.datePickerFrom = {
             opened: false
         };
 
-        $scope.popup2 = {
+        $scope.datePickerTo = {
             opened: false
         };
 
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        var afterTomorrow = new Date();
-        afterTomorrow.setDate(tomorrow.getDate() + 1);
-        $scope.events = [
-            {
-                date: tomorrow,
-                status: 'full'
-            },
-            {
-                date: afterTomorrow,
-                status: 'partially'
-            }
-        ];
-
-        function getDayClass(data) {
-            var date = data.date,
-                mode = data.mode;
-            if (mode === 'day') {
-                var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-                for (var i = 0; i < $scope.events.length; i++) {
-                    var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                    if (dayToCheck === currentDay) {
-                        return $scope.events[i].status;
-                    }
-                }
-            }
-
-            return '';
-        }
-
-}]);
+    }]);
