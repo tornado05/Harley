@@ -1,8 +1,17 @@
 Harley.controller("statisticsChart", [
     "$rootScope", "$scope", "statisticData",
     function ($rootScope, $scope, statisticData) {
-        var serviceList = ["openWeather", "wunderground", "darkSky"];
-
+        var serviceList = [];
+        $scope.configs = $rootScope.config;
+        $scope.$watch('configs', function () {
+            $scope.configs.$promise.then(function (data) {
+                _.each(data.services, function (service) {
+                    serviceList.push(service.name)
+                });
+            }, function (err) {
+                console.log("configs error: ", err);
+            })
+        });
         $rootScope.$watch('statChartParams', function () {
             statisticData.get({
                 periodFrom: $rootScope.statChartParams.periodFrom,
@@ -23,7 +32,7 @@ Harley.controller("statisticsChart", [
                 dataSet.push(_getChartData(service, $rootScope.statChartParams.type));
             });
             $scope.data = dataSet;
-            $scope.labels = _getTimeLabel("openWeather");
+            $scope.labels = _getTimeLabel(_.first(serviceList));
             $scope.series = serviceList;
         });
 
