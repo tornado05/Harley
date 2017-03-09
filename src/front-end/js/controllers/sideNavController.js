@@ -40,8 +40,7 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
 
         $scope.toggleSideNav = function () {
             $('.side-nav').toggleClass("open close");
-            $('.btn-burger').toggleClass("open");
-        }
+        };
 
         $scope.getDateFrom = function (date) {
             console.log(date);
