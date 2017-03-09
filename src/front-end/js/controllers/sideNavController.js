@@ -10,9 +10,8 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "$http", "CHART_
         getConfigs();
 
         $scope.toggleSideNav = function () {
-           $scope.status == 'closed' ?
-               $('.side-nav').toggleClass("open close") :
-               $('.side-nav').toggleClass("open close");
+            $('.side-nav').toggleClass("open close");
+            $('.btn-burger').toggleClass("open");
         };
 
         $scope.selectedChartType = function () {

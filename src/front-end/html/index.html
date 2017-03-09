@@ -8,17 +8,22 @@
 </head>
 <body ng-controller="MainController">
 <header ng-controller="sideNavController" class="text-center">
-    <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
+    <button class="btn btn-link btn-burger" ng-click="toggleSideNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <div class="side-nav close">
-        <label for="repeatSelect"> Select city: </label>
+        <h2> Select city: </h2>
         <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
                 ng-options="cityName for cityName in cities">
             <option value="">Select city</option>
         </select>
         </br>
-        <div class="row">
+        <div class="row params">
             <div class="col-xs-12">
-                <label ng-repeat="(type, typeName) in chartTypes">
+                <h2>Select parameter:</h2>
+                <label ng-repeat="(type, typeName) in chartTypes" class="radio">
                     <input type="radio" ng-model="typeName.isSelected"/> {{typeName.name}}
                 </label>
             </div>

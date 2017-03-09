@@ -2,24 +2,31 @@
 
 header{
   padding:10px 15px;
+  height: 55px;
+  background: #1565c0;
   .side-nav {
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 9999;
     width: 0;
     height: 100vh;
-    transition: all 250ms;
+    padding: 10px 0;
     background: @secondaryBGcolor;
+    border-left:2px solid #000;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    font-family: 'Roboto';
+    overflow: hidden;
+    transition: all 300ms;
+    z-index: 9999;
     &.open {
       width: 300px;
+      padding-left:15px;
+      padding-right:15px;
     }
     .close-btn {
       float: left;
       font-size: 20px;
-      color: black;
+      color: #000;
       padding: 15px;
     }
     ul {
@@ -36,6 +43,27 @@ header{
     .city-select {
       margin-left: 10px;
     }
+  }
+  .params{
+    label{
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+      &.radio{
+        padding-left: 25px;
+        font-weight: normal;
+      }
+    }
+  }
+
+  select[name="repeatSelect"]{
+    display: block;
+    width:100%;
+    padding:3px 6px;
+  }
+  label[for="repeatSelect"]{
+    display: block;
+    text-align: left;
   }
 }
 
