@@ -1,10 +1,18 @@
 <div class="side-nav close">
-    <label for="repeatSelect"> Select city: </label>
-    <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
-            ng-options="cityName for cityName in cities" ng-click="setCityName(cityName)">
-        <option value="">Select city</option>
-    </select>
-
+    <div class="text-right" ng-controller="AuthModalController">
+        <button class="btn btn-primary" ng-click="authModalOpen()">
+            Log in / Register
+        </button>
+    </div>
+    </br>
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="repeatSelect"> Select city: </label>
+            <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
+                    ng-options="cityName for cityName in cities" ng-click="setCityName(cityName)">
+            </select>
+        </div>
+    </div>
 
     </br>
     <div class="row">
@@ -19,14 +27,16 @@
     <div class="row">
         <h2>Select period:</h2>
         <div class="col-md-12">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateFromModel"
-                   is-open="datePickerFrom.opened" datepicker-options="dateOptions" ng-required="true"
-                   close-text="Close" alt-input-formats="altInputFormats"/>
-            <span class="input-group-btn">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateFromModel"
+                       is-open="datePickerFrom.opened" datepicker-options="dateOptions" ng-required="true"
+                       close-text="Close" alt-input-formats="altInputFormats"/>
+                <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="dateFromPicker()">
-                        <i class="mdi mdi-calendar-question"></i>
+                        <i class="fa fa-calendar-check-o"></i>
                     </button>
                 </span>
+            </p>
         </div>
     </div>
     <div class="row">
@@ -36,25 +46,16 @@
                        is-open="datePickerTo.opened"
                        datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
                 <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="dateToPicker()">
-                            <i class="mdi mdi-calendar-question"></i>
-                        </button>
-                    </span>
+                    <button type="button" class="btn btn-default" ng-click="dateToPicker()">
+                        <i class="fa fa-calendar-check-o"></i>
+                    </button>
+                </span>
             </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 text-center">
             <button class="btn btn-success" ng-click="getStatChart()">Show</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div ng-controller="AuthModalController">
-                <button ng-click="authModalOpen()">
-                    Log in / Register
-                </button>
-            </div>
         </div>
     </div>
 </div>

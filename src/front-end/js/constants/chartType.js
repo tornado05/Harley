@@ -1,22 +1,20 @@
-Harley.constant("CHART_TYPE", {
-    "TEMPERATURE": {
+Harley.constant("CHART_TYPE", [{
         "name": "Temperature",
         "type": "temp",
-        "isSelected": false
+        "isSelected": true
     },
-    "PRESSURE": {
+    {
         "name": "Pressure",
         "type": "pressure",
         "isSelected": false
     },
-    "WIND-SPEED": {
+    {
         "name": "Wind speed",
         "type": "windSpeed",
         "isSelected": false
     },
-    "HUMIDITY": {
+    {
         "name": "Humidity",
         "type": "humidity",
         "isSelected": false
-    }
-});
+    }]);

@@ -1,42 +1,48 @@
 <div class="modal-header">
-    Some modal
+    LogIn / SignUp
+    <div class="close-btn">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+    </div>
 </div>
 <div class="modal-body">
     <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" heading="Log In">
-            <div>
-                <input ng-model="user.username" id="loginUserName"/>
+            <div class="login-wrapper">
                 <label for="loginUserName">Login</label>
-
-                <input ng-model="user.password" type="password" id="loginUserPassword"/>
+                <input ng-model="user.username" id="loginUserName"/>
                 <label for="loginUserPassword">Password</label>
+                <input ng-model="user.password" type="password" id="loginUserPassword"/>
                 <div class="alerts">
                     <script type="text/ng-template">
                         <div ng-transclude></div>
                     </script>
                     <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
                 </div>
-                <button ng-click="login(user)">Login</button>
+                <button class="btn btn-primary" ng-click="login(user)">Login</button>
             </div>
         </uib-tab>
         <uib-tab index="1" heading="Sign Up">
-            <input ng-model="user.username" id="signupUserName"/>
-            <label for="signupUserName">Login</label>
-            <input ng-model="user.password" type="password" id="signupFirstPassword"/>
-            <label for="signupFirstPassword">Password</label>
-            <input ng-model="user.password2" type="password" id="signupSecondPassword"/>
-            <label for="signupSecondPassword">Repeat your password</label>
-            <div class="alerts">
-                <script type="text/ng-template">
-                    <div ng-transclude></div>
-                </script>
-                <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+            <div class="signup-wrapper">
+                <label for="signupUserName">Login</label>
+                <input ng-model="user.username" id="signupUserName"/>
+                <label for="signupFirstPassword">Password</label>
+                <input ng-model="user.password" type="password" id="signupFirstPassword"/>
+                <label for="signupSecondPassword">Repeat your password</label>
+                <input ng-model="user.password2" type="password" id="signupSecondPassword"/>
+                <div class="alerts">
+                    <script type="text/ng-template">
+                        <div ng-transclude></div>
+                    </script>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+                </div>
+                <button class="btn btn-primary" ng-click="signup(user)">Sign Up</button>
             </div>
-            <button ng-click="signup(user)">Sign Up</button>
         </uib-tab>
     </uib-tabset>
 </div>
 <div class="modal-footer">
     <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+
 </div>

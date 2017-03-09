@@ -7,26 +7,7 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
         $scope.dateFromModel = new Date();
         $scope.dateToModel = new Date();
         $scope.configs = $rootScope.config;
-        $scope.chartTypes = [{
-            "name": "Temperature",
-            "type": "temp",
-            "isSelected": true
-        },
-            {
-                "name": "Pressure",
-                "type": "pressure",
-                "isSelected": false
-            },
-            {
-                "name": "Wind speed",
-                "type": "windSpeed",
-                "isSelected": false
-            },
-            {
-                "name": "Humidity",
-                "type": "humidity",
-                "isSelected": false
-            }];
+        $scope.chartTypes = CHART_TYPE;
 
         $scope.$watch('configs', function () {
             $scope.configs.$promise.then(function (data) {
@@ -83,7 +64,8 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
         $scope.dateToPicker = function () {
             $scope.datePickerTo.opened = true;
         };
-
+        
+        //TODO: change this to bootstrap format date functions
         var _getFormatedDate = function (date) {
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         };
