@@ -28,8 +28,7 @@
     "angular-chart": "0.3.x",
     "angular-leaflet-directive": "0.10.x",
     "angular-ui-bootstrap": "2.5.x",
-    "ui-leaflet": "~2.0.0",
-    "font-awesome": "^4.7.0"
+    "ui-leaflet": "~2.0.0"
   },
   "devDependencies": {
     "azgs-leaflet": "azgs/azgs-leaflet",

@@ -64,7 +64,7 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
         $scope.dateToPicker = function () {
             $scope.datePickerTo.opened = true;
         };
-        
+
         //TODO: change this to bootstrap format date functions
         var _getFormatedDate = function (date) {
             return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
