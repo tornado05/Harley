@@ -8,7 +8,7 @@
 </head>
 <body ng-controller="MainController">
 
-<header ng-controller="sideNavController" class="text-center">
+<header ng-controller="sideNavController">
     <button class="btn btn-link btn-burger" ng-click="toggleSideNav()">
         <span></span>
         <span></span>
@@ -16,7 +16,6 @@
     </button>
     <side-nav-component></side-nav-component>
 </header>
-
 
 <main ng-controller="currentWeatherController">
     <map-component></map-component>
