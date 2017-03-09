@@ -1,5 +1,5 @@
 Harley.controller("mapController", [
-    "$rootScope", "$scope", '$http', 'WeatherService', 'MAPBOX', 'OPENSTREET', 'MAP',
+    "$rootScope", "$scope", '$http', 'WeatherService', 'MAPBOX', 'OPENSTREET', 'MAP', 'WeatherData',
     function ($rootScope, $scope, $http, WeatherService, MAPBOX, OPENSTREET, MAP) {
 
         var initialize = function () {
@@ -17,10 +17,22 @@ Harley.controller("mapController", [
                     }
                 }
             });
-            getCurrentWeatherData();
         };
 
-        var getMapOptions = function (){
+        $scope.weatherData = $rootScope.weatherData;
+
+        $scope.$watch('weatherData', function () {
+            $scope.weatherData.$promise.then(function (res) {
+                var service = $rootScope.preferedService || "darkSky";
+                var data = WeatherService.getDataByService(res, service);
+                $rootScope.weatherData = res;
+                renderMarkers(data);
+            }, function (err) {
+                console.log("Something went wrong:", err);
+            });
+        });
+
+        var getMapOptions = function () {
             return {
                 zoomControlPosition: 'topleft',
                 tileLayerOptions: {
@@ -31,20 +43,7 @@ Harley.controller("mapController", [
             };
         };
 
-        var getCurrentWeatherData = function(){
-            //TODO: redo this into factory
-            $http.get('/weather/v01/current')
-                .then(function (res) {
-                    var service = $rootScope.preferedService || "darkSky";
-                    var data = WeatherService.getDataByService(res.data, service);
-                    $rootScope.currentWeather = res.data;
-                    renderMarkers(data);
-                }, function (res) {
-                    console.log("Something went wrong:", res.statusText);
-                });
-        };
-
-        var getMapboxConfig = function(){
+        var getMapboxConfig = function () {
             return {
                 name: MAPBOX.NAME,
                 url: MAPBOX.URL,
@@ -56,7 +55,7 @@ Harley.controller("mapController", [
             }
         };
 
-        var getOpenStreetConfig = function(){
+        var getOpenStreetConfig = function () {
             return {
                 name: OPENSTREET.NAME,
                 url: OPENSTREET.URL,

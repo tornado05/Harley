@@ -1,6 +1,6 @@
 Harley.controller("currentChartController", [
-    "$rootScope", "$scope", 'WeatherService',
-    function ($rootScope, $scope, WeatherService) {
+    "$rootScope", "$scope",
+    function ($rootScope, $scope) {
         var initialize = function () {
             angular.extend($scope, {
                 labels: [],
@@ -20,28 +20,27 @@ Harley.controller("currentChartController", [
             setChartColors();
         };
 
-        $rootScope.$watch('currentWeather', function () {
+        $rootScope.$watch('weatherData', function () {
             $scope.updateChart();
         });
 
         $rootScope.$watch('config', function () {
             $rootScope.config.$promise.then(function (config) {
-                setSelectedOptions(config);
                 $scope.cities = config.cities;
                 $scope.params = config.params;
-            }, function (res) {
-                console.log("Failed to receive config. Code:", res.statusCode);
+                setSelectedOptions();
+            }, function (err) {
+                console.log("Failed to receive config. Code:", err.statusCode);
             });
-
         });
 
-        var setSelectedOptions = function (config) {
-            $scope.selectedCity = _.first(config.cities).value;
-            $scope.selectedParam = _.first(config.params).name;
+        var setSelectedOptions = function () {
+            $scope.selectedCity = _.first($scope.cities).value;
+            $scope.selectedParam = _.first($scope.params).name;
         };
 
         var setChartColors = function (){
-            //TODO: redo this according to cities and configs;
+            //TODO: redo this according to services and user config;
             $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
         };
 
@@ -53,10 +52,11 @@ Harley.controller("currentChartController", [
             $scope.labels = [];
             $scope.data = [];
             $scope.options = updateChartOptions();
-            _.each($rootScope.currentWeather, function (data) {
+            _.each($rootScope.weatherData, function (data) {
                 if ((data.cityName == $scope.selectedCity)) {
                     $scope.labels.push(data.sourceAPI);
                     $scope.data.push(data[$scope.selectedParam]);
+                    console.log($scope.selectedParam, data[$scope.selectedParam]);
                 }
             });
         };
