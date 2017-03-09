@@ -34,22 +34,13 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
                     $scope.cities.push(cityName.label)
                 });
             }, function (err) {
-                console.log(err);
+                console.log("configs error: ", err);
             })
         });
 
         $scope.toggleSideNav = function () {
             $('.side-nav').toggleClass("open close");
             $('.btn-burger').toggleClass("open");
-        }
-
-        $scope.getDateFrom = function (date) {
-            console.log(date);
-
-        };
-
-        $scope.setCityName = function (cityName) {
-            console.log(cityName)
         };
 
         $scope.setChartType = function (name) {

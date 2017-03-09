@@ -28,7 +28,7 @@ Harley.controller("mapController", [
                 $rootScope.weatherData = res;
                 renderMarkers(data);
             }, function (err) {
-                console.log("Something went wrong:", err);
+                console.log("weatherData error: ", err);
             });
         });
 

@@ -56,7 +56,6 @@ Harley.controller("currentChartController", [
                 if ((data.cityName == $scope.selectedCity)) {
                     $scope.labels.push(data.sourceAPI);
                     $scope.data.push(data[$scope.selectedParam]);
-                    console.log($scope.selectedParam, data[$scope.selectedParam]);
                 }
             });
         };

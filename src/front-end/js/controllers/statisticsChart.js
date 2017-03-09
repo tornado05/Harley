@@ -11,7 +11,7 @@ Harley.controller("statisticsChart", [
             }).$promise.then(function (data) {
                 $scope.statisticsData = data;
             }, function (err) {
-                console.log(err);
+                console.log("statChartParams error: ", err);
             });
         }, true);
 
