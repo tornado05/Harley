@@ -1,18 +1,22 @@
 Harley.constant("CHART_TYPE", {
     "TEMPERATURE": {
-        "name": "temp",
+        "name": "Temperature",
+        "type": "temp",
         "isSelected": false
     },
     "PRESSURE": {
-        "name": "pressure",
+        "name": "Pressure",
+        "type": "pressure",
         "isSelected": false
     },
     "WIND-SPEED": {
-        "name": "windSpeed",
+        "name": "Wind speed",
+        "type": "windSpeed",
         "isSelected": false
     },
     "HUMIDITY": {
-        "name": "humidity",
+        "name": "Humidity",
+        "type": "humidity",
         "isSelected": false
     }
 });

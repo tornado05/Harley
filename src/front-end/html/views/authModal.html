@@ -7,21 +7,32 @@
             <div>
                 <input ng-model="user.username" id="loginUserName"/>
                 <label for="loginUserName">Login</label>
+
                 <input ng-model="user.password" type="password" id="loginUserPassword"/>
                 <label for="loginUserPassword">Password</label>
+                <div class="alerts">
+                    <script type="text/ng-template">
+                        <div ng-transclude></div>
+                    </script>
+                    <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+                </div>
                 <button ng-click="login(user)">Login</button>
             </div>
         </uib-tab>
         <uib-tab index="1" heading="Sign Up">
-            <p>
-                <input ng-model="user.username" id="signupUserName"/>
-                <label for="signupUserName">Login</label>
-                <input ng-model="user.password" type="password" id="signupFirstPassword"/>
-                <label for="signupFirstPassword">Password</label>
-                <input ng-model="user.password2" type="password" id="signupSecondPassword"/>
-                <label for="signupSecondPassword">Repeat your password</label>
-                <button ng-click="signup(user)">Sign Up</button>
-            </p>
+            <input ng-model="user.username" id="signupUserName"/>
+            <label for="signupUserName">Login</label>
+            <input ng-model="user.password" type="password" id="signupFirstPassword"/>
+            <label for="signupFirstPassword">Password</label>
+            <input ng-model="user.password2" type="password" id="signupSecondPassword"/>
+            <label for="signupSecondPassword">Repeat your password</label>
+            <div class="alerts">
+                <script type="text/ng-template">
+                    <div ng-transclude></div>
+                </script>
+                <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
+            </div>
+            <button ng-click="signup(user)">Sign Up</button>
         </uib-tab>
     </uib-tabset>
 </div>

@@ -10,8 +10,25 @@ var http = require("http"),
     flash = require("connect-flash"),
     weatherController = require("./controllers/weather"),
     db = require("./models/dbModel");
+    var api = express.Router();
 
 require('./config/passport')(passport);
+
+function handleError(err,req,res,next){
+    var output = {
+        error: {
+            name: err.name,
+            message: err.message,
+            text: err.toString()
+        }
+    };
+    var statusCode = err.status || 500;
+    res.status(statusCode).json(output);
+}
+
+api.use( [
+    handleError
+] );
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -19,16 +36,16 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(express.static("public"));
-// app.use(session({
-//     secret: 'this is the secret'
-// }));
+app.use(session({
+    secret: 'this is the secret'
+}));
 
-// app.use(cookieParser());
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(flash());
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-app.post("/login", passport.authenticate('local-login'), function(req, res) {
+app.post("/login", passport.authenticate('local-login', { failWithError: true }), function(req, res) {
     res.json(req.user);
 });
 
@@ -46,7 +63,7 @@ app.post("/signup", function(req, res, next) {
         username: req.body.username
     }, function(err, user) {
         if (user) {
-            res.json(null);
+            res.json(null, false, {message: req.flash('alert','That user name is already taken.')});
             return;
         } else {
             var newUser = new db.User();

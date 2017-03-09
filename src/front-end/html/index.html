@@ -7,56 +7,17 @@
     <link rel="stylesheet" href="css/main.css"/>
 </head>
 <body ng-controller="MainController">
+
 <header ng-controller="sideNavController" class="text-center">
     <button class="btn btn-link btn-burger" ng-click="toggleSideNav()">
         <span></span>
         <span></span>
         <span></span>
     </button>
-    <div class="side-nav close">
-        <h2> Select city: </h2>
-        <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
-                ng-options="cityName for cityName in cities">
-            <option value="">Select city</option>
-        </select>
-        </br>
-        <div class="row params">
-            <div class="col-xs-12">
-                <h2>Select parameter:</h2>
-                <label ng-repeat="(type, typeName) in chartTypes" class="radio">
-                    <input type="radio" ng-model="typeName.isSelected"/> {{typeName.name}}
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <h2>Select period:</h2>
-            <div class="col-md-12">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt"
-                           is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true"
-                           close-text="Close" alt-input-formats="altInputFormats"/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open1()">
-                            <i class="mdi mdi-calendar-question"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-
-            <div class="col-md-12">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup2.opened"
-                           datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="open2()">
-                            <i class="mdi mdi-calendar-question"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-        </div>
-    </div>
+    <side-nav-component></side-nav-component>
 </header>
+
+
 <main ng-controller="currentWeatherController">
     <map-component></map-component>
     <chart-component></chart-component>
@@ -68,23 +29,6 @@
     </canvas>
 </div>
 
-<div ng-controller="AuthModalController">
-    <button ng-click="authModalOpen()">
-        Log in / Register
-    </button>
-</div>
-
-<!--<nav ng-controller="NavCtrl">-->
-<!--<a href="#!/home">Home</a> |-->
-<!--<span ng-show="!currentUser">-->
-<!--<a href="#!/login">Login</a> |-->
-<!--<a href="#!/signup">Sign Up</a>-->
-<!--</span>-->
-<!--<span ng-show="currentUser">-->
-<!--<a href="#!/profile">Profile</a> |-->
-<!--<a href="#!/logout" ng-click="logout()">Logout</a>-->
-<!--</span>-->
-<!--</nav>-->
 
 <script src="js/vendor.js" type="text/javascript"></script>
 <script src="js/bundle.js" type="text/javascript"></script>
