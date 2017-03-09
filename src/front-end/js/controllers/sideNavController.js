@@ -6,6 +6,7 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
             dateTo="2017-08-03";
         $scope.status = "closed";
         $scope.cities = [];
+        $scope.citiesModel = "Rivne";
         $scope.dateFromModel = new Date();
         $scope.dateToModel = new Date();
         $scope.configs = $rootScope.config;
@@ -60,10 +61,17 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
         };
 
         $scope.getStatChart = function () {
-            console.log(selectedChartType);
-            console.log($scope.cities);
-            console.log($scope.dateFromModel);
-            console.log($scope.dateToModel);
+            // console.log(selectedChartType);
+            // console.log($scope.citiesModel);
+            // console.log(_getFormatedDate($scope.dateFromModel));
+            // console.log(_getFormatedDate($scope.dateToModel));
+            $rootScope.statChartParams = {
+                periodFrom: _getFormatedDate($scope.dateFromModel),
+                periodTo: _getFormatedDate($scope.dateToModel),
+                city: $scope.citiesModel,
+                type: selectedChartType
+            }
+
         };
 
         $scope.toggleSideNav = function () {
@@ -89,6 +97,10 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
 
         $scope.dateToPicker = function () {
             $scope.datePickerTo.opened = true;
+        };
+
+        var _getFormatedDate = function (date) {
+            return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
