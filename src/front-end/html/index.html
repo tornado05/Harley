@@ -8,77 +8,9 @@
 </head>
 <body ng-controller="MainController">
 
-<nav ng-controller="NavCtrl">
-    <a href="#!/home">Home</a> |
-    <span ng-show="!currentUser">
-        <a href="#!/login">Login</a> |
-        <a href="#!/signup">Sign Up</a>
-    </span>
-    <span ng-show="currentUser">
-        <a href="#!/profile">Profile</a> |
-        <a href="#!/logout" ng-click="logout()">Logout</a>
-    </span>
-</nav>
-
-<div ng-controller="AuthModalController">
-    <button ng-click="authModalOpen()">
-        Log in / Register
-    </button>
-</div>
-
 <header ng-controller="sideNavController" class="text-center">
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
-    <div class="side-nav close">
-        <label for="repeatSelect"> Select city: </label>
-        <select name="repeatSelect" id="repeatSelect" ng-model="citiesModel"
-                ng-options="cityName for cityName in cities" ng-click="setCityName(cityName)">
-            <option value="">Select city</option>
-        </select>
-
-
-        </br>
-        <div class="row">
-            <div class="col-xs-12">
-                <label data-ng-repeat="type in chartTypes">
-                    <input type="radio" data-ng-model="type.isSelected" data-ng-value="true"
-                           ng-click="setChartType(type.name)"/>
-                    {{type.name}}
-                </label>
-            </div>
-        </div>
-        <div class="row">
-            <h2>Select period:</h2>
-            <div class="col-md-12">
-                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateFromModel"
-                       is-open="datePickerFrom.opened" datepicker-options="dateOptions" ng-required="true"
-                       close-text="Close" alt-input-formats="altInputFormats"/>
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="dateFromPicker()">
-                        <i class="mdi mdi-calendar-question"></i>
-                    </button>
-                </span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateToModel"
-                           is-open="datePickerTo.opened"
-                           datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="dateToPicker()">
-                            <i class="mdi mdi-calendar-question"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <button class="btn btn-success" ng-click="getStatChart()">Show</button>
-            </div>
-        </div>
-    </div>
+    <side-nav-component></side-nav-component>
 </header>
 
 
