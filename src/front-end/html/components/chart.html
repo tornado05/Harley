@@ -1,0 +1,15 @@
+<div class="current-weather-chart">
+    <header class="{{controls}}">
+        <label>City: </label>
+        <select ng-change="updateChart()" ng-model="selectedCity">
+            <option ng-repeat="option in cities" ng-value="option.value">{{option.label}}</option>
+        </select>
+        <label>Parameter: </label>
+        <select ng-change="updateChart()" ng-model="selectedParam">
+            <option ng-repeat="option in params" ng-value="option.name">{{option.label}}</option>
+        </select>
+    </header>
+    <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
+            chart-options="options">
+    </canvas>
+</div>

@@ -24,7 +24,7 @@ module.exports = function(passport) {
                 if (!user)
                     return done(null, {alert: "No such user"});
                 if (!user.validPassword(password))
-                    return done(null, {loginMessage: "Oops! Wrong password."});
+                    return done(null, {alert: "Oops! Wrong password."});
                 return done(null, user);
             });
         }

@@ -1,9 +1,6 @@
 Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
     function ($scope, $rootScope, CHART_TYPE) {
-        var selectedChartType = "temp",
-            city = "Rivne",
-            dateFrom = "2017-08-03",
-            dateTo="2017-08-03";
+        var selectedChartType = "temp";
         $scope.status = "closed";
         $scope.cities = [];
         $scope.citiesModel = "Rivne";
@@ -61,17 +58,12 @@ Harley.controller("sideNavController", ["$scope", "$rootScope", "CHART_TYPE",
         };
 
         $scope.getStatChart = function () {
-            // console.log(selectedChartType);
-            // console.log($scope.citiesModel);
-            // console.log(_getFormatedDate($scope.dateFromModel));
-            // console.log(_getFormatedDate($scope.dateToModel));
             $rootScope.statChartParams = {
                 periodFrom: _getFormatedDate($scope.dateFromModel),
                 periodTo: _getFormatedDate($scope.dateToModel),
                 city: $scope.citiesModel,
                 type: selectedChartType
-            }
-
+            };
         };
 
         $scope.toggleSideNav = function () {

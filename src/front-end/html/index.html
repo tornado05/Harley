@@ -26,7 +26,6 @@
     </button>
 </div>
 
-
 <header ng-controller="sideNavController" class="text-center">
     <button class="btn btn-success" ng-click="toggleSideNav()">burger</button>
     <div class="side-nav close">
@@ -81,36 +80,19 @@
         </div>
     </div>
 </header>
-<div class="map" ng-controller="mapController">
-    <leaflet lf-center="center" defaults="defaults" layers="layers" markers="markers"></leaflet>
-</div>
 
-<div class="current-weather-chart" ng-controller="currentChartController">
-    <header>
-        <label>City: </label>
-        <select ng-change="updateChart()" ng-model="selectedCity">
-            <option ng-repeat="option in config.cities" ng-value="option.value">{{option.label}}</option>
-        </select>
-        <label>Parameter: </label>
-        <select ng-change="updateChart()" ng-model="selectedParam">
-            <option ng-repeat="option in config.params" ng-value="option.name">{{option.label}}</option>
-        </select>
-    </header>
-    <canvas class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series"
-            chart-options="options">
+
+<main ng-controller="currentWeatherController">
+    <map-component></map-component>
+    <chart-component></chart-component>
+</main>
+
+<div class="statistic-chart" ng-controller="statisticsChart" style="width: 75%; margin: 0 auto;">
+    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels"
+            chart-series="series" chart-options="options">
     </canvas>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="statistic-chart" ng-controller="statisticsChart">
-                <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
-                        chart-series="series" chart-options="options">
-                </canvas>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script src="js/vendor.js" type="text/javascript"></script>
 <script src="js/bundle.js" type="text/javascript"></script>

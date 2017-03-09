@@ -1,9 +1,6 @@
 Harley.controller("currentChartController", [
-    "$rootScope", "$scope", '$http', 'WeatherService', "Configs",
-    function ($rootScope, $scope, $http, WeatherService, Configs) {
-
-        $scope.config = $rootScope.configs;
-
+    "$rootScope", "$scope",
+    function ($rootScope, $scope) {
         var initialize = function () {
             angular.extend($scope, {
                 labels: [],
@@ -18,24 +15,23 @@ Harley.controller("currentChartController", [
                     value: 'value'
                 }]
             });
+            toggleControls();
             setSelectedOptions();
+            setChartColors();
         };
 
-        $rootScope.$watch('currentWeather', function () {
+        $rootScope.$watch('weatherData', function () {
             $scope.updateChart();
         });
 
-        $scope.$watch('config', function () {
-            // console.log("currentChartController", $scope.config);
-            // $scope.config.$promise.then(function (data) {
-            //     console.log("TEST", _.first($scope.config.cities).value);
-            // }, function (err) {
-            //     console.log(err);
-            // })
-        });
-
-        $rootScope.$watch('configs', function () {
-            // console.log("currentChartController configs", $rootScope.configs);
+        $rootScope.$watch('config', function () {
+            $rootScope.config.$promise.then(function (config) {
+                $scope.cities = config.cities;
+                $scope.params = config.params;
+                setSelectedOptions();
+            }, function (err) {
+                console.log("Failed to receive config. Code:", err.statusCode);
+            });
         });
 
         var setSelectedOptions = function () {
@@ -43,14 +39,24 @@ Harley.controller("currentChartController", [
             $scope.selectedParam = _.first($scope.params).name;
         };
 
+        var setChartColors = function (){
+            //TODO: redo this according to services and user config;
+            $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72'];
+        };
+
+        var toggleControls = function () {
+            $scope.controls = _.isEmpty($rootScope.statWeather) ? '' : 'hidden';
+        };
+
         $scope.updateChart = function () {
             $scope.labels = [];
             $scope.data = [];
             $scope.options = updateChartOptions();
-            _.each($rootScope.currentWeather, function (data) {
+            _.each($rootScope.weatherData, function (data) {
                 if ((data.cityName == $scope.selectedCity)) {
                     $scope.labels.push(data.sourceAPI);
-                    $scope.data.push(data[$scope.selectedParam])
+                    $scope.data.push(data[$scope.selectedParam]);
+                    console.log($scope.selectedParam, data[$scope.selectedParam]);
                 }
             });
         };
@@ -83,7 +89,6 @@ Harley.controller("currentChartController", [
                 }
             }
         };
-
         initialize();
     }
 ]);
