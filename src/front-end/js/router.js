@@ -1,4 +1,4 @@
-Harley.config(["$routeProvider", function ($routeProvider) {
+Harley.config(["$routeProvider", "$provide", function ($routeProvider, $provide) {
     $routeProvider
         .when("/main", {
             controller: "MainController",
@@ -12,6 +12,16 @@ Harley.config(["$routeProvider", function ($routeProvider) {
         })
         .otherwise({
             redirectTo: "/main"
-        })
+        });
+
+    $provide.decorator('WeatherService', ["$delegate", function weatherServiceDecorator($delegate) {
+        var setSelectedOptions = $delegate.getDataByService;
+        var decoratedGetDataByService = function () {
+            console.log('Decorator works');
+            setSelectedOptions($delegate, arguments)
+        };
+        $delegate.getDataByService = decoratedGetDataByService;
+        return $delegate;
+    }])
 }]);
 

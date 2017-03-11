@@ -12,7 +12,6 @@ Harley.controller("MainController", ["$scope", "$rootScope", "Configs", "Weather
                 city: "Rivne",
                 type: "temp"
             };
-
         };
 
         initialize();
